@@ -1,12 +1,60 @@
 import { defineConfig } from 'vitepress'
+import fs from 'fs'
+import path from 'path'
 
 export default defineConfig({
   title: "VCMS",
   description: "Visual Content Management System",
   appearance: 'dark',
+  vite: {
+    plugins: [
+      {
+        name: 'koda-backend',
+        configureServer(server) {
+          server.middlewares.use('/api/knowledge', (req, res) => {
+            const getFile = (p) => {
+              try { return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '[BRAK PLIKU LUB PUSTY]'; }
+              catch(e) { return '[BŁĄD ODCZYTU: ' + e + ']'; }
+            }
+            
+            const vcmsBase = 'C:/Users/FlexGrafik/Desktop/vcms';
+            const githubBase = 'C:/Users/FlexGrafik/FlexGrafik/github';
+            
+            const contextData = {
+              "KNOWLEDGE_STUDY": {
+                 "study-index.md": getFile(`${vcmsBase}/docs/study/study-index.md`),
+                 "skill-gap-matrix.md": getFile(`${vcmsBase}/docs/study/skill-gap-matrix.md`)
+              },
+              "KNOWLEDGE_WORKFLOW": {
+                 "global-rules.md": getFile(`${vcmsBase}/docs/core/global-rules.md`),
+                 "sprint-plan.md": getFile(`${vcmsBase}/.agent/workflows/sprint-plan.md`),
+                 "blokady": getFile(`${vcmsBase}/docs/study/blocker-decision-tree.md`)
+              },
+              "KNOWLEDGE_PROJECT_ZZP": {
+                 "brain-zzp.md": getFile(`${githubBase}/flexgrafik-nl/brain-zzp.md`),
+                 "todo.json": getFile(`${githubBase}/flexgrafik-nl/todo.json`)
+              },
+              "KNOWLEDGE_PROJECT_APP": {
+                 "brain-app.md": getFile(`${githubBase}/app.flexgrafik.nl/brain-app.md`),
+                 "todo.json": getFile(`${githubBase}/app.flexgrafik.nl/todo.json`)
+              },
+              "KNOWLEDGE_PROJECT_ZZPACKAGE": {
+                 "brain-zzpackage.md": getFile(`${githubBase}/zzpackage.flexgrafik.nl/brain-zzpackage.md`),
+                 "todo.json": getFile(`${githubBase}/zzpackage.flexgrafik.nl/todo.json`)
+              }
+            };
+            
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(contextData));
+          })
+        }
+      }
+    ]
+  },
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'KODA (Agent)', link: '/koda' },
       { text: 'Manifesto', link: '/core/manifesto' }
     ],
     sidebar: [

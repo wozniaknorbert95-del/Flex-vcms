@@ -1,0 +1,20 @@
+{
+  "tasks": [
+    {
+      "id": "T-101",
+      "title": "Budowa aplikacji web dla agenta KODA wewnatrz VCMS",
+      "status": "COMPLETED",
+      "priority": "HIGH",
+      "assignedTo": "Antigravity",
+      "notes": "Stworzono KodaChat.vue z integracją Gemini 1.5 Flash oraz wbudowanym backendem w Vite."
+    },
+    {
+      "id": "T-102",
+      "title": "Polerka PWA i responsywnosc (Mobile & Desktop)",
+      "status": "TODO",
+      "priority": "HIGH",
+      "assignedTo": "Antigravity",
+      "notes": "Optymalizacja UI pod urzadzenia mobilne i dodanie manifestu PWA dla instalacji na Androidzie."
+    }
+  ]
+}
