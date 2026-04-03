@@ -1,0 +1,142 @@
+Specyfikacja Wykonawcza VCMS (Build-Ready)
+Wersja Architektoniczna: V3.0 Final
+IMPORTANT
+
+Jest to ostateczny dokument dla egzekutora (np. Gemini CLI). Od tego momentu dokumentacja jest traktowana jako zbiór twardych dyrektyw budowy. Zawiera kompletny blueprint katalogowy, wytyczne wizualne i logiczny podział plików (Treść realna vs. Placeholdery).
+
+A. FINALNA REKOMENDACJA STACKU
+Rekomendacja: VitePress (Node.js) Uzasadnienie Wyboru: Operator aktualnie używa narzędzia Vite do kompilacji paczek aplikacji (Bouwplaats Chaos / zzpackage). Wprowadzenie VitePress korzysta z tych samych globalnych uwarunkowań pamięci mięśniowej. Posiada on jeden z najlepszych na rynku wbudowanych systematycznie trybów "Dark Premium", natywnie wspiera najszerszą gamę powiadomień Markdown (::: danger / ::: warning), ładuje się błyskawicznie jako Single Page Application i pozwala na kompilację SSG bez żadnych wyłamań architektonicznych. Konfiguracja nawigacji sprowadza się do tablic w pojedynczym pliku config.js.
+
+B. FINALNA STRUKTURA KATALOGÓW (Bez Numeracji)
+Czysta, semantyczna struktura gotowa do wygenerowania poleceniami CLI:
+
+text
+/vcms
+├── package.json
+├── package-lock.json
+├── .gitignore
+├── .vscode/
+│   └── settings.json
+├── /scripts
+│   ├── Start-Cockpit.ps1
+│   └── New-Log.ps1
+│
+├── /docs
+│   ├── .vitepress/
+│   │   └── config.mts                # Konfiguracja sidebarów i nav
+│   ├── index.md                      # HOME / COCKPIT
+│   ├── if-lost.md                    # Dokument ratunkowy 
+│   ├── system-evolution.md           # Model utrzymania
+│   │
+│   ├── /core                         # Główny silnik / zasady życia
+│   │   ├── manifesto.md
+│   │   └── global-rules.md           
+│   │
+│   ├── /agents                       # Profile i dyrektywy robotów
+│   │   ├── antigravity.md
+│   │   ├── gemini-cli.md
+│   │   ├── agent-boundaries.md
+│   │   └── notebooklm-roadmap.md
+│   │
+│   ├── /playbooks                    # Pełne opisy operacji
+│   │   ├── feature-loop.md
+│   │   ├── patch-only-surgery.md
+│   │   └── manual-release.md
+│   │
+│   ├── /checklists                   # Surowe listy do zaklikania
+│   │   ├── prep-deploy.md
+│   │   └── pre-commit.md
+│   │
+│   ├── /reference                    # Leksykon i twarde standardy 
+│   │   ├── glossary.md
+│   │   ├── anti-patterns.md
+│   │   ├── prompt-formulas.md
+│   │   ├── tags-and-statuses.md
+│   │   └── writing-standard.md       
+│   │
+│   ├── /templates                    # YAML 
+│   │   ├── tmpl-session-log.md
+│   │   ├── tmpl-incident.md
+│   │   ├── tmpl-playbook.md
+│   │   └── tmpl-weekly-review.md
+│   │
+│   ├── /journal                      # Rejestr operacyjny
+│   │   └── logs-index.md
+│   │
+│   ├── /lab                          # Poligon promptów
+│   │   └── lab-index.md
+│   │
+│   ├── /study                        # Systematyczna nauka technologii
+│   │   └── study-index.md
+│   │
+│   └── /archive                      # Stare reguły
+│       └── archive-index.md
+C. LISTA PLIKÓW DLA MVP (REALNA TREŚĆ STRUKTURALNA)
+Pliki, które muszą zostać wypełnione twardym Markdownem podczas budowy przez CLI (nie mogą być puste):
+
+/docs/index.md (Kokpit, linki na szybko, układ sekcji statusów).
+/docs/if-lost.md (Bezpośrednia ścieżka dla Dowódcy co robić w zderzeniu z chaosem).
+/docs/system-evolution.md (Opis jak przenosić eksperymenty do core).
+/docs/core/global-rules.md (Przepisanie Twoich obecnych zasad blokujących Elementor i językowe rozszczepy).
+/docs/agents/agent-boundaries.md (Twarda definicja gdzie kończy się wola AG a zaczyna skryptowanie).
+/docs/reference/tags-and-statuses.md (Definicja [STABLE], [WORKING], [EXPERIMENTAL], [ARCHIVED]).
+/docs/reference/writing-standard.md (Jak należy formatować teksty, aby RAG z NotebookLM to umiał wczytać).
+Wiele-plikowe /docs/templates/* (Wszystkie 4 szablony YAML muszą zostać wygenerowane fizycznie i przygotowane do używania z komend).
+D. LISTA PLIKÓW PLACEHOLDERÓW (DLA MVP)
+Pliki, które wygenerowane zostaną tylko ze zdefiniowanym nagłówkiem docelowym Frontmatter, z krótkim "zostanie uzupełnione w trakcie pracy":
+
+/docs/agents/antigravity.md, gemini-cli.md, notebooklm-roadmap.md
+/docs/playbooks/feature-loop.md, patch-only-surgery.md, manual-release.md
+/docs/checklists/prep-deploy.md, pre-commit.md
+/docs/reference/anti-patterns.md, prompt-formulas.md, glossary.md
+Wszystkie pliki *-index.md w wylistowanych katalogach jako punkty wejściowe do nowo gromadzonej potęgi wiedzy.
+E. OPIS HOMEPAGE (DASHBOARD KOKPITU)
+Plik index.md VitePressa w konfiguracji omijającej standardowe makiety marketingowe na rzecz pełnego zrzutu logistycznego:
+
+Brak dużego obrazka sekcji "Hero".
+U góry na pierwszej linii: Status: [STABLE], [VCMS COMMAND CENTER].
+Nagłówek główny: "Vibe Coding Operating System".
+Ukryta nawigacyjna warstwa: Quick Links na 3 najczęstsze procedury (np. Patch-Only Surgery, Prep Deploy Checklist).
+Bloki (Karty): Current Operating Modes (Combat / Feature Builder), Ostatnie Lekcje (Ograniczony wykaz post mortem), Promoted Rules (Reguły, które niedawno awansowały na front operacyjny z tagowaniem).
+F. OPIS SIDEBAR I NAWIGACJI (NAV)
+Nawigacja nie chowa zagnieżdżonych struktur, wszystko jest twarde i odsłonięte w panelu bocznym.
+
+Top Nav: Linki szybkie do /docs/if-lost.md oraz Githuba rzucającego z powrotem.
+Sidebar Order (Wymuś dokładnie to na CLI):
+⚙️ CORE (Manifesto, Prawa)
+🤖 AGENTS (Granice, Modele)
+📘 PLAYBOOKS (Workflow)
+☑️ CHECKLISTS (Weryfikacje)
+📚 REFERENCE (Leksykon, Złote Prompty)
+📝 TEMPLATES (Baza)
+📔 JOURNAL (Rejestr zdarzeń)
+🧪 LAB / EXPERIMENTS
+🧠 STUDY
+🗑️ ARCHIVE
+G. MINIMALNE WYMAGANIA WIZUALNE
+Styl uderzeniowy Dark Premium Command Center:
+
+Paleta: Grafitowe czernie tła (#0A0A0A do #111111). Tekst o obniżonym kontraście (#E5E7EB - nie oślepiający białym).
+Typografia: Inter (Primary bezszeryfowo) & Jetbrains Mono / Fira Code z jaskrawo podświetloną syntaksą szmaragdową / fioletową.
+Kształty: Zero nadmuchanych marginów i paddingów. Styl militarno-deweloperski bazujący na ostrych krawędziach.
+Zróżnicowane Markdown Admonitions (VitePress ma to wbudowane):
+::: danger (Dla zabójczych antywzorców).
+::: warning (Dla kwarantanny - wymagany backup produkcji).
+::: info (Dla rozdzielenia kontekstowego agenta).
+H. SKRYPTY POMOCNICZE POWERSHELL (Dla Win)
+W katalogu /scripts przygotowane stricte pod wariant Windowsowy systemu Dowództwa.
+
+Start-Cockpit.ps1
+Cel: Start środowiska. Odpalasz w VSCode (PowerShell) komendą. Skrypt przechodzi do głównego katalogu, uruchamia npm run docs:dev uwalniając wątek VitePress'a, budzi instancję do local-hostu i wstrzymuje wylogowanie z logami operacyjnymi na Twoim oknie.
+New-Log.ps1
+Parametry: New-Log.ps1 -Type "incident" (lub "session", etc.).
+Cel: Skrypt kopiuje plik np. /templates/tmpl-incident.md i zapisuje w folderze /journal/ jako RRRR-MM-DD_[time]_incident.md, natychmiastowo otwierając wbudowanym edytorem VS Code ten skopiowany plik w okienku. Zero klikania kursorem, sama egzekucja myśli.
+I. PLAN ETAPOWEJ BUDOWY PRZEZ GEMINI CLI
+Jako architekt narzucam harmonogram dla Geminii CLI:
+
+Krok 1 (Setup): CLI instaluje npm install -D vitepress, konfiguruje package.json.
+Krok 2 (Skeleton): CLI ignorując zawartość, generuje pełne sztywne drzewo folderów według schematu i rozmieszcza puste pliki z adnotacjami YAML dla Placeholderów.
+Krok 3 (Szablony): CLI programuje i buduje struktury powtarzalne dla plików w /templates.
+Krok 4 (Hardcoded Documents): CLI wciska logikę dla plików "Realna Treść Strukturalna", adaptując Global-Rules. CLI konstruuje zawartość Frontmatter.
+Krok 5 (Konfiguracja SSG): CLI generuje config nav i sidebar w docs/.vitepress/config.mts i wymiata niebezpieczne style klasowego szumu ze zmiennych CSS.
+Krok 6 (Skrypty): CLI rzeźbi PS1 dla sprawnego operowania systemem na platformie Windows.
