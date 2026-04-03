@@ -24,9 +24,9 @@
 
 <script setup>
 import { ref, nextTick } from 'vue';
+import { marked } from 'marked';
 
-const apiKey = 'AIzaSyDfRlMSy--MweXFZEeTJ12WE3wu6Y5k8gY';
-const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+const endpoint = '/api/chat';
 
 const systemPrompt = `🎯 ROLA
 Jesteś moim osobistym mentorem, trenerem i „aniołem stróżem” w vibe-codingu.
@@ -85,9 +85,7 @@ const scrollToBottom = async () => {
 };
 
 const formatMarkdown = (text) => {
-  return text.replace(/\n/g, '<br/>')
-             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-             .replace(/\*(.*?)\*/g, '<em>$1</em>');
+  return marked.parse(text);
 };
 
 const sendMessage = async () => {
@@ -100,15 +98,6 @@ const sendMessage = async () => {
   await scrollToBottom();
   
   try {
-    const knowledgeRes = await fetch('/api/knowledge');
-    const knowledgeData = await knowledgeRes.json();
-    
-    const enrichedSystemPrompt = systemPrompt + "\n\n" +
-      "===== KONTEKST PROJEKTÓW I ZASAD DOWÓDCY =====\n" +
-      "Poniżej znajduje się absolutnie aktualny zrzut plików Twojego dowódcy na ten moment. \n" +
-      "Masz czytać ten kontekst jako wiedzę bieżącą, szczególnie zadania w todo.json oraz stany z plików brain.\n" +
-      JSON.stringify(knowledgeData, null, 2);
-
     const payloadHistory = messages.value.map(m => ({
         role: m.role,
         parts: [{ text: m.parts[0].text }]
@@ -118,8 +107,7 @@ const sendMessage = async () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        system_instruction: { parts: [{ text: enrichedSystemPrompt }] },
-        contents: payloadHistory
+        messages: payloadHistory
       })
     });
     
@@ -149,7 +137,7 @@ const sendMessage = async () => {
 .koda-chat-container {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 140px);
+  height: calc(100dvh - 140px);
   max-height: 850px;
   width: 100%;
   max-width: 800px;
@@ -160,6 +148,22 @@ const sendMessage = async () => {
   overflow: hidden;
   font-family: var(--vp-font-family-base, 'Inter', sans-serif);
   box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.koda-chat-container ::v-deep(p) {
+  margin: 0 0 10px 0;
+}
+.koda-chat-container ::v-deep(pre) {
+  background: #000;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.koda-chat-container ::v-deep(code) {
+  background: #000;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
 }
 
 .chat-header {

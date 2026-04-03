@@ -1,11 +1,5 @@
 ---
-status: "[STABLE]"
+title: "Anti-Patterns"
 ---
-# Anti-Patterns (Czego NIE robic)
-> [!WARNING]
-> Smierc Twojego Workflow.
 
-- **"Wszystko naraz"**: Robienie 5 modulÛw w jednej sesji.
-- **Brak logÛw**: Praca przez 3h bez zapisu sesji w VCMS.
-- **Shadow Deploy**: PrÛba wypchniecia kodu bez zgody Norberta.
-- **Elementor**: Korzystanie z builderÛw zamiast czystego kodu.
+> Zostanie uzupe≈Çnione w trakcie pracy wg wytycznych z pliku planu.

@@ -1,17 +1,13 @@
 ---
-status: "[EXPERIMENTAL]"
+title: "Szablon: Weekly Review"
 ---
-# [WEEKLY REVIEW] - [WEEK_NUM]
-> [!IMPORTANT]
-> Weekly audit and promotion review.
 
-## SUMMARY
-[...]
+# Tygodniowy Raport Bojowy (Week X)
 
-## PROMOTIONS ([EXPERIMENTAL] -> [STABLE])
-- [...]
-- [...]
+**Skupienie Główne:** 
 
-## ACTION ITEMS
-- [...]
-- [...]
+## Zrealizowane Sprinty
+- 
+
+## Wąskie Gardła do eliminacji w Week Y
+- 

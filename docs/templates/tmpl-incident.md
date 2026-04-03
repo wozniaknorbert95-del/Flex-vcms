@@ -1,18 +1,17 @@
 ---
-status: "[EXPERIMENTAL]"
+title: "Szablon: Incydent"
 ---
-# [INCIDENT REPORT] - [ID]
-> [!DANGER]
-> Root cause analysis of a critical failure.
 
-## INCIDENT DESCRIPTION
-[...]
+# Raport Incydentu [CODE]
 
-## ROOT CAUSE
-[...]
+**Data Awarii:** 
+**Poziom Ryzyka:** KRYTYCZNY / ŚREDNI
 
-## RESOLUTION
-[...]
+## Symptomy
+(Co poszło nie tak?)
 
-## LESSONS LEARNED
-[...]
+## Diagnoza Root Cause
+(Dlaczego poszło nie tak?)
+
+## Wdrożone Środki Ochronne
+(Procedura naprawcza)

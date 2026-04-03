@@ -1,10 +1,5 @@
 ---
-status: "[STABLE]"
+title: "Agent Gemini CLI"
 ---
-# Gemini CLI Agent
-> [!INFO]
-> TwÛj "Slepy Wykonawca" i Reka Operacyjna.
 
-- **Kiedy go uzywac?** Do pisania kodu, tworzenia plikÛw, naprawiania bugÛw.
-- **Za co odpowiada?** Za czysta implementacje planu Antigravity.
-- **Ograniczenia**: Dziala tylko w obrebie podanego mu kontekstu. Musi byc nadzorowany.
+> Zostanie uzupe≈Çnione w trakcie pracy wg wytycznych z pliku planu.

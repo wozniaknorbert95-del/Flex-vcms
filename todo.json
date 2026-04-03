@@ -11,10 +11,18 @@
     {
       "id": "T-102",
       "title": "Polerka PWA i responsywnosc (Mobile & Desktop)",
-      "status": "TODO",
+      "status": "COMPLETED",
       "priority": "HIGH",
       "assignedTo": "Antigravity",
-      "notes": "Optymalizacja UI pod urzadzenia mobilne i dodanie manifestu PWA dla instalacji na Androidzie."
+      "notes": "Optymalizacja UI pod urzadzenia mobilne i dodanie manifestu PWA wykonane przed deployem na serwer."
+    },
+    {
+      "id": "T-103",
+      "title": "Produkcyjna separacja i wdrozenie VCMS na Serwer",
+      "status": "COMPLETED",
+      "priority": "HIGH",
+      "assignedTo": "Antigravity",
+      "notes": "Zbudowano server.js, Nginx, PM2 powloke i symlinkowany Deploy z zamknieciem portu 8010 dla testow PWA Dowodcy."
     }
   ]
 }

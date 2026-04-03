@@ -1,6 +1,5 @@
-﻿---
-status: "[WORKING]"
 ---
-# Prompt Formulas
-> [!INFO]
-> Stage 1 skeleton created.
+title: "Prompt Formulas"
+---
+
+> Zostanie uzupełnione w trakcie pracy wg wytycznych z pliku planu.

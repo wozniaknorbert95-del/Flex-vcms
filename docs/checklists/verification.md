@@ -1,6 +1,5 @@
-﻿---
-status: "[WORKING]"
 ---
-# Verification Checklist
-> [!INFO]
-> Stage 1 skeleton created.
+title: "Verification Checklist"
+---
+
+> Zostanie uzupełnione w trakcie pracy wg wytycznych z pliku planu.

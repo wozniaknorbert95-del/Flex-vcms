@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitepress'
 import fs from 'fs'
 import path from 'path'
+import { fileURLToPath } from 'url'
+import dotenv from 'dotenv'
+import { VitePWA } from 'vite-plugin-pwa'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
 export default defineConfig({
   title: "VCMS",
@@ -8,19 +14,45 @@ export default defineConfig({
   appearance: 'dark',
   vite: {
     plugins: [
+      VitePWA({
+        registerType: 'autoUpdate',
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg}']
+        },
+        manifest: {
+          name: 'VCMS Command Center',
+          short_name: 'VCMS',
+          description: 'Dowództwo Agencji i Vibe Codingu (Standalone)',
+          theme_color: '#0A0A0A',
+          background_color: '#111111',
+          display: 'standalone',
+          icons: [
+            {
+              src: 'icon.png',
+              sizes: '192x192',
+              type: 'image/png'
+            },
+            {
+              src: 'icon-512.png',
+              sizes: '512x512',
+              type: 'image/png'
+            }
+          ]
+        }
+      }),
       {
         name: 'koda-backend',
         configureServer(server) {
-          server.middlewares.use('/api/knowledge', (req, res) => {
+          const getContextData = () => {
             const getFile = (p) => {
               try { return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '[BRAK PLIKU LUB PUSTY]'; }
               catch(e) { return '[BŁĄD ODCZYTU: ' + e + ']'; }
-            }
+            };
             
-            const vcmsBase = 'C:/Users/FlexGrafik/Desktop/vcms';
-            const githubBase = 'C:/Users/FlexGrafik/FlexGrafik/github';
+            const vcmsBase = process.env.VCMS_DIR || path.resolve(__dirname, '../../..');
+            const githubBase = process.env.GITHUB_DIR || path.resolve(__dirname, '../../../..');
             
-            const contextData = {
+            return {
               "KNOWLEDGE_STUDY": {
                  "study-index.md": getFile(`${vcmsBase}/docs/study/study-index.md`),
                  "skill-gap-matrix.md": getFile(`${vcmsBase}/docs/study/skill-gap-matrix.md`)
@@ -43,10 +75,95 @@ export default defineConfig({
                  "todo.json": getFile(`${githubBase}/zzpackage.flexgrafik.nl/todo.json`)
               }
             };
-            
+          };
+
+          server.middlewares.use('/api/knowledge', (req, res) => {
             res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(contextData));
-          })
+            res.end(JSON.stringify(getContextData()));
+          });
+          
+          server.middlewares.use('/api/chat', (req, res) => {
+            if (req.method === 'POST') {
+              let body = '';
+              req.on('data', chunk => { body += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const payload = JSON.parse(body);
+                  const apiKey = process.env.GEMINI_API_KEY;
+                  if (!apiKey) throw new Error("Missing GEMINI_API_KEY in .env");
+
+                  const systemPrompt = `🎯 ROLA
+Jesteś moim osobistym mentorem, trenerem i „aniołem stróżem” w vibe-codingu.
+
+Twoje zadanie:
+- prowadzić mnie krok po kroku
+- motywować mnie
+- pilnować mojej konsekwencji
+- sprawdzać wykonanie zadań
+- NIE pozwalać mi się wycofać ani rozproszyć
+
+Jesteś:
+- spokojny, konkretny, męski w komunikacji
+- wspierający, ale wymagający
+- skupiony na działaniu, nie teorii
+
+🧬 DOPASOWANIE DO MNIE (KLUCZOWE)
+Działam jak Generator (Human Design):
+- najlepiej działam, gdy reaguję, nie gdy jestem zmuszany
+- mam dużo energii, ale tylko do rzeczy, które mnie angażują
+- blokuję się przy presji i nadmiarze
+
+Twoje zasady pracy ze mną:
+- dawaj mi małe, konkretne kroki
+- zadawaj pytania zamiast narzucać
+- pomagaj mi poczuć „czy to mnie kręci”
+- jeśli tracę energię → pomóż mi zmienić podejście, nie zmuszaj
+
+🧭 CEL GŁÓWNY
+Pomóż mi:
+- nauczyć się vibe-codingu w praktyce
+- budować realne projekty
+- wejść w stan flow i regularnej pracy
+- stać się samodzielnym twórcą / programistą
+
+🔥 MOTYWACJA I TRYB STRAŻNIKA
+- Jeśli unikam działania, zatrzymaj mnie: "Unikasz. Wracamy do zadania."
+- Zawsze dawaj najmniejszy krok.
+- Nie dawaj długich wykładów, najwyżej 3 mocne zdania.`;
+
+                  const enrichedSystemPrompt = systemPrompt + "\n\n" +
+                    "===== KONTEKST PROJEKTÓW I ZASAD DOWÓDCY =====\n" +
+                    "Poniżej znajduje się absolutnie aktualny zrzut plików Twojego dowódcy na ten moment. \n" +
+                    "Masz czytać ten kontekst jako wiedzę bieżącą, szczególnie zadania w todo.json oraz stany z plików brain.\n" +
+                    JSON.stringify(getContextData(), null, 2);
+
+                  const geminiPayload = {
+                    system_instruction: { parts: [{ text: enrichedSystemPrompt }] },
+                    contents: payload.messages
+                  };
+                  
+                  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${apiKey}`;
+                  const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(geminiPayload)
+                  });
+                  
+                  const data = await response.text();
+                  res.setHeader('Content-Type', 'application/json');
+                  res.statusCode = response.status;
+                  res.end(data);
+                } catch (e) {
+                  res.statusCode = 500;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ error: String(e) }));
+                }
+              });
+            } else {
+              res.statusCode = 405;
+              res.end();
+            }
+          });
         }
       }
     ]
@@ -62,7 +179,9 @@ export default defineConfig({
         text: 'CORE',
         items: [
           { text: 'Manifesto', link: '/core/manifesto' },
-          { text: 'Global Rules', link: '/core/global-rules' }
+          { text: 'Global Rules', link: '/core/global-rules' },
+          { text: 'System Evolution', link: '/system-evolution' },
+          { text: 'IF LOST (Ratunek)', link: '/if-lost' }
         ]
       },
       {

@@ -1,10 +1,6 @@
 ---
-status: "[STABLE]"
+title: "Writing Standard"
 ---
-# Writing Standard
-> [!INFO]
-> Jak pisac w VCMS, zeby AI Cie rozumialo.
 
-1. **YAML FRONTMATTER**: Kazdy plik musi miec status: "[STABLE/EXPERIMENTAL]".
-2. **OBSIDIAN CALLOUTS**: Uzywaj > [!INFO], > [!WARNING], > [!DANGER].
-3. **KATEGORYZACJA**: Uzywaj tagów # dla naglówków, nie pogrubienia tekstu.
+# Konwencja Pisania dla Modeli i AI
+Dokumentacja czytana przez NoteBookLM (M2M) opiera siÄ™ o twarde wypunktowania i maÅ‚e bloki danych. Omijaj metafory, buduj zbiory oparte o JSON-like lub listowanie.
