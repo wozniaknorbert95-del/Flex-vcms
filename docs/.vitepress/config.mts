@@ -43,6 +43,34 @@ export default defineConfig({
       {
         name: 'koda-backend',
         configureServer(server) {
+          const scanDocsRecursively = (dir, baseDir = '') => {
+            let results = {};
+            try {
+              const list = fs.readdirSync(dir);
+              list.forEach(file => {
+                  const filePath = path.join(dir, file);
+                  const relativePath = path.join(baseDir, file).replace(/\\/g, '/');
+                  const stat = fs.statSync(filePath);
+
+                  if (stat && stat.isDirectory()) {
+                      // Ignorujemy foldery techniczne
+                      if (file !== '.vitepress' && file !== 'node_modules') {
+                          Object.assign(results, scanDocsRecursively(filePath, relativePath));
+                      }
+                  } else if (file.endsWith('.md')) {
+                      try {
+                          results[relativePath] = fs.readFileSync(filePath, 'utf8');
+                      } catch (e) {
+                          results[relativePath] = '[BŁĄD ODCZYTU]';
+                      }
+                  }
+              });
+            } catch(ex) {
+              console.error("[DEV SERVER] Error scanning docs: " + ex);
+            }
+            return results;
+          };
+
           const getContextData = () => {
             const getFile = (p) => {
               try { return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : '[BRAK PLIKU LUB PUSTY]'; }
@@ -52,26 +80,20 @@ export default defineConfig({
             const vcmsBase = process.env.VCMS_DIR || path.resolve(__dirname, '../../..');
             const githubBase = process.env.GITHUB_DIR || path.resolve(__dirname, '../../../..');
             
+            const vcmsDocs = scanDocsRecursively(path.join(vcmsBase, 'docs'));
+            
             return {
-              "KNOWLEDGE_STUDY": {
-                 "study-index.md": getFile(`${vcmsBase}/docs/study/study-index.md`),
-                 "skill-gap-matrix.md": getFile(`${vcmsBase}/docs/study/skill-gap-matrix.md`)
-              },
-              "KNOWLEDGE_WORKFLOW": {
-                 "global-rules.md": getFile(`${vcmsBase}/docs/core/global-rules.md`),
-                 "sprint-plan.md": getFile(`${vcmsBase}/.agent/workflows/sprint-plan.md`),
-                 "blokady": getFile(`${vcmsBase}/docs/study/blocker-decision-tree.md`)
-              },
-              "KNOWLEDGE_PROJECT_ZZP": {
+              "VCMS_INTERNAL_KNOWLEDGE": vcmsDocs,
+              "PROJECT_CONTEXT_ZZP": {
                  "brain-zzp.md": getFile(`${githubBase}/flexgrafik-nl/brain-zzp.md`),
                  "todo.json": getFile(`${githubBase}/flexgrafik-nl/todo.json`)
               },
-              "KNOWLEDGE_PROJECT_APP": {
+              "PROJECT_CONTEXT_APP": {
                  "brain-app.md": getFile(`${githubBase}/app.flexgrafik.nl/brain-app.md`),
                  "todo.json": getFile(`${githubBase}/app.flexgrafik.nl/todo.json`)
               },
-              "KNOWLEDGE_PROJECT_ZZPACKAGE": {
-                 "brain-zzpackage.md": getFile(`${githubBase}/zzpackage.flexgrafik.nl/brain-zzpackage.md`),
+              "PROJECT_CONTEXT_ZZPACKAGE": {
+                 "brain-zzpackage.md": getFile(`${githubBase}/zzpackage.flexgrafik.nl/brain-zzp.md`),
                  "todo.json": getFile(`${githubBase}/zzpackage.flexgrafik.nl/todo.json`)
               }
             };

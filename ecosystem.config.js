@@ -15,7 +15,8 @@ module.exports = {
     merge_logs: true,
     env: {
       NODE_ENV: 'production',
-      PORT: 8001
+      PORT: 8001,
+      AGENT_CONTEXT_PATH: '/var/www/vcms/current/deploy-context'
     }
   }]
 };

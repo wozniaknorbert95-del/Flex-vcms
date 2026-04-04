@@ -23,6 +23,14 @@
       "priority": "HIGH",
       "assignedTo": "Antigravity",
       "notes": "Zbudowano server.js, Nginx, PM2 powloke i symlinkowany Deploy z zamknieciem portu 8010 dla testow PWA Dowodcy."
+    },
+    {
+      "id": "T-104",
+      "title": "Analiza i naprawa pustych zakładek na VPS (VitePress/Nginx cache-bust)",
+      "status": "PENDING",
+      "priority": "CRITICAL",
+      "assignedTo": "Antigravity",
+      "notes": "Po refactoringu Mózgów aplikacja KODA ma payload, ale front-end VPS wyświetla puste zakładki. Może to być wina PWA cachingu, zepsutego builda frontendowego bez odświeżenia lub złej konfiguracji routingu Nginx."
     }
   ]
 }

@@ -15,17 +15,33 @@ app.use(helmet({
     contentSecurityPolicy: false // Wymagane wyłączenie pod SSG PWA, ew. można to dokładnie przestroić
 }));
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:5173', 'http://127.0.0.1:5173', 'https://vcms.flexgrafik.nl'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [
+    'http://localhost:5173', 
+    'http://127.0.0.1:5173', 
+    'https://vcms.flexgrafik.nl',
+    'http://cmd.flexgrafik.nl',
+    'https://cmd.flexgrafik.nl',
+    'http://185.243.54.115',
+    'https://185.243.54.115'
+];
 app.use(cors({
     origin: function(origin, callback){
         if(!origin) return callback(null, true);
         if(allowedOrigins.indexOf(origin) !== -1) return callback(null, true);
+        console.warn(`[CORS Blocked] Origin: ${origin}`);
         return callback(new Error('CORS policy violation'), false);
     }
 }));
 
 app.use(express.json({ limit: '5mb' }));
 
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        console.error(`[SEC-WATCHDOG] Odrzucono request - SyntaxError: Wymagany czysty JSON bez nadmiernego eskejpowania. (${err.message})`);
+        return res.status(400).json({ error: 'Niefortunny format wejściowy. Wymagany czysty, niezeskejpowany JSON w ciele zapytania (Body).' });
+    }
+    next();
+});
 // --- 2. Minimalne Logowanie Techniczne ---
 const logger = (req, res, next) => {
     const start = Date.now();
@@ -54,7 +70,31 @@ const chatLimiter = rateLimit({
 });
 
 const vcmsBase = process.env.VCMS_DIR || path.resolve(__dirname);
-const githubBase = process.env.GITHUB_DIR || path.resolve(__dirname, '..');
+const githubBase = process.env.AGENT_CONTEXT_PATH || path.resolve(__dirname, '..');
+
+const scanDocsRecursively = (dir, baseDir = '') => {
+    let results = {};
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        const filePath = path.join(dir, file);
+        const relativePath = path.join(baseDir, file).replace(/\\/g, '/');
+        const stat = fs.statSync(filePath);
+
+        if (stat && stat.isDirectory()) {
+            // Ignorujemy folder .vitepress i node_modules
+            if (file !== '.vitepress' && file !== 'node_modules') {
+                Object.assign(results, scanDocsRecursively(filePath, relativePath));
+            }
+        } else if (file.endsWith('.md')) {
+            try {
+                results[relativePath] = fs.readFileSync(filePath, 'utf8');
+            } catch (e) {
+                results[relativePath] = '[BŁĄD ODCZYTU]';
+            }
+        }
+    });
+    return results;
+};
 
 const getContextData = () => {
     const getFile = (p) => {
@@ -62,26 +102,21 @@ const getContextData = () => {
         catch(e) { return '[BŁĄD ODCZYTU: Zablokowano]'; }
     };
     
+    // Dynamiczne skanowanie folderu docs w VCMS
+    const vcmsDocs = scanDocsRecursively(path.join(vcmsBase, 'docs'));
+
     return {
-        "KNOWLEDGE_STUDY": {
-            "study-index.md": getFile(path.join(vcmsBase, 'docs/study/study-index.md')),
-            "skill-gap-matrix.md": getFile(path.join(vcmsBase, 'docs/study/skill-gap-matrix.md'))
-        },
-        "KNOWLEDGE_WORKFLOW": {
-            "global-rules.md": getFile(path.join(vcmsBase, 'docs/core/global-rules.md')),
-            "sprint-plan.md": getFile(path.join(vcmsBase, '.agent/workflows/sprint-plan.md')),
-            "blokady": getFile(path.join(vcmsBase, 'docs/study/blocker-decision-tree.md'))
-        },
-        "KNOWLEDGE_PROJECT_ZZP": {
+        "VCMS_INTERNAL_KNOWLEDGE": vcmsDocs,
+        "PROJECT_CONTEXT_ZZP": {
             "brain-zzp.md": getFile(path.join(githubBase, 'flexgrafik-nl/brain-zzp.md')),
             "todo.json": getFile(path.join(githubBase, 'flexgrafik-nl/todo.json'))
         },
-        "KNOWLEDGE_PROJECT_APP": {
+        "PROJECT_CONTEXT_APP": {
             "brain-app.md": getFile(path.join(githubBase, 'app.flexgrafik.nl/brain-app.md')),
             "todo.json": getFile(path.join(githubBase, 'app.flexgrafik.nl/todo.json'))
         },
-        "KNOWLEDGE_PROJECT_ZZPACKAGE": {
-            "brain-zzpackage.md": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl/brain-zzpackage.md')),
+        "PROJECT_CONTEXT_ZZPACKAGE": {
+            "brain-zzpackage.md": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl/brain-zzp.md')),
             "todo.json": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl/todo.json'))
         }
     };
@@ -168,11 +203,18 @@ app.post('/api/chat', chatLimiter, async (req, res) => {
     }
 });
 
+// Bezpieczeństwo: Twarda odmowa dostępu do zawartości mózgów by nikt nie odczytał ich po HTTP
+app.use('/deploy-context', (req, res) => res.status(403).send('Forbidden'));
+
 // Serwuj produkt finalny PWA (Fallback mode)
 const distPath = path.join(__dirname, 'docs/.vitepress/dist');
-app.use(express.static(distPath));
+app.use(express.static(distPath, { extensions: ['html'] }));
 
-app.get('*', (req, res) => {
+app.use((req, res, next) => {
+    // Only intercept GET requests for the SPA fallback
+    if (req.method !== 'GET') {
+        return next();
+    }
     const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);
