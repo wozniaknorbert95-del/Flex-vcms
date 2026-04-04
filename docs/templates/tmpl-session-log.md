@@ -1,15 +1,18 @@
 ---
-title: "Szablon: Dziennik Sesji"
+status: "[EXPERIMENTAL]"
 ---
+# [SESSION LOG] - [DATE]
+> [!INFO]
+> Log file for the current session.
 
-# Session Log [RRRR-MM-DD]
+## OBJECTIVES
+- [...]
+- [...]
 
-**Start:** 
-**Koniec:** 
-**Status:** `[WORKING]`
+## LOG
+- [HH:MM] - [...]
+- [HH:MM] - [...]
 
-## Cel Sesji
-
-## Przełomy / Blokady
-
-## Następne kroki
+## OUTCOME
+- [STATUS]: [...]
+- [FAIL_POINT]: [...]

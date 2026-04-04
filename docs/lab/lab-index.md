@@ -1,6 +1,2 @@
----
-title: "Lab Index"
----
-
-# Zespół Rozwojowy (Laboratorium)
-Miejsce odseparowanej piaskownicy na testy i skrypty niegotowe.
+# Lab Index
+Miejsce na Twoje najbardziej szalone eksperymenty.

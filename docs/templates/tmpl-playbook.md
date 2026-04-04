@@ -1,15 +1,17 @@
 ---
-title: "Szablon: Playbook"
+status: "[EXPERIMENTAL]"
 ---
+# [PLAYBOOK NAME]
+> [!INFO]
+> Standard Operating Procedure.
 
-# [Nazwa Procedury]
+## TRIGGER
+[...]
 
-**Decyzja wejścia (Trigger):** Kiedy sięgamy po ten dokument?
+## STEPS
+1. [...]
+2. [...]
+3. [...]
 
-## 1. Faza Przygotowawcza
-- 
-- 
-
-## 2. Faza Wykonawcza (Krok po Kroku)
-1. 
-2. 
+## VERIFICATION
+[...]

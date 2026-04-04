@@ -1,59 +1,73 @@
+﻿---
+layout: home
+status: "[STABLE]"
+hero:
+  name: "VCMS OS"
+  text: "Vibe Coding Mastery System"
+  tagline: "Twoj osobisty system operacyjny dla vibe codingu z AI."
+  actions:
+    - theme: brand
+      text: "ZACZNIJ TUTAJ (START)"
+      link: /PORADNIK_UZYTKOWNIKA
+    - theme: alt
+      text: "Globalne Zasady"
+      link: /core/global-rules
+    - theme: alt
+      text: "Jesli Zgubiony"
+      link: /if-lost
 ---
-layout: page
----
-
-<div style="margin-top: 1.5rem; text-align: left;">
-  <span style="color: #9CA3AF; font-size: 0.85rem; letter-spacing: 0.1em; font-weight: 700;">STATUS: <span style="color: #E5E7EB;">[STABLE]</span> | BAZA: <span style="color: #E5E7EB;">[VCMS COMMAND CENTER]</span></span>
-</div>
-
-# Vibe Coding Operating System
-
-<div style="margin: 1.5rem 0; background: #0A0A0A; border-left: 3px solid #4B5563; padding: 1.5rem; border-radius: 0 4px 4px 0;">
-  <h3 style="color: #D1D5DB; font-size: 0.9rem; margin-top: 0; margin-bottom: 0.5rem; letter-spacing: 0.05em; text-transform: uppercase;">⚡ Quick Links</h3>
-  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-    <a href="/playbooks/patch-only-surgery" style="color: #FFFFFF; font-weight: 600; text-decoration: none;">► Patch-Only Surgery</a>
-    <a href="/checklists/prep-deploy" style="color: #FFFFFF; font-weight: 600; text-decoration: none;">► Prep Deploy Checklist</a>
-    <a href="/if-lost" style="color: #FFFFFF; font-weight: 600; text-decoration: none;">► Ratunek (If Lost)</a>
-  </div>
-</div>
 
 <div class="dashboard-grid">
   <div class="card">
-    <h3 style="color: #E5E7EB; margin-top: 0;">🛡️ Current Operating Modes</h3>
-    <p style="color: #9CA3AF; font-size: 0.9rem;">Wybierz tryb operacyjny na tę sesję.</p>
+    <h3 style="color: #FF00FF;">&#x26A1; OPERACJE</h3>
+    <p style="color: #666; font-size: 0.9rem;">Twoje codzienne narzedzia pracy.</p>
     <ul style="list-style: none; padding: 0;">
-      <li style="margin-bottom: 0.5rem;"><a href="/playbooks/feature-loop" style="color: #D1D5DB;">[Combat] Feature Builder</a></li>
-      <li><a href="/playbooks/manual-release" style="color: #D1D5DB;">[Deploy] Manual Release</a></li>
+      <li><a href="/playbooks/feature-loop">Feature Loop</a></li>
+      <li><a href="/playbooks/patch-only-surgery">Tryb Awaryjny</a></li>
+      <li><a href="/checklists/prep-deploy">Checklista Deploy</a></li>
     </ul>
   </div>
 
   <div class="card">
-    <h3 style="color: #E5E7EB; margin-top: 0;">📓 Ostatnie Lekcje</h3>
-    <p style="color: #9CA3AF; font-size: 0.9rem;">Ograniczony wykaz post mortem.</p>
+    <h3 style="color: #00FFFF;">&#x1F4DA; NAUKA</h3>
+    <p style="color: #666; font-size: 0.9rem;">Baza wiedzy i rozwoj.</p>
     <ul style="list-style: none; padding: 0;">
-      <li style="margin-bottom: 0.5rem;"><a href="/journal/logs-index" style="color: #D1D5DB;">Przejdź do Dziennika</a></li>
-      <li><a href="/templates/tmpl-incident" style="color: #D1D5DB;">Dodaj nowy Incydent</a></li>
+      <li><a href="/study/study-index">Dziennik Studiow</a></li>
+      <li><a href="/reference/glossary">Slownik Pojec</a></li>
+      <li><a href="/reference/prompt-formulas">Zlote Prompty</a></li>
     </ul>
   </div>
 
   <div class="card">
-    <h3 style="color: #E5E7EB; margin-top: 0;">⭐ Promoted Rules</h3>
-    <p style="color: #9CA3AF; font-size: 0.9rem;">Reguły przeniesione na front operacyjny.</p>
+    <h3 style="color: #FFFF00;">&#x1F916; AGENTY</h3>
+    <p style="color: #666; font-size: 0.9rem;">Relacje z AI i granice.</p>
     <ul style="list-style: none; padding: 0;">
-      <li style="margin-bottom: 0.5rem;"><a href="/core/global-rules" style="color: #D1D5DB;">Globalne Prawa VCMS</a></li>
-      <li><a href="/system-evolution" style="color: #D1D5DB;">Ewolucja Systemu SSoT</a></li>
+      <li><a href="/agents/agent-boundaries">Granice Agentow</a></li>
+      <li><a href="/agents/antigravity">Rola Antigravity</a></li>
+      <li><a href="/agents/gemini-cli">Rola Gemini CLI</a></li>
     </ul>
   </div>
 </div>
 
-<div style="margin-top: 2rem; background: #050505; border: 1px solid #1F2937; padding: 1.5rem; border-radius: 4px;">
-  <h3 style="color: #9CA3AF; font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em; text-transform: uppercase;">⌨️ Slash Commands (Skrypty)</h3>
+<div style="margin-top: 2rem; background: #0D0D0D; border: 1px solid #1E1E1E; padding: 1.5rem; border-radius: 8px;">
+  <h3 style="color: #AAA; font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.1em;">&#x26A1; SLASH COMMANDS — SZYBKI DOSTEP</h3>
   <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">/vibe-init</code>
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">/blast</code>
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">/audit-red-team</code>
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">/handoff</code>
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">Start-Cockpit.ps1</code>
-    <code style="background:#111; border:1px solid #374151; padding:0.25rem 0.75rem; border-radius:3px; color:#D1D5DB;">New-Log.ps1</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#00FF00;">/vibe-init</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#00FFFF;">/blast</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#FFFF00;">/audit-red-team</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#FF8C00;">/deploy-cf</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#FF8C00;">/deploy-wp</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#FF4444;">/debug</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#AA44FF;">/context-reset</code>
+    <code style="background:#111; border:1px solid #333; padding:0.25rem 0.75rem; border-radius:4px; color:#888;">/handoff</code>
+  </div>
+</div>
+
+<div style="margin-top: 1.5rem; background: #0A0A0A; border: 1px dashed #333; padding: 1.5rem; border-radius: 8px; text-align: center;">
+  <p style="color: #666; font-size: 0.8rem; margin-bottom: 0.5rem; letter-spacing: 0.08em;">STATUS SYSTEMU</p>
+  <div style="display: flex; justify-content: center; gap: 2rem; font-weight: bold; flex-wrap: wrap;">
+    <span style="color: #00FF00;">&#x2705; STABLE (PROD)</span>
+    <span style="color: #00FFFF;">&#x1F4BB; VCMS v4.0.0</span>
+    <span style="color: #666;">&#x1F4C4; Sprint 1 DONE</span>
   </div>
 </div>
