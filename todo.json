@@ -1,36 +1,100 @@
-{
+﻿{
+  "meta": {
+    "project": "VCMS — Vibe Coding Mastery System",
+    "owner": "Norbert Wozniak",
+    "updated": "2026-04-04",
+    "version": "2.0"
+  },
   "tasks": [
     {
-      "id": "T-101",
-      "title": "Budowa aplikacji web dla agenta KODA wewnatrz VCMS",
-      "status": "COMPLETED",
-      "priority": "HIGH",
-      "assignedTo": "Antigravity",
-      "notes": "Stworzono KodaChat.vue z integracją Gemini 1.5 Flash oraz wbudowanym backendem w Vite."
+      "id": "VCMS-001",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Sprint 1 — content fundament (PORADNIK, if-lost, global-rules, agent-boundaries, antigravity)",
+      "done_at": "2026-04-03"
     },
     {
-      "id": "T-102",
-      "title": "Polerka PWA i responsywnosc (Mobile & Desktop)",
-      "status": "COMPLETED",
-      "priority": "HIGH",
-      "assignedTo": "Antigravity",
-      "notes": "Optymalizacja UI pod urzadzenia mobilne i dodanie manifestu PWA wykonane przed deployem na serwer."
+      "id": "VCMS-002",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Sprint 2 — playbooki i checklists (feature-loop, patch-only-surgery, manual-release, prep-deploy, pre-commit)",
+      "done_at": "2026-04-03"
     },
     {
-      "id": "T-103",
-      "title": "Produkcyjna separacja i wdrozenie VCMS na Serwer",
-      "status": "COMPLETED",
-      "priority": "HIGH",
-      "assignedTo": "Antigravity",
-      "notes": "Zbudowano server.js, Nginx, PM2 powloke i symlinkowany Deploy z zamknieciem portu 8010 dla testow PWA Dowodcy."
+      "id": "VCMS-003",
+      "area": "AGENT",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "KODA v1.0 — learning agent z profilem Dowodcy, /checkpoint workflow, study-index",
+      "done_at": "2026-04-03"
     },
     {
-      "id": "T-104",
-      "title": "Analiza i naprawa pustych zakładek na VPS (VitePress/Nginx cache-bust)",
-      "status": "PENDING",
-      "priority": "CRITICAL",
-      "assignedTo": "Antigravity",
-      "notes": "Po refactoringu Mózgów aplikacja KODA ma payload, ale front-end VPS wyświetla puste zakładki. Może to być wina PWA cachingu, zepsutego builda frontendowego bez odświeżenia lub złej konfiguracji routingu Nginx."
+      "id": "VCMS-004",
+      "area": "CLEANUP",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Czyszczenie projektu — usuwanie smieci, archiwizacja, nowy todo.json",
+      "done_at": "2026-04-04"
+    },
+    {
+      "id": "VCMS-005",
+      "area": "BRAIN",
+      "status": "IN_PROGRESS",
+      "priority": "P0",
+      "title": "brain.md — Dowodca pisze SSoT projektu",
+      "assignedTo": "Dowodca",
+      "note": "Norbert pisze samodzielnie. Agent czeka."
+    },
+    {
+      "id": "VCMS-006",
+      "area": "DOCS",
+      "status": "NEXT",
+      "priority": "P1",
+      "title": "Sprint 3 — Reference (glossary, prompt-formulas, anti-patterns, tags-and-statuses, writing-standard)"
+    },
+    {
+      "id": "VCMS-007",
+      "area": "DOCS",
+      "status": "NEXT",
+      "priority": "P1",
+      "title": "Sprint 4 — Lab & Study (lab-index uzupelniony, notebooklm-roadmap)"
+    },
+    {
+      "id": "VCMS-008",
+      "area": "AGENT",
+      "status": "NEXT",
+      "priority": "P1",
+      "title": "KODA v2.0 — upgrade Pro level (OKR scoring, skill gap matrix, weekly cadence)"
+    },
+    {
+      "id": "VCMS-009",
+      "area": "DOCS",
+      "status": "NEXT",
+      "priority": "P2",
+      "title": "gemini-cli.md — profil agenta Gemini CLI (placeholder do uzupelnienia)"
+    },
+    {
+      "id": "VCMS-010",
+      "area": "DOCS",
+      "status": "NEXT",
+      "priority": "P2",
+      "title": "notebooklm-roadmap.md — plan integracji z NotebookLM jako RAG"
+    },
+    {
+      "id": "VCMS-011",
+      "area": "DOCS",
+      "status": "NEXT",
+      "priority": "P2",
+      "title": "system-evolution.md — uzupelnienie: jak przenosic eksperymenty do core"
+    },
+    {
+      "id": "VCMS-012",
+      "area": "INFRA",
+      "status": "BACKLOG",
+      "priority": "P3",
+      "title": "VitePress deployment — opcjonalne wdrozenie docs na domene publiczna"
     }
   ]
 }

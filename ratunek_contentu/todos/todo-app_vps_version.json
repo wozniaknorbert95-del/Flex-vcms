@@ -1,0 +1,295 @@
+{
+  "_meta": {
+    "project": "Bouwplaats Chaos ΓÇö ZZP Advergame",
+    "url": "https://app.flexgrafik.nl",
+    "last_updated": "2026-04-01",
+    "branch_live": "feat/sprint-4-challenge",
+    "branch_dev": "refactor/sprint-1-blockers",
+    "engine": "ReactGameCanvas V3 (ENABLE_NEW_ENGINE=true)",
+    "build": "542 kB, Vite 6, React 19"
+  },
+
+  "proof_of_done": {
+    "description": "Gra jest DONE gdy spe┼énia WSZYSTKIE te kryteria",
+    "criteria": [
+      "Gra przechodzi przez Level 1-3 bez freeze lub crash",
+      "Ka┼╝dy level ma dzia┼éaj─àcy LEVEL_END i ADVANCE_LEVEL",
+      "CHOICE overlay pojawia si─Ö i mo┼╝na go rozwi─àza─ç",
+      "GAME_OVER overlay pojawia si─Ö z score i restart dzia┼éa",
+      "Mobile (iOS/Android): touch dzia┼éa, brak layout breakage",
+      "LevelEndChallenge pojawia si─Ö po uko┼äczeniu levelu",
+      "Brak b┼é─Öd├│w JS w konsoli podczas normalnej gry"
+    ]
+  },
+
+  "status_legend": {
+    "done": "Zweryfikowane na produkcji",
+    "live_untested": "Wdro┼╝one ale nie zweryfikowane manualnie",
+    "in_progress": "W trakcie implementacji",
+    "blocked": "Blokowane przez inny task",
+    "todo": "Do zrobienia"
+  },
+
+  "bugs": [
+    {
+      "id": "BUG-01",
+      "title": "Level 2+ freeze ΓÇö CHOICE loop exhaustion",
+      "description": "Po ~2-3min gry wszystkie 5 CHOICE_EVENTS s─à wyczerpane. triggerChoice() zwraca false ale update loop wychodzi ka┼╝d─à klatk─Ö przez return ΓÇö gra pozornie zamarza (brak ruchu).",
+      "status": "done",
+      "fixed_in": "feat/sprint-4-challenge",
+      "fix": "ReactGameCanvas.tsx L637 ΓÇö sprawdzanie return value triggerChoice(), nextChoiceTime = MAX gdy eventy wyczerpane",
+      "proof_of_done": "Gra dzia┼éa p┼éynnie przez 5+ minut bez freeze"
+    },
+    {
+      "id": "BUG-02",
+      "title": "LevelEndChallenge ΓÇö overlay brak na Level 5 (boss level)",
+      "description": "resolveBoss() ustawia LEVEL_END bezpo┼¢rednio, omijaj─àc LEVEL_CHALLENGE trigger. Level 5 nigdy nie poka┼╝e challenge overlaya.",
+      "status": "todo",
+      "proof_of_done": "Level 5 po pokonaniu bossa pokazuje challenge overlay"
+    },
+    {
+      "id": "BUG-03",
+      "title": "P4-06 ΓÇö Regresja fizyki (nieprzetestowana)",
+      "description": "Coyote time i collision detection nie by┼éy testowane po Sprint 3-4 zmianach.",
+      "status": "todo",
+      "proof_of_done": "Gracz mo┼╝e skoczy─ç na 2-3 platformy z rz─Ödu bez false-negative kolizji"
+    },
+    {
+      "id": "BUG-04",
+      "title": "Intermittent Freeze podczas levelu i przed overlayem",
+      "description": "Zrzucanie klatek w useGameEngine (throttle < 33ms) gubi┼éo w UI sygna┼éy o zmianie fazy (CHOICE / LEVEL_CHALLENGE / GAME_OVER). Skutkowa┼éo to permanentnym dead-lockiem (zamarzni─Öta fizyka, brak odpowiedniego overlayu).",
+      "status": "done",
+      "fixed_in": "feat/sprint-4-challenge",
+      "fix": "useGameEngine.ts L51 ΓÇö zniesienie wymogu throtlowania je┼¢li snap.phase !== lastPhase.",
+      "proof_of_done": "Gra nigdy nie wiesza si─Ö na zmianie faz (Wahade┼éko, Choice, ┼Ümier─ç)."
+    },
+    {
+      "id": "BUG-LEADERBOARD-01",
+      "title": "Zapisywanie wynik├│w w Leaderboardzie nie dzia┼éa jak nale┼╝y",
+      "description": "Zg┼éoszone pod koniec sesji wdro┼╝eniowej (2026-03-31). Flow zapisywania w nowym formularzu sprawia problemy, by─ç mo┼╝e odrzuca payload z powodu nieprawid┼éowego HMAC lub problem├│w z komunikacj─à z `fg-leaderboard-api.php`.",
+      "status": "todo",
+      "proof_of_done": "Gracz (Go┼¢─ç lub nie) mo┼╝e pomy┼¢lnie zapisa─ç wynik po przeforsowaniu check-boxa zapisu z pseudonimem i widzi sw├│j wynik natychmiast na li┼¢cie."
+    }
+  ],
+
+  "sprints": [
+    {
+      "id": "S5c",
+      "title": "Sprint 5c ΓÇö Engine Stability Audit (clito)",
+      "status": "done",
+      "completed_at": "2026-03-24",
+      "fixes": [
+        {
+          "id": "S5c-1",
+          "title": "CPU HOG Fix ΓÇö RAF pauzuje gdy !assetsReady",
+          "description": "P─Ötla requestAnimationFrame teraz pauzuje i czeka a┼╝ assetsReady b─Ödzie true. Eliminuje stuttering systemu podczas ┼éadowania asset├│w.",
+          "file": "src/components/ReactGameCanvas.tsx",
+          "lines": "1101-1105",
+          "commit": "feat/sprint-4-challenge HEAD"
+        },
+        {
+          "id": "S5c-2",
+          "title": "Energy System Overhaul ΓÇö -1 ┼╝ycie co 10s przy energii 0",
+          "description": "Zgodnie z GDD, energia 0 ma konsekwencje. Gracz traci 1 ┼╝ycie co 10 sekund je┼¢li energia spadnie do zera.",
+          "file": "src/components/ReactGameCanvas.tsx",
+          "lines": "803-813",
+          "commit": "fix: Sprint 5 comprehensive ΓÇö 800100c"
+        },
+        {
+          "id": "S5c-3",
+          "title": "Physics Cleanup ΓÇö reset zmiennych czasowych przy advanceLevel",
+          "description": "Poprawiono resetowanie timeElapsed i lastEnergyWarningTime przy advanceLevel, zapobiega teleportacji gracza i b┼é─Ödom energii przy przej┼¢ciu mi─Ödzy levelami.",
+          "file": "src/components/ReactGameCanvas.tsx",
+          "lines": "484-485",
+          "commit": "fix: L3 freeze ΓÇö 978c638"
+        },
+        {
+          "id": "S5c-4",
+          "title": "Memory Optimization ΓÇö filtrowanie particles i floatingTexts",
+          "description": "Wzmocnione filtrowanie cz─àsteczek i tekst├│w p┼éywaj─àcych zapobiega spadkom FPS po d┼éugim czasie gry.",
+          "file": "src/components/ReactGameCanvas.tsx",
+          "lines": "592, 801"
+        }
+      ]
+    },
+    {
+      "id": "S1-refactor",
+      "title": "Sprint 1 Refactor ΓÇö Frontend Blockers",
+      "status": "done",
+      "completed_at": "2026-04-01",
+      "fixes": [
+        {
+          "id": "1A",
+          "title": "Remove TailwindCSS CDN + aistudiocdn import map",
+          "file": "index.html"
+        },
+        {
+          "id": "1B",
+          "title": "MainMenu + LeadForm + Leaderboard: Tailwind ΓåÆ inline styles",
+          "file": "components/MainMenu.tsx, components/LeadForm.tsx, components/Leaderboard.tsx"
+        },
+        {
+          "id": "1C",
+          "title": "LeadForm: Email field + marketing consent + validation",
+          "file": "components/LeadForm.tsx"
+        },
+        {
+          "id": "1D",
+          "title": "Remove HMAC secret from client, add ScoreProof",
+          "file": "services/storageService.ts"
+        },
+        {
+          "id": "1E",
+          "title": "CookieConsent.tsx: GDPR cookie consent banner (GA4 + Meta Pixel)",
+          "file": "src/components/CookieConsent.tsx"
+        },
+        {
+          "id": "1F",
+          "title": "Footer.tsx: Tailwind ΓåÆ inline styles + App.tsx integration",
+          "file": "components/Footer.tsx, App.tsx"
+        }
+      ]
+    },
+    {
+      "id": "S6d",
+      "title": "Sprint 6d ΓÇö GDD Sync & HUD Polish",
+      "status": "done",
+      "completed_at": "2026-03-24",
+      "fixes": [
+        {
+          "id": "S6d-1",
+          "title": "GDD Enmity Taxomony Sync",
+          "description": "Dodano brakuj─àcych ENEMY_FUSZERKA, ENEMY_CHAOS, ENEMY_LANGUAGE_BARRIER zgodnie z sekcj─à 4.4 GDD.",
+          "file": "constants.ts, levels.ts"
+        },
+        {
+          "id": "S6d-2",
+          "title": "Naprawa CARD i INSURANCE",
+          "description": "Odzwierciedlono za┼éo┼╝enia z GDD: CARD zyska┼é funkcj─Ö pasywnej tarczy, INSURANCE przypisano jako dedykowan─à tarcz─Ö pod bossa."
+        },
+        {
+          "id": "S6d-3",
+          "title": "Naprawa logiki ruchu przeciwnik├│w i dynamiki gry",
+          "description": "Parametr moveSpeed wreszcie zacz─à┼é by─ç czytany i aplikowany podczas renderowania p─Ötli, wrogowie atakuj─à szybciej."
+        },
+        {
+          "id": "S6d-4",
+          "title": "HUD Polish ΓÇö Widoczne Serca i Dynamic Halos",
+          "description": "Logika renderingu w tle otacza elementy kolorow─à zielon─à lub czerwon─à po┼¢wiat─à zale┼╝nie od benefitu/wroga. HUD pokazuje blakn─àce ┼╝ywe serduszka."
+        }
+      ]
+    }
+  ],
+
+  "gameplay_mechanics": [
+    {
+      "id": "GM-01",
+      "title": "Level progression (5 leveli)",
+      "description": "levelProgress 0ΓåÆ1.0 na podstawie score vs minScore, potem LEVEL_CHALLENGE ΓåÆ LEVEL_END ΓåÆ ADVANCE_LEVEL",
+      "status": "live_untested",
+      "proof_of_done": "Gracz przechodzi Level 1ΓåÆ2ΓåÆ3 bez przerw"
+    },
+    {
+      "id": "GM-02",
+      "title": "CHOICE overlay ΓÇö forcedChoiceAt + timer",
+      "description": "Wybory biznesowe: forcedChoiceAt per level + co 30s timer. Po wyczerpaniu ΓÇö gra kontynuuje (fix BUG-01).",
+      "status": "live_untested",
+      "proof_of_done": "Wyb├│r pojawia si─Ö, gracz klika opcj─Ö, gra kontynuuje bez freeze"
+    },
+    {
+      "id": "GM-03",
+      "title": "LevelEndChallenge ΓÇö timing bar",
+      "description": "Po level progress >= 1.0: overlay z timing barem, tap ΓåÆ bonus 0-200 pkt, per-level NL tematyka.",
+      "status": "live_untested",
+      "proof_of_done": "L1 overlay 'Contract getekend!' pojawia si─Ö, tap dzia┼éa, bonus dodawany"
+    },
+    {
+      "id": "GM-04",
+      "title": "GAME_OVER + ShareScore",
+      "description": "Ekran ko┼äcowy z score, coupon GAME10, share button (Web Share API + Twitter fallback).",
+      "status": "done",
+      "proof_of_done": "Gra over ΓåÆ overlay z score ΓåÆ restart dzia┼éa"
+    },
+    {
+      "id": "GM-05",
+      "title": "Mobile touch ΓÇö jump i challenge tap",
+      "description": "Touch events dla skoku (ca┼éy canvas) i LevelChallengeOverlay (pointerDown).",
+      "status": "live_untested",
+      "proof_of_done": "iPhone/Android: skok dzia┼éa, challenge tap dzia┼éa"
+    }
+  ],
+
+  "ui_components": [
+    {
+      "id": "UI-01",
+      "title": "MainMenu ΓÇö benefit strip, dark bg",
+      "status": "done"
+    },
+    {
+      "id": "UI-02",
+      "title": "NewGameHUD ΓÇö stats + progress",
+      "status": "done"
+    },
+    {
+      "id": "UI-03",
+      "title": "NewChoiceOverlay",
+      "status": "done"
+    },
+    {
+      "id": "UI-04",
+      "title": "NewGameOverOverlay + ShareButton",
+      "status": "done"
+    },
+    {
+      "id": "UI-05",
+      "title": "LevelCompleteOverlay",
+      "status": "done"
+    },
+    {
+      "id": "UI-06",
+      "title": "LevelChallengeOverlay ΓÇö timing bar",
+      "status": "live_untested"
+    },
+    {
+      "id": "UI-07",
+      "title": "Footer ΓÇö ukryty podczas gameplay",
+      "status": "done"
+    }
+  ],
+
+  "future_sprints": [
+    {
+      "id": "S5",
+      "title": "Sprint 5 ΓÇö Analytics events",
+      "description": "Trackowanie: levelComplete, challengeGrade, choiceResolved, gameOver per level.",
+      "status": "todo",
+      "priority": "medium"
+    },
+    {
+      "id": "SG",
+      "title": "Sprint G ΓÇö Pixel-art assets",
+      "description": "Wymiana emoji na PNG sprity. BLOKOWANE: Norbert dostarcza assety z Adobe.",
+      "status": "blocked",
+      "priority": "low"
+    },
+    {
+      "id": "S6",
+      "title": "Sprint 6 ΓÇö Level 4-5 content + BUG-02",
+      "description": "Level 4-5 nie s─à de facto grywalne (minScore 2000/3000 trudno osi─àgn─à─ç). Rebalans score progression. + BUG-02: Level 5 boss challenge overlay.",
+      "status": "todo",
+      "priority": "high"
+    }
+  ],
+
+    "repo_health": {
+    "branches": {
+      "main": "Sprint 1-3 live",
+      "feat/sprint-4-challenge": "Sprint 4-6d live (GDD Sync, HUD polish, Engine tuning)",
+      "refactor/sprint-1-blockers": "Sprint 1 Refactor DONE ΓÇö Tailwind removal, GDPR, security"
+    },
+    "pending_pr": "refactor/sprint-1-blockers ΓåÆ main (after Sprint 3)",
+    "cleanup_done": "2026-04-01",
+    "golden_mechanic_status": "2026-03-24 ΓÇö Sprint 6d audit passed. Zgodno┼¢─ç z GDD (100%).",
+    "next_action": "Sprint 3 ΓÇö God-File Split ReactGameCanvas.tsx (refactor/sprint-3-god-file-split)"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "project": "zzpackage.flexgrafik.nl",
+  "status": "V6.5 - Swiss Watch Standard / Master JSON SSoT (100 SKU)",
+  "completed_tasks": [
+    "Wygenerowanie Product Master Table JSON dla wszystkich 102 SKU (V6.4)",
+    "Generacja w pe┼éni zsyntetyzowanych raport├│w oraz zrewidowanie Case Mismatch├│w dla assets/images",
+    "Stworzenie list do usuni─Öcia plik├│w ze ┼¢rodowiska oraz zada┼ä graficznych dla Norbiego",
+    "Re-Architektura UX Wizarda (Grupowanie H3 w JS)",
+    "Dekompozycja Cyfrowe/Print (Krok 1)",
+    "Relokacja Personifikacji HTV (Krok 3)",
+    "Integracja 4 nowych SKU B2B (DR-001, DR-002, HT-104, HT-105)",
+    "Integracja WP-CLI Sync skryptu (sync-v43-addons.php)",
+    "Pe┼éna klasyfikacja render├│w dla Kroku 2 (Oznakowanie Floty - Partial/Full Wrap)",
+    "Restrukturyzacja i Ghost Mannequin Mockups dla ubra┼ä i akcesori├│w Kroku 3",
+    "Usuni─Öcie Emojis na rzecz Vector SVG (Steps 0, 1, 3, 4, 5, 6)",
+    "Rozwi─àzanie globalnego problemu 0 EUR w katalogach JS i `applyWpPrices` (Fix float parse)",
+    "Faza 3: Generowanie makiet B2B dla Zichtbaarheid (Bouwborden, Rollupy) u┼╝ywaj─àcych starych emoji",
+    "Faza 4: Makro makiety B2B dla Gereedschap (Naklejki baterie/narz─Ödzia)",
+    "Faza 1: Wygenerowanie 11 makiet i spi─Öcie ┼¢cie┼╝ek image dla Kroku 1 (Foundation)",
+    "Faza 2: Finalizacja i wyr├│wnanie perspektywy Magnetycznych naklejek dla Krok 2",
+    "≡ƒö┤ PRIORYTET 1: R─Öczne pobranie 6 plik├│w .jpg z Wordans (Plecak, Lunchbox, Torba, K┼é├│dka, Termos, Notes) prosto do `assets/images`",
+    "≡ƒö┤ PRIORYTET 2: Odpalenie automatycznego stemplowania E-commerce (skrypt Python na folderze images) uwiarygadniaj─àcy asortyment dla B2B",
+    "BFCache Fix #1: loadState() ΓÇö JSON.stringify(raw) bug ΓÇö zast─àpiony bezpo┼¢redni─à zmienn─à raw",
+    "BFCache Fix #2: pageshow handler ΓÇö przywracanie onClick i disabled state voor 'Afrekenen' po powrocie z checkout",
+    "BFCache Fix #3: renderStepSummary ΓÇö ...this.wrapsCatalog zast─àpiony Object.values().flat()",
+    "Desktop UX Fix: max-width 850px ΓåÆ 1100px + nowy breakpoint 1024px dla wider padding",
+    "Language Fix: 5 polskich opis├│w w premiumCatalog ΓåÆ t┼éumaczenie NL (global-rules ┬º4.3)",
+    "Language Fix: 'Dla Ciebie i ekipy' w renderStepPremium ΓåÆ 'Voor jou en je team'",
+    "SVG Overhaul: emoji labels w renderStepTools (Steps 5) zast─àpione SVG iconami (sp├│jne z Krokiem 3, 4)",
+    "Fix 1: Naprawa utraty zagnie┼╝d┼╝onych danych `vehicleItems` w AJAX payload (data flattening).",
+    "Fix 2: Budowa uk┼éadu 2-kolumnowego Dark Premium dla WooCommerce Checkout (`zzp-checkout.css`).",
+    "Fix 3: Wymuszenie szeroko┼¢ci 100% dla checkoutu przeciwko natywnym limitom Themem/Elementorem na `.col-1`.",
+    "Fix 4: Dodanie podgl─àdu miniatur produkt├│w do Checkoutu i Podsumowania Wizarda (Step 7).",
+    "Fix 5: Usuni─Öcie wymog├│w wysy┼éki, by zablokowa─ç metody dostawy (`woocommerce_cart_needs_shipping`).",
+    "Fix 6: Dynamiczny system zasilania koszyka poprzez placeholder `NA-CUSTOM` z cenami i tytu┼éami JS dla omini─Öcia b┼é─Öd├│w brak├│w stanu magazynowego SKUs w WP Adminie (`woocommerce_is_purchasable` / `woocommerce_before_calculate_totals`).",
+    "Fix 7: Stworzenie Smart Fallback w `fg_get_wizard_dynamic_inventory` do odzyskiwania starszych Ghost Mannequins prosto z systemu plik├│w, ignoruj─àc luki bazy danych WooCommerce.",
+    "Faza 4: Drie Kenmerken na wszystkich generowanych kartach produktowych w uk┼éadzie 2-kolumnowym",
+    "Faza 5: Bezpieczna synchronizacja skryptowa nazw 102 SKU mi─Ödzy WooCommerce wp_posts, a Master Table JSON (┼é─àcznie z backupem pre-sync)",
+    "Faza 6: Dodanie One-Pagera `page-materials.php` (Materialen HUB) opartego na natywnym HTML5 `<details>`, wpi─Ötego w architektur─Ö koszyka i heatmap─Ö Tooltip├│w Wizarda",
+    "Wykonanie sprz─àtania Root/Images z zb─Ödnych JSON i MD po testach",
+    "Oczekiwanie na zatwierdzenie ┼¢mieci z folderu assets/images od szefa przed definitywnym usuni─Öciem (plik `pliki-do-usuniecia.md`)",
+    "Podpi─Öcie pliku `product-master-table.json` mechanicznie pod pliki skryptowe frontendowe wizarda",
+    "Uzupe┼énienie parametr├│w materia┼éowych Workwear odzie┼╝y roboczej w WP z dopiskiem `[AANVULLEN]` w `product-master-table.json`",
+    "Przeprowadzenie Sync Case Mismatch i zmiany lowercase do uppercase na serwerze Cyber-Folks",
+    "≡ƒö┤ REVIEWS: Zebra─ç prawdziwe recenzje klient├│w (Ahmed / Marco / Piotr) i zaktualizowa─ç Step 0 ΓÇö sekcja reviews intentionally omitted, czeka na dane",
+    "7 brakuj─àcych produkt├│w w WooCommerce",
+    "Test wizarda end-to-end po wdro┼╝eniu Master Catalog i integracji wtyczek",
+    "V6.5: Master JSON skurczony z 102 ΓåÆ 100 SKU (SSoT z unikalnymi drie_kenmerken i vraagteken_info NL)",
+    "V6.5: Nowy skrypt sync-v6.5.php ΓÇö bezpo┼¢redni odczyt z JSON ΓåÆ WC (ceny, tytu┼éy, kategorie, meta v_type/v_action)",
+    "V6.5: sync-v6.5.php automatyczne usuwanie produkt├│w spoza 100 SKU (z wyj─àtkiem NA-CUSTOM)",
+    "V6.5: Async Init ΓÇö ZZPWizard.init() z await na za┼éadowanie Master Catalogu przed pierwszym renderem",
+    "V6.5: Globalne renderowanie Tooltip├│w [?] i list cech Γ£ô we WSZYSTKICH krokach (1-7)",
+    "V6.5: CSS Alignment Fix ΓÇö centrowanie .wizard-clothing-card, blokowanie ucieczki tytu┼é├│w i opis├│w",
+    "V6.5: Skrypt deploy_v6.5_final.ps1 (pakowanie, SCP, instalacja na Cyber-Folks)",
+    "V6.5: Skrypt sync-web-v6.5.php ΓÇö wrapper webowy do synchronizacji bazy przez przegl─àdark─Ö",
+    "Rozstrzygni─Öcie konfliktu JSON: assets/data/product-master-table.json pozostaje jedynym SSoT, produkty/product-master-table.json do usuni─Öcia",
+    "Przebudowa Kategorii 1 (Foundation): Migracja DF-004-006 do Visibility, podzia┼é na Fundament/Druk, mechanika Aanbevolen startpakket i sales-copy NL",
+    "Refaktoryzacja JS Loadera Wizarda do klasy Staff-Level Architecture (Data-Driven Configuration)"
+  ],
+  "upcoming_tasks": [
+    {
+      "task": "Uzupe┼énij 6 SKU [AANVULLEN]",
+      "details": "OC-009 (brak linka Wordans), OA-001 (Baseball Cap), OA-002 (Beanie), AP-001, AP-002, AP-003 (Premium gad┼╝ety bez specyfikacji)",
+      "owner": "SZEF",
+      "priority": "P2"
+    },
+    {
+      "task": "Uzupe┼énij Werkkleding sekcj─Ö na /materialen",
+      "details": "Brakuje: dok┼éadne nazwy marek, modele, gramatura i sk┼éad materia┼éowy odzie┼╝y z Wordans (Standard + Premium)",
+      "owner": "SZEF",
+      "priority": "P2"
+    },
+    {
+      "task": "17 grafik produktowych do wykonania",
+      "details": "Lista w flexgrafik-wizard-theme/produkty/grafiki-brakujace-dla-norbiego.md",
+      "owner": "NORBI",
+      "priority": "P2"
+    },
+    {
+      "task": "Uruchomienie sync-web-v6.5.php na produkcji",
+      "details": "Wywo┼éa─ç URL na produkcji aby nadpisa─ç polskie nazwy w WooCommerce (np. Naklejka DRZWI) czystymi danymi NL z Master JSON",
+      "owner": "AGENT",
+      "priority": "P0"
+    },
+    {
+      "task": "Naprawa brakuj─àcych grafik produkt├│w w Wizardzie",
+      "details": "Sprawdzi─ç brakuj─àce ikony 'broken image', g┼é├│wnie na krokach Caddy stickers, wygenerowa─ç i zmapowa─ç grafiki",
+      "owner": "AGENT",
+      "priority": "P1"
+    },
+    {
+      "task": "Wdro┼╝enie kontekstowego upsell micro-copy (AOV Boost)",
+      "details": "Doda─ç 10 linii JS renderuj─àcych ma┼éy banner-powiadomienie sugeruj─àcy dodatkowe produkty (np. 'door sticker' -> 'dodaj window sticker')",
+      "owner": "AGENT",
+      "priority": "P1"
+    },
+    {
+      "task": "≡ƒö┤ REVIEWS: Zebra─ç prawdziwe recenzje klient├│w",
+      "details": "Ahmed / Marco / Piotr ΓÇö zaktualizowa─ç Step 0 sekcja reviews",
+      "owner": "SZEF",
+      "priority": "P3"
+    }
+  ]
+}

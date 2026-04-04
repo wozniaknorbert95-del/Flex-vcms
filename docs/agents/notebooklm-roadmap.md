@@ -1,10 +1,8 @@
+﻿---
+status: "[DRAFT]"
 ---
-status: "[EXPERIMENTAL]"
----
-# NotebookLM Roadmap
-> [!INFO]
-> Wykorzystanie VCMS jako bazy dla Google NotebookLM.
 
-1. **EXPORT**: Kazdy plik .md z VCMS jest gotowym zr�dlem dla NotebookLM.
-2. **ANALIZA**: Wrzuc cale docs/ do notatnika, aby AI stworzylo podcast lub FAQ Twojego workflow.
-3. **FEEDBACK**: NotebookLM moze wskazac luki w Twojej dokumentacji.
+# Notebooklm Roadmap
+
+> **Status:** Czeka na treść.
+> Wpisz /blast aby zaplanować uzupełnienie tego dokumentu.

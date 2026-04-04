@@ -1,6 +1,8 @@
 ﻿---
-status: "[WORKING]"
+status: "[DRAFT]"
 ---
+
 # Prompt Formulas
-> [!INFO]
-> Stage 1 skeleton created.
+
+> **Status:** Czeka na treść.
+> Wpisz /blast aby zaplanować uzupełnienie tego dokumentu.

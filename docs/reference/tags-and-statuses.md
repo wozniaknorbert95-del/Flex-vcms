@@ -1,6 +1,8 @@
 ﻿---
-status: "[WORKING]"
+status: "[DRAFT]"
 ---
-# Tags and Statuses
-> [!INFO]
-> Stage 1 skeleton created.
+
+# Tags And Statuses
+
+> **Status:** Czeka na treść.
+> Wpisz /blast aby zaplanować uzupełnienie tego dokumentu.
