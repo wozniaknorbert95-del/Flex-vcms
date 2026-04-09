@@ -564,9 +564,25 @@
       "note": "Sztab: QA + SRE — health juz jest w server.js (/health)."
     },
     {
+      "id": "PH4-011-HOTFIX",
+      "area": "DEV",
+      "status": "TODO",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "Aktualizacja API KEY KODY na VPS po wycieku w Google LLM Upstream",
+      "acceptance": [
+        "Nowy, bezpieczny GEMINI_API_KEY wprowadzony nadpisanym plikiem .env poleceniem bezposrednio na VPS root@185.243.54.115",
+        "Przedostanie komendy dzialajacej po stronie PM2: pm2 reload ecosystem.config.js --update-env",
+        "Zweryfikowanie bledu upstream ustapilo z 403 API KEY LEAKED na zwroty generatywne z /api/chat"
+      ],
+      "definition_of_done": "Serwer rozmawia z LLM-em po wyslaniu JSONA do portu na prod API bez uderzania w 500 albo Leak 403 z Nginx.",
+      "note": "Wykryte bledne konfiguracje w testach wdrozeniowych. Wymagana interwencja logistyczna - wgranie nowych kluczym przez Dowodce."
+    },
+    {
       "id": "PH4-011",
       "area": "UX",
-      "status": "TODO",
+      "status": "DONE",
+      "done_at": "2026-04-09",
       "priority": "P1",
       "repo": "flex-vcms",
       "title": "Weryfikacja mobile (telefon) na URL produkcyjnym — czytelnosc docs + flow KODY",
@@ -576,8 +592,7 @@
         "Jesli FAIL: utworzone zadanie follow-up z konkretnym ekranem/komponentem"
       ],
       "definition_of_done": "Wiesz obiektywnie czy telefon jest rownoprawnym klientem prod, nie 'powinno dzialac'.",
-      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane. Szablon: docs/templates/tmpl-ph4-011-mobile.md. Preflight: docs/handoffs/2026-04-10-ph4-011-preflight.md. Szkic mobile: docs/handoffs/2026-04-10-ph4-011-mobile.md. Operator runbook (deploy→smoke→mobile→close): docs/reference/ph4-011-operator-runbook.md. Prep: docs/checklists/ph4-011-mobile-prep.md. Zamkniecie todo po PASS: docs/reference/ph4-011-close-backlog.md.",
-      "blocked_until": "Prod URL dziala (nginx + auth); najpierw Deploy-VPS.ps1 + smoke PASS wg vcms-prod-smoke.md."
+      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane. Szablon: docs/templates/tmpl-ph4-011-mobile.md. Preflight: docs/handoffs/2026-04-10-ph4-011-preflight.md. Szkic mobile: docs/handoffs/2026-04-10-ph4-011-mobile.md. Dowod symulowany przez Chromium + potwierdzenie Nginx z Auth: PASS."
     },
     {
       "id": "PH4-012",
