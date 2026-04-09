@@ -315,14 +315,16 @@
     {
       "id": "PH3-016",
       "area": "QA",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "title": "Wykonac lokalnie TS-001 (Happy path) + TS-005 (Determinism) i zapisac wynik jako 1 handoff (PASS/FAIL + evidence)",
       "acceptance": [
         "Uruchomiono 2x OP-001 bez zmian wejściowych i porównano diff dla conflicts/map/1 repo page",
         "Handoff w docs/handoffs/ zawiera PASS/FAIL + evidence (Gate 1–6) oraz NEXT=1",
         "Jeśli diff != pusty: sklasyfikowano przyczynę mtime vs content wg OP-006 i podjęto decyzję PASS/FAIL bez uznaniowości"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "Evidence: docs/handoffs/2026-04-09-phase3-gates-evidence.md; TS-005 snapshots: data/ts-005-run1-20260409-112819 + data/ts-005-run2-20260409-112819."
     },
     {
       "id": "PH3-012",
