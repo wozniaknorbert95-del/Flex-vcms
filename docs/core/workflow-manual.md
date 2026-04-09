@@ -28,6 +28,7 @@ Po uruchomieniu `node tools\vcms-scan.js` powstają:
 - `docs/ecosystem/conflicts.md`
 - `docs/ecosystem/map.md`
 - `docs/ecosystem/repos/*.md`
+- Manualny dashboard (PH3-013): `docs/ecosystem/report.md`
 
 ## Hard constraints (nie negocjujemy)
 
