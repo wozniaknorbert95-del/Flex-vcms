@@ -2,6 +2,21 @@
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
 updated: "2026-04-09T13:44:29.367Z"
+repo_name: "app.flexgrafik.nl"
+repo_slug: "app-flexgrafik-nl"
+repo_type: "game"
+repo_path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\app.flexgrafik.nl"
+repo_exists: true
+canonical_brain: "brain.md"
+canonical_todo: "todo.json"
+guardrails_present: true
+handoffs_ready: true
+last_handoff_rel: "docs/handoffs/2026-04-08-sprint-b-telemetry.md"
+last_handoff_mtime: "2026-04-08T09:55:01.729Z"
+warnings: []
+links_agents: ["AGENTS.md"]
+links_cursor_rules: [".cursor/rules/app-flexgrafik-game.mdc"]
+links_recent_handoffs: ["docs/handoffs/2026-04-08-sprint-b-telemetry.md (2026-04-08T09:55:01.729Z)", "docs/handoffs/2026-04-08-economy-hud.md (2026-04-08T07:16:06.261Z)", "docs/handoffs/2026-04-08-bug03-physics.md (2026-04-08T06:05:39.676Z)"]
 ---
 
 ## app.flexgrafik.nl

@@ -267,14 +267,16 @@
     {
       "id": "PH3-008",
       "area": "DOCS",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P1",
       "title": "Zdefiniowac standard „Repo Page” (docs/ecosystem/repos/*.md) tak, aby Orchestrator mogl je odczytywac maszynowo",
       "acceptance": [
         "Zdefiniowane sa stale sekcje/naglowki (np. Canonical truth, Guardrails, Readiness, Last handoff) i minimalny zestaw pol",
         "Zdefiniowane jest co jest „source of truth” (repos.yaml, brain.md, canonical todo) vs „derived”",
         "Standard uwzglednia linkowanie wzgledne i stabilnosc slugow"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/repo-page-standard.md; generator: tools/vcms-scan.js (repo page frontmatter contract)"
     },
     {
       "id": "PH3-009",
@@ -335,14 +337,16 @@
     {
       "id": "PH3-012",
       "area": "DX",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P2",
       "title": "Ujednolicic „Quickstart” dla Orchestratora: 3 komendy i 3 pliki, ktore zawsze warto sprawdzic",
       "acceptance": [
         "Quickstart jest max 1 strona i dziala jako instrukcja dla nowego czatu (copy/paste)",
         "Zawiera: jak uruchomic scan, gdzie zobaczyc conflicts, gdzie jest mapa i repo pages, jak znalezc ostatni handoff",
         "Nie wymaga edycji .cursor/plans/ i nie zaklada zadnych zewnetrznych integracji"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/quickstart.md"
     },
     {
       "id": "PH3-013",

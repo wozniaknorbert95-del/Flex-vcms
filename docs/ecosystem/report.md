@@ -17,7 +17,7 @@ updated: "2026-04-09"
 - **Workspace**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
 - **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase3-gates-evidence.md`
 - **Selected module (1-1-1)**: `flex-vcms`
-- **NEXT (1 rzecz)**: `PH3-007 — Planner spec (NEXT=1 + Phase Lock + Waivers register)`
+- **NEXT (1 rzecz)**: `PH3-012 — Quickstart (3 komendy + 3 pliki)`
 - **BLOCKER**: `Brak`
 
 ---
@@ -26,6 +26,19 @@ updated: "2026-04-09"
 
 - **Spec (SSoT)**: `docs/core/planner-spec.md`
 - **Waivers register (SSoT, single source)**: `docs/core/phase-waivers.md`
+
+---
+
+## Repo Pages (PH3-008)
+
+- **Standard (SSoT)**: `docs/core/repo-page-standard.md`
+- **Generator**: `tools/vcms-scan.js` (`writeRepoPages`)
+
+---
+
+## Quickstart (PH3-012)
+
+- **SSoT**: `docs/core/quickstart.md`
 
 ---
 

@@ -2,6 +2,21 @@
 status: "[DRAFT]"
 title: "Repo: jadzia-core"
 updated: "2026-04-09T13:44:29.367Z"
+repo_name: "jadzia-core"
+repo_slug: "jadzia-core"
+repo_type: "ai-core"
+repo_path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\jadzia-core"
+repo_exists: true
+canonical_brain: "brain.md"
+canonical_todo: "todo.json"
+guardrails_present: true
+handoffs_ready: true
+last_handoff_rel: null
+last_handoff_mtime: null
+warnings: []
+links_agents: ["AGENTS.md"]
+links_cursor_rules: [".cursor/rules/jadzia-core.mdc"]
+links_recent_handoffs: []
 ---
 
 ## jadzia-core
