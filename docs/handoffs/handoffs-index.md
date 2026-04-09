@@ -18,6 +18,7 @@ Minimalny kontrakt: [Session Anchor + Handoff Spec](/core/session-anchor-and-han
 
 ## Ostatnie wpisy (przykładowe linki)
 
+- [2026-04-12 ph4-011 Gemini leak + NEXT](./2026-04-12-ph4-011-gemini-leak-handoff.md)
 - [2026-04-10 ph4-011-preflight](./2026-04-10-ph4-011-preflight.md)
 - [2026-04-10 ph4-011-mobile (szkielet)](./2026-04-10-ph4-011-mobile.md)
 - PH4-011 — operator runbook (spinacz): [/reference/ph4-011-operator-runbook](/reference/ph4-011-operator-runbook)
