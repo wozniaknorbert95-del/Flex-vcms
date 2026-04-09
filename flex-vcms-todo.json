@@ -253,14 +253,16 @@
     {
       "id": "PH3-007",
       "area": "ORCH",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P1",
       "title": "Zaprojektowac „Planner”: jak Orchestrator ma generowac TODO dla kolejnych faz, ale z blokada dopisywania Faz 4+ przed domknieciem Faz 3",
       "acceptance": [
         "Jest opisana regula: Faza 4+ nie powstaje dopoki wszystkie PH3-* nie sa DONE (albo explicite waived w jednym miejscu)",
         "Planner ma zdefiniowane wejscia: aktualny flex-vcms-todo.json + vcms-index + repo pages + handoffs",
         "Planner ma format wyjscia: edycja flex-vcms-todo.json (sekcja Phase 3) i/lub osobny draft planu, bez zmian implementacyjnych"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/planner-spec.md; waivers: docs/core/phase-waivers.md"
     },
     {
       "id": "PH3-008",
