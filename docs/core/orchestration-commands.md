@@ -14,6 +14,7 @@ To nie są „magiczne komendy” — to **kontrakty** na realne operacje oparte
 ## Zależności (SSoT)
 
 - Workflow entrypoint: [workflow-manual.md](/core/workflow-manual)
+- Artifacts standard (Phase 3): [artifacts-standard.md](/core/artifacts-standard)
 - Security policy: [security-policy.md](/core/security-policy)
 - Quality Gates (Phase 3): [phase-3-verification.md](/checklists/phase-3-verification)
 - Manual test scenarios (Phase 3): [phase-3-test-scenarios.md](/checklists/phase-3-test-scenarios)

@@ -29,6 +29,7 @@ Po uruchomieniu `node tools\vcms-scan.js` powstają:
 - `docs/ecosystem/map.md`
 - `docs/ecosystem/repos/*.md`
 - Manualny dashboard (PH3-013): `docs/ecosystem/report.md`
+- Standard artefaktów (PH3-006): [artifacts-standard.md](/core/artifacts-standard)
 
 ## Hard constraints (nie negocjujemy)
 
