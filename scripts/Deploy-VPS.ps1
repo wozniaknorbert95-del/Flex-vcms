@@ -53,7 +53,7 @@ function Write-Plan {
 if (-not $SkipBuild) {
     Write-Plan "npm run docs:build"
     if ($WhatIf) {
-        Write-Host "  (skipped — WhatIf)"
+        Write-Host "  (skipped - WhatIf)"
     }
     else {
         npm run docs:build
@@ -68,7 +68,7 @@ foreach ($f in $requiredRootFiles) {
 }
 
 if (-not (Test-Path $distLocal)) {
-    throw "Brak katalogu dist: $distLocal — uruchom npm run docs:build lub usuń -SkipBuild."
+    throw "Brak katalogu dist: $distLocal - uruchom npm run docs:build lub usun -SkipBuild."
 }
 
 $remoteDist = ($RemotePath.TrimEnd("/") + "/docs/.vitepress/dist")
@@ -103,5 +103,5 @@ if (-not $WhatIf) {
 
 Write-Host "Deploy-VPS: zakonczono." -ForegroundColor Green
 if ($WhatIf) {
-    Write-Host "Uruchomiono w trybie -WhatIf — nic nie wykonano." -ForegroundColor Yellow
+    Write-Host "Uruchomiono w trybie -WhatIf - nic nie wykonano." -ForegroundColor Yellow
 }

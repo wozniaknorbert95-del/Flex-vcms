@@ -1,7 +1,7 @@
 ---
 status: "[ACTIVE]"
 title: "Study Index — Dziennik Nauki Dowodcy"
-updated: "2026-04-09"
+updated: "2026-04-10"
 ---
 
 # Study Index — Dziennik Nauki
@@ -40,7 +40,7 @@ updated: "2026-04-09"
 |-------------|--------|-------|
 | `git add` + `git commit` | 3 | Regularne commity w sesjach |
 | Konwencja commitow (feat/fix/docs) | 3 | Stosuje z pomoca AG |
-| Feature branches (create / switch / merge) | 2 | Wiem o tym, nie stosowalem |
+| Feature branches (create / switch / merge) | 3 | Branch roboczy docs/ph4-011-execution (PH4-011 plan, 2026-04-10) |
 | PR + code review (GitHub) | 1 | Tylko teoria |
 | `git revert` / `git reset` (rollback) | 1 | Nie robilem |
 | `git stash` | 1 | Nie robilem |
@@ -202,7 +202,8 @@ updated: "2026-04-09"
 
 | Data | Ocena KODY (0-10) | Kluczowe obserwacje | NEXT |
 |------|-------------------|---------------------|------|
-| — | — | Brak checkpointow. Wpisz `/checkpoint` aby zaczac. | — |
+| 2026-04-10 | — | PH4-011: preflight repo zapisany (`docs/handoffs/2026-04-10-ph4-011-preflight.md`); deploy bez -WhatIf + smoke + mobile = Dowodca. | Po `WYNIK: PASS` w `2026-04-10-ph4-011-mobile.md`: wpisz `/checkpoint` (PH4-006) z KODA. |
+| — | — | Brak pelnego checkpointu KODY. | Wpisz `/checkpoint` aby zaczac pelna walidacje T1-T7. |
 
 ---
 
@@ -211,6 +212,7 @@ updated: "2026-04-09"
 > KODA dodaje tu obserwacje po sesjach i checkpointach.
 
 - **2026-04-09**: Faza 4 zainicjowana. Skill map T1-T7 wypelniona poziomami startowymi. Priorytet: T7 (VCMS tools juz bliskie 5), potem T1 (Git — fundament wszystkiego). SQ-001 do wykonania na koniec tej sesji.
+- **2026-04-10**: PH4-011 — preflight w repo (build + `Deploy-VPS.ps1 -WhatIf`, poprawka PS 5.1). Kolejny dowod T1: **PH4-005 (SQ-003)** — samodzielny commit `docs:` z hashem w Historii questow (bez podpowiedzi AG).
 
 ---
 
