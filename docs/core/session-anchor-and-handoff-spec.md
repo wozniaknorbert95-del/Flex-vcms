@@ -118,3 +118,23 @@ Każdy handoff ma mieć sekcje w tej kolejności:
 - `NEXT` ma więcej niż jedną rzecz\n
 - brak komendy weryfikacyjnej lub brak spodziewanego wyniku\n
 
+---
+
+## 4) Raporty agentów (audyt read-only) — jakość minimalna
+
+Dotyczy raportów typu „READ-ONLY audit” (Antigravity, inne agenty), które **nie** są pełnym handoffem sesji, ale maja byc **falsyfikowalne** i zgodne z kontraktem `NEXT (1 rzecz)`.
+
+### 4.1 Wymagane pola / reguły
+
+1. **DATA_RAPORTU** = data faktycznego odczytu plików (nie „wczorajsza” data systemowa przy stanie repo z jutra).
+2. **SESSIONANCHOR (skrót)** zawiera co najmniej: repo, fokus, oraz **`session_anchor.id`** z `flex-vcms-todo.json` (jeśli dotyczy bieżącej pracy), nie tylko `branch`.
+3. **`NEXT (1 rzecz)`** = jedna **decyzja lub jedna akcja**, którą mozna wykonac w jednym kroku (np. „Wykonaj smoke PASS wg vcms-prod-smoke.md”). Unikaj „pipeline w jednym zdaniu” (deploy + smoke + mobile + zamkniecie backlogu) — to jest wiele rzeczy.
+4. Po **`node tools/vcms-scan.js`** raport dopisuje: czy **working tree** jest czysty (`git status` — brak niezamierzonych zmian w artefaktach skanu), albo wprost: „nie sprawdzono”.
+
+### 4.2 PASS / FAIL (szybko)
+
+- **PASS**: powyzsze 4 punkty spelnione lub jawnie oznaczone jako „nie dotyczy / nie sprawdzono” tam gdzie brak danych.
+- **FAIL**: sprzeczne daty, brak `session_anchor.id` przy odwolaniu do backlogu, albo `NEXT` jako lista ukryta w jednym zdaniu.
+
+Powiazane operacyjnie: [PH4-011 operator runbook](/reference/ph4-011-operator-runbook), [PH4-011 mobile prep](/checklists/ph4-011-mobile-prep).
+

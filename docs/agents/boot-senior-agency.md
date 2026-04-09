@@ -39,3 +39,4 @@ START: potwierdź GOAL lub popraw, zanim dotkniesz kodu.
 - Root repo: plik `flex-vcms-todo.json` — pole `meta.next`
 - [Workflow manual — Rytm orchestratora](/core/workflow-manual#rytm-orchestratora)
 - [Agent boundaries](/agents/agent-boundaries)
+- Raporty audytowe (read-only): [Session Anchor spec — §4 jakość minimalna](/core/session-anchor-and-handoff-spec#4-raporty-agentow-audyt-read-only-jakosc-minimalna)

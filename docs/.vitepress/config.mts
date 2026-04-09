@@ -101,7 +101,8 @@ export default defineConfig({
           { text: 'Verification (legacy)', link: '/checklists/verification' },
           { text: 'Phase 3 — Verification', link: '/checklists/phase-3-verification' },
           { text: 'Phase 3 — Test Scenarios', link: '/checklists/phase-3-test-scenarios' },
-          { text: 'VCMS prod smoke', link: '/checklists/vcms-prod-smoke' }
+          { text: 'VCMS prod smoke', link: '/checklists/vcms-prod-smoke' },
+          { text: 'PH4-011 mobile prep', link: '/checklists/ph4-011-mobile-prep' }
         ]
       },
       {
@@ -109,6 +110,10 @@ export default defineConfig({
         collapsible: true,
         items: [
           { text: 'VPS runbook (Command Center)', link: '/reference/vcms-vps-runbook' },
+          { text: 'PH4-011 operator runbook', link: '/reference/ph4-011-operator-runbook' },
+          { text: 'PH4-011 smoke curl', link: '/reference/ph4-011-smoke-curl' },
+          { text: 'PH4-011 close backlog', link: '/reference/ph4-011-close-backlog' },
+          { text: 'PH4-011 — plan Antigravity', link: '/reference/ph4-011-antigravity-execution-plan' },
           { text: 'Glossary', link: '/reference/glossary' },
           { text: 'Anti-Patterns', link: '/reference/anti-patterns' },
           { text: 'Prompt Formulas', link: '/reference/prompt-formulas' },

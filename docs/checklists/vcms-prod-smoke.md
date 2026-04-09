@@ -8,6 +8,8 @@ updated: "2026-04-09"
 
 Checklista po deployu na VPS (Nginx → Node/PM2 na **8001**). Szczegóły architektury: [VPS runbook](/reference/vcms-vps-runbook).
 
+Przykłady `curl` z Basic Auth z env (bez haseł w repo): [PH4-011 / smoke curl](/reference/ph4-011-smoke-curl).
+
 **Czas:** docelowo poniżej 5 minut. Każdy punkt ma wynik **TAK / NIE**.
 
 ---

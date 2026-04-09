@@ -20,6 +20,7 @@ Minimalny kontrakt: [Session Anchor + Handoff Spec](/core/session-anchor-and-han
 
 - [2026-04-10 ph4-011-preflight](./2026-04-10-ph4-011-preflight.md)
 - [2026-04-10 ph4-011-mobile (szkielet)](./2026-04-10-ph4-011-mobile.md)
+- PH4-011 — operator runbook (spinacz): [/reference/ph4-011-operator-runbook](/reference/ph4-011-operator-runbook)
 - [2026-04-09 phase4-init](./2026-04-09-phase4-init.md)
 - [2026-04-09 phase3-journal-brief](./2026-04-09-phase3-journal-brief.md)
 - [2026-04-09 phase3-gates-evidence](./2026-04-09-phase3-gates-evidence.md)
