@@ -1,4 +1,4 @@
-﻿---
+---
 layout: home
 status: "[STABLE]"
 hero:
@@ -15,6 +15,9 @@ hero:
     - theme: alt
       text: "Jesli Zgubiony"
       link: /if-lost
+    - theme: alt
+      text: "Brain Dowodcy (SSoT)"
+      link: /brain
 ---
 
 <div class="dashboard-grid">

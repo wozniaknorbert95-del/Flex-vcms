@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "project": "FlexGrafik Ecosystem (Local-First) — Phase 3: Assistant Workflow (Orchestration)",
+    "owner": "Norbert Wozniak",
+    "updated": "2026-04-09",
+    "version": "1.0",
+    "plan": "docs/plans/flex-vcms-ecosystem-5-phase-plan.md",
+    "phase": 3
+  },
+  "tasks": [
+    {
+      "id": "PH0-001",
+      "area": "REGISTRY",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Utworzyc repos.yaml (kanoniczny rejestr modulow + sciezki + typy + owner + ryzyko)",
+      "acceptance": [
+        "Zawiera co najmniej: zzpackage.flexgrafik.nl, jadzia-core, app.flexgrafik.nl, flexgrafik-nl, flexgrafik-meta",
+        "Kazdy wpis ma: name, path, type, canonical_brain, canonical_todo, deploy_notes"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH0-002",
+      "area": "INGEST",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zrobic whitelist/denylist plikow wiedzy (co wolno skanowac; czego nie wolno dotykac)",
+      "acceptance": [
+        "Whitelist obejmuje: brain/todo/handoffs/AGENTS/.cursor/rules/global-rules/workflow-manual/master-plan",
+        "Denylist obejmuje: .env*, klucze, archiwa, node_modules, dist, cache"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH0-003",
+      "area": "INGEST",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zaimplementowac lokalny skaner (read-only) generujacy data/vcms-index.json dla wszystkich modulow",
+      "acceptance": [
+        "Index zawiera per repo: znalezione pliki + typ + mtime + rozmiar + hash",
+        "Skan nie wchodzi rekurencyjnie poza whitelist globs",
+        "Czas skanu < 10s na Twojej maszynie (cache po mtime)"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH0-004",
+      "area": "QA",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zrobic detector konfliktow i raport docs/ecosystem/conflicts.md",
+      "acceptance": [
+        "Wykrywa: DUPLICATE_TODO, DUPLICATE_BRAIN, MISSING_HANDOFFS, MISSING_GUARDRAILS",
+        "Raport wskazuje canonical i proponuje akcje (np. archive/rename)"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH0-005",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "title": "Dodac docs/ecosystem/map.md (mapa modulow + zaleznosci + linki do canonical brain/todo)",
+      "acceptance": [
+        "Zawiera mermaid flow zaleznosci: Wizard<->Jadzia<->Gra<->Portal + Meta",
+        "Ma sekcje 'Where is the truth' dla kazdego modulu"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH0-006",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "title": "Wypelnic flex-vcms/brain.md (profil Dowodcy i zasady wspolpracy) — minimalna wersja",
+      "assignedTo": "Dowodca",
+      "acceptance": [
+        "Uzupelnione sekcje 1,2,3,5,6 (krotko, swoimi slowami)",
+        "Wskazane aktywne projekty i 1 cel na najblizszy tydzien"
+      ],
+      "done_at": "2026-04-09",
+      "note": "Wersja v1.0 przygotowana jako kontrakt operacyjny dla Dowodcy/AG/Gemini CLI."
+    }
+    ,
+    {
+      "id": "PH1-001",
+      "area": "CANON",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "zzpackage.flexgrafik.nl",
+      "title": "Zlikwidowac DUPLICATE_TODO: zostawic canonical docs/audit-todo.json, reszte przeniesc do archive/ z czytelnymi nazwami",
+      "acceptance": [
+        "Po zmianie w repo zostaje jeden kanoniczny backlog (docs/audit-todo.json)",
+        "Pozostale todo pliki maja nazwy legacy i sa w archive/",
+        "Skan VCMS po zmianie nie raportuje DUPLICATE_TODO dla zzpackage"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH1-002",
+      "area": "CANON",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "jadzia-core",
+      "title": "Utworzyc canonical brain.md + docs/handoffs/ + guardrails (AGENTS.md i/lub .cursor/rules/*.mdc)",
+      "acceptance": [
+        "Istnieje brain.md (kanoniczny) w repo",
+        "Istnieje docs/handoffs/ (moze byc puste, ale gotowe)",
+        "Istnieje AGENTS.md i/lub .cursor/rules/ z twardymi zasadami",
+        "Skan VCMS nie raportuje: CANONICAL_BRAIN_MISSING, MISSING_HANDOFFS, MISSING_GUARDRAILS"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH1-003",
+      "area": "CANON",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "app.flexgrafik.nl",
+      "title": "Dodac guardrails + canonical brain.md (jesli brak) bez ruszania logiki gry",
+      "acceptance": [
+        "AGENTS.md i/lub .cursor/rules istnieje w repo",
+        "brain.md istnieje albo repos.yaml wskazuje realny brain",
+        "Skan VCMS nie raportuje MISSING_GUARDRAILS i CANONICAL_BRAIN_MISSING"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH1-004",
+      "area": "CANON",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "flexgrafik-nl",
+      "title": "Dodac guardrails + canonical brain.md (jesli brak) bez ruszania strony",
+      "acceptance": [
+        "AGENTS.md i/lub .cursor/rules istnieje w repo",
+        "brain.md istnieje albo repos.yaml wskazuje realny brain",
+        "Skan VCMS nie raportuje MISSING_GUARDRAILS i CANONICAL_BRAIN_MISSING"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH1-005",
+      "area": "CANON",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flexgrafik-meta",
+      "title": "Dodac canonical todo.json (minimalny) albo zaktualizowac repos.yaml tak, by wskazywal realny backlog",
+      "acceptance": [
+        "Skan VCMS nie raportuje CANONICAL_TODO_MISSING dla flexgrafik-meta"
+      ],
+      "done_at": "2026-04-09"
+    },
+    {
+      "id": "PH1-006",
+      "area": "VCMS",
+      "status": "DONE",
+      "priority": "P1",
+      "title": "Uruchomic ponowny skan i potwierdzic, ze konflikty Fazy 1 sa wyzerowane",
+      "acceptance": [
+        "conflicts.md ma 0 konfliktow z listy Fazy 1 (PH1-001..PH1-005)",
+        "map.md pokazuje guardrails=yes dla wszystkich repo poza tymi, ktore swiadomie zostaja bez"
+      ],
+      "done_at": "2026-04-09"
+    },
+
+    {
+      "id": "PH3-001",
+      "area": "ORCH",
+      "status": "TODO",
+      "priority": "P0",
+      "title": "Zdefiniowac kontrakt „Asystent Workflow (Orchestration)” dla flex-vcms: cele, granice, wejscia/wyjscia, artefakty",
+      "acceptance": [
+        "Powstaje jedna kanoniczna specyfikacja Orchestratora w docs/ (nazwa i sciezka wskazana w zadaniu PH3-002)",
+        "Spec opisuje: jakie dane konsumuje (np. data/vcms-index.json, docs/ecosystem/*), jakie generuje, jakie ma komendy/entrypointy, jakie ma tryby (np. read-only / plan / implement)",
+        "Spec ma sekcje „Out of scope” (np. brak deploy na prod, brak modyfikacji .cursor/plans/), oraz „Invariants” (deterministyczne raporty, brak modyfikacji repo poza workspace, itp.)"
+      ]
+    },
+    {
+      "id": "PH3-002",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Utworzyc kanoniczny „Workflow Manual” dla pracy z flex-vcms: jak zaczynamy sesje, jak konczymy, jak robimy handoffy",
+      "acceptance": [
+        "Dokument zawiera: start checklist, operating rules, zasady „one module per session”, kiedy wolno edytowac jakie pliki, oraz format handoff",
+        "Dokument referencjonuje generator: tools/vcms-scan.js oraz artefakty: data/vcms-index.json, docs/ecosystem/conflicts.md, docs/ecosystem/map.md, docs/ecosystem/repos/*.md",
+        "Dokument ma sekcje „Failure modes” (np. index nie generuje sie, konflikt >0, brak canonical brain/todo) i „Recovery steps”"
+      ],
+      "done_at": "2026-04-09",
+      "note": "Entrypoint: docs/core/workflow-manual.md; kanoniczna treść SOP: docs/PORADNIK_UZYTKOWNIKA.md."
+    },
+    {
+      "id": "PH3-003",
+      "area": "ORCH",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zaprojektowac model stanu sesji (Session Anchor) i jego minimalny schemat: co przechowujemy, gdzie, jak wersjonujemy",
+      "acceptance": [
+        "Jest jawny schemat (np. JSON) zawierajacy: timestamp stabilny/deterministyczny, modul, aktywna faza, ostatni skan, konflikty, link do ostatniego handoff",
+        "Wybrane jest jedno miejsce prawdy dla anchorow (np. docs/handoffs/ lub data/), z uzasadnieniem i zasadami rotacji/archiwizacji",
+        "Jest opisane jak anchor jest uzywany na starcie nowego czatu (copy/paste prompt) i co jest „must-have” vs „nice-to-have”"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/session-anchor-and-handoff-spec.md (sekcja Session Anchor)."
+    },
+    {
+      "id": "PH3-004",
+      "area": "ORCH",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zdefiniowac „Orchestration Commands”: lista komend/akcji (bez implementacji) + kontrakt wejsc/wyjsc",
+      "acceptance": [
+        "Lista obejmuje co najmniej: scan, conflicts, map, repo-pages refresh, plan-phase, handoff-create, handoff-validate",
+        "Kazda komenda ma: preconditions, inputs (pliki), outputs (pliki), oraz „no side-effects” granice",
+        "Zdefiniowany jest „dry-run” dla komend planujacych (bez zmian w plikach docelowych)"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/orchestration-commands.md (OP-001..OP-006)."
+    },
+    {
+      "id": "PH3-005",
+      "area": "QA",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zdefiniowac baterie weryfikacji (Quality Gates) dla Orchestratora: co musi przejsc przed uznaniem Fazy 3 za DONE",
+      "acceptance": [
+        "Quality Gates sa wypisane jako checklista (manualna lub automatyzowalna) i obejmuja: deterministycznosc, brak konfliktow, komplet repo pages, poprawne linkowanie w map.md, poprawny handoff",
+        "Kazdy gate ma jasny sposob weryfikacji (komenda lub plik do sprawdzenia) i kryterium PASS/FAIL",
+        "Zdefiniowane sa minimalne wymagania oraz rozszerzenia (P0 vs P1)"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/checklists/phase-3-verification.md (Gate 0–6)."
+    },
+    {
+      "id": "PH3-006",
+      "area": "ORCH",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Uzgodnic standard nazewnictwa i lokacji artefaktow generowanych przez Orchestratora (docs/ vs data/ vs tools/)",
+      "acceptance": [
+        "Jest jedna tabelka/sekcja: artefakt -> lokacja -> ownership -> czy generowany -> czy edytowany recznie",
+        "Zasady nie koliduja z istniejacymi: docs/ecosystem/*, docs/handoffs/*, data/vcms-index.json, tools/vcms-scan.js",
+        "Jest rozstrzygniete gdzie trafiaja „logi sesji” i jak unikamy smiecenia repo"
+      ]
+    },
+    {
+      "id": "PH3-007",
+      "area": "ORCH",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Zaprojektowac „Planner”: jak Orchestrator ma generowac TODO dla kolejnych faz, ale z blokada dopisywania Faz 4+ przed domknieciem Faz 3",
+      "acceptance": [
+        "Jest opisana regula: Faza 4+ nie powstaje dopoki wszystkie PH3-* nie sa DONE (albo explicite waived w jednym miejscu)",
+        "Planner ma zdefiniowane wejscia: aktualny flex-vcms-todo.json + vcms-index + repo pages + handoffs",
+        "Planner ma format wyjscia: edycja flex-vcms-todo.json (sekcja Phase 3) i/lub osobny draft planu, bez zmian implementacyjnych"
+      ]
+    },
+    {
+      "id": "PH3-008",
+      "area": "DOCS",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Zdefiniowac standard „Repo Page” (docs/ecosystem/repos/*.md) tak, aby Orchestrator mogl je odczytywac maszynowo",
+      "acceptance": [
+        "Zdefiniowane sa stale sekcje/naglowki (np. Canonical truth, Guardrails, Readiness, Last handoff) i minimalny zestaw pol",
+        "Zdefiniowane jest co jest „source of truth” (repos.yaml, brain.md, canonical todo) vs „derived”",
+        "Standard uwzglednia linkowanie wzgledne i stabilnosc slugow"
+      ]
+    },
+    {
+      "id": "PH3-009",
+      "area": "QA",
+      "status": "DONE",
+      "priority": "P1",
+      "title": "Zdefiniowac scenariusze testowe (manualne) dla przeplywu pracy: start sesji -> scan -> decyzje -> handoff",
+      "acceptance": [
+        "Co najmniej 6 scenariuszy: happy path, konflikt >0, brak repo page, brak handoff, index nieaktualny, wymagany tylko plan bez implementacji",
+        "Kazdy scenariusz ma: kroki, oczekiwane artefakty, kryterium zaliczenia",
+        "Scenariusze sa wykonalne lokalnie na Windows bez dodatkowych serwisow"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/checklists/phase-3-test-scenarios.md (TS-001..TS-006)."
+    },
+    {
+      "id": "PH3-010",
+      "area": "ORCH",
+      "status": "DONE",
+      "priority": "P1",
+      "title": "Zaprojektowac „Handoff Generator” (spec): minimalna struktura handoffa + walidacja kompletności",
+      "acceptance": [
+        "Handoff ma stale sekcje: SESSIONANCHOR, CO ZMIENIONE/WAZNE, NEXT, BLOCKER, komendy weryfikacyjne",
+        "Walidacja sprawdza: obecny NEXT (>=1), brak sprzecznosci z conflicts.md, wskazany ostatni wygenerowany index",
+        "Format pasuje do istniejacych handoffow w docs/handoffs/ (w tym phase2 handoff)"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/session-anchor-and-handoff-spec.md (format + PASS/FAIL walidacja)."
+    },
+    {
+      "id": "PH3-011",
+      "area": "SECURITY",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Spisac polityke bezpieczenstwa dla Orchestratora (read-only defaults, pliki zakazane, ryzyka wycieku)",
+      "acceptance": [
+        "Polityka explicite zabrania: dotykania .env*, kluczy, danych wrazliwych, deploy na prod; oraz ogranicza edycje do workspace",
+        "Polityka jest zgodna z whitelist/denylist z Fazy 0 oraz opisuje jak reagowac na przypadkowo znalezione sekrety",
+        "Polityka wskazuje minimalne uprawnienia do uruchamiania komend node w tools/"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/security-policy.md."
+    },
+    {
+      "id": "PH3-016",
+      "area": "QA",
+      "status": "TODO",
+      "priority": "P0",
+      "title": "Wykonac lokalnie TS-001 (Happy path) + TS-005 (Determinism) i zapisac wynik jako 1 handoff (PASS/FAIL + evidence)",
+      "acceptance": [
+        "Uruchomiono 2x OP-001 bez zmian wejściowych i porównano diff dla conflicts/map/1 repo page",
+        "Handoff w docs/handoffs/ zawiera PASS/FAIL + evidence (Gate 1–6) oraz NEXT=1",
+        "Jeśli diff != pusty: sklasyfikowano przyczynę mtime vs content wg OP-006 i podjęto decyzję PASS/FAIL bez uznaniowości"
+      ]
+    },
+    {
+      "id": "PH3-012",
+      "area": "DX",
+      "status": "TODO",
+      "priority": "P2",
+      "title": "Ujednolicic „Quickstart” dla Orchestratora: 3 komendy i 3 pliki, ktore zawsze warto sprawdzic",
+      "acceptance": [
+        "Quickstart jest max 1 strona i dziala jako instrukcja dla nowego czatu (copy/paste)",
+        "Zawiera: jak uruchomic scan, gdzie zobaczyc conflicts, gdzie jest mapa i repo pages, jak znalezc ostatni handoff",
+        "Nie wymaga edycji .cursor/plans/ i nie zaklada zadnych zewnetrznych integracji"
+      ]
+    },
+    {
+      "id": "PH3-013",
+      "area": "ORCH",
+      "status": "TODO",
+      "priority": "P0",
+      "title": "Zdefiniowac format „Orchestration Report” (jedno miejsce podsumowania): co pokazujemy po kazdej sesji/uruchomieniu",
+      "acceptance": [
+        "Raport zawiera: status skanu, liczbe konfliktow, liste repo z readiness, linki do repo pages, wskazanie NEXT",
+        "Raport jest deterministyczny (brak zmiennych timestampow w tresci, chyba ze jawnie oznaczone jako run-time metadata)",
+        "Raport ma zdefiniowana lokacje i cykl zycia (nadpisywanie vs wersjonowanie)"
+      ]
+    },
+    {
+      "id": "PH3-014",
+      "area": "GOV",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Zdefiniowac zasady „Ownership & Escalation”: kto podejmuje decyzje, kiedy stop, jak oznaczamy blokery",
+      "acceptance": [
+        "Jest opis roli Dowodcy, roli Asystenta i granic decyzji automatycznych",
+        "Jest standard oznaczania BLOCKER (format i minimalne dane: przyczyna, impact, proposed actions)",
+        "Reguly sa kompatybilne z „one module per session” i read-only-first"
+      ]
+    },
+    {
+      "id": "PH3-015",
+      "area": "QA",
+      "status": "TODO",
+      "priority": "P0",
+      "title": "Definition of Done dla Fazy 3: lista warunkow zamykajacych faze (bez implementacji, ale gotowe do wykonania)",
+      "acceptance": [
+        "Istnieje jedna lista DoD w docs/ (wskazana przez PH3-005) i jest jednoznaczna",
+        "DoD zawiera: komplet spec Orchestratora, workflow manual, schemat session anchor, quality gates, test scenarios, security policy, handoff spec",
+        "DoD jest w pelni weryfikowalne lokalnie (bez produkcji i bez zewnetrznych serwisow)"
+      ]
+    }
+  ]
+}
+

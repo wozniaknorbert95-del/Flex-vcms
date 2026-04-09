@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "updated": "2026-04-09",
+  "purpose": "Local-first, read-only ingestion rules for Flex VCMS. Keep scans fast and safe.",
+  "whitelist": {
+    "root_files": [
+      "AGENTS.md",
+      "MASTER-BRAIN.md",
+      "brain.md",
+      "BRAIN.md",
+      "todo.json"
+    ],
+    "paths": [
+      "docs/audit-todo.json",
+      "docs/todo.json",
+      "docs/handoffs",
+      "docs/core",
+      ".cursor/rules",
+      "system/audit"
+    ],
+    "extensions": [
+      ".md",
+      ".mdc",
+      ".json",
+      ".yml",
+      ".yaml",
+      ".txt"
+    ],
+    "max_file_bytes": 1048576
+  },
+  "denylist": {
+    "paths_contains": [
+      "node_modules",
+      "dist",
+      "build",
+      ".vitepress/cache",
+      ".vitepress/dist",
+      ".git",
+      ".svn",
+      "__pycache__",
+      ".pytest_cache",
+      ".cache",
+      ".tmp",
+      "tmp",
+      "archive",
+      "_archive",
+      "_legacy",
+      "backup"
+    ],
+    "extensions": [
+      ".zip",
+      ".tar",
+      ".gz",
+      ".7z",
+      ".rar",
+      ".exe",
+      ".msi",
+      ".dll",
+      ".so",
+      ".dylib",
+      ".png",
+      ".jpg",
+      ".jpeg",
+      ".gif",
+      ".webp",
+      ".mp4",
+      ".webm",
+      ".pdf",
+      ".psd",
+      ".ai"
+    ],
+    "file_names": [
+      ".env",
+      ".env.local",
+      ".env.production",
+      "wp-config.php"
+    ]
+  }
+}
+

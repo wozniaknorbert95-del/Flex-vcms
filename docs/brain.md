@@ -1,13 +1,18 @@
 ---
 status: "[STABLE]"
-title: "VCMS Brain — Dowodca SSoT (Operational Contract)"
-owner: "Norbert Wozniak (Dowodca)"
+title: "VCMS Brain — Dowodca SSoT (Rendered)"
 updated: "2026-04-09"
-audience:
-  - "Dowodca"
-  - "Antigravity (AG)"
-  - "Gemini CLI"
 ---
+
+> Kanoniczny plik jest w root: `flex-vcms/brain.md`.  
+> Ten dokument istnieje po to, zeby VitePress mogl go renderowac pod `/brain`.
+
+---
+
+## VCMS Brain — Dowodca SSoT (Operational Contract)
+
+**owner**: Norbert Wozniak (Dowodca)  
+**audience**: Dowodca / Antigravity (AG) / Gemini CLI
 
 ## DLA KOGO JEST TEN BRAIN (kontrakt)
 
@@ -145,7 +150,7 @@ Uczymy sie *na realnym zadaniu*, nie przez kurs.
 
 ### DLA AG (Orchestrator) — start kazdej sesji
 Wczytaj:
-- `flex-vcms/brain.md` (ten plik)
+- `flex-vcms/brain.md` (kanoniczny)
 - `flexgrafik-meta/docs/core/workflow-manual.md`
 - `flex-vcms/docs/core/global-rules.md`
 - `flexgrafik-meta/docs/core/master-plan.md`
@@ -184,8 +189,5 @@ Jesli jakikolwiek punkt jest NIE / NIE WIEM → **STOP** (nie „zamykać sesji 
 - [ ] Jesli sesja utknela: zapisany **SESSIONANCHOR** (ponizej) + 1 zdanie *dlaczego utknelo*.
 
 ### SESSIONANCHOR (gdy przerywamy bez stresu)
-Format:
-- `ANCHOR:` co bylo ostatnim stabilnym stanem (plik/commit/branch)
-- `NEXT:` jedna konkretna rzecz do zrobienia jako pierwsza w nastepnej sesji
-- `BLOCKER:` co brakuje (1 linia)
+Kanoniczny format i walidacja: [session-anchor-and-handoff-spec.md](/core/session-anchor-and-handoff-spec)
 

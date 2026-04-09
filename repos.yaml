@@ -1,0 +1,86 @@
+version: 1
+updated: "2026-04-09"
+root: "C:\\Users\\FlexGrafik\\FlexGrafik\\github"
+
+repos:
+  - name: "zzpackage.flexgrafik.nl"
+    type: "wp-shop"
+    owner: "Norbert Wozniak"
+    risk_level: "HIGH"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\zzpackage.flexgrafik.nl"
+    canonical_brain:
+      path: "MASTER-BRAIN.md"
+      note: "Vision/mission; keep consistent with AGENTS.md and audit-todo."
+    canonical_todo:
+      path: "docs/audit-todo.json"
+      note: "Canonical backlog for Wizard."
+    deploy_notes:
+      manual_only: true
+      checklist: "docs/checklists/prep-deploy.md (VCMS)"
+      post_deploy:
+        - "Run Woo sync script (see repo system/sync/*)."
+        - "Smoke test Wizard steps 0-8 + min checkout 199."
+
+  - name: "jadzia-core"
+    type: "ai-core"
+    owner: "Norbert Wozniak"
+    risk_level: "HIGH"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\jadzia-core"
+    canonical_brain:
+      path: "brain.md"
+      note: "If missing, create in Phase 1."
+    canonical_todo:
+      path: "todo.json"
+      note: "Single canonical todo for Jadzia."
+    deploy_notes:
+      manual_only: true
+      post_deploy:
+        - "Service restart procedure (systemd) + health check."
+
+  - name: "app.flexgrafik.nl"
+    type: "game"
+    owner: "Norbert Wozniak"
+    risk_level: "MEDIUM"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\app.flexgrafik.nl"
+    canonical_brain:
+      path: "brain.md"
+      note: "If missing, create in Phase 1."
+    canonical_todo:
+      path: "todo.json"
+      note: "Single canonical todo for App."
+    deploy_notes:
+      manual_only: true
+      post_deploy:
+        - "Smoke test entry gate + HUD + telemetry baseline."
+
+  - name: "flexgrafik-nl"
+    type: "portal"
+    owner: "Norbert Wozniak"
+    risk_level: "MEDIUM"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\flexgrafik-nl"
+    canonical_brain:
+      path: "brain.md"
+      note: "If missing, create in Phase 1."
+    canonical_todo:
+      path: "todo.json"
+      note: "Single canonical todo for Portal."
+    deploy_notes:
+      manual_only: true
+      post_deploy:
+        - "Smoke test homepage, nav, CTAs to Wizard/Game."
+
+  - name: "flexgrafik-meta"
+    type: "meta"
+    owner: "Norbert Wozniak"
+    risk_level: "LOW"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\flexgrafik-meta"
+    canonical_brain:
+      path: "docs/core/master-plan.md"
+      note: "Macro strategy and module dependencies."
+    canonical_todo:
+      path: "todo.json"
+      note: "If missing, create in Phase 1."
+    deploy_notes:
+      manual_only: true
+      post_deploy: []
+
