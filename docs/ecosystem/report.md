@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Orchestration Report (Single Dashboard)"
-updated: "YYYY-MM-DD"
+updated: "2026-04-09"
 ---
 
 # Orchestration Report (Single Dashboard)
@@ -15,10 +15,10 @@ updated: "YYYY-MM-DD"
 ## Header
 
 - **Workspace**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
-- **Session anchor / latest handoff**: `docs/handoffs/<latest>.md`
-- **Selected module (1-1-1)**: `<repo>`
-- **NEXT (1 rzecz)**: `<jedno zdanie>`
-- **BLOCKER**: `Brak` / `<1 linia>`
+- **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase3-gates-evidence.md`
+- **Selected module (1-1-1)**: `flex-vcms`
+- **NEXT (1 rzecz)**: `PH3-014 — Ownership & Escalation (STOP rules, kto decyduje, BLOCKER format)`
+- **BLOCKER**: `Brak`
 
 ---
 
@@ -41,7 +41,7 @@ node tools\vcms-scan.js
 ## Conflicts (Gate 2 / OP-002)
 
 - **File**: `docs/ecosystem/conflicts.md`
-- **Conflicts found**: `<0|N>`
+- **Conflicts found**: `0`
   - jeśli `>0` → **STOP** i plan naprawy wg raportu konfliktów
 
 ---
