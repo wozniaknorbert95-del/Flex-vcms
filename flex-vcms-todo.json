@@ -239,14 +239,16 @@
     {
       "id": "PH3-006",
       "area": "ORCH",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P1",
       "title": "Uzgodnic standard nazewnictwa i lokacji artefaktow generowanych przez Orchestratora (docs/ vs data/ vs tools/)",
       "acceptance": [
         "Jest jedna tabelka/sekcja: artefakt -> lokacja -> ownership -> czy generowany -> czy edytowany recznie",
         "Zasady nie koliduja z istniejacymi: docs/ecosystem/*, docs/handoffs/*, data/vcms-index.json, tools/vcms-scan.js",
         "Jest rozstrzygniete gdzie trafiaja „logi sesji” i jak unikamy smiecenia repo"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/artifacts-standard.md"
     },
     {
       "id": "PH3-007",
@@ -358,13 +360,14 @@
       "id": "PH3-014",
       "area": "GOV",
       "status": "TODO",
-      "priority": "P1",
+      "priority": "P0",
       "title": "Zdefiniowac zasady „Ownership & Escalation”: kto podejmuje decyzje, kiedy stop, jak oznaczamy blokery",
       "acceptance": [
         "Jest opis roli Dowodcy, roli Asystenta i granic decyzji automatycznych",
         "Jest standard oznaczania BLOCKER (format i minimalne dane: przyczyna, impact, proposed actions)",
         "Reguly sa kompatybilne z „one module per session” i read-only-first"
-      ]
+      ],
+      "note": "NEXT=1 (po PH3-006): dopiac ownership + escalation rules w warstwie Orchestration."
     },
     {
       "id": "PH3-015",
