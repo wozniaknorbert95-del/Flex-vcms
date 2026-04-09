@@ -21,6 +21,7 @@ title: "Phase 3 Verification — Quality Gates + DoD (Orchestration)"
 - Granice agentów: [agent-boundaries.md](/agents/agent-boundaries)
 - SOP pracy: [PORADNIK_UZYTKOWNIKA.md](/PORADNIK_UZYTKOWNIKA)
 - Bramka manuala: [workflow-manual.md](/core/workflow-manual)
+- Kontrakt pracy asystenta (Orchestration): [assistant-workflow-contract.md](/core/assistant-workflow-contract)
 - Recovery: [if-lost.md](/if-lost)
 - Manual test scenarios (Phase 3): [phase-3-test-scenarios.md](/checklists/phase-3-test-scenarios)
 
