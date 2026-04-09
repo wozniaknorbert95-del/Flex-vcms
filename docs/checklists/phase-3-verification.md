@@ -117,7 +117,13 @@ node tools\vcms-scan.js
 Faza 3 jest **DONE** jeśli spełnione są wszystkie warunki:
 
 - [ ] Wszystkie Quality Gates (Gate 0–6) są PASS.
+- [ ] Istnieje kanoniczny kontrakt pracy asystenta (PH3-001): [assistant-workflow-contract.md](/core/assistant-workflow-contract).
 - [ ] PH3-002 jest domknięte: istnieje kanoniczny SOP w `docs/PORADNIK_UZYTKOWNIKA.md` i bramka `docs/core/workflow-manual.md` prowadzi do SOP.
+- [ ] Istnieje kanoniczny kontrakt operacji (PH3-004): [orchestration-commands.md](/core/orchestration-commands) (OP-001..OP-006).
+- [ ] Istnieją manualne scenariusze testowe (PH3-009): [phase-3-test-scenarios.md](/checklists/phase-3-test-scenarios) i są wykonalne lokalnie (Windows).
+- [ ] Istnieje polityka bezpieczeństwa Orchestratora (PH3-011): [security-policy.md](/core/security-policy).
+- [ ] Istnieje spec Session Anchor + Handoff (PH3-003/PH3-010): [session-anchor-and-handoff-spec.md](/core/session-anchor-and-handoff-spec).
+- [ ] Istnieje dowód wykonania TS-001 + TS-005 (Gate evidence): `docs/handoffs/2026-04-09-phase3-gates-evidence.md`.
 - [ ] Istnieje jeden kanoniczny dokument weryfikacyjny (ten plik) i jest linkowany z:
   - `docs/PORADNIK_UZYTKOWNIKA.md`
   - `docs/core/workflow-manual.md`
