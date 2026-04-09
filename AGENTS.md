@@ -16,6 +16,7 @@
 
 ## Kontekst startowy
 
+- [Boot prompt — Senior Agency](docs/agents/boot-senior-agency.md) (wklejka na start sesji)
 - [Quickstart](docs/core/quickstart.md)  
 - [Workflow manual](docs/core/workflow-manual.md)  
 - [Assistant workflow contract](docs/core/assistant-workflow-contract.md)
