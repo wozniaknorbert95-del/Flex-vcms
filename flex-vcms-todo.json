@@ -557,7 +557,7 @@
         "Jesli FAIL: utworzone zadanie follow-up z konkretnym ekranem/komponentem"
       ],
       "definition_of_done": "Wiesz obiektywnie czy telefon jest rownoprawnym klientem prod, nie 'powinno dzialac'.",
-      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane.",
+      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane. Szablon: docs/templates/tmpl-ph4-011-mobile.md.",
       "blocked_until": "Prod URL dziala (nginx + auth); najpierw Deploy-VPS.ps1 + smoke PASS wg vcms-prod-smoke.md."
     },
     {

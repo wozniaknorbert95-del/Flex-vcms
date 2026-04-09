@@ -65,7 +65,7 @@ Plik `.env` trzymasz tylko na VPS (uprawnienia `600`). Szablon nazw możesz trzy
 
 ## Weryfikacja mobile (PH4-011) {#weryfikacja-mobile-ph4-011}
 
-Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` lub `docs/study/study-index.md` (data, urządzenie, PASS/FAIL, NEXT).
+Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` lub `docs/study/study-index.md` (data, urządzenie, PASS/FAIL, NEXT). Szablon: [tmpl-ph4-011-mobile](/templates/tmpl-ph4-011-mobile).
 
 ## Deploy z Windows
 

@@ -124,7 +124,8 @@ export default defineConfig({
           { text: 'Incident', link: '/templates/tmpl-incident' },
           { text: 'Playbook', link: '/templates/tmpl-playbook' },
           { text: 'Weekly Review', link: '/templates/tmpl-weekly-review' },
-          { text: 'Change', link: '/templates/tmpl-change' }
+          { text: 'Change', link: '/templates/tmpl-change' },
+          { text: 'PH4-011 mobile (prod)', link: '/templates/tmpl-ph4-011-mobile' }
         ]
       },
       {

@@ -49,6 +49,12 @@ Szczegół: [VPS runbook — Smoke, rollback](/reference/vcms-vps-runbook#smoke-
 
 ---
 
+## Następny krok (NEXT=1 — PH4-011)
+
+Gdy cała sekcja smoke ma **TAK**: weryfikacja na **prawdziwym telefonie** (docs + KODA). Zapis wyniku: szablon [PH4-011 mobile (prod)](/templates/tmpl-ph4-011-mobile).
+
+---
+
 ## Powiązane
 
 - [Prep deploy (moduły Woo)](/checklists/prep-deploy) — **nie** zastępuje tej listy dla Command Center.
