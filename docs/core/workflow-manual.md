@@ -35,6 +35,7 @@ Po uruchomieniu `node tools\vcms-scan.js` powstają:
 - Granice agentów: [agent-boundaries.md](/agents/agent-boundaries)
 - Protokół ratunkowy: [if-lost.md](/if-lost)
 - Polityka bezpieczenstwa (Orchestrator): [security-policy.md](/core/security-policy)
+- Kontrakt pracy asystenta (Orchestration): [assistant-workflow-contract.md](/core/assistant-workflow-contract)
 
 ## Quality Gates + DoD (Faza 3)
 

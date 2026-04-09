@@ -169,14 +169,16 @@
     {
       "id": "PH3-001",
       "area": "ORCH",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "title": "Zdefiniowac kontrakt „Asystent Workflow (Orchestration)” dla flex-vcms: cele, granice, wejscia/wyjscia, artefakty",
       "acceptance": [
         "Powstaje jedna kanoniczna specyfikacja Orchestratora w docs/ (nazwa i sciezka wskazana w zadaniu PH3-002)",
         "Spec opisuje: jakie dane konsumuje (np. data/vcms-index.json, docs/ecosystem/*), jakie generuje, jakie ma komendy/entrypointy, jakie ma tryby (np. read-only / plan / implement)",
         "Spec ma sekcje „Out of scope” (np. brak deploy na prod, brak modyfikacji .cursor/plans/), oraz „Invariants” (deterministyczne raporty, brak modyfikacji repo poza workspace, itp.)"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/assistant-workflow-contract.md"
     },
     {
       "id": "PH3-002",
