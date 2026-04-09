@@ -555,6 +555,22 @@ function writeRepoPages(index) {
     lines.push('status: "[DRAFT]"');
     lines.push(`title: "Repo: ${repo.name}"`);
     lines.push(`updated: "${when}"`);
+    // Machine-readable contract (PH3-008)
+    lines.push(`repo_name: "${repo.name}"`);
+    lines.push(`repo_slug: "${slug}"`);
+    lines.push(`repo_type: ${repo.type ? `"${repo.type}"` : "null"}`);
+    lines.push(`repo_path: "${repo.path}"`);
+    lines.push(`repo_exists: ${repo.exists ? "true" : "false"}`);
+    lines.push(`canonical_brain: ${canonicalBrain ? `"${canonicalBrain}"` : "null"}`);
+    lines.push(`canonical_todo: ${canonicalTodo ? `"${canonicalTodo}"` : "null"}`);
+    lines.push(`guardrails_present: ${guardrails ? "true" : "false"}`);
+    lines.push(`handoffs_ready: ${handoffsReady ? "true" : "false"}`);
+    lines.push(`last_handoff_rel: ${last ? `"${last.rel}"` : "null"}`);
+    lines.push(`last_handoff_mtime: ${last ? `"${last.mtime}"` : "null"}`);
+    lines.push(`warnings: [${uniqueWarnings.map((w) => `"${w}"`).join(", ")}]`);
+    lines.push(`links_agents: [${agents.map((p) => `"${p}"`).join(", ")}]`);
+    lines.push(`links_cursor_rules: [${cursorRules.map((p) => `"${p}"`).join(", ")}]`);
+    lines.push(`links_recent_handoffs: [${handoffFiles.map((p) => `"${p}"`).join(", ")}]`);
     lines.push("---");
     lines.push("");
     lines.push(`## ${repo.name}`);
