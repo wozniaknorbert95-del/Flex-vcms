@@ -155,6 +155,8 @@ Wpisz `/context-reset` gdy widzisz te objawy:
 
 | Dokument | Link |
 |----------|------|
+| Raporty audytowe (DATA, `session_anchor.id`, `NEXT` = 1 rzecz, `git status` po skanie) | [Session Anchor + Handoff Spec — §4](/core/session-anchor-and-handoff-spec#4-raporty-agentow-audyt-read-only-jakosc-minimalna) |
+| PH4-011 — jedna ścieżka operatorska | [ph4-011-operator-runbook](/reference/ph4-011-operator-runbook) |
 | Granice wszystkich agentów | [agent-boundaries.md](/agents/agent-boundaries) |
 | Rola Gemini CLI | [gemini-cli.md](/agents/gemini-cli) |
 | Zasady globalne | [global-rules.md](/core/global-rules) |
