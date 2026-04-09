@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "FlexGrafik Ecosystem Map (Local-First)"
-updated: "2026-04-09T13:44:29.367Z"
+updated: "2026-04-09T17:15:38.420Z"
 ---
 
 ## System diagram
@@ -23,6 +23,7 @@ flowchart LR
 
 | Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs |
 |------|----------|------------------|----------------|------------|----------|
+| flex-vcms | [open](./repos/flex-vcms) | `brain.md` | `flex-vcms-todo.json` | yes | yes |
 | zzpackage.flexgrafik.nl | [open](./repos/zzpackage-flexgrafik-nl) | `MASTER-BRAIN.md` | `docs/audit-todo.json` | yes | yes |
 | jadzia-core | [open](./repos/jadzia-core) | `brain.md` | `todo.json` | yes | yes |
 | app.flexgrafik.nl | [open](./repos/app-flexgrafik-nl) | `brain.md` | `todo.json` | yes | yes |

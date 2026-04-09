@@ -1,5 +1,5 @@
 ---
-status: "[DRAFT]"
+status: "[STABLE]"
 title: "Orchestration Report (Single Dashboard)"
 updated: "2026-04-09"
 ---
@@ -15,9 +15,9 @@ updated: "2026-04-09"
 ## Header
 
 - **Workspace**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
-- **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase3-gates-evidence.md`
+- **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase4-init.md`
 - **Selected module (1-1-1)**: `flex-vcms`
-- **NEXT (1 rzecz)**: `PH3-012 — Quickstart (3 komendy + 3 pliki)`
+- **NEXT (1 rzecz)**: SQ-001 — samodzielny /handoff bez pomocy AG, potem /checkpoint z KODA (PH4-006)
 - **BLOCKER**: `Brak`
 
 ---
@@ -39,6 +39,15 @@ updated: "2026-04-09"
 ## Quickstart (PH3-012)
 
 - **SSoT**: `docs/core/quickstart.md`
+
+---
+
+## Journaling + Session Brief (Faza 3/2 — domknięte 2026-04-09)
+
+- **Session log template**: `docs/templates/tmpl-session-log.md` — [STABLE]
+- **Session Brief + Context Packet template**: `docs/templates/tmpl-session-brief.md` — [STABLE]
+- **Journal index**: `docs/journal/logs-index.md`
+- **Ostatni wpis**: `docs/journal/2026-04-09-phase3-completion.md`
 
 ---
 

@@ -1,6 +1,11 @@
 # VCMS
 Stage 1 Skeleton
 
+## Backlog (canonical)
+
+- **Ecosystem + phase work**: `flex-vcms-todo.json` (PH0–PH4).
+- **Legacy root todo** (archived): `docs/archive/todo-root-legacy-2026-04-04.json` — root `todo.json` is a pointer only.
+
 ## Quickstart (Phase 3)
 
 - **Start here**: `docs/core/quickstart.md`

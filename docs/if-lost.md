@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Jeśli Jesteś Zgubiony — Protokół Ratunkowy"
 ---
@@ -70,12 +70,12 @@ Jeśli po **2 próbach** `/context-reset` nadal bez postępu:
 
 Nie ma paniki. Trzy kroki:
 
-1. Otwórz `todo.json` — szukaj statusu `"IN_PROGRESS"` lub `"NEXT"`
+1. Otwórz `flex-vcms-todo.json` (repo VCMS) — szukaj statusu `TODO` / `IN_PROGRESS` lub najnowszego handoffu
 2. Otwórz najnowszy plik w `docs/handoffs/` — znajdź sekcję "Następny krok"
 3. Jeśli oba puste → powiedz AG dokładnie to:
 
    ```
-   Przeczytaj PRD-core.md i todo.json.
+   Przeczytaj `flex-vcms-todo.json` i `docs/core/global-rules.md`.
    Powiedz mi top 3 priorytety na tę sesję w kolejności ważności.
    ```
 

@@ -1,11 +1,20 @@
 {
   "meta": {
-    "project": "FlexGrafik Ecosystem (Local-First) — Phase 3: Assistant Workflow (Orchestration)",
+    "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
     "updated": "2026-04-09",
+    "workstream": "PH4-PROD — po 007–010: deploy prod + smoke, potem mobile (NEXT=1)",
+    "next": {
+      "rank": 1,
+      "task_id": "PH4-011",
+      "title": "Weryfikacja mobile (telefon) na URL produkcyjnym",
+      "before_you_start": "Pierwszy deploy: scripts/Deploy-VPS.ps1 (bez -WhatIf), potem docs/checklists/vcms-prod-smoke.md do PASS.",
+      "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
+    },
+    "ph4_prod_export": "docs/plans/ph4-prod-workstream.json",
     "version": "1.0",
     "plan": "docs/plans/flex-vcms-ecosystem-5-phase-plan.md",
-    "phase": 3
+    "phase": 4
   },
   "tasks": [
     {
@@ -389,6 +398,182 @@
       ],
       "done_at": "2026-04-09",
       "note": "SSoT: docs/checklists/phase-3-verification.md (sekcja 'Definition of Done — Phase 3 (PH3-015)')."
+    },
+
+    {
+      "id": "PH4-001",
+      "area": "BRAIN",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Uzupelnic brain.md (VCMS root) jako profil Dowodcy (SSoT): dodac sekcje skill map + weekly cadence + link do study-index",
+      "acceptance": [
+        "brain.md sekcja 6 zawiera: skill map (T1-T7), weekly cadence (zasady), link do docs/study/study-index.md",
+        "brain.md jest spójny z docs/brain.md (VitePress render wrapper)"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: brain.md (root) sekcja 6 — Granice wiedzy i tryb nauki."
+    },
+    {
+      "id": "PH4-002",
+      "area": "STUDY",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Zbudowac pelna skill map (T1-T7: Git/Deploy/Debug/JS/WP/CI/Data) + weekly cadence w docs/study/study-index.md",
+      "acceptance": [
+        "study-index.md zawiera 7 obszarow technicznych (T1-T7) z poziomami startowymi i dowodem",
+        "Kazdy obszar ma cel (np. poziom X do Q2/Q3 2026)",
+        "Weekly cadence ma format tabeli z przynajmniej 2 tygodniami zaplanowanymi",
+        "Stare obszary (O1-O4) zachowane i zaktualizowane"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/study/study-index.md (sekcje T1-T7 + Weekly Cadence)."
+    },
+    {
+      "id": "PH4-003",
+      "area": "STUDY",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Wdrozec 'Study Queue' powiazana z zadaniami modulow: kolejka max 3 mikro-lekcji gotowych do uzycia",
+      "acceptance": [
+        "study-index.md ma sekcje Study Queue z aktywna kolejka (max 3 wpisy)",
+        "Kazda lekcja jest powiazana z konkretnym zadaniem z backlogu modulu",
+        "Jest sekcja Historia (wykonane questy) jako append-only log"
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/study/study-index.md (sekcja Study Queue SQ-001..SQ-003)."
+    },
+    {
+      "id": "PH4-004",
+      "area": "STUDY",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Wykonac SQ-001: samodzielny /handoff bez pomocy AG na koniec sesji (dowod: plik w docs/handoffs/)",
+      "acceptance": [
+        "Plik docs/handoffs/YYYY-MM-DD-<temat>.md stworzony samodzielnie przez Dowodce",
+        "Zawiera SESSIONANCHOR + CO ZMIENIONE + NEXT + BLOCKER + Weryfikacja",
+        "KODA ocenia jakosc handoffu: PASS/FAIL wg docs/core/session-anchor-and-handoff-spec.md"
+      ]
+    },
+    {
+      "id": "PH4-005",
+      "area": "STUDY",
+      "status": "TODO",
+      "priority": "P1",
+      "title": "Wykonac SQ-003: commit z prefiksem docs: bez podpowiedzi AG (dowod: hash commita)",
+      "acceptance": [
+        "Git commit z prefiksem docs: wykonany samodzielnie",
+        "Hash commita wpisany jako dowod w study-index.md (Historia questy SQ-H002)"
+      ]
+    },
+    {
+      "id": "PH4-006",
+      "area": "STUDY",
+      "status": "TODO",
+      "priority": "P2",
+      "title": "Pierwszy /checkpoint Fazy 4: KODA ocenia poziomy T1-T7 i aktualizuje study-index.md",
+      "acceptance": [
+        "Wpisz /checkpoint — KODA przeprowadza walidacje poziomow vs dowody",
+        "study-index.md sekcja Checkpointy ma wpis z data + ocena + NEXT",
+        "Co najmniej 1 poziom T1-T7 podniesiony lub 1 quest przesuniety do Historii"
+      ]
+    },
+    {
+      "id": "PH4-007",
+      "area": "ORCH",
+      "status": "DONE",
+      "priority": "P0",
+      "title": "Utwardzic SSoT rytmu orchestratora: skan + Conflicts: 0 + commit artefaktow (workflow-manual + PORADNIK + AGENTS)",
+      "done_at": "2026-04-09",
+      "acceptance": [
+        "docs/core/workflow-manual.md zawiera sekcje 'Rytm orchestratora' z: start sesji (node tools/vcms-scan.js), gate Conflicts: 0, zasada commitu zmian repos.yaml/scan-rules/skaner razem z data/vcms-index.json i docs/ecosystem/*",
+        "docs/PORADNIK_UZYTKOWNIKA.md w Kroku 0 ma krotki akapit + link do workflow-manual (bez duplikacji calej tabeli)",
+        "AGENTS.md zawiera jednozdaniowy pointer do tej sekcji",
+        "npm run docs:build przechodzi po zmianach"
+      ],
+      "definition_of_done": "Recenzent moze w 60 s znalezc jedno miejsce (workflow-manual) i potwierdzic zgodnosc z faktycznym workflow; brak sprzecznych instrukcji w dwoch dlugich dokumentach.",
+      "note": "Sztab: Tech Writer + Staff Eng — jeden SSoT, Poradnik jako wejscie ludzkie."
+    },
+    {
+      "id": "PH4-008",
+      "area": "OPS",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "done_at": "2026-04-09",
+      "title": "Runbook VPS: docs/reference/vcms-vps-runbook.md (Command Center obok Jadzi, bez mieszania z prep-deploy modulow Woo)",
+      "acceptance": [
+        "Opisane: role portow (np. Jadzia 8000 vs VCMS Express 8001), PM2 (ecosystem.config.js), katalog docelowy na VPS zgodny z cwd w ecosystem.config.js",
+        "Opisane zmienne srodowiskowe po nazwach (VCMS_DIR, AGENT_CONTEXT_PATH, PORT, ALLOWED_ORIGINS, NODE_ENV) — bez wartosci tajnych w repo",
+        "Link do docs/reference/VCMS-nginx.conf + kolejnosc: nginx/ssl/basic auth → deploy aplikacji → reload",
+        "Sekcja 'Telefon': wejscie tylko przez HTTPS + auth na docelowej domenie; brak wymogu lokalnego skanu na mobile",
+        "Cross-link do docs/core/security-policy.md"
+      ],
+      "definition_of_done": "Nowy czlon zespolu (lub Ty za 6 miesiecy) wdraza VPS z samego runbooka bez pytan o 'co na jakim porcie' i bez szukania w czacie.",
+      "note": "Sztab: SRE + Security — runbook jako operacyjny kontrakt."
+    },
+    {
+      "id": "PH4-009",
+      "area": "DEVOPS",
+      "status": "DONE",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "done_at": "2026-04-09",
+      "title": "Skrypt deploy z Windows: scripts/Deploy-VPS.ps1 (build dist → transfer → remote npm ci/install → pm2 reload vcms-core)",
+      "acceptance": [
+        "Skrypt istnieje w repo i jest wymieniony w vcms-vps-runbook.md",
+        "Lokalnie: npm run docs:build przed paczka; na serwerze: zaleznosci produkcyjne (express, cors, dotenv, helmet, rate-limit — wg package.json) i restart procesu zgodny z ecosystem.config.js",
+        "Brak hardcoded sekretow; parametry sciezki hosta/key przez argumenty lub zmienne srodowiskowe dokumentowane w runbooku",
+        "Dry-run lub -WhatIf opisane w komentarzu/skrypcie tam gdzie ma sens (min. lista krokow przed pierwszym strzalem)"
+      ],
+      "definition_of_done": "Jedna komenda z laptopa odtwarza znany stan prod po zmianach w docs/server; dowod: log PM2 + HTTP 200 na /health po deployu.",
+      "note": "Sztab: DevOps + Node — scripts/Deploy-VPS.ps1 + runbook."
+    },
+    {
+      "id": "PH4-010",
+      "area": "QA",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-04-09",
+      "title": "Smoke + rollback: checklista po deployu Command Center (powiazana z runbookiem)",
+      "acceptance": [
+        "Checklista w vcms-vps-runbook.md lub osobny docs/checklists/vcms-prod-smoke.md linkowany z runbooka",
+        "Minimalny zestaw: GET /health → 200; strona glowna SSG laduje sie za nginx; jedna sciezka API KODY (np. /api/knowledge lub /api/chat) zwraca przewidywalny blad lub sukces (documented), rate limit nie blokuje smoke",
+        "Rollback: opisany krok przywrocenia poprzedniego dist/ lub release dir + pm2 restart; czas do STOP w deployu"
+      ],
+      "definition_of_done": "Po deployu wykonujesz liste w <5 min i masz binarna odpowiedz 'prod OK' / 'wrocilem do poprzedniego release'.",
+      "note": "Sztab: QA + SRE — health juz jest w server.js (/health)."
+    },
+    {
+      "id": "PH4-011",
+      "area": "UX",
+      "status": "TODO",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "title": "Weryfikacja mobile (telefon) na URL produkcyjnym — czytelnosc docs + flow KODY",
+      "acceptance": [
+        "Test na prawdziwym urzadzeniu (iOS lub Android): logowanie basic auth, nawigacja VitePress, formularz/wymiana KODY bez horizontal-only UI",
+        "Wynik zapisany: krotka notatka w docs/handoffs/ lub wpis w study-index (data + urzadzenie + PASS/FAIL + 1 NEXT jesli FAIL)",
+        "Jesli FAIL: utworzone zadanie follow-up z konkretnym ekranem/komponentem"
+      ],
+      "definition_of_done": "Wiesz obiektywnie czy telefon jest rownoprawnym klientem prod, nie 'powinno dzialac'.",
+      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane.",
+      "blocked_until": "Prod URL dziala (nginx + auth); najpierw Deploy-VPS.ps1 + smoke PASS wg vcms-prod-smoke.md."
+    },
+    {
+      "id": "PH4-012",
+      "area": "GOV",
+      "status": "DONE",
+      "priority": "P2",
+      "done_at": "2026-04-09",
+      "title": "Opcjonalnie: bramka CI/pre-commit — artefakty skanu zsynchronizowane z repos.yaml",
+      "acceptance": [
+        "Jeden skrypt lub job (np. npm run verify:scan) uruchamia vcms-scan.js i failuje jesli git diff pokazuje niezcommitowane zmiany w data/vcms-index.json lub docs/ecosystem po edycji repos.yaml/scan-rules",
+        "Dokumentacja w runbooku lub CONTRIBUTING: kiedy wlaczyc u Ciebie lokalnie vs w CI",
+        "Nie blokuje pracy offline bez sensu — tylko jasny trigger (zmiana registry)"
+      ],
+      "definition_of_done": "Zapomniany commit artefaktow wyłapuje sie przed merge, nie na telefonie w niedziele.",
+      "note": "Sztab: Platform Eng — npm run verify:scan + docs: workflow-manual, vcms-vps-runbook."
     }
   ]
 }

@@ -71,6 +71,6 @@ hero:
   <div style="display: flex; justify-content: center; gap: 2rem; font-weight: bold; flex-wrap: wrap;">
     <span style="color: #00FF00;">&#x2705; STABLE (PROD)</span>
     <span style="color: #00FFFF;">&#x1F4BB; VCMS v4.0.0</span>
-    <span style="color: #666;">&#x1F4C4; Sprint 1 DONE</span>
+    <span style="color: #888;">&#x1F4C4; Faza 4 — nauka / skill map (2026-04-09)</span>
   </div>
 </div>

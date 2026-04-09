@@ -1,4 +1,4 @@
-﻿---
+---
 description: Tygodniowy checkpoint postepu nauki i pracy Dowodcy
 ---
 
@@ -17,7 +17,7 @@ Przeprowadz Dowodce przez nastepujace kroki:
 
 Przeczytaj:
 1. Ostatni plik w `docs/handoffs/` — sekcja "Nastepny krok"
-2. `todo.json` — wszystkie taski ze statusem IN_PROGRESS lub NEXT
+2. `flex-vcms-todo.json` (kanoniczny backlog VCMS) — taski IN_PROGRESS / TODO; opcjonalnie root `todo.json` tylko jako wskaźnik
 3. Ostatnia sesja w `docs/journal/logs-index.md` (jesli istnieje)
 
 Wypisz liste zobowiazan z poprzedniej sesji. Konkretnie.

@@ -21,6 +21,7 @@ Cel: mniej śmiecenia, mniej uznaniowości, łatwiejsza weryfikacja (Gates) i sz
 - `docs/checklists/*` — gates, scenariusze testowe, checklisty
 - `docs/PORADNIK_UZYTKOWNIKA.md` — SOP (entrypoint pracy)
 - `docs/handoffs/*` — dowody sesji + NEXT=1 (append-only)
+- `docs/journal/*` — logi sesji (append-only; format: `tmpl-session-log.md`; indeks: `docs/journal/logs-index.md`)
 - `docs/ecosystem/report.md` — manualny dashboard po OP-001 (bieżący stan)
 - `repos.yaml` / `scan-rules.json` — wejścia skanera (kontrakt Orchestratora)
 
@@ -102,4 +103,6 @@ Generated przez OP-001 (`node tools/vcms-scan.js`):
 | Repo pages | `docs/ecosystem/repos/*.md` | Derived | OP-001 | tool | overwrite |
 | Report | `docs/ecosystem/report.md` | SSoT | manual | Dowódca/Asystent | overwrite |
 | Handoffs | `docs/handoffs/*.md` | SSoT | manual | Dowódca/Asystent | append-only |
+| Session logs | `docs/journal/*.md` | SSoT | manual | Dowódca/Asystent | append-only |
+| Journal index | `docs/journal/logs-index.md` | SSoT | manual | Dowódca/Asystent | append-only |
 

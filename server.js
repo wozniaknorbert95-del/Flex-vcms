@@ -105,19 +105,28 @@ const getContextData = () => {
     // Dynamiczne skanowanie folderu docs w VCMS
     const vcmsDocs = scanDocsRecursively(path.join(vcmsBase, 'docs'));
 
+    // Canonical brain/todo paths — keep in sync with repos.yaml (root of flex-vcms)
     return {
         "VCMS_INTERNAL_KNOWLEDGE": vcmsDocs,
-        "PROJECT_CONTEXT_ZZP": {
-            "brain-zzp.md": getFile(path.join(githubBase, 'flexgrafik-nl/brain-zzp.md')),
-            "todo.json": getFile(path.join(githubBase, 'flexgrafik-nl/todo.json'))
+        "PROJECT_CONTEXT_flexgrafik_nl": {
+            "brain.md": getFile(path.join(githubBase, 'flexgrafik-nl', 'brain.md')),
+            "todo.json": getFile(path.join(githubBase, 'flexgrafik-nl', 'todo.json'))
         },
-        "PROJECT_CONTEXT_APP": {
-            "brain-app.md": getFile(path.join(githubBase, 'app.flexgrafik.nl/brain-app.md')),
-            "todo.json": getFile(path.join(githubBase, 'app.flexgrafik.nl/todo.json'))
+        "PROJECT_CONTEXT_app_flexgrafik_nl": {
+            "brain.md": getFile(path.join(githubBase, 'app.flexgrafik.nl', 'brain.md')),
+            "todo.json": getFile(path.join(githubBase, 'app.flexgrafik.nl', 'todo.json'))
         },
-        "PROJECT_CONTEXT_ZZPACKAGE": {
-            "brain-zzpackage.md": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl/brain-zzp.md')),
-            "todo.json": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl/todo.json'))
+        "PROJECT_CONTEXT_zzpackage": {
+            "MASTER-BRAIN.md": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl', 'MASTER-BRAIN.md')),
+            "docs/audit-todo.json": getFile(path.join(githubBase, 'zzpackage.flexgrafik.nl', 'docs', 'audit-todo.json'))
+        },
+        "PROJECT_CONTEXT_jadzia_core": {
+            "brain.md": getFile(path.join(githubBase, 'jadzia-core', 'brain.md')),
+            "todo.json": getFile(path.join(githubBase, 'jadzia-core', 'todo.json'))
+        },
+        "PROJECT_CONTEXT_flexgrafik_meta": {
+            "docs/core/master-plan.md": getFile(path.join(githubBase, 'flexgrafik-meta', 'docs', 'core', 'master-plan.md')),
+            "todo.json": getFile(path.join(githubBase, 'flexgrafik-meta', 'todo.json'))
         }
     };
 };

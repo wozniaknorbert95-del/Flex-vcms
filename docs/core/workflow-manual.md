@@ -31,6 +31,20 @@ Po uruchomieniu `node tools\vcms-scan.js` powstają:
 - Manualny dashboard (PH3-013): `docs/ecosystem/report.md`
 - Standard artefaktów (PH3-006): [artifacts-standard.md](/core/artifacts-standard)
 
+## Rytm orchestratora — skan i commity {#rytm-orchestratora}
+
+Jedno źródło procedury dla **laptopa / sesji developerskiej** (telefon korzysta z wdrożonego Command Center — patrz [runbook VPS](/reference/vcms-vps-runbook)).
+
+| Krok | Działanie |
+|------|-----------|
+| 1 | Z katalogu root `flex-vcms`: `node tools/vcms-scan.js` |
+| 2 | Gate: w `docs/ecosystem/conflicts.md` musi być **Conflicts: 0** zanim idziesz w kolejne zmiany lub merge |
+| 3 | Jeśli zmieniasz **`repos.yaml`**, **`scan-rules.json`** lub **`tools/vcms-scan.js`** — po skanie **commituj razem** z wygenerowanymi: `data/vcms-index.json`, `docs/ecosystem/conflicts.md`, `docs/ecosystem/map.md`, `docs/ecosystem/repos/*.md` |
+| 4 | Przed commitem dokumentacji po edycjach w `docs/`: `npm run docs:build` (żeby `docs/.vitepress/dist` był spójny z treścią, jeśli budujesz pod serwer) |
+| 5 | **Bramka (opcjonalna, przed PR):** `npm run verify:scan` — jeśli w diffie są zmiany w `repos.yaml`, `scan-rules.json` lub `tools/vcms-scan.js`, odpala skan i **kończy się błędem**, dopóki `data/vcms-index.json` i `docs/ecosystem/*` nie są zgodne z zapisem w git (musisz zcommitować artefakty lub cofnąć zmiany rejestru). Gdy tych plików nie ruszałeś — komunikat *skip*, exit 0. |
+
+Human-facing krok startowy sesji nadal opisuje [Poradnik](/PORADNIK_UZYTKOWNIKA) (KROK 0); ta sekcja utwardza **regułę commitu** i zakres plików.
+
 ## Hard constraints (nie negocjujemy)
 
 - Zasady globalne: [global-rules.md](/core/global-rules)
