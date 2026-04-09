@@ -33,3 +33,6 @@ dist-ssr
 # Output
 docs/.vitepress/dist
 docs/.vitepress/cache
+
+# Lokalne raporty agentow (nie SSoT repo)
+raport_ph4_uplift.md

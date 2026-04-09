@@ -1,7 +1,7 @@
 ---
 status: "[STABLE]"
 title: "PH4-011 — zamkniecie zadania w flex-vcms-todo.json (po PASS)"
-updated: "2026-04-11"
+updated: "2026-04-12"
 ---
 
 # Zamkniecie PH4-011 w backlogu
@@ -10,6 +10,12 @@ Wykonuj **tylko** gdy:
 
 - [vcms-prod-smoke](/checklists/vcms-prod-smoke) — wszystkie wymagane punkty **TAK**
 - [Handoff mobile](../handoffs/2026-04-10-ph4-011-mobile.md) — `WYNIK: PASS` (lub FAIL z follow-up — wtedy **nie** zamykaj PH4-011 jako DONE)
+
+### Co **nie** jest dowodem PASS (anty-wzor)
+
+- Same `401` / brak auth na `curl` **bez** pelnej checklisty smoke (200 na `/health` z JSON, strona docs, `/api/knowledge`, `POST /api/chat` → 400) — patrz [vcms-prod-smoke](/checklists/vcms-prod-smoke).
+- „Test mobile” na emulatorze przegladarki w CI / subagencie **zamiast** prawdziwego urzadzenia — narusza acceptance PH4-011 w `flex-vcms-todo.json`.
+- Zamkniecie `PH4-011` w JSON **bez** spojnego, recznie wypelnionego handoffa mobile z konkretnym modelem telefonu i data.
 
 ## Edycja `flex-vcms-todo.json`
 
