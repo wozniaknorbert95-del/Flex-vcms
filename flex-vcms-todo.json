@@ -337,14 +337,16 @@
     {
       "id": "PH3-012",
       "area": "DX",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P2",
       "title": "Ujednolicic „Quickstart” dla Orchestratora: 3 komendy i 3 pliki, ktore zawsze warto sprawdzic",
       "acceptance": [
         "Quickstart jest max 1 strona i dziala jako instrukcja dla nowego czatu (copy/paste)",
         "Zawiera: jak uruchomic scan, gdzie zobaczyc conflicts, gdzie jest mapa i repo pages, jak znalezc ostatni handoff",
         "Nie wymaga edycji .cursor/plans/ i nie zaklada zadnych zewnetrznych integracji"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/quickstart.md"
     },
     {
       "id": "PH3-013",
