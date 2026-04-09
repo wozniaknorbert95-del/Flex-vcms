@@ -113,6 +113,7 @@ export default defineConfig({
           { text: 'PH4-011 operator runbook', link: '/reference/ph4-011-operator-runbook' },
           { text: 'PH4-011 smoke curl', link: '/reference/ph4-011-smoke-curl' },
           { text: 'PH4-011 close backlog', link: '/reference/ph4-011-close-backlog' },
+          { text: 'PH4-011 — plan Antigravity', link: '/reference/ph4-011-antigravity-execution-plan' },
           { text: 'Glossary', link: '/reference/glossary' },
           { text: 'Anti-Patterns', link: '/reference/anti-patterns' },
           { text: 'Prompt Formulas', link: '/reference/prompt-formulas' },
