@@ -343,14 +343,16 @@
     {
       "id": "PH3-013",
       "area": "ORCH",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "title": "Zdefiniowac format „Orchestration Report” (jedno miejsce podsumowania): co pokazujemy po kazdej sesji/uruchomieniu",
       "acceptance": [
         "Raport zawiera: status skanu, liczbe konfliktow, liste repo z readiness, linki do repo pages, wskazanie NEXT",
         "Raport jest deterministyczny (brak zmiennych timestampow w tresci, chyba ze jawnie oznaczone jako run-time metadata)",
         "Raport ma zdefiniowana lokacje i cykl zycia (nadpisywanie vs wersjonowanie)"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/ecosystem/report.md (manualny dashboard po OP-001)."
     },
     {
       "id": "PH3-014",
