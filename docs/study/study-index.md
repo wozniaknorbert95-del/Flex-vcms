@@ -40,7 +40,7 @@ updated: "2026-04-10"
 |-------------|--------|-------|
 | `git add` + `git commit` | 3 | Regularne commity w sesjach |
 | Konwencja commitow (feat/fix/docs) | 3 | Stosuje z pomoca AG |
-| Feature branches (create / switch / merge) | 3 | Branch roboczy docs/ph4-011-execution (PH4-011 plan, 2026-04-10) |
+| Feature branches (create / switch / merge) | 3 | Branch `docs/ph4-011-execution`, commit 2a11bf4 (PH4-011 preflight, 2026-04-10) |
 | PR + code review (GitHub) | 1 | Tylko teoria |
 | `git revert` / `git reset` (rollback) | 1 | Nie robilem |
 | `git stash` | 1 | Nie robilem |
