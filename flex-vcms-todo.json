@@ -367,14 +367,16 @@
     {
       "id": "PH3-015",
       "area": "QA",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "title": "Definition of Done dla Fazy 3: lista warunkow zamykajacych faze (bez implementacji, ale gotowe do wykonania)",
       "acceptance": [
         "Istnieje jedna lista DoD w docs/ (wskazana przez PH3-005) i jest jednoznaczna",
         "DoD zawiera: komplet spec Orchestratora, workflow manual, schemat session anchor, quality gates, test scenarios, security policy, handoff spec",
         "DoD jest w pelni weryfikowalne lokalnie (bez produkcji i bez zewnetrznych serwisow)"
-      ]
+      ],
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/checklists/phase-3-verification.md (sekcja 'Definition of Done — Phase 3 (PH3-015)')."
     }
   ]
 }
