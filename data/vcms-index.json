@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-09T09:28:24.108Z",
+    "generated_at": "2026-04-09T13:45:28.593Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -29,9 +29,9 @@
         {
           "rel": "docs/audit-todo.json",
           "type": "AUDIT_TODO",
-          "bytes": 61713,
-          "mtime": "2026-04-09T09:08:49.787Z",
-          "sha256": "a7e9efa41bbc4025ab9141569223232c50c2b0e73c9e5740059534f0f5286526"
+          "bytes": 61710,
+          "mtime": "2026-04-09T10:39:01.986Z",
+          "sha256": "2cd037c0df77a47d47858132ab32d53d4a8844c7612b9d75a9f20586628e875c"
         },
         {
           "rel": "docs/handoffs/2026-03-19-checkout-trust-ux.md",
@@ -265,11 +265,32 @@
           "sha256": "a702a319c4353eb3f474f2ba44258ec826184f57f203cab890f9e439687a2b57"
         },
         {
+          "rel": "docs/handoffs/2026-04-09-p3-01-aria.md",
+          "type": "HANDOFF",
+          "bytes": 2512,
+          "mtime": "2026-04-09T10:39:29.885Z",
+          "sha256": "913ecb095d78d5afd47a60114f624832d12d0312c26dcc9df103a367556efb14"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-09-p3-02-keyboard-navigation.md",
+          "type": "HANDOFF",
+          "bytes": 1854,
+          "mtime": "2026-04-09T09:37:56.245Z",
+          "sha256": "8588030780d8e3ed31bb55bd2ea4ef63a44522ee5dd999ebf0b79a7acdbdc2ab"
+        },
+        {
           "rel": "docs/handoffs/2026-04-09-sprint2-final.md",
           "type": "HANDOFF",
           "bytes": 1258,
           "mtime": "2026-04-09T07:59:22.730Z",
           "sha256": "7c3eb6de50dc254619668ba531f84af8ef4e12fe6a603f1a4c8a95c84429974f"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-09-sprint5-ssot-tabs.md",
+          "type": "HANDOFF",
+          "bytes": 2484,
+          "mtime": "2026-04-09T13:44:29.367Z",
+          "sha256": "fe6eee5cc7b6f6533d013e378e6693843d86bd810be3ef076a161eb4580520de"
         },
         {
           "rel": "docs/handoffs/handoff-2026-03-25.md",

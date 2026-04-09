@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: zzpackage.flexgrafik.nl"
-updated: "2026-04-09T09:08:49.787Z"
+updated: "2026-04-09T13:44:29.367Z"
 ---
 
 ## zzpackage.flexgrafik.nl
@@ -19,7 +19,7 @@ updated: "2026-04-09T09:08:49.787Z"
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-09-sprint2-final.md` (2026-04-09T07:59:22.730Z)
+- **Last handoff**: `docs/handoffs/2026-04-09-sprint5-ssot-tabs.md` (2026-04-09T13:44:29.367Z)
 
 ## Quick links (by file type)
 
@@ -28,9 +28,9 @@ updated: "2026-04-09T09:08:49.787Z"
 - **Cursor rules**:
   - `.cursor/rules/wizard-ssot.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-09-sprint2-final.md (2026-04-09T07:59:22.730Z)`
-  - `docs/handoffs/2026-04-09-handoff-p103.md (2026-04-08T22:45:53.291Z)`
-  - `docs/handoffs/2026-04-09-handoff.md (2026-04-08T22:08:14.989Z)`
+  - `docs/handoffs/2026-04-09-sprint5-ssot-tabs.md (2026-04-09T13:44:29.367Z)`
+  - `docs/handoffs/2026-04-09-p3-01-aria.md (2026-04-09T10:39:29.885Z)`
+  - `docs/handoffs/2026-04-09-p3-02-keyboard-navigation.md (2026-04-09T09:37:56.245Z)`
 
 ## Back
 

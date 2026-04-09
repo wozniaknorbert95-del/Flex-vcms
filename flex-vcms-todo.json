@@ -359,7 +359,7 @@
     {
       "id": "PH3-014",
       "area": "GOV",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "title": "Zdefiniowac zasady „Ownership & Escalation”: kto podejmuje decyzje, kiedy stop, jak oznaczamy blokery",
       "acceptance": [
@@ -367,7 +367,8 @@
         "Jest standard oznaczania BLOCKER (format i minimalne dane: przyczyna, impact, proposed actions)",
         "Reguly sa kompatybilne z „one module per session” i read-only-first"
       ],
-      "note": "NEXT=1 (po PH3-006): dopiac ownership + escalation rules w warstwie Orchestration."
+      "done_at": "2026-04-09",
+      "note": "SSoT: docs/core/ownership-and-escalation.md"
     },
     {
       "id": "PH3-015",
