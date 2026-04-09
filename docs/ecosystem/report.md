@@ -17,8 +17,15 @@ updated: "2026-04-09"
 - **Workspace**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
 - **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase3-gates-evidence.md`
 - **Selected module (1-1-1)**: `flex-vcms`
-- **NEXT (1 rzecz)**: `PH3-014 — Ownership & Escalation (STOP rules, kto decyduje, BLOCKER format)`
+- **NEXT (1 rzecz)**: `PH3-007 — Planner spec (NEXT=1 + Phase Lock + Waivers register)`
 - **BLOCKER**: `Brak`
+
+---
+
+## Planner (PH3-007)
+
+- **Spec (SSoT)**: `docs/core/planner-spec.md`
+- **Waivers register (SSoT, single source)**: `docs/core/phase-waivers.md`
 
 ---
 
