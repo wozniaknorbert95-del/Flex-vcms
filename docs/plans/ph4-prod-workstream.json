@@ -4,13 +4,13 @@
     "title": "Orchestrator rhythm + VPS Command Center (telefon jako klient prod)",
     "owner": "Norbert Wozniak",
     "updated": "2026-04-09",
-    "last_sync": "2026-04-09 — PH4-012 DONE; NEXT=1 PH4-011",
+    "last_sync": "2026-04-09 — master GitHub PR#14; NEXT=1 PH4-011; boot: docs/agents/boot-senior-agency.md",
     "phase": 4,
     "canonical_source": "flex-vcms-todo.json",
     "next": {
       "rank": 1,
       "task_id": "PH4-011",
-      "before_you_start": "Deploy-VPS.ps1 + vcms-prod-smoke PASS.",
+      "before_you_start": "Deploy-VPS.ps1 + vcms-prod-smoke PASS; szablon tmpl-ph4-011-mobile.md.",
       "before_merge_registry_changes": "npm run verify:scan"
     },
     "note": "Eksport roboczy: edycja backlogu zawsze w flex-vcms-todo.json; ten plik mozna nadpisywac po re-eksporcie."

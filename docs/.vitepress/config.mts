@@ -78,6 +78,7 @@ export default defineConfig({
           { text: 'KODA (profil docs)', link: '/agents/koda' },
           { text: 'Antigravity', link: '/agents/antigravity' },
           { text: 'Gemini CLI', link: '/agents/gemini-cli' },
+          { text: 'Boot: Senior Agency', link: '/agents/boot-senior-agency' },
           { text: 'Agent Boundaries', link: '/agents/agent-boundaries' },
           { text: 'NotebookLM Roadmap', link: '/agents/notebooklm-roadmap' }
         ]
