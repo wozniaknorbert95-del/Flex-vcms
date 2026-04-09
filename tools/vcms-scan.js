@@ -248,6 +248,7 @@ function classifyFile(rel) {
   const base = path.basename(rel).toLowerCase();
   if (base === "ag" || base === "agents.md") return "AGENTS";
   if (base === "todo.json") return "TODO";
+  if (base === "flex-vcms-todo.json") return "TODO";
   if (base === "audit-todo.json") return "AUDIT_TODO";
   if (base === "master-brain.md") return "BRAIN";
   if (base === "brain.md" || base === "brain.md") return "BRAIN";
@@ -392,9 +393,20 @@ function detectConflicts(index) {
     const guardrails = repo.files.filter((f) => f.type === "AGENTS" || f.type === "CURSOR_RULE");
     const handoffsDirExists = safeStat(path.join(repo.path, "docs", "handoffs"))?.isDirectory() || false;
 
-    // Duplicate TODO candidates: any todo.json outside archive is a candidate
-    const todoCandidates = repo.files.filter((f) => f.rel.toLowerCase().endsWith("todo.json"));
-    const todoNonArchive = todoCandidates.filter((f) => !f.rel.toLowerCase().includes("/archive/") && !f.rel.toLowerCase().includes("_legacy"));
+    // Duplicate TODO: competing backlog files (not every *todo.json — flex-vcms keeps root todo.json as pointer only)
+    const todoCandidates = repo.files.filter((f) => {
+      const relNorm = f.rel.replace(/\\/g, "/").toLowerCase();
+      if (relNorm.includes("/archive/") || relNorm.includes("_legacy")) return false;
+      const base = path.basename(relNorm);
+      if (base === "audit-todo.json") return true;
+      if (base === "flex-vcms-todo.json") return true;
+      if (base === "todo.json") {
+        if (repo.name === "flex-vcms" && relNorm === "todo.json") return false;
+        return true;
+      }
+      return false;
+    });
+    const todoNonArchive = todoCandidates;
     if (todoNonArchive.length > 1) {
       out.push({
         repo: repo.name,

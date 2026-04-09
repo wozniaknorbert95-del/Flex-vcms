@@ -64,6 +64,16 @@ Zanim cokolwiek planujesz lub implementujesz, odśwież stan ekosystemu lokalnie
 
 Jeśli masz wątpliwości „co jest kanoniczne”, odpowiedź **nie jest w głowie** — jest w repo page i w `repos.yaml`.
 
+**Commit i rejestr:** gdy ruszasz `repos.yaml`, `scan-rules.json` lub skaner, trzymaj się tabeli *„Rytm orchestratora”* w [Workflow Manual — Orchestration SOP](/core/workflow-manual#rytm-orchestratora) (jeden commit ze świeżymi artefaktami skanu).
+
+### Skrypty PowerShell (helpers)
+
+W katalogu `scripts/` (root `flex-vcms`):
+
+- **`New-Log.ps1`** — kopiuje szablon do `docs/journal/_log_<data-czas>.md` i otwiera plik w `code` (VS Code CLI). Parametr `-Type` (domyślnie `session`): `session`, `incident`, `playbook`, `weekly-review` (szablony: `docs/templates/tmpl-<typ>.md`).
+- **`Start-Cockpit.ps1`** — `Set-Location` do root repozytorium i `npm run docs:dev` (lokalny podgląd dokumentacji VitePress).
+- **`Deploy-VPS.ps1`** — build `docs:build`, `scp` plików Node + `dist` na VPS, zdalnie `npm ci --omit=dev` i `pm2 reload` (parametr `-WhatIf` = dry-run). Runbook: [VPS runbook](/reference/vcms-vps-runbook).
+
 ---
 
 ### KROK 1 — Otwórz sesję komendą `/vibe-init`
@@ -74,7 +84,7 @@ Wpisz to Antigravity (AG) na początku **KAŻDEJ** sesji:
 /vibe-init
 ```
 
-AG przeczyta PRD-core.md, todo.json i powie Ci w 2 zdaniach co rozumie jako cel sesji.
+AG przeczyta kontekst projektu (`flex-vcms-todo.json` w repo VCMS + ewentualnie `brain.md`) i powie Ci w 2 zdaniach co rozumie jako cel sesji.
 **Zatwierdź lub popraw** zanim AG napisze JAKIKOLWIEK kod.
 
 ---

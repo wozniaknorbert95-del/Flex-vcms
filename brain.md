@@ -1,4 +1,4 @@
----
+﻿---
 status: "[STABLE]"
 title: "VCMS Brain — Dowodca SSoT (Operational Contract)"
 owner: "Norbert Wozniak (Dowodca)"
@@ -138,6 +138,26 @@ Uczymy sie *na realnym zadaniu*, nie przez kurs.
 - 1 mikro-lekcja na koniec zadania (5–10 minut).
 - Slowniczek max 5 pojec na sesje.
 - Zawsze pokaz: „co klikam / co wpisuje” (PowerShell, git).
+
+### Skill map (SSoT)
+Kanoniczny rejestr poziomow wiedzy + study queue: `docs/study/study-index.md`.
+
+Obszary sledzone (7 technicznych):
+
+| Obszar | ID w study-index |
+|--------|-----------------|
+| Git & Version Control | T1 |
+| Deploy (CF Pages / WP) | T2 |
+| Debug (5-krokowa diagnostyka) | T3 |
+| JavaScript / Node | T4 |
+| WordPress / PHP (snippety) | T5 |
+| CI / Automaty (Jadzia) | T6 |
+| Data / JSON / VCMS tools | T7 |
+
+### Weekly cadence (zasada)
+- Kazda sesja: 1 mikro-lekcja z obszaru powiazanego z aktualnym zadaniem.
+- Co tydzien: `/review-week` + aktualizacja poziomow w `study-index.md`.
+- Nie uczymy sie z wyprzedzeniem -- lekcja dopiero gdy zadanie wywoluje potrzebe.
 
 ---
 

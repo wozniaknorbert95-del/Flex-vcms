@@ -3,6 +3,23 @@ updated: "2026-04-09"
 root: "C:\\Users\\FlexGrafik\\FlexGrafik\\github"
 
 repos:
+  - name: "flex-vcms"
+    type: "vcms-orchestrator"
+    owner: "Norbert Wozniak"
+    risk_level: "LOW"
+    path: "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"
+    canonical_brain:
+      path: "brain.md"
+      note: "Operational contract for Dowódca + agents; VitePress mirror: docs/brain.md"
+    canonical_todo:
+      path: "flex-vcms-todo.json"
+      note: "Canonical ecosystem + VCMS phase backlog; root todo.json is pointer-only (legacy)."
+    deploy_notes:
+      manual_only: true
+      checklist: "docs/checklists/prep-deploy.md"
+      post_deploy:
+        - "npm run docs:build (optional); KODA server uses docs/.vitepress/dist when present."
+
   - name: "zzpackage.flexgrafik.nl"
     type: "wp-shop"
     owner: "Norbert Wozniak"

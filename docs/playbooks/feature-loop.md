@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Feature Loop — Pelny Cykl Zycia Feature"
 ---
@@ -35,7 +35,7 @@ Wpisz AG:
 
 AG przeczyta:
 - `PRD-core.md` — projekt i stack
-- `todo.json` — aktualne zadania
+- `flex-vcms-todo.json` (VCMS) lub canonical `todo.json` / `audit-todo.json` modułu — aktualne zadania
 - `global-rules.md` — zasady systemu
 
 AG odpowie w 2 zdaniach: co rozumie jako cel sesji.
@@ -222,9 +222,9 @@ git commit -m "feat: [opis zmiany]"
 git push origin [branch-name]
 ```
 
-### Krok 6.3 — Zaktualizuj todo.json
+### Krok 6.3 — Zaktualizuj backlog
 
-Zamknij ukonczone taski. Dodaj nowe jesli sie pojawily.
+W repo **flex-vcms**: `flex-vcms-todo.json`. W **module** docelowym: canonical `todo.json` lub `docs/audit-todo.json`. Zamknij ukonczone taski; dodaj nowe jesli sie pojawily.
 
 ---
 

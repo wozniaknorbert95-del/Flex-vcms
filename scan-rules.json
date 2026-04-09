@@ -8,7 +8,8 @@
       "MASTER-BRAIN.md",
       "brain.md",
       "BRAIN.md",
-      "todo.json"
+      "todo.json",
+      "flex-vcms-todo.json"
     ],
     "paths": [
       "docs/audit-todo.json",

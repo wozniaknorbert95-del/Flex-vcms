@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Antigravity — Profil i Instrukcja Obsługi"
 ---
@@ -45,7 +45,7 @@ Bez jednego z tych kroków — sesja jest niekompletna.
 
 | Tryb | Komenda | Co robi | Kiedy |
 |------|---------|---------|-------|
-| **Planning** | `/vibe-init` | Czyta PRD, todo.json, proponuje cel sesji | Start KAŻDEJ sesji |
+| **Planning** | `/vibe-init` | Czyta kontekst (`flex-vcms-todo.json`, brain, handoff), proponuje cel sesji | Start KAŻDEJ sesji |
 | **BLAST** | `/blast` | Analizuje feature, plan B-L-A-S-T, czeka na OK | Przed każdym featurem |
 | **Execution** | *(po zatwierdzeniu)* | Pisze kod, zasada 1-1-1 | Po zatwierdzeniu /blast |
 | **Audit** | `/audit-red-team` | Red team — security, reliability, data | Przed każdym deploy |
@@ -127,7 +127,7 @@ Standardowy pakiet startowy:
 | Plik | Zawartość | Priorytet |
 |------|-----------|-----------|
 | `PRD-core.md` | Projekt, stack, feature list | 🔴 Krytyczny |
-| `todo.json` | Aktualne zadania i statusy | 🔴 Krytyczny |
+| `flex-vcms-todo.json` / todo modułu | Aktualne zadania i statusy | 🔴 Krytyczny |
 | `global-rules.md` | Zasady biznesowe i tech | 🔴 Krytyczny |
 | Ostatni handoff | Co było zrobione, następny krok | 🟡 Ważny |
 | `PRD-schema.md` | Schemat DB (jeśli relevantne) | 🟠 Opcjonalny |

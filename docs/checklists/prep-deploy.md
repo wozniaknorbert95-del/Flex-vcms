@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Prep-Deploy Checklist — Przed Kazdym Deployem"
 ---
@@ -55,7 +55,7 @@ Najpierw wyjasniej, potem deploy.
 
 ## SEKCJA 5 — Handoff i Git
 
-- [ ] **todo.json jest aktualny** — taski z tej sesji sa zaktualizowane
+- [ ] **Backlog jest aktualny** — w VCMS: `flex-vcms-todo.json`; w module: canonical todo — taski z tej sesji odzwierciedlone
 - [ ] **Commit message gotowy** — mam przygotowany commit z prefiksem `feat:` lub `fix:`
 - [ ] **Branch name poprawny** — nie deployjuje z branchu `main` bez PR
 - [ ] **Handoff zrobiony lub zaplanowany** — `/handoff` po udanym deploy

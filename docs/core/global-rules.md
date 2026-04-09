@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Global Rules — Nienaruszalne Zasady Systemu V4.0"
 ---
@@ -260,5 +260,5 @@ AG **NIE może**:
 | Feature design | `/blast` | Sprawdza zgodność architektury z sek. 1–4 |
 | Przed deploy | `/audit-red-team` | Global-rules jako checklista audytu |
 | Deploy | `/deploy-cf` | Weryfikuje że Zasada 11 jest zachowana |
-| Koniec sesji | `/handoff` | Zapisuje raport, aktualizuje todo.json |
+| Koniec sesji | `/handoff` | Zapisuje raport, aktualizuje backlog (`flex-vcms-todo.json` w VCMS / todo modułu) |
 | Iteracja | Nowa sesja | Jeśli nowe twarde reguły → sugeruje update tego pliku Dowódcy |

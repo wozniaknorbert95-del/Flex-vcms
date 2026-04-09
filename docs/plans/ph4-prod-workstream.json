@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "workstream_id": "PH4-PROD",
+    "title": "Orchestrator rhythm + VPS Command Center (telefon jako klient prod)",
+    "owner": "Norbert Wozniak",
+    "updated": "2026-04-09",
+    "last_sync": "2026-04-09 — PH4-012 DONE; NEXT=1 PH4-011",
+    "phase": 4,
+    "canonical_source": "flex-vcms-todo.json",
+    "next": {
+      "rank": 1,
+      "task_id": "PH4-011",
+      "before_you_start": "Deploy-VPS.ps1 + vcms-prod-smoke PASS.",
+      "before_merge_registry_changes": "npm run verify:scan"
+    },
+    "note": "Eksport roboczy: edycja backlogu zawsze w flex-vcms-todo.json; ten plik mozna nadpisywac po re-eksporcie."
+  },
+  "tasks": [
+    {
+      "id": "PH4-007",
+      "area": "ORCH",
+      "status": "DONE",
+      "priority": "P0",
+      "done_at": "2026-04-09",
+      "title": "Utwardzic SSoT rytmu orchestratora: skan + Conflicts: 0 + commit artefaktow (workflow-manual + PORADNIK + AGENTS)",
+      "acceptance": [
+        "docs/core/workflow-manual.md zawiera sekcje 'Rytm orchestratora' z: start sesji (node tools/vcms-scan.js), gate Conflicts: 0, zasada commitu zmian repos.yaml/scan-rules/skaner razem z data/vcms-index.json i docs/ecosystem/*",
+        "docs/PORADNIK_UZYTKOWNIKA.md w Kroku 0 ma krotki akapit + link do workflow-manual (bez duplikacji calej tabeli)",
+        "AGENTS.md zawiera jednozdaniowy pointer do tej sekcji",
+        "npm run docs:build przechodzi po zmianach"
+      ],
+      "definition_of_done": "Recenzent moze w 60 s znalezc jedno miejsce (workflow-manual) i potwierdzic zgodnosc z faktycznym workflow; brak sprzecznych instrukcji w dwoch dlugich dokumentach.",
+      "note": "Sztab: Tech Writer + Staff Eng — jeden SSoT, Poradnik jako wejscie ludzkie."
+    },
+    {
+      "id": "PH4-008",
+      "area": "OPS",
+      "status": "DONE",
+      "priority": "P0",
+      "done_at": "2026-04-09",
+      "repo": "flex-vcms",
+      "title": "Runbook VPS: docs/reference/vcms-vps-runbook.md (Command Center obok Jadzi, bez mieszania z prep-deploy modulow Woo)",
+      "acceptance": [
+        "Opisane: role portow (np. Jadzia 8000 vs VCMS Express 8001), PM2 (ecosystem.config.js), katalog docelowy na VPS zgodny z cwd w ecosystem.config.js",
+        "Opisane zmienne srodowiskowe po nazwach (VCMS_DIR, AGENT_CONTEXT_PATH, PORT, ALLOWED_ORIGINS, NODE_ENV) — bez wartosci tajnych w repo",
+        "Link do docs/reference/VCMS-nginx.conf + kolejnosc: nginx/ssl/basic auth → deploy aplikacji → reload",
+        "Sekcja 'Telefon': wejscie tylko przez HTTPS + auth na docelowej domenie; brak wymogu lokalnego skanu na mobile",
+        "Cross-link do docs/core/security-policy.md"
+      ],
+      "definition_of_done": "Nowy czlon zespolu (lub Ty za 6 miesiecy) wdraza VPS z samego runbooka bez pytan o 'co na jakim porcie' i bez szukania w czacie.",
+      "note": "Sztab: SRE + Security — runbook jako operacyjny kontrakt."
+    },
+    {
+      "id": "PH4-009",
+      "area": "DEVOPS",
+      "status": "DONE",
+      "priority": "P0",
+      "done_at": "2026-04-09",
+      "repo": "flex-vcms",
+      "title": "Skrypt deploy z Windows: scripts/Deploy-VPS.ps1 (build dist → transfer → remote npm ci/install → pm2 reload vcms-core)",
+      "acceptance": [
+        "Skrypt istnieje w repo i jest wymieniony w vcms-vps-runbook.md",
+        "Lokalnie: npm run docs:build przed paczka; na serwerze: zaleznosci produkcyjne (express, cors, dotenv, helmet, rate-limit — wg package.json) i restart procesu zgodny z ecosystem.config.js",
+        "Brak hardcoded sekretow; parametry sciezki hosta/key przez argumenty lub zmienne srodowiskowe dokumentowane w runbooku",
+        "Dry-run lub -WhatIf opisane w komentarzu/skrypcie tam gdzie ma sens (min. lista krokow przed pierwszym strzalem)"
+      ],
+      "definition_of_done": "Jedna komenda z laptopa odtwarza znany stan prod po zmianach w docs/server; dowod: log PM2 + HTTP 200 na /health po deployu.",
+      "note": "Sztab: DevOps + Node — scripts/Deploy-VPS.ps1 + runbook."
+    },
+    {
+      "id": "PH4-010",
+      "area": "QA",
+      "status": "DONE",
+      "priority": "P1",
+      "done_at": "2026-04-09",
+      "repo": "flex-vcms",
+      "title": "Smoke + rollback: checklista po deployu Command Center (powiazana z runbookiem)",
+      "acceptance": [
+        "Checklista w vcms-vps-runbook.md lub osobny docs/checklists/vcms-prod-smoke.md linkowany z runbooka",
+        "Minimalny zestaw: GET /health → 200; strona glowna SSG laduje sie za nginx; jedna sciezka API KODY (np. /api/knowledge lub /api/chat) zwraca przewidywalny blad lub sukces (documented), rate limit nie blokuje smoke",
+        "Rollback: opisany krok przywrocenia poprzedniego dist/ lub release dir + pm2 restart; czas do STOP w deployu"
+      ],
+      "definition_of_done": "Po deployu wykonujesz liste w <5 min i masz binarna odpowiedz 'prod OK' / 'wrocilem do poprzedniego release'.",
+      "note": "Sztab: QA + SRE — health juz jest w server.js (/health)."
+    },
+    {
+      "id": "PH4-011",
+      "area": "UX",
+      "status": "TODO",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "title": "Weryfikacja mobile (telefon) na URL produkcyjnym — czytelnosc docs + flow KODY",
+      "acceptance": [
+        "Test na prawdziwym urzadzeniu (iOS lub Android): logowanie basic auth, nawigacja VitePress, formularz/wymiana KODY bez horizontal-only UI",
+        "Wynik zapisany: krotka notatka w docs/handoffs/ lub wpis w study-index (data + urzadzenie + PASS/FAIL + 1 NEXT jesli FAIL)",
+        "Jesli FAIL: utworzone zadanie follow-up z konkretnym ekranem/komponentem"
+      ],
+      "definition_of_done": "Wiesz obiektywnie czy telefon jest rownoprawnym klientem prod, nie 'powinno dzialac'.",
+      "note": "Sztab: UX + Dowodca — PWA swiadomie odpiete; online-only jest OK jesli zaakceptowane.",
+      "blocked_until": "Prod URL + smoke PASS; patrz flex-vcms-todo.json meta.next."
+    },
+    {
+      "id": "PH4-012",
+      "area": "GOV",
+      "status": "DONE",
+      "priority": "P2",
+      "done_at": "2026-04-09",
+      "title": "Opcjonalnie: bramka CI/pre-commit — artefakty skanu zsynchronizowane z repos.yaml",
+      "acceptance": [
+        "Jeden skrypt lub job (np. npm run verify:scan) uruchamia vcms-scan.js i failuje jesli git diff pokazuje niezcommitowane zmiany w data/vcms-index.json lub docs/ecosystem po edycji repos.yaml/scan-rules",
+        "Dokumentacja w runbooku lub CONTRIBUTING: kiedy wlaczyc u Ciebie lokalnie vs w CI",
+        "Nie blokuje pracy offline bez sensu — tylko jasny trigger (zmiana registry)"
+      ],
+      "definition_of_done": "Zapomniany commit artefaktow wyłapuje sie przed merge, nie na telefonie w niedziele.",
+      "note": "Sztab: Platform Eng — npm run verify:scan + docs workflow-manual / vcms-vps-runbook."
+    }
+  ]
+}

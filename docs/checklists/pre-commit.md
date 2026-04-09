@@ -1,4 +1,4 @@
-﻿---
+---
 status: "[STABLE]"
 title: "Pre-Commit Checklist — Przed Kazdym Commitem"
 ---
@@ -69,7 +69,7 @@ WIP
 ## SEKCJA 5 — Dokumentacja i Kontekst
 
 - [ ] **Handoff bedzie** — plan zrobienia `/handoff` po tej sesji (jesli to ostatni commit sesji)
-- [ ] **todo.json zaktualizowany** — taski sa aktualne
+- [ ] **Backlog zaktualizowany** — `flex-vcms-todo.json` (VCMS) / todo modułu — taski sa aktualne
 - [ ] **Jesli schema change** — `PRD-schema.md` jest juz zaktualizowany PRZED tym commitem
 
 ---
