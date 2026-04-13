@@ -705,8 +705,8 @@ function writeMapMd(index) {
 
   lines.push("## Where is the truth (canonical pointers)");
   lines.push("");
-  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs |");
-  lines.push("|------|----------|------------------|----------------|------------|----------|");
+  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs | Vibe-Ready |");
+  lines.push("|------|----------|------------------|----------------|------------|----------|------------|");
 
   for (const repo of index.repos) {
     const slug = slugByName.get(repo.name) || slugifyRepoName(repo.name);
@@ -716,7 +716,12 @@ function writeMapMd(index) {
     const handoffs = repo.files.some((f) => f.type === "HANDOFF") || handoffsDirExists ? "yes" : "no";
     const brain = repo.canonical.brain ? `\`${repo.canonical.brain}\`` : "—";
     const todo = repo.canonical.todo ? `\`${repo.canonical.todo}\`` : "—";
-    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} |`);
+    
+    // Vibe-Ready check
+    const isReady = repo.exists && guard === "yes" && handoffs === "yes" && brain !== "—" && todo !== "—";
+    const vibeReady = isReady ? "✅ READY" : "❌ NOT_READY";
+
+    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} | ${vibeReady} |`);
   }
 
   lines.push("");

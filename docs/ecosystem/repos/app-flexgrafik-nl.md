@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
-updated: "2026-04-09T17:15:38.420Z"
+updated: "2026-04-13T17:08:06.795Z"
 repo_name: "app.flexgrafik.nl"
 repo_slug: "app-flexgrafik-nl"
 repo_type: "game"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-08-sprint-b-telemetry.md"
-last_handoff_mtime: "2026-04-08T09:55:01.729Z"
+last_handoff_rel: "docs/handoffs/2026-04-13-ux-remediation-waves-1-3-implemented.md"
+last_handoff_mtime: "2026-04-13T17:08:06.795Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/app-flexgrafik-game.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-04-08-sprint-b-telemetry.md (2026-04-08T09:55:01.729Z)", "docs/handoffs/2026-04-08-economy-hud.md (2026-04-08T07:16:06.261Z)", "docs/handoffs/2026-04-08-bug03-physics.md (2026-04-08T06:05:39.676Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-04-13-ux-remediation-waves-1-3-implemented.md (2026-04-13T17:08:06.795Z)", "docs/handoffs/2026-04-13-ux-remediation-wave0-automated-smoke.md (2026-04-13T17:05:05.608Z)", "docs/handoffs/2026-04-13-deploy-cli-evening-2d7d475.md (2026-04-13T16:56:00.709Z)"]
 ---
 
 ## app.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-04-08-sprint-b-telemetry.md (2026-04
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-08-sprint-b-telemetry.md` (2026-04-08T09:55:01.729Z)
+- **Last handoff**: `docs/handoffs/2026-04-13-ux-remediation-waves-1-3-implemented.md` (2026-04-13T17:08:06.795Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/2026-04-08-sprint-b-telemetry.md (2026-04
 - **Cursor rules**:
   - `.cursor/rules/app-flexgrafik-game.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-08-sprint-b-telemetry.md (2026-04-08T09:55:01.729Z)`
-  - `docs/handoffs/2026-04-08-economy-hud.md (2026-04-08T07:16:06.261Z)`
-  - `docs/handoffs/2026-04-08-bug03-physics.md (2026-04-08T06:05:39.676Z)`
+  - `docs/handoffs/2026-04-13-ux-remediation-waves-1-3-implemented.md (2026-04-13T17:08:06.795Z)`
+  - `docs/handoffs/2026-04-13-ux-remediation-wave0-automated-smoke.md (2026-04-13T17:05:05.608Z)`
+  - `docs/handoffs/2026-04-13-deploy-cli-evening-2d7d475.md (2026-04-13T16:56:00.709Z)`
 
 ## Back
 

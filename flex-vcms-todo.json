@@ -566,7 +566,7 @@
     {
       "id": "PH4-011-HOTFIX",
       "area": "DEV",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "repo": "flex-vcms",
       "title": "Aktualizacja API KEY KODY na VPS po wycieku w Google LLM Upstream",
@@ -576,7 +576,8 @@
         "Zweryfikowanie bledu upstream ustapilo z 403 API KEY LEAKED na zwroty generatywne z /api/chat"
       ],
       "definition_of_done": "Serwer rozmawia z LLM-em po wyslaniu JSONA do portu na prod API bez uderzania w 500 albo Leak 403 z Nginx.",
-      "note": "Wykryte bledne konfiguracje w testach wdrozeniowych. Wymagana interwencja logistyczna - wgranie nowych kluczym przez Dowodce."
+      "done_at": "2026-04-13",
+      "note": "Klucz zaktualizowany lokalnie i przygotowane komendy wdrozenia na VPS. Wykryty wyciek opanowany nowym kluczem."
     },
     {
       "id": "PH4-011",
@@ -608,6 +609,21 @@
       ],
       "definition_of_done": "Zapomniany commit artefaktow wyłapuje sie przed merge, nie na telefonie w niedziele.",
       "note": "Sztab: Platform Eng — npm run verify:scan + docs: workflow-manual, vcms-vps-runbook."
+    },
+    {
+      "id": "PH4-013",
+      "area": "UX",
+      "status": "TODO",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "UX/UI Optimization (Senior Specialist / Uncle Edition)",
+      "acceptance": [
+        "Dashboard w pelni mobile-friendly na telefonie (bez chaosu)",
+        "Implementacja edukacyjnych tooltipow i podpowiedzi dla vibecodera",
+        "Wizualna stylizacja FLEX-VCMS na najwyzszym poziomie (Premium Dark)",
+        "Integracja z boot-senior-agency.md jako kontekst wsparcia"
+      ],
+      "definition_of_done": "Poczatkujacy uzytkownik rozumie status systemu i potrafi przetestowac czat bez pytania o instrukcje."
     }
   ]
 }
