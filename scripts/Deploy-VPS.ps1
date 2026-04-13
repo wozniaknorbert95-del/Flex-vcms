@@ -44,10 +44,19 @@ Set-Location $RepoRoot
 
 $distLocal = Join-Path $RepoRoot "docs\.vitepress\dist"
 $requiredRootFiles = @("server.js", "package.json", "package-lock.json", "ecosystem.config.js")
+$requiredDirectories = @("public", "src", "deploy-context")
 
 function Write-Plan {
     param([string]$Line)
     Write-Host "[Plan] $Line" -ForegroundColor Cyan
+}
+
+# 0. Sync Context (Senior Edition)
+Write-Plan "node tools/vcms-sync-context.js"
+if ($WhatIf) {
+    Write-Host "  (skipped sync - WhatIf)"
+} else {
+    node tools/vcms-sync-context.js
 }
 
 if (-not $SkipBuild) {
@@ -90,12 +99,34 @@ foreach ($f in $requiredRootFiles) {
     }
 }
 
+foreach ($d in $requiredDirectories) {
+    if ($d -eq "deploy-context") { continue } # Obsłużymy to osobno na końcu dla atomowości
+    $local = Join-Path $RepoRoot $d
+    $dest = "$($RemotePath.TrimEnd("/"))/"
+    Write-Plan "scp -r `"$local`" ${SshTarget}:$dest"
+    if (-not $WhatIf) {
+        scp -r $local "${SshTarget}:$dest"
+    }
+}
+
+# --- Atomic Context Swap ---
+$localCtx = Join-Path $RepoRoot "deploy-context"
+$remoteCtxTmp = ($RemotePath.TrimEnd("/") + "/deploy-context_tmp")
+$remoteCtxFinal = ($RemotePath.TrimEnd("/") + "/deploy-context")
+
+Write-Plan "Atomic Swap: scp `deploy-context` -> $remoteCtxTmp"
+if (-not $WhatIf) {
+    # Clean tmp on remote first
+    ssh $SshTarget "rm -rf `"$remoteCtxTmp`""
+    scp -r $localCtx "${SshTarget}:$remoteCtxTmp"
+}
+
 Write-Plan "scp -r dist -> ${SshTarget}:$remoteDist/"
 if (-not $WhatIf) {
     scp -r "$distLocal\*" "${SshTarget}:$remoteDist/"
 }
 
-$remoteShell = "cd `"$RemotePath`" && npm ci --omit=dev && pm2 reload ecosystem.config.js --update-env"
+$remoteShell = "cd `"$RemotePath`" && rm -rf `"$remoteCtxFinal`" && mv `"$remoteCtxTmp`" `"$remoteCtxFinal`" && npm ci --omit=dev && pm2 reload ecosystem.config.js --update-env"
 Write-Plan "ssh $SshTarget `"$remoteShell`""
 if (-not $WhatIf) {
     ssh $SshTarget $remoteShell

@@ -1,0 +1,36 @@
+{
+  "generated_at": 1776108346283,
+  "origin": "DESKTOP-ECTP1JE",
+  "modules": [
+    {
+      "name": "flex-vcms",
+      "brain": "brain.md",
+      "todo": "todo.json"
+    },
+    {
+      "name": "zzpackage.flexgrafik.nl",
+      "brain": "MASTER-BRAIN.md",
+      "todo": "audit-todo.json"
+    },
+    {
+      "name": "jadzia-core",
+      "brain": "brain.md",
+      "todo": "todo.json"
+    },
+    {
+      "name": "app.flexgrafik.nl",
+      "brain": "brain.md",
+      "todo": "todo.json"
+    },
+    {
+      "name": "flexgrafik-nl",
+      "brain": "brain.md",
+      "todo": "todo.json"
+    },
+    {
+      "name": "flexgrafik-meta",
+      "brain": "master-plan.md",
+      "todo": "todo.json"
+    }
+  ]
+}

@@ -32,14 +32,23 @@ app.get('/health', (req, res) => {
 app.use('/deploy-context', (req, res) => res.status(403).send('Forbidden'));
 
 // --- 4. Static Assets (Dashboard & UI) ---
-app.use(express.static('public')); // Dashboard at /
+app.use(express.static(path.join(__dirname, 'public'))); // Dashboard at /
 
 const distPath = path.join(__dirname, 'docs/.vitepress/dist');
 app.use('/docs', express.static(distPath, { extensions: ['html'] })); // Docs at /docs
+app.use('/assets', express.static(path.join(distPath, 'assets'))); // Assets for docs
 
 // PWA Fallback
 app.use((req, res, next) => {
     if (req.method !== 'GET') return next();
+    if (req.url.startsWith('/api') || req.url.startsWith('/chat')) return next();
+    
+    // Check if it's a request for the dashboard
+    if (req.url === '/' || req.url === '/index.html') {
+        return res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+
+    // Fallback to docs
     const indexPath = path.join(distPath, 'index.html');
     if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);

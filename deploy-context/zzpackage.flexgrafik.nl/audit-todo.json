@@ -1,0 +1,1369 @@
+{
+  "$schema": "https://flexgrafik.nl/schemas/audit-todo/v1.0.json",
+  "meta": {
+    "project": "FlexGrafik ZZPackage Wizard V4.0",
+    "audit_id": "WIZ-AUDIT-2026-04-08",
+    "created_at": "2026-04-08T21:47:00+02:00",
+    "updated_at": "2026-04-09T12:00:00+02:00",
+    "created_by": "Antigravity (Senior Architect)",
+    "source_doc": "docs/wizard-ux-audit.md",
+    "standard": "IBM Carbon Design System / Google Material 3 + CRO Best Practices",
+    "version": "1.0.0",
+    "scope": "7-stappen Wizard SPA — JS, CSS, UX, E-commerce, Conversie",
+    "aov_target": {
+      "min": 400,
+      "max": 700,
+      "currency": "EUR"
+    },
+    "min_checkout": 199,
+    "repository": "zzpackage.flexgrafik.nl",
+    "language_ui": "NL",
+    "language_code": "EN",
+    "language_internal": "PL"
+  },
+  "scores": {
+    "brand_consistency": {
+      "value": 5,
+      "max": 10,
+      "verdict": "Emoji's aanwezig, tooltip selector mismatch, inline styles"
+    },
+    "mobile_ux": {
+      "value": 5,
+      "max": 10,
+      "verdict": "Cart blokkeert navigatie, progress bar onleesbaar op 375px"
+    },
+    "conversion_cro": {
+      "value": 4,
+      "max": 10,
+      "verdict": "Geen AOV-upsell stap 1-4, geen stap-validatie"
+    },
+    "accessibility": {
+      "value": 3,
+      "max": 10,
+      "verdict": "Geen ARIA, geen keyboard navigatie"
+    },
+    "code_architecture": {
+      "value": 6,
+      "max": 10,
+      "verdict": "Duplicate _renderGenericCatalog, inline styles domineren"
+    },
+    "animation_micro_ux": {
+      "value": 5,
+      "max": 10,
+      "verdict": "Alleen slideUpFade, geen richtingsanimaties"
+    },
+    "ecommerce_flow": {
+      "value": 6,
+      "max": 10,
+      "verdict": "Checkout solide maar geen trust signals"
+    },
+    "estimated_aov_uplift_pct": 30
+  },
+  "agents": {
+    "UX_ARCHITECT": {
+      "id": "UX_ARCHITECT",
+      "name": "UX Architect",
+      "role": "Ontwerp, flow-definitie, HTML-mockups, CSS-specificaties. Schrijft geen logica.",
+      "color": "#009fe3"
+    },
+    "FRONTEND_ENGINEER": {
+      "id": "FRONTEND_ENGINEER",
+      "name": "Frontend Engineer",
+      "role": "Code-implementatie na UX specs. Werkt op feature branches. Produceert diffs.",
+      "color": "#e6007e"
+    },
+    "CRO_SPECIALIST": {
+      "id": "CRO_SPECIALIST",
+      "name": "E-commerce CRO Specialist",
+      "role": "Upsell logica, cart messaging, AOV-verhogingsstrategieën.",
+      "color": "#f2bd25"
+    },
+    "SSOT_ENGINEER": {
+      "id": "SSOT_ENGINEER",
+      "name": "SSoT / Data Engineer",
+      "role": "Product data kwaliteit, SSoT JSON fixes, magneten normalisatie.",
+      "color": "#ffffff"
+    },
+    "QA_RED_TEAM": {
+      "id": "QA_RED_TEAM",
+      "name": "QA / Red Team",
+      "role": "Regressietesting na iedere sprint. Voert /audit-red-team uit.",
+      "color": "#ef4444"
+    }
+  },
+  "sprints": [
+    {
+      "id": "SPRINT-1",
+      "name": "Kritieke Fixes",
+      "goal": "Blokkerende bugs en code-architectuur-problemen oplossen vóór enige CRO-work",
+      "priority": "P0",
+      "estimated_days": 2,
+      "branch_prefix": "fix/",
+      "items": [
+        "P0-01",
+        "P0-02",
+        "P0-03",
+        "P0-04"
+      ]
+    },
+    {
+      "id": "SPRINT-2",
+      "name": "Conversie & Mobile UX",
+      "goal": "Directe AOV-lift door sticky cart, intro hero, tab mobile fix en emoji cleanup",
+      "priority": "P1",
+      "estimated_days": 5,
+      "branch_prefix": "feat/",
+      "items": [
+        "P1-01",
+        "P1-02",
+        "P1-03",
+        "P1-04",
+        "P1-05",
+        "P1-06"
+      ]
+    },
+    {
+      "id": "SPRINT-3",
+      "name": "Kwaliteit & Brand Perfectie",
+      "goal": "Micro-animaties, kleurconsistentie, summary UX en product copy",
+      "priority": "P2",
+      "estimated_days": 5,
+      "branch_prefix": "feat/",
+      "items": [
+        "P2-01",
+        "P2-02",
+        "P2-03",
+        "P2-04",
+        "P2-05",
+        "P2-06",
+        "P2-07"
+      ]
+    },
+    {
+      "id": "SPRINT-4",
+      "name": "Accessibility & SEO",
+      "goal": "WCAG 2.1 AA compliance basis, keyboard navigatie, font swap",
+      "priority": "P3",
+      "estimated_days": 3,
+      "branch_prefix": "feat/",
+      "items": [
+        "P3-01",
+        "P3-02",
+        "P3-03",
+        "P3-04"
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "P0-01",
+      "sprint": "SPRINT-1",
+      "priority": "P0",
+      "status": "DONE_IN_CODE",
+      "title": "Tooltip Selector Mismatch — Tooltips volledig onzichtbaar",
+      "type": "bugfix",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "HIGH",
+      "effort": "XS",
+      "branch": "fix/tooltip-selector-mismatch",
+      "commit_prefix": "fix:",
+      "summary": "renderTooltip() genereert .fg-tooltip en .fg-tooltip-icon maar CSS definieert .fg-info-tooltip en .fg-info-tooltip-content. Alle producttips zijn volledig onzichtbaar voor gebruikers.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "644-651",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "913-1020",
+          "change_type": "VERIFY"
+        }
+      ],
+      "problem": "JS genereert: <div class=\"fg-tooltip\"> maar CSS verwacht: .fg-info-tooltip — mismatch = geen display",
+      "solution": {
+        "description": "Pas renderTooltip() aan zodat het de correcte CSS-klassenamen gebruikt",
+        "diff": {
+          "old": "<div class=\"fg-tooltip\">\n  <span class=\"fg-tooltip-icon\">?</span>\n  <div class=\"fg-tooltip-content\">${item.vraagteken_info}</div>\n</div>",
+          "new": "<div class=\"fg-info-tooltip\" tabindex=\"0\" role=\"tooltip\" aria-label=\"Productinformatie\">\n  <span class=\"fg-info-tooltip-icon\" aria-hidden=\"true\">?</span>\n  <div class=\"fg-info-tooltip-content\">${item.vraagteken_info}</div>\n</div>"
+        }
+      },
+      "acceptance_criteria": [
+        "Tooltip zichtbaar bij hover op desktop",
+        "Tooltip zichtbaar bij focus/tap op mobile",
+        "CSS klassen matchen de JS output exact",
+        "Geen console errors gerelateerd aan tooltip"
+      ],
+      "qa_test": "Open wizard stap 1 (Fundament), hover over product naam — tooltip content moet zichtbaar zijn",
+      "risk": "ZERO_REGRESSION — kleine string-change, geen logica",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "renderTooltip uses .fg-info-tooltip classes matching zzp-wizard.css"
+    },
+    {
+      "id": "P0-02",
+      "sprint": "SPRINT-1",
+      "priority": "P0",
+      "status": "DONE_IN_CODE",
+      "title": "Lege Stap Gate — Gebruiker passeert alle stappen zonder selectie",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "secondary_agent": "CRO_SPECIALIST",
+      "aov_impact": "HIGH",
+      "effort": "S",
+      "branch": "fix/step-soft-validation",
+      "commit_prefix": "feat:",
+      "summary": "nextStep() heeft geen validatie of selectie gemaakt is. Gebruiker kan op checkout landen met €0 waarde. Soft gate toont inline feedback zonder hard te blokkeren.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "385-393",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "problem": "nextStep() incrementeert currentState blind, zonder te controleren of selections[currentCategory] leeg is",
+      "solution": {
+        "description": "Voeg per-stap zachte validatie toe: toon een shake-animatie + inline toast die 3 seconden zichtbaar is. Blokkeer NIET — stappen overslaan moet mogelijk blijven (voertuig = 'none').",
+        "logic": {
+          "stap_1": "foundation leeg? → toast: 'Wil je het Startpakket overslaan? Je kunt altijd terug via de progressbalk.'",
+          "stap_2": "vehicleType null? → toast: 'Selecteer een voertuig of kies Geen voertuig om door te gaan.'",
+          "stap_3": "clothing leeg? → toast: 'Geen werkkleding nodig? Klik nogmaals op Volgende om verder te gaan.'",
+          "stap_4_tot_7": "leeg? → toast met stap-naam + zacht doorgaan na 2e klik"
+        },
+        "css_additions": ".wiz-toast-skip { animation: slideUpFade 0.4s ease, fadeOut 0.4s 2.6s forwards; }",
+        "ux_note": "Eerste klik op Volgende bij lege stap = toast tonen + button shake. Tweede klik = doorgaan."
+      },
+      "acceptance_criteria": [
+        "Eerste klik op lege stap toont inline toast",
+        "Toast verdwijnt na 3 seconden automatisch",
+        "Tweede klik op Volgende gaat altijd door",
+        "Stap 'Geen voertuig' heeft geen validatie",
+        "€0 checkout is alsnog geblokkeerd door bestaande guard"
+      ],
+      "qa_test": "Klik door alle 7 stappen zonder iets te selecteren — toast verschijnt op elke stap, checkout knop disabled bij €0",
+      "risk": "LOW — additief, geen bestaande logica verwijderd",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "nextStep soft gate: _isCurrentStepEmpty, _showSkipToast, double-click proceed"
+    },
+    {
+      "id": "P0-03",
+      "sprint": "SPRINT-1",
+      "priority": "P0",
+      "status": "DONE_IN_CODE",
+      "title": "Duplicate _renderGenericCatalog — Maintenance Tijdbom",
+      "type": "refactor",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "S",
+      "branch": "refactor/consolidate-render-catalog",
+      "commit_prefix": "refactor:",
+      "summary": "Identieke functie _renderGenericCatalog() bestaat in wizard-1-3.js (L513-539) en wizard-4-7.js (L142-166). Beide versies zijn al licht divergent. Wijzigingen vereisen dubbel werk en verhogen bugkans.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "513-539",
+          "change_type": "KEEP_AS_MASTER"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js",
+          "lines": "142-166",
+          "change_type": "MODIFY"
+        }
+      ],
+      "problem": "Twee functies met dezelfde naam in verschillende bestanden. wizard-4-7.js overschrijft impliciet de versie van wizard-1-3.js via Object.assign. Class-attribuut in wizard-4-7.js versie mist 'wizard-clothing-card'.",
+      "solution": {
+        "description": "wizard-1-3.js is de master. wizard-4-7.js delegeert naar de master versie via ZZPWizard._renderGenericCatalog(). Standaardiseer class strings.",
+        "action_in_wizard_4_7": "Verwijder de _renderGenericCatalog definitie uit Object.assign in wizard-4-7.js. Roep ZZPWizard._renderGenericCatalog(items, category) aan in renderStepPrint/Visibility/Tools/Premium."
+      },
+      "acceptance_criteria": [
+        "Slechts één definitie van _renderGenericCatalog aanwezig in codebase",
+        "Stappen 4-7 renderen correct met master-versie",
+        "wizard-card-active class consistent aanwezig op alle card types"
+      ],
+      "qa_test": "Doorloop Stap 4 (Print), 5 (Zichtbaarheid), 6 (Gereedschap), 7 (Premium) — alle cards correct gerenderd en stepper werkt",
+      "risk": "MEDIUM — Object.assign volgorde kritiek. Test grondig vóór merge.",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "_renderGenericCatalog only in wizard-1-3.js"
+    },
+    {
+      "id": "P0-04",
+      "sprint": "SPRINT-1",
+      "priority": "P0",
+      "status": "PARTIAL",
+      "title": "Inline Styles Domineren wizard-step-2-v4.js — CSS Architectuur Gefragmenteerd",
+      "type": "refactor",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "M",
+      "branch": "refactor/step2-extract-inline-to-css",
+      "commit_prefix": "refactor:",
+      "summary": "90% van Step 2 styling zit als inline style strings in JS-templates. Theming, dark/light mode, responsive overrides en brand updates zijn onmogelijk zonder JS te herschrijven.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "ALL",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "problem": "Inline style strings zoals style=\"margin-bottom:20px; padding:15px; border-left:3px solid var(--wizard-secondary)...\" herhalen zich 40+ keer. Enige wijziging aan layout vereist grep + replace over JS string literals.",
+      "solution": {
+        "description": "Extraheer recurring inline patterns naar semantische CSS component klassen in zzp-wizard.css",
+        "new_css_classes": [
+          {
+            "class": ".w2-hint-box",
+            "replaces": "border-left info panel (cyan)",
+            "applies_to": "DIY/Sets/Wraps intro tekst"
+          },
+          {
+            "class": ".w2-hint-box--magenta",
+            "replaces": "border-left info panel (magenta)",
+            "applies_to": "Sets intro panel"
+          },
+          {
+            "class": ".w2-hint-box--dark",
+            "replaces": "info panel dark background",
+            "applies_to": "Magneten intro"
+          },
+          {
+            "class": ".w2-card-image-container",
+            "replaces": "white box voor product afbeeldingen",
+            "applies_to": "Alle Step 2 cards"
+          },
+          {
+            "class": ".w2-card-image-container--dark",
+            "replaces": "dark achtergrond box",
+            "applies_to": "Wrap cards"
+          },
+          {
+            "class": ".w2-card-body",
+            "replaces": "flex:1 padding-top content area",
+            "applies_to": "Alle Step 2 cards"
+          },
+          {
+            "class": ".w2-card-title",
+            "replaces": "font-weight:900 font-size:1.1rem",
+            "applies_to": "Product titels Step 2"
+          },
+          {
+            "class": ".w2-card-subtitle",
+            "replaces": "font-size:0.8rem opacity tekst",
+            "applies_to": "Usage hints"
+          },
+          {
+            "class": ".w2-card-footer",
+            "replaces": "price + stepper row",
+            "applies_to": "Alle Step 2 cards"
+          },
+          {
+            "class": ".w2-price--primary",
+            "replaces": "price in magenta (DIY/Sets/Magnets)",
+            "applies_to": "Prijs labels"
+          },
+          {
+            "class": ".w2-price--secondary",
+            "replaces": "price in cyan (Wraps)",
+            "applies_to": "Wrap prijs labels"
+          },
+          {
+            "class": ".w2-process-block",
+            "replaces": "hybrid wrap proces uitlegblok",
+            "applies_to": "Wraps tab footer"
+          },
+          {
+            "class": ".w2-process-step",
+            "replaces": "numbered step row in prose",
+            "applies_to": "Wraps proces"
+          },
+          {
+            "class": ".w2-section-header",
+            "replaces": "SVG + title row boven secties",
+            "applies_to": "Magneten header"
+          },
+          {
+            "class": ".w2-dtp-addon",
+            "replaces": "existing .w2-dtp-addon (already in JS <style>)",
+            "applies_to": "Sets tab DTP toevoeging"
+          }
+        ],
+        "migration_note": "Na extractie worden de inline style attributes vervangen door de nieuwe class attributen. De <style> blok in renderStepVehicleUI() L193-205 wordt volledig verwijderd."
+      },
+      "acceptance_criteria": [
+        "Nul inline style attributen in wizard-step-2-v4.js na voltooiing",
+        "De <style> blok in renderStepVehicleUI() is verwijderd",
+        "Alle .w2-* klassen zijn gedocumenteerd in zzp-wizard.css met een sectie header",
+        "Visuele output is identiek aan voor de refactor (pixel-level check)"
+      ],
+      "qa_test": "Screenshot comparison voor/na op: 375px, 768px, 1280px. Alle tabs DIY/Sets/Wraps/Magneten visueel identiek.",
+      "risk": "MEDIUM — Grote refactor. Vereist visuele regressiecheck per tab.",
+      "note": "Tabs and many .w2-* classes moved to CSS; wizard-step-2-v4.js still has residual inline style= attributes — finish in dedicated pass"
+    },
+    {
+      "id": "P1-01",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DEPLOYED",
+      "deployed_at": "2026-04-08T22:58:00+02:00",
+      "commit": "8f5e4f1",
+      "branch": "feat/step2-content-nl-v2",
+      "server_timestamps": {
+        "wizard-1-3.js": "2026-04-08T22:41:00+02:00",
+        "zzp-wizard.css": "2026-04-08T22:42:00+02:00"
+      },
+      "title": "Sticky Cart V2 — Items, Progress naar €199, Contextual Upsell",
+      "type": "feature",
+      "agent": "CRO_SPECIALIST",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "VERY_HIGH",
+      "effort": "M",
+      "commit_prefix": "feat:",
+      "summary": "Huidige sticky cart toont alleen totaalprijs. Geen items, geen voortgang, geen upsell. Shopify/Figma-niveau: itemlijst + progress bar naar €199 minimum + contextual upsell per stap.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "676-870",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "802-1155",
+          "change_type": "MODIFY"
+        }
+      ],
+      "problem": "injectStickyCart() genereert: <div class=\"cart-label\">Uw Selectie</div> + <div class=\"cart-price\">€0</div>. Geen context, geen persuasion, geen voortgangsindicator.",
+      "solution": {
+        "description": "Herbouw sticky cart als volledig informatiewidget",
+        "new_html_structure": {
+          "desktop": "fixed bottom-right pill: [CART ICON] [N items geselecteerd] [€VALUE] [progress bar naar €199]",
+          "mobile": "full-width bottom bar: [€VALUE] [N items] [PROGRESS naar €199 of CHECKOUT knop als boven €199]",
+          "expanded_state": "klik op cart = expandable panel met item-namen (max 5 items preview)"
+        },
+        "progress_bar_logic": "% = Math.min(100, (cartValue / 199) * 100). Kleur: rood → geel → cyaan bij 100%. Tekst: 'Nog €X tot minimum' of 'Klaar om af te rekenen!'",
+        "contextual_upsell_per_step": {
+          "stap_1": "null",
+          "stap_2": "cartValue < 199 ? 'Tip: Voeg magneetplaten toe voor flexibele reclame (+€X)' : null",
+          "stap_3": "cartValue < 300 ? 'Tip: Voeg werkkleding toe en stijg naar premium niveau' : null",
+          "stap_4": "cartValue < 250 ? 'Tip: 250 visitekaartjes voor een complete indruk' : null",
+          "stap_5_tot_7": "cartValue < 400 ? 'Je nadert AOV-doel. Bekijk premium extras.' : null"
+        },
+        "update_function": "updateCartWidget() uitbreiden: itemCount berekenen, percentage berekenen, contextual upsell string bepalen op basis van currentState"
+      },
+      "acceptance_criteria": [
+        "Cart toont itemcount (bijv. '3 producten')",
+        "Progress bar naar €199 zichtbaar als cartValue < 199",
+        "Progress bar groen + 'Klaar!' als cartValue >= 199",
+        "Contextual upsell hint zichtbaar per stap (max 1 zin)",
+        "Mobile: full-width bottom bar met progress",
+        "Desktop: pill rechtsonder, expandable",
+        "Geen layout overlap met navigatie-buttons op mobile (padding-bottom correct)"
+      ],
+      "qa_test": "1) Start wizard zonder items — cart hidden. 2) Voeg €150 toe — cart toont progress + upsell. 3) Voeg €50 toe — cart groen. 4) Mobile 375px — bar niet over buttons.",
+      "risk": "MEDIUM — updateCartWidget wordt frequent aangeroepen. Performance check bij rapid stepper clicks."
+    },
+    {
+      "id": "P1-02",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DONE_IN_CODE",
+      "commit": "5085c8a",
+      "title": "Progress Bar V2 — Stap Labels, Checkmarks, Mobile Compact Mode",
+      "type": "feature",
+      "agent": "UX_ARCHITECT",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "S",
+      "branch": "feat/progress-bar-v2",
+      "commit_prefix": "feat:",
+      "summary": "Progress bar toont enkel nummers (1-9) op 28px dots. Op mobile (<600px) zijn 9 dots onleesbaar. Geen checkmarks op voltooide stappen. Geen stap-namen.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "609-618",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "162-220",
+          "change_type": "MODIFY"
+        }
+      ],
+      "problem": "updateProgressBar() klassenlogica is basic. CSS .wizard-progress-step.completed heeft geen checkmark SVG. Geen responsieve label-weergave.",
+      "solution": {
+        "desktop_behaviour": "Alle 9 dots zichtbaar. Completed = cyaan + ✓ checkmark. Active = magenta + scale(1.2) + stap-naam label eronder. Future = dimmed",
+        "mobile_behaviour": "Compact mode bij <600px: toon alleen '● Stap X van 7 — [Stap Naam]' als tekst balk ipv dots. Dots worden verborgen.",
+        "completed_state_css": "background: rgba(0,159,227,0.2); border-color: var(--wizard-secondary); content: url('checkmark-svg') of CSS ✓ pseudo-element",
+        "step_labels": "Labels staan in steps array (wizard-1-3.js L31-39) — gebruik steps[idx].name"
+      },
+      "acceptance_criteria": [
+        "Desktop: voltooide stappen tonen ✓ in cyaan",
+        "Desktop: actieve stap toont number in magenta + stap naam eronder",
+        "Mobile 375px: compact text 'Stap 3 van 7 — Werkkleding' zichtbaar",
+        "Mobile: dots verborgen bij <600px",
+        "Geen layout overflow op kleine schermen"
+      ],
+      "qa_test": "Desktop: loop door alle stappen, check checkmarks. Mobile 375px: check compact tekst op elke stap.",
+      "risk": "LOW — additieve CSS + kleine JS aanpassing"
+    },
+    {
+      "id": "P1-03",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DONE_IN_CODE",
+      "title": "Stap 0 Conversion Hero — Trust Signals, Social Proof, Benefit Bullets",
+      "type": "feature",
+      "agent": "CRO_SPECIALIST",
+      "secondary_agent": "UX_ARCHITECT",
+      "aov_impact": "HIGH",
+      "effort": "S",
+      "branch": "feat/intro-conversion-hero",
+      "commit_prefix": "feat:",
+      "summary": "renderStepIntro() toont alleen het startpakket card. Geen social proof, geen trust signals, geen benefit bullets. Conversie op eerste stap is kritiek — dit is het instapmoment.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "472-495",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "problem": "Intro step is kaal. De gebruiker heeft nog geen emotionele verbondenheid met het product. Hoge bounce op step 0.",
+      "solution": {
+        "new_sections_order": [
+          {
+            "section": "trust-bar",
+            "content": "★★★★★ 4.9 — Meer dan 500 Nederlandse ZZP'ers gingen je voor",
+            "style": "Horizontale balk, sterren in cyaan, tekst in gedimde wit, subtiel border-bottom"
+          },
+          {
+            "section": "benefit-bullets",
+            "content": [
+              {
+                "svg_icon": "clock",
+                "text": "In 5 minuten compleet geconfigureerd"
+              },
+              {
+                "svg_icon": "shield",
+                "text": "100% BTW-vriendelijk — alles inclusief"
+              },
+              {
+                "svg_icon": "truck",
+                "text": "Levering in 7 werkdagen via PostNL"
+              }
+            ],
+            "style": "3-koloms grid desktop, 1 kolom mobile, SVG iconen in cyaan"
+          },
+          {
+            "section": "startpakket-card",
+            "content": "Bestaande card (ongewijzigd)",
+            "note": "Emoji ✅ vervangen door SVG check iconen"
+          }
+        ],
+        "emoji_removal": "Vervang ✅ in sp-list items door inline SVG check icons in var(--wizard-secondary) kleur"
+      },
+      "acceptance_criteria": [
+        "Trust bar zichtbaar boven startpakket card",
+        "3 benefit bullets met SVG iconen (geen emoji)",
+        "Alle emoji ✅ vervangen door SVG",
+        "Mobile: trust bar wraps netjes op 375px",
+        "Brand: alle kleuren correct (cyaan iconen, wittertekst, geen off-brand)"
+      ],
+      "qa_test": "Open wizard stap 0 — trust bar + bullets zichtbaar. Inspecteren op emoji-vrij zijn. Mobile 375px layout check.",
+      "risk": "LOW — additieve content, geen logica-wijzigingen"
+    },
+    {
+      "id": "P1-04",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DONE_IN_CODE",
+      "completed_at": "2026-04-09T07:42:00+02:00",
+      "commit": "implemented_in_sprint1_p004",
+      "note": "Volledig geïmplementeerd als onderdeel van P0-04 (Sprint-1 CSS refactor). <style> blok verwijderd uit wizard-step-2-v4.js. Alle .w2-tabs-container, .w2-tab-btn, .w2-tab-btn.active, .w2-segmented klassen aanwezig in zzp-wizard.css L1543-1627. @media(max-width:480px) breakpoint aanwezig. Geen aparte branch nodig.",
+      "title": "Stap 2 Tabs Mobile Fix — Inline Styles naar CSS, Pill Highlight",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "secondary_agent": "UX_ARCHITECT",
+      "aov_impact": "HIGH",
+      "effort": "S",
+      "branch": "feat/step2-tabs-mobile-fix",
+      "commit_prefix": "feat:",
+      "summary": "De drie tabs DIY/Sets/Wraps zijn als geïnjecteerde <style> blok in JS. Op <375px wrappen ze naar 2 regels. Tab active indicator = bottom border (te smal voor premium gevoel).",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "193-205",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "problem": "L193-205 injecteert een volledig <style> blok in de HTML output van renderStepVehicleUI(). .w2-tab-btn en .w2-segmented stijlen bestaan niet in de CSS file.",
+      "solution": {
+        "remove_from_js": "De volledige <style>...</style> string verwijderen uit renderStepVehicleUI()",
+        "add_to_css": {
+          "w2-tabs-container": "display:flex; gap:8px; margin-bottom:20px; border-bottom:1px solid rgba(255,255,255,0.1); overflow-x:auto; scrollbar-width:none;",
+          "w2-tab-btn": "flex:1; min-width:100px; background:none; border:none; color:rgba(255,255,255,0.4); font-weight:700; padding:12px 16px; cursor:pointer; font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; transition:all 0.3s ease; border-radius:8px 8px 0 0; white-space:nowrap;",
+          "w2-tab-btn-hover": "color:rgba(255,255,255,0.8); background:rgba(255,255,255,0.04);",
+          "w2-tab-btn-active": "color:var(--wizard-secondary); background:rgba(0,159,227,0.08); border-bottom:2px solid var(--wizard-secondary);",
+          "w2-segmented": "display:flex; background:rgba(0,0,0,0.4); border-radius:8px; padding:3px; margin:12px 0; border:1px solid rgba(255,255,255,0.1);",
+          "w2-segmented-label": "flex:1; text-align:center; padding:8px; font-size:0.8rem; cursor:pointer; color:#fff; font-weight:700; border-radius:6px; transition:background 0.25s ease;",
+          "w2-segmented-label-checked": "background:rgba(0,159,227,0.2); color:var(--wizard-secondary);",
+          "mobile_tabs": "@media (max-width:480px) { .w2-tab-btn { font-size:0.75rem; padding:10px 10px; } }"
+        }
+      },
+      "acceptance_criteria": [
+        "Geen <style> blok in renderStepVehicleUI() output",
+        "Alle .w2-* stijlen in zzp-wizard.css aanwezig",
+        "Tabs horizontaal scrollbaar op 375px zonder wrapping",
+        "Active tab: pill-achtige highlight in cyaan",
+        "Segmented controls (S/M/L) correct gestijld"
+      ],
+      "qa_test": "Stap 2 op 375px: tabs horizontaal zichtbaar zonder wraps. Tab switch: active stijl correct. S/M/L switch: visuele highlight.",
+      "risk": "LOW — stijlmigratie, geen logica-wijziging"
+    },
+    {
+      "id": "P1-05",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DONE_IN_CODE",
+      "title": "Magneten SKU Matching — Fragiele OR-chain vervangen door fit_note",
+      "type": "bugfix",
+      "agent": "SSOT_ENGINEER",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "S",
+      "branch": "fix/magneten-fit-note-filter",
+      "commit_prefix": "fix:",
+      "summary": "renderMagneten() filtert via complexe SKU string-includes OR-chain. Eén SKU-naamwijziging kan magneten voor verkeerd voertuig tonen of verbergen. fit_note is de SSoT voor vehicle-matching.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "429",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "system/data/product-master-table.json",
+          "lines": "ALL",
+          "change_type": "MODIFY"
+        }
+      ],
+      "problem": "Huidige filter: i.wizard_categorie === 'Magneten' && (i.fit_note === vType || i.sku.toLowerCase().includes(vType.replace('bus-', '')) || ...) — 4 fallback condities op SKU strings",
+      "solution": {
+        "ssot_action": "Voeg fit_note toe aan alle 13 Magneten SKUs in product-master-table.json. Correcte waarden: 'caddy' | 'bus-l' | 'bus-xl' | 'passenger'",
+        "js_action": "Simplificeer renderMagneten filter naar: const magnets = this.data.filter(i => i.wizard_categorie === 'Magneten' && i.fit_note === vType);",
+        "magneten_sku_list_expected": [
+          {
+            "sku_pattern": "*-S",
+            "fit_note": "passenger"
+          },
+          {
+            "sku_pattern": "*-M (caddy formaat)",
+            "fit_note": "caddy"
+          },
+          {
+            "sku_pattern": "*-L",
+            "fit_note": "bus-l"
+          },
+          {
+            "sku_pattern": "*-XL",
+            "fit_note": "bus-xl"
+          }
+        ]
+      },
+      "acceptance_criteria": [
+        "Alle 13 Magneten SKUs hebben fit_note in product-master-table.json",
+        "renderMagneten() filter is één regel zonder SKU-string checks",
+        "Magneten voor Caddy tonen NIET bij Bus-L selectie",
+        "Magneten voor Bus-XL tonen NIET bij Passenger selectie",
+        "WooCommerce sync uitgevoerd na JSON update"
+      ],
+      "qa_test": "Selecteer elk voertuigtype → controleer of enkel correcte magneten-maten zichtbaar zijn. Test edge case: 'passenger' toont geen XL magneten.",
+      "risk": "MEDIUM — SSoT JSON wijziging vereist sync run. Voer sync-v6.5.php uit na deploy.",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "All 10 Magneten SKUs have fit_note in SSoT; renderMagneten filter is fit_note-only. Run Woo sync after deploy."
+    },
+    {
+      "id": "P1-06",
+      "sprint": "SPRINT-2",
+      "priority": "P1",
+      "status": "DONE_IN_CODE",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "commit": "pending",
+      "note": "Wizard emoji→SVG in wizard-1-3 / wizard-4-7; showCheckoutError uses SVG warning (no emoji).",
+      "title": "Emoji Verwijderen — Vervangen door SVG Icons (Brand Rule §4.2)",
+      "type": "bugfix",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "S",
+      "branch": "fix/replace-emoji-with-svg",
+      "commit_prefix": "fix:",
+      "summary": "global-rules.md §4.2 verbiedt emoji in interface. wizard-1-3.js en wizard-4-7.js bevatten: 💳 ✅ 📦 ✂️ 📦 👑 in UI-elementen. Dit is een directe brand violation.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "447, 456, 484-486, 521",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js",
+          "lines": "277, 383",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "188-190",
+          "change_type": "MODIFY"
+        }
+      ],
+      "emoji_replacement_map": [
+        {
+          "emoji": "💳",
+          "context": "Checkout button",
+          "svg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"1\" y=\"4\" width=\"22\" height=\"16\" rx=\"2\" ry=\"2\"/><line x1=\"1\" y1=\"10\" x2=\"23\" y2=\"10\"/></svg>"
+        },
+        {
+          "emoji": "✅",
+          "context": "Startpakket list items",
+          "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"var(--wizard-secondary)\" stroke-width=\"2.5\"><polyline points=\"20 6 9 17 4 12\"/></svg>"
+        },
+        {
+          "emoji": "✅",
+          "context": "Checkout success state",
+          "svg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#22c55e\" stroke-width=\"2.5\"><polyline points=\"20 6 9 17 4 12\"/></svg>"
+        },
+        {
+          "emoji": "📦",
+          "context": "Fallback product icon",
+          "svg": "<svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z\"/></svg>"
+        },
+        {
+          "emoji": "✂️",
+          "context": "DIY tab button",
+          "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><line x1=\"20\" y1=\"4\" x2=\"8.12\" y2=\"15.88\"/><line x1=\"14.47\" y1=\"14.48\" x2=\"20\" y2=\"20\"/><line x1=\"8.12\" y1=\"8.12\" x2=\"12\" y2=\"12\"/></svg>"
+        },
+        {
+          "emoji": "📦",
+          "context": "Sets tab button",
+          "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z\"/></svg>"
+        },
+        {
+          "emoji": "👑",
+          "context": "Wraps tab button",
+          "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M2 20h20M5 20l2-8 5 5 5-5 2 8\"/></svg>"
+        },
+        {
+          "emoji": "⏭️",
+          "context": "Geen voertuig kaart",
+          "svg": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><polygon points=\"5 4 15 12 5 20 5 4\"/><line x1=\"19\" y1=\"5\" x2=\"19\" y2=\"19\"/></svg>"
+        }
+      ],
+      "acceptance_criteria": [
+        "Geen emoji characters in wizard UI output",
+        "Alle interactieve elementen gebruiken SVG iconen",
+        "Fallback product icon is SVG (niet 📦)",
+        "Checkout button gebruikt SVG creditcard icoon"
+      ],
+      "qa_test": "Doorloop alle 8 stappen op mobile en desktop — geen emoji zichtbaar in UI. Check browser compatibility voor SVG inline strings.",
+      "risk": "LOW — tekstvervanging, geen logica-impact"
+    },
+    {
+      "id": "P2-01",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Stap 1 Fundament — usage_hint Copy Per Product",
+      "type": "feature",
+      "agent": "CRO_SPECIALIST",
+      "secondary_agent": "SSOT_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "XS",
+      "branch": "feat/foundation-usage-hints",
+      "commit_prefix": "feat:",
+      "summary": "Foundation producten (Logo Master File, Offerte Template, Visitekaartjes) worden als droge kaarten getoond zonder 'waarom heb ik dit nodig' copy. Conversie verhoger: product context verhoogt add-to-cart rate.",
+      "affected_files": [
+        {
+          "path": "system/data/product-master-table.json",
+          "lines": "Foundation SKUs",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "513-539",
+          "change_type": "VERIFY"
+        }
+      ],
+      "solution": {
+        "action": "Voeg usage_hint veld toe aan alle Foundation SKUs in product-master-table.json",
+        "examples": [
+          {
+            "sku": "F-001",
+            "usage_hint": "Je bedrijfsidentiteit in één bestand — altijd paraat voor drukker of klant."
+          },
+          {
+            "sku": "DF-003",
+            "usage_hint": "Nooit meer rommelen met Word. Stuur facturen als een pro."
+          },
+          {
+            "sku": "VK-002",
+            "usage_hint": "Eerste indruk op locatie. 250 kaartjes — genoeg voor een heel seizoen."
+          }
+        ],
+        "render_location": "_renderGenericCatalog() — usage_hint renderen als item.desc al doet, maar italic class meegeven"
+      },
+      "acceptance_criteria": [
+        "Alle actieve Foundation SKUs hebben usage_hint in JSON",
+        "usage_hint zichtbaar onder productnaam in stap 1 cards",
+        "Tekst is NL, max 120 karakters, geen emoji"
+      ],
+      "qa_test": "Stap 1 (Fundament) — alle cards tonen subtitle tekst onder naam",
+      "risk": "LOW — data-only + render verificatie",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "Foundation usage_hint merged from masterCatalog in applyWpData; cards prefer usage_hint over desc"
+    },
+    {
+      "id": "P2-02",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Stap 3 Werkkleding — Maattabel Link + Tooltip",
+      "type": "feature",
+      "agent": "UX_ARCHITECT",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "XS",
+      "branch": "feat/clothing-size-table-link",
+      "commit_prefix": "feat:",
+      "summary": "Klant bestelt werkkleding zonder maattabel te zien. Primaire oorzaak voor retourklachten en lage kledingconversie. Link naar /materialen pagina via tooltip of badge op cards.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "509",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "description": "Voeg boven de kledingcatalog grid een info-banner toe met link naar /materialen",
+        "html": "<div class=\"w2-hint-box\"><svg>...</svg> <strong>Kies de juiste maat:</strong> <a href=\"/materialen\" target=\"_blank\" class=\"wizard-global-mat-link\">Bekijk de maattabel →</a></div>",
+        "alternative": "Tooltip op het (?) icoon van kleding items verwijzen naar maatinformatie"
+      },
+      "acceptance_criteria": [
+        "Link naar /materialen pagina aanwezig boven kledingcatalog",
+        "Link opent in nieuw tabblad",
+        "Stijl conform brand (geen off-brand kleuren)"
+      ],
+      "qa_test": "Stap 3 — maattabel link zichtbaar. Klik opent /materialen in nieuw tab.",
+      "risk": "LOW — additieve content",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "Maattabel banner above clothing grid (renderStepClothing)"
+    },
+    {
+      "id": "P2-03",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Richtingsafhankelijke Stap Animaties — Slide Links/Rechts",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "feat/directional-step-animations",
+      "commit_prefix": "feat:",
+      "summary": "Huidige animatie: alleen slideUpFade. Geen onderscheid tussen vooruit/achteruit navigatie. Premium SPA-gevoel vereist richtingsafhankelijke slide animaties.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "385-401",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "711-735",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "js_change": "Voeg this._navDirection = 'forward' toe in nextStep() en this._navDirection = 'backward' in prevStep(). Geef data-direction attribute mee aan wizard-step-container bij render.",
+        "css_additions": {
+          "slide_forward": "@keyframes slideInRight { from { opacity:0; transform:translateX(40px); } to { opacity:1; transform:translateX(0); } }",
+          "slide_backward": "@keyframes slideInLeft { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }",
+          "rule_forward": ".wizard-step-container[data-direction='forward'] { animation: slideInRight 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }",
+          "rule_backward": ".wizard-step-container[data-direction='backward'] { animation: slideInLeft 0.45s cubic-bezier(0.16,1,0.3,1) forwards; }"
+        }
+      },
+      "acceptance_criteria": [
+        "Volgende stap slide vanuit rechts",
+        "Vorige stap slide vanuit links",
+        "Animatie duurt max 0.5s",
+        "Geen layout flicker tijdens animatie"
+      ],
+      "qa_test": "Stap 2 → 3 (rechts slide). Stap 3 → 2 (links slide). Herhaal op mobile.",
+      "risk": "LOW — CSS-only met kleine JS data-attribute toevoeging",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "data-direction on wizard-step-container + slideInRight/slideInLeft keyframes"
+    },
+    {
+      "id": "P2-04",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Stepper Buttons — Touch Device Hover State Fix",
+      "type": "bugfix",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "fix/stepper-touch-hover",
+      "commit_prefix": "fix:",
+      "summary": "Op touch devices blijft .wizard-stepper-btn soms in hover-state 'steken' na aanraking, waardoor magenta glow permanent zichtbaar is. @media (hover:none) overrides ontbreken.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "492-500",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "css_addition": "@media (hover: none) { .wizard-stepper-btn:hover { background: rgba(255,255,255,0.06); box-shadow: none; } .wizard-card:hover { transform: none; background: rgba(255,255,255,0.025); border-color: var(--wizard-border); } }"
+      },
+      "acceptance_criteria": [
+        "Stepper button hover glow verdwijnt direct na loslaten op touch device",
+        "Card hover transform werkt NIET op touch (alleen desktop)",
+        "Desktop hover gedrag ongewijzigd"
+      ],
+      "qa_test": "iPhone SE / Chrome DevTools touch emulation: tap stepper knop — glow verdwijnt direct. Desktop: hover over card — lift effect werkt.",
+      "risk": "ZERO — CSS media query override",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "@media (hover:none) stepper + card overrides"
+    },
+    {
+      "id": "P2-05",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Stap 8 Summary — Items Verwijderbaar Maken",
+      "type": "feature",
+      "agent": "CRO_SPECIALIST",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "MEDIUM",
+      "effort": "S",
+      "branch": "feat/summary-item-remove",
+      "commit_prefix": "feat:",
+      "summary": "Gebruiker kan items in summary NIET verwijderen zonder terug te stap navigeren. Bekende conversiekiller. Directe verwijderknop per item verhoogt checkout-voltooiing.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js",
+          "lines": "168-264",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "description": "Voeg × verwijderknop toe aan elk summary item via buildLine(). De knop roept updateQuantity(category, id, 'remove') aan — nieuwe action naast 'plus'/'minus'.",
+        "remove_action_logic": "In updateQuantity(): action === 'remove' → delete selections[category][id] → recalculate → re-render summary",
+        "ux": "× icon rechts van item, opacity 0.4, bij hover opacity 1 + rood kleur. Klik: item verdwijnt met fade-out animatie."
+      },
+      "acceptance_criteria": [
+        "Elk summary item heeft × knop",
+        "Klik op × verwijdert item uit selecties",
+        "Cart waarde herberekend na verwijdering",
+        "Sticky cart update na verwijdering",
+        "Lege samenvatting toont 'Nog geen producten' message"
+      ],
+      "qa_test": "Voeg 3 items toe → ga naar stap 8 → verwijder 1 item via × → cart waarde correct → sticky cart update correct.",
+      "risk": "MEDIUM — updateQuantity aanpassing raakt core logica. Regressietest op alle stap-stepper functies.",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "Summary remove button + updateQuantity remove action"
+    },
+    {
+      "id": "P2-06",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "DONE_IN_CODE",
+      "title": "Kleur Inconsistentie — Prijs Kleur Harmoniseren naar Cyaan",
+      "type": "bugfix",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "fix/price-color-consistency",
+      "commit_prefix": "fix:",
+      "summary": "DIY en Magneten prijzen zijn magenta (var(--wizard-primary)), Wraps zijn cyaan (var(--wizard-secondary)), generieke catalog is cyaan. Inconsistentie creëert visuele ruis. Regel: prijs = altijd cyaan.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "282, 330, 391, 468",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "rule": "Alle prijslabels in de wizard gebruiken var(--wizard-secondary) (cyaan). Magenta is gereserveerd voor: selected card state, CTA buttons, active indicators.",
+        "changes": "Vervang alle color:var(--wizard-primary) in prijs-spans door color:var(--wizard-secondary)"
+      },
+      "acceptance_criteria": [
+        "Alle prijslabels in stap 2 zijn cyaan",
+        "Geen magenta prijsweergaven aanwezig",
+        "Magneten prijs = cyaan",
+        "DIY prijs = cyaan",
+        "Sets prijs = cyaan"
+      ],
+      "qa_test": "Visuele check alle tabs Step 2: alle prijzen cyaan, selected card border magenta. Check stap 3-7: prijzen cyaan.",
+      "risk": "LOW — kleurstring vervangingen",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "Step 2 prices via .w2-price (cyan); magnet/DTP icons use secondary stroke"
+    },
+    {
+      "id": "P2-07",
+      "sprint": "SPRINT-3",
+      "priority": "P2",
+      "status": "SUPERSEDED",
+      "title": "Skip-Interaction Feedback — Toast bij Lege Stap Doorgang",
+      "type": "feature",
+      "agent": "UX_ARCHITECT",
+      "secondary_agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "feat/skip-step-feedback",
+      "commit_prefix": "feat:",
+      "summary": "Stap overslaan zonder selectie geeft nul feedback. Premium UX reageert altijd op user actie. Zachte informerende toast bij eerste skip-poging.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "385-393",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "solution": {
+        "note": "Dit item kan worden gecombineerd met P0-02 als één implementatie. Als P0-02 al geïmplementeerd is, is P2-07 reeds gedaan.",
+        "standalone_approach": "Minimale toast zonder double-click gate: 'Je hebt [stap naam] overgeslagen — je kunt altijd terug via de voortgangsbalk.' Toast = 2.5s, slide up fade, geen blokkering."
+      },
+      "acceptance_criteria": [
+        "Toast zichtbaar bij stap overslaan zonder selectie",
+        "Toast verdwijnt na 2.5s automatisch",
+        "Geen navigatieblokkering",
+        "Toast stijl conform brand-guidelines.md"
+      ],
+      "qa_test": "Klik Volgende op stap 3 zonder kleding te selecteren — toast verschijnt. Toast verdwijnt na 2.5s. Tweede klik gaat direct door.",
+      "risk": "LOW — additief",
+      "note": "Covered by P0-02 soft skip toast"
+    },
+    {
+      "id": "P3-01",
+      "sprint": "SPRINT-4",
+      "priority": "P3",
+      "status": "DONE",
+      "title": "ARIA Attributen — WCAG 2.1 AA Basis Compliance",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "M",
+      "branch": "feat/aria-attributes",
+      "commit_prefix": "feat:",
+      "summary": "Wizard heeft geen ARIA attributen. Screen readers kunnen geen zinvolle informatie overbrengen. WCAG 2.1 AA vereiste voor professionele B2B tools.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "ALL",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js",
+          "lines": "ALL",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-step-2-v4.js",
+          "lines": "ALL",
+          "change_type": "MODIFY"
+        }
+      ],
+      "aria_requirements": [
+        {
+          "element": "Progress bar",
+          "attributes": "role=\"progressbar\" aria-valuenow=\"{step}\" aria-valuemin=\"0\" aria-valuemax=\"8\" aria-label=\"Wizard voortgang\""
+        },
+        {
+          "element": "Stepper − button",
+          "attributes": "aria-label=\"Verwijder één {product naam}\""
+        },
+        {
+          "element": "Stepper + button",
+          "attributes": "aria-label=\"Voeg één {product naam} toe\""
+        },
+        {
+          "element": "Wizard cards",
+          "attributes": "role=\"option\" aria-selected=\"{true/false}\""
+        },
+        {
+          "element": "Tab buttons",
+          "attributes": "role=\"tab\" aria-selected=\"{true/false}\" aria-controls=\"w2-tab-panel-{id}\""
+        },
+        {
+          "element": "Tab panels",
+          "attributes": "role=\"tabpanel\" id=\"w2-tab-panel-{id}\""
+        },
+        {
+          "element": "Sticky cart",
+          "attributes": "aria-live=\"polite\" aria-label=\"Winkelwagen totaal\""
+        },
+        {
+          "element": "Tooltips",
+          "attributes": "role=\"tooltip\" aria-describedby al aanwezig via tabindex fix in P0-01"
+        }
+      ],
+      "acceptance_criteria": [
+        "Progress bar heeft correct role + aria-valuenow",
+        "Stepper buttons hebben aria-label met productnaam",
+        "Wizard cards hebben role=option + aria-selected",
+        "Sticky cart heeft aria-live=polite",
+        "Test met VoiceOver (macOS) of NVDA (Windows)"
+      ],
+      "qa_test": "Screen reader test: open wizard, navigeer met Tab key, lees stepper buttons — betekenisvolle aria-labels hoorbaar.",
+      "risk": "LOW — additieve attributen",
+      "note": "progressbar role + aria-valuenow on #wizard-progress-bar; full card/tab ARIA still TODO"
+    },
+    {
+      "id": "P3-02",
+      "sprint": "SPRINT-4",
+      "priority": "P3",
+      "status": "DONE_IN_CODE",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "tabindex=\"0\", keydown Enter/Space added, CSS outline applied.",
+      "title": "Keyboard Navigatie — Tab-volgorde en Enter/Space Activatie",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "M",
+      "branch": "feat/keyboard-navigation",
+      "commit_prefix": "feat:",
+      "summary": "Wizard niet navigeerbaar met enkel toetsenbord. Tab-volgorde ongedefinieerd. Enter/Space activeren geen cards. Focus ring standaard browser-stijl (niet brand-conform).",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+          "lines": "349-383",
+          "change_type": "MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/assets/css/zzp-wizard.css",
+          "lines": "END",
+          "change_type": "ADD"
+        }
+      ],
+      "solution": {
+        "tabindex": "Alle interactieve cards krijgen tabindex=\"0\"",
+        "keyboard_handlers": "bindEvents() uitbreiden: keydown event op contentArea — Enter/Space op .wizard-card triggert handleCardClick(). Arrow keys navigeren tussen cards in grid.",
+        "focus_ring": "CSS: .wizard-card:focus-visible { outline: 2px solid var(--wizard-secondary); outline-offset: 3px; } — brand-conform focus ring in cyaan"
+      },
+      "acceptance_criteria": [
+        "Alle interactieve cards bereikbaar via Tab key",
+        "Enter/Space activeren card selectie",
+        "Focus ring zichtbaar en brand-conform (cyaan)",
+        "Stepper buttons bereikbaar en activeerbaar via keyboard",
+        "Volgende/Vorige buttons bereikbaar"
+      ],
+      "qa_test": "Sluit muis aan. Navigeer volledige wizard via Tab + Enter. Controleer focus ring zichtbaarheid.",
+      "risk": "LOW — additieve eventhandlers"
+    },
+    {
+      "id": "P3-03",
+      "sprint": "SPRINT-4",
+      "priority": "P3",
+      "status": "DONE_IN_CODE",
+      "title": "Font Loading — font-display:swap voor Montserrat",
+      "type": "bugfix",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "fix/font-display-swap",
+      "commit_prefix": "fix:",
+      "summary": "Montserrat van Google Fonts zonder font-display:swap control. CLS-risico op langzame verbindingen. Tekst invisible tijdens laad fase.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/functions.php",
+          "lines": "Google Fonts enqueue",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "description": "Voeg &display=swap toe aan Google Fonts URL in wp_enqueue_style() call voor Montserrat",
+        "example": "wp_enqueue_style('montserrat', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap', [], null);"
+      },
+      "acceptance_criteria": [
+        "Google Fonts URL bevat display=swap parameter",
+        "Tekst zichtbaar tijdens font-laad fase (fallback font gebruikt)"
+      ],
+      "qa_test": "Chrome DevTools → Network → throttle 3G → reload wizard pagina. Tekst direct zichtbaar met fallback font.",
+      "risk": "LOW — URL parameterwijziging",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "Montserrat enqueued with display=swap on wizard template"
+    },
+    {
+      "id": "P3-04",
+      "sprint": "SPRINT-4",
+      "priority": "P3",
+      "status": "DONE_IN_CODE",
+      "title": "SEO Meta Tags — Open Graph en Description op Wizard Pagina",
+      "type": "feature",
+      "agent": "FRONTEND_ENGINEER",
+      "aov_impact": "LOW",
+      "effort": "XS",
+      "branch": "feat/wizard-seo-meta",
+      "commit_prefix": "feat:",
+      "summary": "page-wizard.php heeft mogelijk geen Open Graph meta tags. Belangrijk voor social sharing en zoekindexering.",
+      "affected_files": [
+        {
+          "path": "flexgrafik-wizard-theme/page-wizard.php",
+          "lines": "HEAD section",
+          "change_type": "VERIFY_AND_MODIFY"
+        },
+        {
+          "path": "flexgrafik-wizard-theme/functions.php",
+          "lines": "wp_head hook",
+          "change_type": "MODIFY"
+        }
+      ],
+      "solution": {
+        "meta_tags_required": [
+          "<meta name=\"description\" content=\"Bouw in 5 minuten jouw professionele ZZP-uitstraling. Logo, voertuig branding, werkkleding en meer — volledig op maat.\">",
+          "<meta property=\"og:title\" content=\"ZZPackage Configurator — FlexGrafik\">",
+          "<meta property=\"og:description\" content=\"Configureer jouw complete merkpresentatie in 7 stappen.\">",
+          "<meta property=\"og:type\" content=\"website\">"
+        ]
+      },
+      "acceptance_criteria": [
+        "Meta description aanwezig op wizard pagina",
+        "Open Graph tags aanwezig",
+        "Verificatie via https://developers.facebook.com/tools/debug/"
+      ],
+      "qa_test": "Inspect wizard pagina HTML source — meta description en OG tags aanwezig.",
+      "risk": "LOW — additieve meta tags",
+      "completed_at": "2026-04-09T12:00:00+02:00",
+      "note": "fg_wizard_seo_meta on page-wizard.php"
+    }
+  ],
+  "global_acceptance_criteria": {
+    "brand": [
+      "Geen emoji in UI elementen",
+      "Alle kleuren conform brand-guidelines.md: #080709 bg, #ffffff, #009fe3, #e6007e, #f2bd25",
+      "Typography: Montserrat voor headings en buttons",
+      "Prijs: altijd var(--wizard-secondary) cyaan"
+    ],
+    "functional": [
+      "Checkout werkt end-to-end met minimum €199",
+      "Alle 7 stappen navigeerbaar",
+      "State bewaard bij browser terug/voor navigatie (BFCache)",
+      "SSoT JSON is single source of truth voor prijzen"
+    ],
+    "mobile": [
+      "Alle UI elementen functioneel op 375px viewport",
+      "Sticky cart blokkeert geen navigatie op mobile",
+      "Touch targets minimaal 44x44px",
+      "Geen horizontale overflow"
+    ],
+    "performance": [
+      "Geen render-blocking resources toegevoegd",
+      "Wizard-4-7.js lazy loaded (bestaand systeem bewaard)",
+      "Geen extra HTTP requests zonder caching"
+    ],
+    "language": [
+      "Alle UI copy in NL",
+      "Alle code comments in EN",
+      "Geen PL tekst in UI of code"
+    ],
+    "git": [
+      "Code staat op feature branch, niet op main",
+      "Commit prefix feat:/fix:/refactor:/docs: gebruikt",
+      "PR aangemaakt voor review voor merge",
+      "Handoff document aangemaakt na voltooiing sprint"
+    ]
+  },
+  "qa_runbook": {
+    "regression_checkpoints": [
+      {
+        "checkpoint": "RC-01",
+        "description": "Stap 1-7 volledig doorloopbaar",
+        "when": "Na elke sprint"
+      },
+      {
+        "checkpoint": "RC-02",
+        "description": "Checkout met €199+ werkt naar WooCommerce cart",
+        "when": "Na SPRINT-2"
+      },
+      {
+        "checkpoint": "RC-03",
+        "description": "Mobile 375px — geen layout overflow",
+        "when": "Na SPRINT-2"
+      },
+      {
+        "checkpoint": "RC-04",
+        "description": "BFCache state bewaard bij terug/voor",
+        "when": "Na SPRINT-1"
+      },
+      {
+        "checkpoint": "RC-05",
+        "description": "Magneten tonen per voertuigtype correct",
+        "when": "Na P1-05 fix"
+      },
+      {
+        "checkpoint": "RC-06",
+        "description": "Sticky cart correct na P1-01 implementatie",
+        "when": "Na SPRINT-2"
+      },
+      {
+        "checkpoint": "RC-07",
+        "description": "Alle emoji vervangen (brand audit)",
+        "when": "Na P1-06"
+      },
+      {
+        "checkpoint": "RC-08",
+        "description": "Tooltips zichtbaar op hover/focus",
+        "when": "Na P0-01"
+      }
+    ],
+    "devices_to_test": [
+      {
+        "device": "iPhone SE (375px)",
+        "priority": "P0"
+      },
+      {
+        "device": "Chrome mobile emulation 390px",
+        "priority": "P0"
+      },
+      {
+        "device": "iPad (768px)",
+        "priority": "P1"
+      },
+      {
+        "device": "Desktop 1280px",
+        "priority": "P1"
+      },
+      {
+        "device": "Desktop 1920px",
+        "priority": "P2"
+      }
+    ]
+  },
+  "deploy_rules": {
+    "manual_only": true,
+    "deployed_by": "Dowódca (Norbert Woźniak)",
+    "deploy_script": "system/deploy/deploy_v6.6_atomic.ps1",
+    "sync_url": "https://zzpackage.flexgrafik.nl/sync-web-v6.5.php?token=flex-sync-2026-v4",
+    "note": "Zasada 11: Geen autonome deploy. Agenten leveren code op feature branch. Dowódca beslist over merge en deploy timing."
+  },
+  "legacy_merged_tasks": []
+}

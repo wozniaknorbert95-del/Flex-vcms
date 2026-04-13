@@ -6,19 +6,27 @@
     <title>VCMS — Master Command Center</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.363.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     <style>
         :root {
-            --bg: #030303;
+            --bg: #050505;
             --sidebar-bg: #0a0a0a;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --accent: #00ff9d;
-            --text-main: #ffffff;
-            --text-dim: #777777;
-            --danger: #ff4d4d;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.06);
+            --accent: #10b981; /* Emerald / Szmaragdowy */
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --text-main: #e5e7eb;
+            --text-dim: #9ca3af;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --sidebar-width: 280px;
         }
 
         * { box-sizing: border-box; }
+        /* Layout Base */
         body {
             background-color: var(--bg);
             color: var(--text-main);
@@ -29,77 +37,113 @@
             overflow: hidden;
         }
 
-        /* Sidebar */
+        /* Sidebar - Desktop Only */
         aside {
-            width: 280px;
+            width: var(--sidebar-width);
             background-color: var(--sidebar-bg);
             border-right: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.5rem;
             flex-shrink: 0;
+            z-index: 100;
         }
 
         .brand {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             padding-left: 0.5rem;
         }
 
+        .brand i { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-glow)); }
         .brand h1 {
             margin: 0;
-            font-size: 1.4rem;
-            letter-spacing: 2px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, var(--text-dim));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         nav {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
+            gap: 1.2rem;
+            padding: 1rem 1.2rem;
+            border-radius: 14px;
             color: var(--text-dim);
             text-decoration: none;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 400;
+            border: 1px solid transparent;
         }
 
-        .nav-item i { width: 20px; height: 20px; }
+        .nav-item i { width: 20px; height: 20px; opacity: 0.7; }
 
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255, 255, 255, 0.05);
+        .nav-item:hover {
+            background: var(--glass-bg);
             color: var(--text-main);
+            border-color: var(--border);
+            transform: translateX(4px);
         }
 
         .nav-item.active {
+            background: var(--accent-glow);
             color: var(--accent);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 12px 12px 0;
+            border-color: rgba(16, 185, 129, 0.1);
+            font-weight: 600;
         }
 
-        .sidebar-footer {
-            margin-top: auto;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-            padding-left: 1rem;
+        /* Bottom Nav - Mobile Only */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 75px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(15px);
+            border-top: 1px solid var(--border);
+            z-index: 1000;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 1rem;
         }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.7rem;
+            transition: all 0.2s;
+        }
+
+        .mobile-nav-item.active { color: var(--accent); }
+        .mobile-nav-item i { width: 22px; height: 22px; }
 
         /* Main Content */
         main {
             flex-grow: 1;
-            padding: 2.5rem;
+            padding: 3rem;
             overflow-y: auto;
             position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: var(--border) transparent;
         }
 
         .tab-content { display: none; }
@@ -113,74 +157,112 @@
         header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2.5rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
         }
 
-        .page-title h2 { margin: 0; font-size: 2rem; }
-        .page-title p { margin: 0.3rem 0 0; color: var(--text-dim); }
+        .page-title h2 { margin: 0; font-size: 2.2rem; font-weight: 600; letter-spacing: -0.5px; }
+        .page-title p { margin: 0.5rem 0 0; color: var(--text-dim); font-size: 1.1rem; }
+
+        /* Uncle's Tip Component */
+        .uncle-tip-container {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            background: var(--accent-glow);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            max-width: 800px;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .uncle-tip-icon { color: var(--accent); flex-shrink: 0; }
+        .uncle-tip-text { font-size: 0.95rem; line-height: 1.5; color: var(--text-main); }
+        .uncle-tip-label { font-size: 0.7rem; text-transform: uppercase; color: var(--accent); font-weight: 800; letter-spacing: 1px; margin-bottom: 0.2rem; }
 
         /* Dashboard View */
         .status-strip {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .stat-card {
-            background: var(--card-bg);
+            background: var(--glass-bg);
             border: 1px solid var(--border);
-            padding: 1.5rem;
-            border-radius: 20px;
-            flex: 1;
+            padding: 1.8rem;
+            border-radius: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
-        .stat-card .label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .stat-card .value { font-size: 1.5rem; font-weight: 600; }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .stat-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-5px); }
+        .stat-card .label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 0.7rem; font-weight: 600; }
+        .stat-card .value { font-size: 1.8rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
 
         .history-list {
-            background: var(--card-bg);
+            background: var(--glass-bg);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 2rem;
+            border-radius: 28px;
+            padding: 2.2rem;
         }
 
         .log-row {
             display: flex;
             justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
+            transition: background 0.2s;
         }
+        .log-row:hover { background: rgba(255,255,255,0.01); }
 
         /* Chat Lab View */
         .chat-container {
             display: flex;
             flex-direction: column;
-            height: 600px;
-            background: var(--card-bg);
+            height: 650px;
+            background: var(--glass-bg);
             border: 1px solid var(--border);
-            border-radius: 24px;
+            border-radius: 30px;
             overflow: hidden;
+            position: relative;
         }
 
         .chat-messages {
             flex-grow: 1;
-            padding: 2rem;
+            padding: 2.5rem;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.8rem;
+            scrollbar-width: thin;
         }
 
-        .msg { max-width: 80%; padding: 1rem 1.2rem; border-radius: 18px; line-height: 1.5; }
-        .msg-user { align-self: flex-end; background: var(--accent); color: #000; border-bottom-right-radius: 4px; }
-        .msg-ai { align-self: flex-start; background: rgba(255,255,255,0.05); border-bottom-left-radius: 4px; }
+        .msg { max-width: 85%; padding: 1.2rem 1.5rem; border-radius: 22px; line-height: 1.6; font-size: 0.95rem; }
+        .msg-user { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 4px; box-shadow: 0 4px 15px var(--accent-glow); }
+        .msg-ai { align-self: flex-start; background: rgba(255,255,255,0.04); border-bottom-left-radius: 4px; border: 1px solid var(--border); }
 
         .chat-input {
-            padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
+            padding: 1.8rem;
+            background: rgba(0,0,0,0.3);
             border-top: 1px solid var(--border);
             display: flex;
             gap: 1rem;
@@ -188,36 +270,143 @@
 
         .chat-input input {
             flex-grow: 1;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.04);
             border: 1px solid var(--border);
             color: white;
-            padding: 1rem;
-            border-radius: 12px;
+            padding: 1.1rem 1.5rem;
+            border-radius: 16px;
             outline: none;
+            transition: border-color 0.2s;
         }
+        .chat-input input:focus { border-color: var(--accent); }
 
         .chat-input button {
             background: var(--accent);
+            color: white;
             border: none;
-            padding: 0 1.5rem;
-            border-radius: 12px;
+            padding: 0 2rem;
+            border-radius: 16px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
+            transition: transform 0.2s;
         }
+        .chat-input button:hover { transform: scale(1.02); }
 
         /* Iframe View */
-        .iframe-container { width: 100%; height: calc(100vh - 180px); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; }
+        .iframe-container { width: 100%; height: calc(100vh - 200px); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
 
         /* Helpers */
-        .tag { padding: 4px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; }
-        .tag-success { background: rgba(0,255,157,0.1); color: var(--accent); }
+        .tag { padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px; }
+        .tag-success { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.2); }
+
+        /* Mobile Specifics */
+        @media (max-width: 1024px) {
+            aside { display: none; }
+            .bottom-nav { display: flex; }
+            main { padding: 2rem 1.5rem 6rem 1.5rem; }
+            .page-title h2 { font-size: 1.8rem; }
+            .status-strip { grid-template-columns: 1fr 1fr; }
+            .chat-container { height: 500px; }
+            .uncle-tip-container { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .status-strip { grid-template-columns: 1fr; }
+            .page-title h2 { font-size: 1.5rem; }
+            header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+        }
+        /* Status Pills (LEDs) */
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            transition: all 0.3s;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #666;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+
+        .dot.healthy { background: var(--success); box-shadow: 0 0 8px var(--success); }
+        .dot.stale { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+        .dot.missing { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+
+        .backlog-widget {
+            background: linear-gradient(135deg, var(--card-bg), rgba(255,255,255,0.01));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .backlog-widget::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent);
+        }
+
+        /* Markdown Styling override for Chat */
+        .msg-content h1, .msg-content h2 { font-size: 1.1rem; margin: 0.5rem 0; color: var(--accent); }
+        .msg-content ul { padding-left: 1.2rem; margin: 0.5rem 0; }
+        .msg-content code { background: rgba(0,0,0,0.3); padding: 0.2rem 0.4rem; border-radius: 4px; font-family: 'JetBrains Mono', monospace; font-size: 0.9em; }
+        .msg-content pre { background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); }
+        .msg-content table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.85rem; }
+        .msg-content th, .msg-content td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+
+        /* Skeleton Loaders */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-text { height: 1.2rem; width: 100%; margin-bottom: 0.5rem; }
+        .skeleton-title { height: 2rem; width: 60%; margin-bottom: 1rem; }
+
+        /* Copy Button */
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        pre:hover .copy-btn { opacity: 1; }
+        .copy-btn:active { transform: translateY(1px); }
     </style>
 </head>
 <body>
     <aside>
         <div class="brand">
-            <i data-lucide="shield-check" style="color: var(--accent)"></i>
+            <i data-lucide="shield-check"></i>
             <h1>FLEX-VCMS</h1>
         </div>
         <nav>
@@ -239,9 +428,29 @@
             </div>
         </nav>
         <div class="sidebar-footer">
-            v2.0 Beta — Swiss Watch Std.
+            v2.1 Premium — Swiss Watch
         </div>
     </aside>
+
+    <!-- Bottom Navigation for Mobile -->
+    <div class="bottom-nav">
+        <a href="#" class="mobile-nav-item active" onclick="showTab('dashboard', this)">
+            <i data-lucide="layout-dashboard"></i>
+            <span>Main</span>
+        </a>
+        <a href="#" class="mobile-nav-item" onclick="showTab('knowledge', this)">
+            <i data-lucide="book-open"></i>
+            <span>Docs</span>
+        </a>
+        <a href="#" class="mobile-nav-item" onclick="showTab('lab', this)">
+            <i data-lucide="message-square"></i>
+            <span>Lab</span>
+        </a>
+        <a href="#" class="mobile-nav-item" onclick="showTab('ecosystem', this)">
+            <i data-lucide="layers"></i>
+            <span>System</span>
+        </a>
+    </div>
 
     <main>
         <!-- Tab: Dashboard -->
@@ -249,12 +458,19 @@
             <header>
                 <div class="page-title">
                     <h2 id="human-status">Silnik pracuje stabilnie</h2>
-                    <p>Wszystkie systemy bramki LLM są sprawne.</p>
+                    <p>Status centralny ekosystemu FlexGrafik</p>
+                    <div class="uncle-tip-container">
+                        <i data-lucide="info" class="uncle-tip-icon"></i>
+                        <div>
+                            <div class="uncle-tip-label">Senior's Tip</div>
+                            <div class="uncle-tip-text" id="uncle-tip-text">Pamiętaj, SSoT to jedyne źródło prawdy. Skanuj system regularnie!</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tag tag-success">Produkcja Online</div>
             </header>
 
-            <div class="status-strip">
+            <div class="status-strip" style="margin-bottom: 2rem;">
                 <div class="stat-card">
                     <div class="label">Szybkość Odpowiedzi</div>
                     <div class="value" id="val-latency">0ms</div>
@@ -266,6 +482,36 @@
                 <div class="stat-card">
                     <div class="label">Uptime Serwera</div>
                     <div class="value" id="val-uptime">0s</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                <!-- Context Health Card -->
+                <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <i data-lucide="database" style="color: var(--accent);"></i>
+                            <h3 style="margin:0; font-size: 1.1rem;">Context Health</h3>
+                        </div>
+                        <i data-lucide="refresh-cw" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);" onclick="fetchHealth()"></i>
+                    </div>
+                    <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        <div class="status-pill"><div class="dot"></div> Ładowanie...</div>
+                    </div>
+                </div>
+
+                <!-- Next Action Card -->
+                <div class="backlog-widget" style="margin-top: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; color: var(--accent); font-weight: 800;">Aktywne Zadanie (SSoT)</span>
+                            <i data-lucide="refresh-cw" style="width: 12px; height: 12px; cursor: pointer; color: var(--accent);" onclick="fetchBacklog()"></i>
+                        </div>
+                        <span id="backlog-sync-info" style="font-size: 0.7rem; color: var(--text-dim); font-family: 'JetBrains Mono';">...</span>
+                    </div>
+                    <h3 id="next-task-title" style="margin: 0.5rem 0; font-size: 1.35rem; font-weight: 600;">Ładowanie backlogu...</h3>
+                    <p id="next-task-desc" style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">Proszę czekać...</p>
+                    <button class="btn" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;" onclick="showTab('lab')">Rozpocznij Pracę</button>
                 </div>
             </div>
 
@@ -329,31 +575,95 @@
     <script>
         lucide.createIcons();
 
+        // --- Markdown & Copy Logic ---
+        const renderer = new marked.Renderer();
+        renderer.code = (code, language) => {
+            const id = 'code-' + Math.random().toString(36).substr(2, 9);
+            return `<pre style="position:relative;"><button class="copy-btn" onclick="copyCode('${id}')">Copy</button><code id="${id}">${code}</code></pre>`;
+        };
+        marked.setOptions({ renderer });
+
+        function copyCode(id) {
+            const el = document.getElementById(id);
+            navigator.clipboard.writeText(el.innerText);
+            const btn = el.parentElement.querySelector('.copy-btn');
+            btn.innerText = 'Copied!';
+            btn.style.background = 'var(--accent)';
+            btn.style.color = '#fff';
+            setTimeout(() => { 
+                btn.innerText = 'Copy'; 
+                btn.style.background = 'rgba(16, 185, 129, 0.1)';
+                btn.style.color = 'var(--accent)';
+            }, 2000);
+        }
+
         function showTab(tabName, el) {
+            if (!tabName) return;
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabName).classList.add('active');
-            el.classList.add('active');
+            document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
+            const targetContent = document.getElementById('tab-' + tabName);
+            if (targetContent) targetContent.classList.add('active');
+            document.querySelectorAll(`[onclick*="'${tabName}'"]`).forEach(nav => nav.classList.add('active'));
         }
 
         async function fetchStats() {
             try {
                 const res = await fetch('/api/v1/status');
                 const data = await res.json();
-                
                 document.getElementById('val-uptime').innerText = data.uptime + 's';
-                document.getElementById('val-latency').innerText = data.llm.last_latency_ms + 'ms';
+                document.getElementById('val-latency').innerText = (data.llm.last_latency_ms || 0) + 'ms';
                 document.getElementById('val-requests').innerText = data.llm.total_requests;
-                
+                if (data.uncle_tip) document.getElementById('uncle-tip-text').innerText = data.uncle_tip;
                 const logContainer = document.getElementById('log-container');
-                if (data.llm.history && data.llm.history.length > 0) {
-                    logContainer.innerHTML = data.llm.history.map(item => `
+                if (data.llm.history) {
+                    logContainer.innerHTML = data.llm.history.slice(-5).map(item => `
                         <div class="log-row">
                             <span style="color:var(--accent)">${item.time}</span>
-                            <span>GEMINI_FLASH_GATEWAY</span>
+                            <span>GEMINI_FLASH</span>
                             <span>${item.latency}ms</span>
                             <span style="color: ${item.status === 'success' ? 'var(--accent)' : 'var(--danger)'}">${item.status.toUpperCase()}</span>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {}
+        }
+
+        async function fetchBacklog() {
+            const title = document.getElementById('next-task-title');
+            const desc = document.getElementById('next-task-desc');
+            title.innerHTML = '<div class="skeleton skeleton-title"></div>';
+            desc.innerHTML = '<div class="skeleton skeleton-text"></div>';
+
+            try {
+                const res = await fetch('/api/v1/backlog');
+                const data = await res.json();
+                if (data.status === 'ok' && data.next_task) {
+                    title.innerText = data.next_task.title || 'Zadanie bez tytułu';
+                    desc.innerText = data.next_task.description || 'Brak opisu.';
+                    const dateStr = new Date(data.last_sync_ms).toLocaleString('pl-PL');
+                    document.getElementById('backlog-sync-info').innerText = `Synced: ${dateStr}`;
+                } else {
+                    title.innerText = 'Wszystkie zadania wykonane!';
+                    desc.innerText = 'Backlog jest pusty. Odpocznij Dowódco.';
+                }
+            } catch (e) {
+                title.innerText = 'Błąd połączenia z backlogiem';
+            }
+        }
+
+        async function fetchHealth() {
+            const container = document.getElementById('context-health-list');
+            container.innerHTML = '<div class="skeleton" style="width:100px; height:30px; border-radius:20px;"></div>';
+
+            try {
+                const res = await fetch('/api/v1/context/health');
+                const data = await res.json();
+                if (data.modules) {
+                    container.innerHTML = data.modules.map(mod => `
+                        <div class="status-pill">
+                            <div class="dot ${mod.status}"></div>
+                            ${mod.name}
                         </div>
                     `).join('');
                 }
@@ -365,10 +675,9 @@
             const messages = document.getElementById('chat-messages');
             const text = input.value;
             if(!text) return;
-
             messages.innerHTML += `<div class="msg msg-user">${text}</div>`;
             input.value = '';
-            
+            messages.scrollTop = messages.scrollHeight;
             try {
                 const res = await fetch('/api/chat', {
                     method: 'POST',
@@ -377,7 +686,8 @@
                 });
                 const data = await res.json();
                 const aiMsg = data.candidates[0].content.parts[0].text;
-                messages.innerHTML += `<div class="msg msg-ai">${aiMsg}</div>`;
+                const cleanHTML = DOMPurify.sanitize(marked.parse(aiMsg));
+                messages.innerHTML += `<div class="msg msg-ai msg-content">${cleanHTML}</div>`;
             } catch (err) {
                 messages.innerHTML += `<div class="msg msg-ai" style="color:var(--danger)">Błąd połączenia z bramką.</div>`;
             }
@@ -387,14 +697,20 @@
         async function triggerScan() {
             if(!confirm('Czy na pewno chcesz uruchomić pełne skanowanie ekosystemu?')) return;
             try {
-                const res = await fetch('/api/v1/scan', { method: 'POST' });
-                alert('Skanowanie zakończone.');
+                await fetch('/api/v1/scan', { method: 'POST' });
                 fetchStats();
             } catch (e) { alert('Błąd skanowania.'); }
         }
 
-        setInterval(fetchStats, 3000);
-        fetchStats();
+        function init() {
+            fetchStats();
+            fetchBacklog();
+            fetchHealth();
+            setInterval(fetchStats, 5000);
+            setInterval(fetchBacklog, 30000);
+            setInterval(fetchHealth, 60000);
+        }
+        init();
     </script>
 </body>
 </html>

@@ -28,10 +28,22 @@ const metrics = {
     history: [] // [{time, status, latency}]
 };
 
+// --- Uncle's Senior Tips (Educational Layer) ---
+const uncleTips = [
+    "Dobra latencja to podstawa. Jeśli skacze powyżej 1500ms, sprawdź obciążenie VPS albo limity OpenRoutera.",
+    "Zawsze rób 'node tools/vcms-scan.js' przed dużymi zmianami. SSoT to Twój jedyny kompas.",
+    "Błędy 403 na produkcji? Zwykle to wina źle ustawionego 'trust proxy' w Expressie albo Nginxa.",
+    "Vibecoding to nie tylko pisanie kodu, to reżyserowanie AI. Bądź precyzyjny w promptach jak w specyfikacji.",
+    "Standard 'Swiss Watch' (V6.5) wymaga, by każdy produkt miał prawidłowy SKU. Sprawdzaj product-master-table.json.",
+    "Pamiętaj o 'Zasadzie 11'. Tylko ręczny deploy na produkcję daje Ci 100% pewności, co tam faktycznie siedzi.",
+    "Jeśli logi PM2 puchną, sprawdź czy nie zostawiłeś 'debug: true' w jakiejś usłudze na proda."
+];
+
 const vcmsBase = process.env.VCMS_DIR || process.cwd();
 const githubBase = process.env.AGENT_CONTEXT_PATH || require('path').resolve(process.cwd(), '..');
 
 router.get('/v1/status', (req, res) => {
+    const randomTip = uncleTips[Math.floor(Math.random() * uncleTips.length)];
     res.json({
         status: 'OK',
         uptime: Math.floor((Date.now() - metrics.start_time) / 1000),
@@ -41,6 +53,7 @@ router.get('/v1/status', (req, res) => {
             total_requests: metrics.total_requests,
             history: metrics.history.slice(-10).reverse() // Last 10
         },
+        uncle_tip: randomTip,
         version: '1.0.0-gateway'
     });
 });
@@ -116,6 +129,85 @@ router.post('/chat', chatLimiter, async (req, res) => {
         }
         console.error(`[Chat Fatal Error] ${e.message}`);
         res.status(500).json({ error: 'Wystąpił wewnętrzny błąd podczas procesu analizy Czat.' });
+    }
+});
+
+// --- PH4-014: Control Lab & Backlog API (Audit Optimized) ---
+
+let backlogCache = { data: null, expire: 0 };
+
+router.get('/v1/backlog', (req, res) => {
+    try {
+        if (backlogCache.data && Date.now() < backlogCache.expire) {
+            return res.json(backlogCache.data);
+        }
+
+        const todoPath = require('path').join(vcmsBase, 'flex-vcms-todo.json');
+        if (!require('fs').existsSync(todoPath)) {
+            return res.json({ status: 'missing', error: 'Brak pliku flex-vcms-todo.json' });
+        }
+
+        const raw = require('fs').readFileSync(todoPath, 'utf8');
+        const todo = JSON.parse(raw);
+        const stats = require('fs').statSync(todoPath);
+
+        const response = {
+            status: 'ok',
+            next_task: todo.meta.next || null,
+            updated: todo.meta.updated || 'unknown',
+            last_sync_ms: stats.mtimeMs,
+            source: 'flex-vcms-todo.json'
+        };
+
+        backlogCache = { data: response, expire: Date.now() + 10000 }; // 10s cache
+        res.json(response);
+    } catch (err) {
+        console.error(`[Backlog Error] ${err.message}`);
+        res.status(200).json({ status: 'error', error: 'Błąd parsowania backlogu.' });
+    }
+});
+
+router.get('/v1/context/health', (req, res) => {
+    try {
+        const manifestPath = require('path').join(githubBase, 'manifest.json');
+        let manifest = { modules: [], generated_at: 0 };
+        
+        if (require('fs').existsSync(manifestPath)) {
+            const raw = require('fs').readFileSync(manifestPath, 'utf8');
+            if (raw.trim()) manifest = JSON.parse(raw);
+        }
+
+        const health = (manifest.modules || []).map(mod => {
+            const bPath = require('path').join(githubBase, mod.name, mod.brain);
+            const tPath = require('path').join(githubBase, mod.name, mod.todo);
+            
+            let bExists = false;
+            let tExists = false;
+
+            try {
+                bExists = require('fs').existsSync(bPath) && require('fs').statSync(bPath).size > 0;
+                tExists = require('fs').existsSync(tPath) && require('fs').statSync(tPath).size > 0;
+            } catch(e) {}
+            
+            let status = 'healthy';
+            if (!bExists || !tExists) status = 'missing';
+            else if (Date.now() - (manifest.generated_at || 0) > 24 * 60 * 60 * 1000) status = 'stale';
+
+            return {
+                name: mod.name,
+                status: status,
+                last_sync: manifest.generated_at || 0
+            };
+        });
+
+        res.json({
+            status: 'ok',
+            generated_at: manifest.generated_at || 0,
+            modules: health
+        });
+    } catch (err) {
+        console.error(`[Health Error] ${err.message}`);
+        res.status(500).json({ error: 'Błąd sprawdzania statusu kontekstu.' });
     }
 });
 

@@ -2,7 +2,7 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-04-11",
+    "updated": "2026-04-13T19:25:46.280Z",
     "workstream": "PH4-PROD zamkniety w kodzie (007–012); master zsynchronizowany z GitHub (PR#14). Fokus operacyjny: PH4-011 (mobile prod).",
     "plan_now": {
       "primary": "PH4-011: deploy Command Center (Deploy-VPS.ps1) jesli nie na prod → vcms-prod-smoke PASS → test telefonu → zapis z tmpl-ph4-011-mobile → DONE w todo.",
@@ -33,7 +33,8 @@
     "ph4_prod_export": "docs/plans/ph4-prod-workstream.json",
     "version": "1.0",
     "plan": "docs/plans/flex-vcms-ecosystem-5-phase-plan.md",
-    "phase": 4
+    "phase": 4,
+    "last_deploy_origin": "DESKTOP-ECTP1JE"
   },
   "tasks": [
     {
@@ -110,8 +111,7 @@
       ],
       "done_at": "2026-04-09",
       "note": "Wersja v1.0 przygotowana jako kontrakt operacyjny dla Dowodcy/AG/Gemini CLI."
-    }
-    ,
+    },
     {
       "id": "PH1-001",
       "area": "CANON",
@@ -193,7 +193,6 @@
       ],
       "done_at": "2026-04-09"
     },
-
     {
       "id": "PH3-001",
       "area": "ORCH",
@@ -418,7 +417,6 @@
       "done_at": "2026-04-09",
       "note": "SSoT: docs/checklists/phase-3-verification.md (sekcja 'Definition of Done — Phase 3 (PH3-015)')."
     },
-
     {
       "id": "PH4-001",
       "area": "BRAIN",
@@ -613,7 +611,8 @@
     {
       "id": "PH4-013",
       "area": "UX",
-      "status": "TODO",
+      "status": "DONE",
+      "done_at": "2026-04-13",
       "priority": "P0",
       "repo": "flex-vcms",
       "title": "UX/UI Optimization (Senior Specialist / Uncle Edition)",
@@ -624,7 +623,23 @@
         "Integracja z boot-senior-agency.md jako kontekst wsparcia"
       ],
       "definition_of_done": "Poczatkujacy uzytkownik rozumie status systemu i potrafi przetestowac czat bez pytania o instrukcje."
+    },
+    {
+      "id": "PH4-014",
+      "area": "SYNC",
+      "status": "DONE",
+      "done_at": "2026-04-13",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "Unified Control & Context Sync (Senior Edition)",
+      "acceptance": [
+        "Narzędzie vcms-sync-context.js automatyzuje zbieranie wiedzy z ekosystemu.",
+        "Dashboard wyświetla widget 'Next Action' z meta.next.",
+        "Dashboard wyświetla LEDy statusu 'Context Health' na podstawie manifestu.",
+        "Deploy-VPS.ps1 wykonuje 'Atomic Swap' plików kontekstu na VPS.",
+        "Obsługa Markdown + Copy Code w Labie zakończona pełnym sukcesem."
+      ],
+      "definition_of_done": "System zapewnia spójność wiedzy między laptopem a VPS i wizualizuje jej stan Dowódcy."
     }
   ]
 }
-

@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "project": "flexgrafik-meta",
+    "role": "Strategy + global rules + workflow + cohesion audits",
+    "owner": "Norbert Wozniak",
+    "updated": "2026-04-09",
+    "canonical": true
+  },
+  "status_legend": {
+    "done": "Zweryfikowane",
+    "in_progress": "W trakcie",
+    "next": "Nastepne",
+    "todo": "Do zrobienia",
+    "blocked": "Blokowane"
+  },
+  "tasks": [
+    {
+      "id": "META-001",
+      "status": "next",
+      "priority": "P0",
+      "title": "Utrzymac master-plan.md / workflow-manual.md / agents.md jako jedyne kanoniczne dyrektywy",
+      "acceptance": [
+        "Kazdy modul linkuje do tych dokumentow",
+        "Brak duplikatow 'workflow' w innych repo bez potrzeby"
+      ]
+    },
+    {
+      "id": "META-002",
+      "status": "next",
+      "priority": "P1",
+      "title": "Zdefiniowac minimalny standard brain-[module].md + todo.json dla wszystkich modulow",
+      "acceptance": [
+        "Istnieje brain.md i AGENTS.md w kazdym repo (po Fazie 1)"
+      ]
+    }
+  ]
+}
+
