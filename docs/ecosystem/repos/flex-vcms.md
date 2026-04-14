@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flex-vcms"
-updated: "2026-04-13T17:08:06.795Z"
+updated: "2026-04-13T19:52:09.252Z"
 repo_name: "flex-vcms"
 repo_slug: "flex-vcms"
 repo_type: "vcms-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "flex-vcms-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-13-api-hotfix-complete.md"
-last_handoff_mtime: "2026-04-13T17:05:01.389Z"
+last_handoff_rel: "docs/handoffs/handoffs-index.md"
+last_handoff_mtime: "2026-04-13T19:51:24.753Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T17:05:01.389Z)", "docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-13T05:43:47.972Z)", "docs/handoffs/handoffs-index.md (2026-04-09T20:57:49.704Z)"]
+links_recent_handoffs: ["docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.753Z)", "docs/handoffs/2026-04-13-ph4-014-sync-complete.md (2026-04-13T19:51:24.752Z)", "docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T19:51:16.941Z)"]
 ---
 
 ## flex-vcms
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-0
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-13-api-hotfix-complete.md` (2026-04-13T17:05:01.389Z)
+- **Last handoff**: `docs/handoffs/handoffs-index.md` (2026-04-13T19:51:24.753Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-0
 - **Cursor rules**:
   - —
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T17:05:01.389Z)`
-  - `docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-13T05:43:47.972Z)`
-  - `docs/handoffs/handoffs-index.md (2026-04-09T20:57:49.704Z)`
+  - `docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.753Z)`
+  - `docs/handoffs/2026-04-13-ph4-014-sync-complete.md (2026-04-13T19:51:24.752Z)`
+  - `docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T19:51:16.941Z)`
 
 ## Back
 

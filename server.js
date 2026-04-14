@@ -32,11 +32,26 @@ app.get('/health', (req, res) => {
 app.use('/deploy-context', (req, res) => res.status(403).send('Forbidden'));
 
 // --- 4. Static Assets (Dashboard & UI) ---
-app.use(express.static(path.join(__dirname, 'public'))); // Dashboard at /
+const ONE_HOUR = 3600;
+const ONE_YEAR = 31536000;
+
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: ONE_HOUR * 1000,
+    setHeaders: (res, path) => {
+        if (path.endsWith('.html')) res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+})); // Dashboard at /
 
 const distPath = path.join(__dirname, 'docs/.vitepress/dist');
-app.use('/docs', express.static(distPath, { extensions: ['html'] })); // Docs at /docs
-app.use('/assets', express.static(path.join(distPath, 'assets'))); // Assets for docs
+app.use('/docs', express.static(distPath, { 
+    extensions: ['html'],
+    maxAge: ONE_HOUR * 1000 
+})); 
+
+app.use('/assets', express.static(path.join(distPath, 'assets'), {
+    maxAge: ONE_YEAR * 1000,
+    immutable: true
+})); // Assets for docs (long-lived)
 
 // PWA Fallback
 app.use((req, res, next) => {

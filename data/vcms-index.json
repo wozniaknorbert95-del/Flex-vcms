@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-13T17:28:53.664Z",
+    "generated_at": "2026-04-14T04:10:14.919Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -22,9 +22,9 @@
         {
           "rel": "brain.md",
           "type": "BRAIN",
-          "bytes": 7605,
-          "mtime": "2026-04-09T17:25:51.469Z",
-          "sha256": "652a4aa3dc91e3a257993bbc551f912b069d652ca50c15e2a4deee490189674f"
+          "bytes": 9054,
+          "mtime": "2026-04-13T19:51:24.747Z",
+          "sha256": "88df5502c05add42d5fdf776163277ad27e524ab506e2961ac849916857367da"
         },
         {
           "rel": "todo.json",
@@ -36,9 +36,9 @@
         {
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
-          "bytes": 29961,
-          "mtime": "2026-04-13T16:56:46.728Z",
-          "sha256": "57c4d67458d9017652cd6716d0e04f235b9b870e555bd70b6308496f9390673d"
+          "bytes": 31477,
+          "mtime": "2026-04-13T19:51:24.753Z",
+          "sha256": "2c02bdea122b15f3dc4582928e0a08a93620f453caa5e3772b42c43ea5f1a3c4"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -79,7 +79,7 @@
           "rel": "docs/handoffs/2026-04-09-koda-prod-api.md",
           "type": "HANDOFF",
           "bytes": 3025,
-          "mtime": "2026-04-09T20:56:12.935Z",
+          "mtime": "2026-04-13T19:51:16.902Z",
           "sha256": "68ff515a78d2146413b5d3af6e6647bc5b69431e233d19571cee508c1350a4f5"
         },
         {
@@ -93,7 +93,7 @@
           "rel": "docs/handoffs/2026-04-09-phase2-repo-pages.md",
           "type": "HANDOFF",
           "bytes": 1124,
-          "mtime": "2026-04-13T05:43:47.972Z",
+          "mtime": "2026-04-13T19:21:44.188Z",
           "sha256": "3d0d102eb847542ad770747b2ce92b4b88e0c9ebbba34b78845a205d9ab68989"
         },
         {
@@ -142,22 +142,36 @@
           "rel": "docs/handoffs/2026-04-12-ph4-011-gemini-leak-handoff.md",
           "type": "HANDOFF",
           "bytes": 2484,
-          "mtime": "2026-04-09T20:57:47.872Z",
+          "mtime": "2026-04-13T19:51:16.919Z",
           "sha256": "0b9b54882049f4ef412e816149e4657027b387eba098fe5d0727d9c8d91477bc"
         },
         {
           "rel": "docs/handoffs/2026-04-13-api-hotfix-complete.md",
           "type": "HANDOFF",
           "bytes": 854,
-          "mtime": "2026-04-13T17:05:01.389Z",
+          "mtime": "2026-04-13T19:51:16.941Z",
           "sha256": "866f43adec430155036817ad9343d2ce3fa794bebbfb5e9acdc90244f7b288e6"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-13-ph4-014-sync-complete.md",
+          "type": "HANDOFF",
+          "bytes": 2420,
+          "mtime": "2026-04-13T19:51:24.752Z",
+          "sha256": "251e6303374f67ac72df50870262e1635fda65f26a60cab13594d1ad2bd921a9"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-13-unified-command-center.md",
+          "type": "HANDOFF",
+          "bytes": 1953,
+          "mtime": "2026-04-13T19:51:16.941Z",
+          "sha256": "6255e43f0d3b87ebd9f7ad08c9cb57ef2c0f6779ade53326716f78e1e11a07e0"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",
           "type": "HANDOFF",
-          "bytes": 1138,
-          "mtime": "2026-04-09T20:57:49.704Z",
-          "sha256": "8b94a9a0d84e8a6a1337e3f300abaf9a787ad92a5ea2fbeba23b1d71af482d43"
+          "bytes": 1141,
+          "mtime": "2026-04-13T19:51:24.753Z",
+          "sha256": "394b1c1161ea79d21d89f9bbe67a0232546a56d55eb0f1620fa64ed7c7fef7a8"
         },
         {
           "rel": "docs/core/artifacts-standard.md",
@@ -670,9 +684,9 @@
         {
           "rel": "todo.json",
           "type": "TODO",
-          "bytes": 34364,
-          "mtime": "2026-04-13T17:07:39.137Z",
-          "sha256": "42fc2e5dc912bf12e0174d8b9492923402ef742b28069191817be1089d12deb0"
+          "bytes": 33730,
+          "mtime": "2026-04-13T19:21:44.300Z",
+          "sha256": "c1c87db2c46d1a19936f78fbff0d6d1b9d830c9dda5e4b5473a9e98e2ed2ea70"
         },
         {
           "rel": "docs/handoffs/2026-03-19-v2-core-and-polish.md",
@@ -969,6 +983,13 @@
           "sha256": "d4abc5df85b6e8693aa51a27f36125feeeaf08ba2498956fb671e333b4ef035f"
         },
         {
+          "rel": "docs/handoffs/2026-04-13-deploy-evening-704682d-raport.md",
+          "type": "HANDOFF",
+          "bytes": 1807,
+          "mtime": "2026-04-13T19:21:44.287Z",
+          "sha256": "2ec4232d34d1c7150ac1229b784f466a14b081b45ddd56a6b3cd8c218399e01f"
+        },
+        {
           "rel": "docs/handoffs/2026-04-13-deploy-workflow-cli-session-anchor.md",
           "type": "HANDOFF",
           "bytes": 2479,
@@ -1004,6 +1025,13 @@
           "sha256": "fc1bcb89a551144d0f73cde4326c469ad04314c26e883af18afd035e398f1d90"
         },
         {
+          "rel": "docs/handoffs/2026-04-13-prod-git-sync-ux-platforms.md",
+          "type": "HANDOFF",
+          "bytes": 2314,
+          "mtime": "2026-04-13T18:21:34.965Z",
+          "sha256": "12f52b4341aaca92e7c88bd6fa33b3b4e4b1ce1620c4d6e3307b3f09c0e8368f"
+        },
+        {
           "rel": "docs/handoffs/2026-04-13-sh-ux-s5-deploy-closure.md",
           "type": "HANDOFF",
           "bytes": 973,
@@ -1023,6 +1051,13 @@
           "bytes": 1513,
           "mtime": "2026-04-13T17:08:06.795Z",
           "sha256": "41ef7466bdb7746310c99abe01a913a583e05f8b42d6e314d4f66fe911611309"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md",
+          "type": "HANDOFF",
+          "bytes": 3697,
+          "mtime": "2026-04-13T19:52:09.252Z",
+          "sha256": "cd2d6d08b26ba653b302cf9252f3d3df9e43c346ef96229181c4f075cb9ede9b"
         },
         {
           "rel": "docs/handoffs/handoff-diamond-polish.md",

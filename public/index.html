@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VCMS — Master Command Center</title>
+    <meta name="description" content="FlexGrafik VCMS — Senior Level Master Command Center for ecosystem orchestration.">
+    <meta name="author" content="Norbert Wozniak">
+    <meta property="og:title" content="VCMS Master CMD">
+    <meta property="og:description" content="Unified control & context synchronization for FlexGrafik.">
+    <title>VCMS Master CMD — System Control</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/lucide@0.363.0/dist/umd/lucide.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -648,7 +652,10 @@
                     desc.innerText = 'Backlog jest pusty. Odpocznij Dowódco.';
                 }
             } catch (e) {
-                title.innerText = 'Błąd połączenia z backlogiem';
+                title.classList.remove('skeleton');
+                title.innerText = 'Brak danych SSoT';
+                desc.innerText = 'Nie udało się pobrać backlogu. Upewnij się, że flex-vcms-todo.json jest poprawny.';
+                console.error('[Backlog] Fetch error:', e);
             }
         }
 
