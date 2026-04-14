@@ -72,19 +72,31 @@ if (-not $SkipBuild) {
 foreach ($f in $requiredRootFiles) {
     $p = Join-Path $RepoRoot $f
     if (-not (Test-Path $p)) {
-        throw "Brak wymaganego pliku: $p"
+        throw "Missing required file: $p"
     }
 }
 
 if (-not (Test-Path $distLocal)) {
-    throw "Brak katalogu dist: $distLocal - uruchom npm run docs:build lub usun -SkipBuild."
+    throw "Missing dist directory: $distLocal - run 'npm run docs:build' or remove -SkipBuild."
+}
+
+# Senior Pre-flight: Check if dist is actually built and not empty
+$indexFile = Join-Path $distLocal "index.html"
+if (-not (Test-Path $indexFile)) {
+    throw "Build Error: docs/.vitepress/dist/index.html does not exist. Build might have failed."
+}
+if ((Get-Item $indexFile).Length -lt 1kb) {
+    throw "Build Error: index.html in dist is suspiciously small (< 1KB). Check docs build."
+}
+if ((Get-ChildItem $distLocal -Recurse | Measure-Object -Property Length -Sum).Sum -lt 100kb) {
+    throw "Build Error: The entire dist folder is too small (< 100KB). Build likely failed."
 }
 
 $remoteDist = ($RemotePath.TrimEnd("/") + "/docs/.vitepress/dist")
 $remoteVite = ($RemotePath.TrimEnd("/") + "/docs/.vitepress")
 $logDir = "/var/www/vcms/logs"
 
-$sshMkdir = "mkdir -p `"$remoteDist`" && mkdir -p `"$logDir`""
+$sshMkdir = "mkdir -p `"$remoteDist`"; mkdir -p `"$logDir`""
 Write-Plan "ssh $SshTarget `"$sshMkdir`""
 if (-not $WhatIf) {
     ssh $SshTarget $sshMkdir
@@ -126,13 +138,13 @@ if (-not $WhatIf) {
     scp -r "$distLocal\*" "${SshTarget}:$remoteDist/"
 }
 
-$remoteShell = "cd `"$RemotePath`" && rm -rf `"$remoteCtxFinal`" && mv `"$remoteCtxTmp`" `"$remoteCtxFinal`" && npm ci --omit=dev && pm2 reload ecosystem.config.js --update-env"
+$remoteShell = "cd `"$RemotePath`"; rm -rf `"$remoteCtxFinal`"; mv `"$remoteCtxTmp`" `"$remoteCtxFinal`"; npm ci --omit=dev; pm2 reload ecosystem.config.js --update-env"
 Write-Plan "ssh $SshTarget `"$remoteShell`""
 if (-not $WhatIf) {
     ssh $SshTarget $remoteShell
 }
 
-Write-Host "Deploy-VPS: zakonczono." -ForegroundColor Green
+Write-Host "Deploy-VPS: complete." -ForegroundColor Green
 if ($WhatIf) {
-    Write-Host "Uruchomiono w trybie -WhatIf - nic nie wykonano." -ForegroundColor Yellow
+    Write-Host "Running in -WhatIf mode - no changes made." -ForegroundColor Yellow
 }

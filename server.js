@@ -37,15 +37,24 @@ const ONE_YEAR = 31536000;
 
 app.use(express.static(path.join(__dirname, 'public'), {
     maxAge: ONE_HOUR * 1000,
-    setHeaders: (res, path) => {
-        if (path.endsWith('.html')) res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        } else if (filePath.match(/\.(js|css|webp|png|jpg|woff2?)$/)) {
+            res.setHeader('Cache-Control', `public, max-age=${ONE_YEAR}, immutable`);
+        }
     }
 })); // Dashboard at /
 
 const distPath = path.join(__dirname, 'docs/.vitepress/dist');
 app.use('/docs', express.static(distPath, { 
     extensions: ['html'],
-    maxAge: ONE_HOUR * 1000 
+    maxAge: ONE_HOUR * 1000,
+    setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+    }
 })); 
 
 app.use('/assets', express.static(path.join(distPath, 'assets'), {

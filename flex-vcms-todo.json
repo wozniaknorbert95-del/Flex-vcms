@@ -2,7 +2,7 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-04-14T04:15:27.874Z",
+    "updated": "2026-04-14T04:37:21.543Z",
     "workstream": "PH4-PROD zamkniety w kodzie (007–012); master zsynchronizowany z GitHub (PR#14). Fokus operacyjny: PH4-011 (mobile prod).",
     "plan_now": {
       "primary": "PH4-011: deploy Command Center (Deploy-VPS.ps1) jesli nie na prod → vcms-prod-smoke PASS → test telefonu → zapis z tmpl-ph4-011-mobile → DONE w todo.",
@@ -644,9 +644,10 @@
     {
       "id": "PH4-015",
       "area": "OPS",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "priority": "P0",
       "repo": "flex-vcms",
+      "done_at": "2026-04-14",
       "title": "Performance Optimization & Senior Polish",
       "acceptance": [
         "Backend posiada nagłówki Cache-Control dla zasobów statycznych.",

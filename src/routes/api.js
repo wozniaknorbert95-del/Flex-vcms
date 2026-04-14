@@ -148,13 +148,26 @@ router.get('/v1/backlog', (req, res) => {
         }
 
         const raw = require('fs').readFileSync(todoPath, 'utf8');
-        const todo = JSON.parse(raw);
+        
+        // Robust JSON Parsing
+        let todo;
+        try {
+            todo = JSON.parse(raw);
+        } catch (parseErr) {
+            console.error(`[SEC-WATCHDOG] Backlog JSON Corrupted: ${parseErr.message}`);
+            return res.status(200).json({ 
+                status: 'error', 
+                error: 'Plik flex-vcms-todo.json jest uszkodzony.',
+                recovery: 'Uruchom node tools/vcms-scan.js, aby spróbować naprawić stan.' 
+            });
+        }
+
         const stats = require('fs').statSync(todoPath);
 
         const response = {
             status: 'ok',
-            next_task: todo.meta.next || null,
-            updated: todo.meta.updated || 'unknown',
+            next_task: (todo.meta && todo.meta.next) ? todo.meta.next : null,
+            updated: (todo.meta && todo.meta.updated) ? todo.meta.updated : 'unknown',
             last_sync_ms: stats.mtimeMs,
             source: 'flex-vcms-todo.json'
         };
@@ -162,8 +175,8 @@ router.get('/v1/backlog', (req, res) => {
         backlogCache = { data: response, expire: Date.now() + 10000 }; // 10s cache
         res.json(response);
     } catch (err) {
-        console.error(`[Backlog Error] ${err.message}`);
-        res.status(200).json({ status: 'error', error: 'Błąd parsowania backlogu.' });
+        console.error(`[Backlog General Error] ${err.message}`);
+        res.status(200).json({ status: 'error', error: 'Błąd systemu podczas odczytu backlogu.' });
     }
 });
 
