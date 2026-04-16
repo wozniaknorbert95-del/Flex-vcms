@@ -144,7 +144,21 @@ if (-not $WhatIf) {
     ssh $SshTarget $remoteShell
 }
 
+Write-Plan "Post-Deploy Health Check: curl -s http://127.0.0.1:8001/health"
+if (-not $WhatIf) {
+    Write-Host "Waiting for service to stabilize..." -ForegroundColor Gray
+    Start-Sleep -Seconds 5
+    $health = ssh $SshTarget "curl -s http://127.0.0.1:8001/health"
+    if ($health -match '"status":"OK"') {
+        Write-Host "Health Check: PASSED" -ForegroundColor Green
+    } else {
+        Write-Host "Health Check: FAILED! Output: $health" -ForegroundColor Red
+        Write-Warning "Check PM2 logs on VPS: pm2 logs vcms"
+    }
+}
+
 Write-Host "Deploy-VPS: complete." -ForegroundColor Green
+
 if ($WhatIf) {
     Write-Host "Running in -WhatIf mode - no changes made." -ForegroundColor Yellow
 }
