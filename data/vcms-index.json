@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-16T05:58:17.697Z",
+    "generated_at": "2026-04-16T06:58:57.248Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -37,8 +37,8 @@
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
           "bytes": 32124,
-          "mtime": "2026-04-15T04:52:28.233Z",
-          "sha256": "dc9eba68f118bc963ef227bc169d0e30abfe8f6dc6bd710141b80f6901c7106f"
+          "mtime": "2026-04-16T06:05:51.141Z",
+          "sha256": "0e82e037b40f1bcd515040bbe534870c71c96688be3bdb34ba03ef6f527044f3"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -93,7 +93,7 @@
           "rel": "docs/handoffs/2026-04-09-phase2-repo-pages.md",
           "type": "HANDOFF",
           "bytes": 1124,
-          "mtime": "2026-04-15T05:14:07.101Z",
+          "mtime": "2026-04-16T06:23:28.762Z",
           "sha256": "3d0d102eb847542ad770747b2ce92b4b88e0c9ebbba34b78845a205d9ab68989"
         },
         {
@@ -172,6 +172,20 @@
           "bytes": 1835,
           "mtime": "2026-04-14T04:40:55.237Z",
           "sha256": "e9df10f137fd4bf58745c04ea44449ef50b71200b92cfb887fc214ec594c612b"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-16-audit-3-indexing-complete.md",
+          "type": "HANDOFF",
+          "bytes": 2397,
+          "mtime": "2026-04-16T06:40:50.728Z",
+          "sha256": "134a59cc671b5b125cd5541d18db612b4303791da383c48cfe2492f8fe8ada28"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-16-hardened-v3-deploy.md",
+          "type": "HANDOFF",
+          "bytes": 2234,
+          "mtime": "2026-04-16T06:25:40.432Z",
+          "sha256": "d3806b7cab1bc7805f482ba74f1c7824836f0ebfc41e82d2f05919b37f993e4d"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",
@@ -698,9 +712,9 @@
         {
           "rel": "AGENTS.md",
           "type": "AGENTS",
-          "bytes": 1198,
-          "mtime": "2026-04-15T06:01:13.364Z",
-          "sha256": "b27b78328ac68cf305f74b778dd0dd7ac6ecc2a8c82929ac7604f23f49586bd3"
+          "bytes": 1173,
+          "mtime": "2026-04-16T06:23:29.162Z",
+          "sha256": "5d30bc6727224797319e8900652084922b08722e0b29678e5cae14f44f07d8b3"
         },
         {
           "rel": "brain.md",
@@ -1084,14 +1098,14 @@
           "rel": "docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md",
           "type": "HANDOFF",
           "bytes": 3697,
-          "mtime": "2026-04-15T05:14:06.071Z",
+          "mtime": "2026-04-16T06:23:29.162Z",
           "sha256": "cd2d6d08b26ba653b302cf9252f3d3df9e43c346ef96229181c4f075cb9ede9b"
         },
         {
           "rel": "docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md",
           "type": "HANDOFF",
           "bytes": 3142,
-          "mtime": "2026-04-15T07:14:26.451Z",
+          "mtime": "2026-04-16T06:23:29.162Z",
           "sha256": "455faee7ca560c7ac2ba25fe8e2e6668773ee58110ad391ead2fc21f9eb8181a"
         },
         {
@@ -1119,15 +1133,15 @@
           "rel": ".cursor/rules/app-flexgrafik-e2e.mdc",
           "type": "CURSOR_RULE",
           "bytes": 1160,
-          "mtime": "2026-04-15T06:01:08.061Z",
+          "mtime": "2026-04-16T06:23:29.161Z",
           "sha256": "12e9f7225d4f8d9b8c77c43273138d16ee34bb082e1e22c59451c5036eb05ab6"
         },
         {
           "rel": ".cursor/rules/app-flexgrafik-game.mdc",
           "type": "CURSOR_RULE",
-          "bytes": 1527,
-          "mtime": "2026-04-15T06:01:03.064Z",
-          "sha256": "ed9d78d2c4f6e4117878fcc5f8e711f2da91724b0486cc5e4c928567438e1acc"
+          "bytes": 1490,
+          "mtime": "2026-04-16T06:23:29.162Z",
+          "sha256": "baae6f5b20696f0c4343281cdf624c2fad3a2a2e76cda1c6520825a8622c46a4"
         }
       ],
       "warnings": [],

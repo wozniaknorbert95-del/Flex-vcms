@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
-updated: "2026-04-15T07:14:26.451Z"
+updated: "2026-04-16T06:40:50.728Z"
 repo_name: "app.flexgrafik.nl"
 repo_slug: "app-flexgrafik-nl"
 repo_type: "game"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md"
-last_handoff_mtime: "2026-04-15T07:14:26.451Z"
+last_handoff_rel: "docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md"
+last_handoff_mtime: "2026-04-16T06:23:29.162Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/app-flexgrafik-e2e.mdc", ".cursor/rules/app-flexgrafik-game.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md (2026-04-15T07:14:26.451Z)", "docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md (2026-04-15T05:14:06.071Z)", "docs/handoffs/2026-04-13-deploy-evening-704682d-raport.md (2026-04-13T19:21:44.287Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md (2026-04-16T06:23:29.162Z)", "docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md (2026-04-16T06:23:29.162Z)", "docs/handoffs/2026-04-13-deploy-evening-704682d-raport.md (2026-04-13T19:21:44.287Z)"]
 ---
 
 ## app.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-04-15-session-handoff-cursor-wizard-
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md` (2026-04-15T07:14:26.451Z)
+- **Last handoff**: `docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md` (2026-04-16T06:23:29.162Z)
 
 ## Quick links (by file type)
 
@@ -44,8 +44,8 @@ links_recent_handoffs: ["docs/handoffs/2026-04-15-session-handoff-cursor-wizard-
   - `.cursor/rules/app-flexgrafik-e2e.mdc`
   - `.cursor/rules/app-flexgrafik-game.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md (2026-04-15T07:14:26.451Z)`
-  - `docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md (2026-04-15T05:14:06.071Z)`
+  - `docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md (2026-04-16T06:23:29.162Z)`
+  - `docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md (2026-04-16T06:23:29.162Z)`
   - `docs/handoffs/2026-04-13-deploy-evening-704682d-raport.md (2026-04-13T19:21:44.287Z)`
 
 ## Back

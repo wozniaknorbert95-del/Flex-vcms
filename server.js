@@ -5,6 +5,7 @@ const { port, githubBase, allowedOrigins } = require('./src/config/env');
 const { setupGuards, handleJsonErrors } = require('./src/middleware/guards');
 const { logger, winLogger } = require('./src/middleware/logger');
 const apiRoutes = require('./src/routes/api');
+const db = require('./src/database/instance');
 
 const app = express();
 
@@ -93,7 +94,13 @@ const server = app.listen(port, '0.0.0.0', () => {
 const shutdown = () => {
     winLogger.info('SIGTERM/SIGINT received. Closing HTTP server...');
     server.close(() => {
-        winLogger.info('HTTP server closed. Exiting process.');
+        winLogger.info('HTTP server closed.');
+        try {
+            db.close();
+            winLogger.info('SQLite connection closed.');
+        } catch (err) {
+            winLogger.error('Error closing SQLite:', err);
+        }
         process.exit(0);
     });
     

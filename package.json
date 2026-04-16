@@ -12,7 +12,6 @@
         "docs:build": "vitepress build docs",
         "verify:scan": "node tools/verify-scan-artifacts.js"
     },
-
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -24,6 +23,7 @@
         "vitepress": "^1.6.4"
     },
     "dependencies": {
+        "better-sqlite3": "^12.9.0",
         "cors": "^2.8.6",
         "dotenv": "^17.4.0",
         "express": "^5.2.1",
@@ -31,7 +31,6 @@
         "helmet": "^8.1.0",
         "joi": "^18.1.2",
         "js-yaml": "^4.1.1",
-        "marked": "^12.0.0",
         "winston": "^3.19.0",
         "winston-daily-rotate-file": "^5.0.0"
     }

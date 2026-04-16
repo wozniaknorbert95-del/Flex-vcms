@@ -98,7 +98,7 @@
         try {
             const data = await safeFetch('/api/v1/status');
             elements.uptime.innerText = data.uptime + 's';
-            elements.latency.innerText = (data.llm.last_latency_ms || 0) + 'ms';
+            elements.latency.innerText = data.llm.last_latency_ms ? data.llm.last_latency_ms + 'ms' : 'Ready';
             elements.requests.innerText = data.llm.total_requests;
             elements.knowledge.innerText = data.knowledge?.file_count || '0';
             if (data.uncle_tip) elements.tipText.innerText = data.uncle_tip;
@@ -220,13 +220,37 @@
     function init() {
         lucide.createIcons();
         
-        // Markdown setup
         const renderer = new marked.Renderer();
         renderer.code = (code) => {
             const id = 'code-' + Math.random().toString(36).substr(2, 9);
             return `<pre style="position:relative;"><button class="copy-btn" onclick="copyCode('${id}')">Copy</button><code id="${id}">${code}</code></pre>`;
         };
         marked.setOptions({ renderer });
+        
+        // Robust Navigation
+        document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(el => {
+            el.addEventListener('click', () => {
+                const tab = el.getAttribute('data-tab');
+                if (tab) window.showTab(tab);
+            });
+        });
+
+        // Action Buttons
+        const bind = (id, fn) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('click', fn);
+        };
+
+        bind('btn-refresh-health', fetchHealth);
+        bind('btn-refresh-ecosystem', fetchEcosystem);
+        bind('btn-deep-scan', window.triggerScan);
+        bind('btn-execute-task', () => window.showTab('lab'));
+        bind('btn-chat-send', window.sendMessage);
+
+        // Chat Enter Key
+        elements.chatInput?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') window.sendMessage();
+        });
 
         fetchStats();
         fetchBacklog();

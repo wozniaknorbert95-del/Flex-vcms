@@ -1,11 +1,11 @@
 ---
 status: "[DRAFT]"
 title: "Ecosystem Conflicts — VCMS Scanner Report"
-updated: "2026-04-15T07:14:26.451Z"
+updated: "2026-04-16T06:40:50.728Z"
 ---
 
 ## Summary
-Generated at: `2026-04-15T07:14:26.451Z`
+Generated at: `2026-04-16T06:40:50.728Z`
 Repos scanned: **6**
 Conflicts found: **0**
 

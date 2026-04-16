@@ -15,6 +15,7 @@
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { execFileSync } = require("child_process");
 
 const VCMS_ROOT = path.resolve(__dirname, "..");
 const REPOS_YAML = path.join(VCMS_ROOT, "repos.yaml");
@@ -744,6 +745,14 @@ function main() {
   writeConflictsMd(conflicts, index);
   writeMapMd(index);
   writeRepoPages(index);
+
+  // Audit 3.0: Update SQLite Knowledge Index
+  try {
+    console.log("Updating SQLite Knowledge Index...");
+    execFileSync("node", [path.join(VCMS_ROOT, "tools", "vcms-sync-db.js")], { stdio: "inherit" });
+  } catch (err) {
+    console.error("Failed to sync SQLite DB:", err.message);
+  }
 
   console.log("VCMS scan complete.");
   console.log(" -", path.relative(VCMS_ROOT, OUT_INDEX));

@@ -25,16 +25,16 @@
             <h1>FLEX-VCMS</h1>
         </div>
         <nav>
-            <div class="nav-item active" data-tab="dashboard" onclick="showTab('dashboard')">
+            <div class="nav-item active" data-tab="dashboard">
                 <i data-lucide="layout-dashboard"></i> Dashboard
             </div>
-            <div class="nav-item" data-tab="knowledge" onclick="showTab('knowledge')">
+            <div class="nav-item" data-tab="knowledge">
                 <i data-lucide="book-open"></i> Baza Wiedzy
             </div>
-            <div class="nav-item" data-tab="lab" onclick="showTab('lab')">
+            <div class="nav-item" data-tab="lab">
                 <i data-lucide="message-square"></i> Control Lab
             </div>
-            <div class="nav-item" data-tab="ecosystem" onclick="showTab('ecosystem')">
+            <div class="nav-item" data-tab="ecosystem">
                 <i data-lucide="layers"></i> Ekosystem
             </div>
         </nav>
@@ -44,16 +44,16 @@
     </aside>
 
     <div class="bottom-nav">
-        <a href="javascript:void(0)" class="mobile-nav-item active" data-tab="dashboard" onclick="showTab('dashboard')">
+        <a href="javascript:void(0)" class="mobile-nav-item active" data-tab="dashboard">
             <i data-lucide="layout-dashboard"></i><span>Main</span>
         </a>
-        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="knowledge" onclick="showTab('knowledge')">
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="knowledge">
             <i data-lucide="book-open"></i><span>Docs</span>
         </a>
-        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="lab" onclick="showTab('lab')">
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="lab">
             <i data-lucide="message-square"></i><span>Lab</span>
         </a>
-        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="ecosystem" onclick="showTab('ecosystem')">
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="ecosystem">
             <i data-lucide="layers"></i><span>System</span>
         </a>
     </div>
@@ -102,7 +102,7 @@
                             <i data-lucide="database" style="color: var(--accent);"></i>
                             <h3 style="margin:0; font-size: 1.1rem;">Context Health</h3>
                         </div>
-                        <i data-lucide="refresh-cw" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);" onclick="fetchHealth()"></i>
+                        <i data-lucide="refresh-cw" id="btn-refresh-health" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);"></i>
                     </div>
                     <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
                         <div class="status-pill"><div class="dot"></div> Checking...</div>
@@ -116,7 +116,7 @@
                     </div>
                     <h3 id="next-task-title" style="margin: 0.5rem 0; font-size: 1.35rem; font-weight: 600;">Loading...</h3>
                     <p id="next-task-desc" style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">Pobieranie backlogu z SSoT...</p>
-                    <button class="btn" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;" onclick="showTab('lab')">Execute Task</button>
+                    <button class="btn" id="btn-execute-task" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;">Execute Task</button>
                 </div>
 
                 <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
@@ -141,7 +141,7 @@
             <div class="history-list">
                 <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center;">
                     <h3 style="margin:0">Action Log</h3>
-                    <button onclick="triggerScan()" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Deep Scan</button>
+                    <button id="btn-deep-scan" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Deep Scan</button>
                 </div>
                 <div id="log-container">
                     <div class="log-row" style="color:var(--text-dim)">Ładowanie aktywności...</div>
@@ -175,8 +175,8 @@
                     <div class="msg msg-ai">System Hardened. Witaj Dowódco.</div>
                 </div>
                 <div class="chat-input">
-                    <input type="text" id="chat-input" placeholder="Wpisz komendę..." onkeypress="if(event.key==='Enter') sendMessage()">
-                    <button onclick="sendMessage()">Wyślij</button>
+                    <input type="text" id="chat-input" placeholder="Wpisz komendę...">
+                    <button id="btn-chat-send">Wyślij</button>
                 </div>
             </div>
         </div>
@@ -188,7 +188,7 @@
                     <h2>Ecosystem Command Bridge</h2>
                     <p>Live health and synchronization status for all modules.</p>
                 </div>
-                <button onclick="fetchEcosystem()" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Refresh Bridge</button>
+                <button id="btn-refresh-ecosystem" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Refresh Bridge</button>
             </header>
             
             <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 0; border-radius: 28px; overflow: hidden;">

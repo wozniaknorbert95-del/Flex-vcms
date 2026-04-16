@@ -16,7 +16,7 @@
       "priority": "MEDIUM",
       "title": "Knowledge Search Index (SQLite)",
       "description": "Implement a simple indexing service to avoid reading hundreds of files on every LLM prompt.",
-      "status": "todo"
+      "status": "done"
     },
     {
       "id": "INF-023",

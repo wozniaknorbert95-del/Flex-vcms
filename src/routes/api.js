@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const rateLimit = require('express-rate-limit');
+const Joi = require('joi');
 const fs = require('fs').promises;
 const path = require('path');
 const { execFile } = require('child_process');
@@ -116,14 +117,53 @@ router.get('/knowledge', apiLimiter, async (req, res) => {
         res.status(500).json({ error: 'Nie udało się poprawnie złożyć SSOT' });
     }
 });
+ 
+router.get('/v1/context/health', async (req, res) => {
+    try {
+        const db = require('../database/instance');
+        const files = db.prepare(`
+            SELECT repo_id, file_path, file_name, category FROM knowledge_index
+            WHERE repo_id = 'flex-vcms' AND category IN ('BRAIN', 'TODO', 'HANDOFF', 'DOC')
+            ORDER BY category ASC
+        `).all();
+
+        const health = files.map(f => {
+            const fullPath = path.join(vcmsBase, f.file_path);
+            const exists = require('fs').existsSync(fullPath);
+            return {
+                name: f.file_name,
+                path: f.file_path,
+                status: exists ? 'healthy' : 'missing'
+            };
+        });
+
+        res.json({ modules: health });
+    } catch (err) {
+        res.status(500).json({ error: 'Błąd weryfikacji zdrowia kontekstu.' });
+    }
+});
 
 router.post('/chat', chatLimiter, async (req, res) => {
     try {
-        const { messages } = req.body;
-        
-        if (!messages || !Array.isArray(messages) || messages.length === 0) {
-            return res.status(400).json({ error: 'Błędny format wiadomości.' });
+        const schema = Joi.object({
+            messages: Joi.array().items(
+                Joi.object({
+                    role: Joi.string().valid('user', 'model', 'assistant').required(),
+                    parts: Joi.array().items(
+                        Joi.object({
+                            text: Joi.string().required()
+                        })
+                    ).required()
+                })
+            ).min(1).required()
+        });
+
+        const { error, value } = schema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ error: `Błędny format wiadomości: ${error.details[0].message}` });
         }
+
+        const { messages } = value;
 
         const apiKey = process.env.GEMINI_API_KEY;
         if (!apiKey) return res.status(500).json({ error: 'Brak klucza API LLM.' });
