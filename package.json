@@ -5,11 +5,14 @@
     "main": "index.js",
     "scripts": {
         "start": "node server.js",
+        "test": "jest",
+        "build:prod": "echo 'Building production assets...' && node -v",
         "docs:dev": "vitepress dev docs",
         "docs:preview": "vitepress preview docs",
         "docs:build": "vitepress build docs",
         "verify:scan": "node tools/verify-scan-artifacts.js"
     },
+
     "keywords": [],
     "author": "",
     "license": "ISC",
@@ -17,6 +20,7 @@
     "devDependencies": {
         "@dotenvx/dotenvx": "^1.61.0",
         "@types/node": "^25.5.2",
+        "jest": "^30.3.0",
         "vitepress": "^1.6.4"
     },
     "dependencies": {
@@ -25,6 +29,10 @@
         "express": "^5.2.1",
         "express-rate-limit": "^8.3.2",
         "helmet": "^8.1.0",
-        "marked": "^12.0.0"
+        "joi": "^18.1.2",
+        "js-yaml": "^4.1.1",
+        "marked": "^12.0.0",
+        "winston": "^3.19.0",
+        "winston-daily-rotate-file": "^5.0.0"
     }
 }

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-04-14T04:36:32.187Z",
+    "generated_at": "2026-04-16T05:20:04.118Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -36,9 +36,9 @@
         {
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
-          "bytes": 32100,
-          "mtime": "2026-04-14T04:36:11.631Z",
-          "sha256": "c21a2e66346b4c968213a769e39cc3749df9579c4af2fe51d9203062ef97e5b5"
+          "bytes": 32124,
+          "mtime": "2026-04-15T04:52:28.233Z",
+          "sha256": "dc9eba68f118bc963ef227bc169d0e30abfe8f6dc6bd710141b80f6901c7106f"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -93,7 +93,7 @@
           "rel": "docs/handoffs/2026-04-09-phase2-repo-pages.md",
           "type": "HANDOFF",
           "bytes": 1124,
-          "mtime": "2026-04-13T19:21:44.188Z",
+          "mtime": "2026-04-15T05:14:07.101Z",
           "sha256": "3d0d102eb847542ad770747b2ce92b4b88e0c9ebbba34b78845a205d9ab68989"
         },
         {
@@ -165,6 +165,13 @@
           "bytes": 1953,
           "mtime": "2026-04-13T19:51:16.941Z",
           "sha256": "6255e43f0d3b87ebd9f7ad08c9cb57ef2c0f6779ade53326716f78e1e11a07e0"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-14-ph4-015-polish-complete.md",
+          "type": "HANDOFF",
+          "bytes": 1835,
+          "mtime": "2026-04-14T04:40:55.237Z",
+          "sha256": "e9df10f137fd4bf58745c04ea44449ef50b71200b92cfb887fc214ec594c612b"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",
@@ -280,9 +287,9 @@
         {
           "rel": "AGENTS.md",
           "type": "AGENTS",
-          "bytes": 1449,
-          "mtime": "2026-04-13T06:23:33.176Z",
-          "sha256": "165014a72e94f31b3475eb4a3ebcfa2c486f9b49649d09355cc008537d051828"
+          "bytes": 1710,
+          "mtime": "2026-04-15T06:18:43.536Z",
+          "sha256": "fe678b39c75be8167aace24df9247174d458a2b6e4a72daa664a71362ca9233a"
         },
         {
           "rel": "MASTER-BRAIN.md",
@@ -593,6 +600,13 @@
           "sha256": "fc1970663ff2134dacb9f80d60994a0c833bf6206f6df1754f7717dda991af41"
         },
         {
+          "rel": "docs/handoffs/2026-04-13-workflow-engineering-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 1768,
+          "mtime": "2026-04-15T06:35:15.638Z",
+          "sha256": "71aea35d4e6eac7ed3cfd25d418f75bdfaf2fab72b0eeccc26736f252ee38f30"
+        },
+        {
           "rel": "docs/handoffs/handoff-2026-03-25.md",
           "type": "HANDOFF",
           "bytes": 2074,
@@ -605,6 +619,20 @@
           "bytes": 2694,
           "mtime": "2026-04-13T06:23:33.191Z",
           "sha256": "9d911c84eaa4b0ba6561f6598312d35923f3cc6c055973a886269f739e19d663"
+        },
+        {
+          "rel": ".cursor/rules/00-project-index.mdc",
+          "type": "CURSOR_RULE",
+          "bytes": 1015,
+          "mtime": "2026-04-15T06:14:26.106Z",
+          "sha256": "2aaad73f6d982ea4b3036b11ed78fbcff169c24159a584c618b8c7faa6705b44"
+        },
+        {
+          "rel": ".cursor/rules/playwright-e2e.mdc",
+          "type": "CURSOR_RULE",
+          "bytes": 722,
+          "mtime": "2026-04-15T06:15:17.672Z",
+          "sha256": "0fa147969b838de35607a32c1877e16e0ed89062e5e50c88ccdb3fd190f54bb1"
         },
         {
           "rel": ".cursor/rules/wizard-ssot.mdc",
@@ -670,9 +698,9 @@
         {
           "rel": "AGENTS.md",
           "type": "AGENTS",
-          "bytes": 806,
-          "mtime": "2026-04-12T06:16:51.827Z",
-          "sha256": "048a1dd4090bb73e7cb15d48dce77a22dbbc8e23f4d8bac5fd567e44fa477ba0"
+          "bytes": 1198,
+          "mtime": "2026-04-15T06:01:13.364Z",
+          "sha256": "b27b78328ac68cf305f74b778dd0dd7ac6ecc2a8c82929ac7604f23f49586bd3"
         },
         {
           "rel": "brain.md",
@@ -1056,8 +1084,15 @@
           "rel": "docs/handoffs/2026-04-14-session-handoff-level-end-deploy-ssot.md",
           "type": "HANDOFF",
           "bytes": 3697,
-          "mtime": "2026-04-13T19:52:09.252Z",
+          "mtime": "2026-04-15T05:14:06.071Z",
           "sha256": "cd2d6d08b26ba653b302cf9252f3d3df9e43c346ef96229181c4f075cb9ede9b"
+        },
+        {
+          "rel": "docs/handoffs/2026-04-15-session-handoff-cursor-wizard-proof-ux.md",
+          "type": "HANDOFF",
+          "bytes": 3142,
+          "mtime": "2026-04-15T07:14:26.451Z",
+          "sha256": "455faee7ca560c7ac2ba25fe8e2e6668773ee58110ad391ead2fc21f9eb8181a"
         },
         {
           "rel": "docs/handoffs/handoff-diamond-polish.md",
@@ -1081,11 +1116,18 @@
           "sha256": "c6bfb739946b2e5331f83d213bb79755c04de7882634df20dcf756c7cbfde486"
         },
         {
+          "rel": ".cursor/rules/app-flexgrafik-e2e.mdc",
+          "type": "CURSOR_RULE",
+          "bytes": 1160,
+          "mtime": "2026-04-15T06:01:08.061Z",
+          "sha256": "12e9f7225d4f8d9b8c77c43273138d16ee34bb082e1e22c59451c5036eb05ab6"
+        },
+        {
           "rel": ".cursor/rules/app-flexgrafik-game.mdc",
           "type": "CURSOR_RULE",
-          "bytes": 432,
-          "mtime": "2026-04-11T06:49:17.918Z",
-          "sha256": "039ed9c2283fb877a170a2cd9b25597a53b40593014e03219078e67b30aadcfe"
+          "bytes": 1527,
+          "mtime": "2026-04-15T06:01:03.064Z",
+          "sha256": "ed9d78d2c4f6e4117878fcc5f8e711f2da91724b0486cc5e4c928567438e1acc"
         }
       ],
       "warnings": [],

@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flex-vcms"
-updated: "2026-04-14T04:36:11.631Z"
+updated: "2026-04-15T07:14:26.451Z"
 repo_name: "flex-vcms"
 repo_slug: "flex-vcms"
 repo_type: "vcms-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "flex-vcms-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/handoffs-index.md"
-last_handoff_mtime: "2026-04-13T19:51:24.753Z"
+last_handoff_rel: "docs/handoffs/2026-04-09-phase2-repo-pages.md"
+last_handoff_mtime: "2026-04-15T05:14:07.101Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.753Z)", "docs/handoffs/2026-04-13-ph4-014-sync-complete.md (2026-04-13T19:51:24.752Z)", "docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T19:51:16.941Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-15T05:14:07.101Z)", "docs/handoffs/2026-04-14-ph4-015-polish-complete.md (2026-04-14T04:40:55.237Z)", "docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.753Z)"]
 ---
 
 ## flex-vcms
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.75
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/handoffs-index.md` (2026-04-13T19:51:24.753Z)
+- **Last handoff**: `docs/handoffs/2026-04-09-phase2-repo-pages.md` (2026-04-15T05:14:07.101Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.75
 - **Cursor rules**:
   - —
 - **Recent handoffs (up to 3)**:
+  - `docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-15T05:14:07.101Z)`
+  - `docs/handoffs/2026-04-14-ph4-015-polish-complete.md (2026-04-14T04:40:55.237Z)`
   - `docs/handoffs/handoffs-index.md (2026-04-13T19:51:24.753Z)`
-  - `docs/handoffs/2026-04-13-ph4-014-sync-complete.md (2026-04-13T19:51:24.752Z)`
-  - `docs/handoffs/2026-04-13-api-hotfix-complete.md (2026-04-13T19:51:16.941Z)`
 
 ## Back
 

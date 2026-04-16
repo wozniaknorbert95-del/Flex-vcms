@@ -1,0 +1,78 @@
+{
+  "audit_version": "2.0-senior",
+  "project": "Flex-VCMS",
+  "commander": "Norbert Wozniak",
+  "status": "HARDENING_PHASE_2",
+  "tasks": [
+    {
+      "id": "SEC-011",
+      "priority": "CRITICAL",
+      "title": "Environment Variable Validation (Startup Guard)",
+      "description": "Implement a strict startup check that validates .env variables (GEMINI_API_KEY, PORT). Crash early if missing.",
+      "status": "todo"
+    },
+    {
+      "id": "OPS-012",
+      "priority": "HIGH",
+      "title": "Persistent Rate Limiting",
+      "description": "Move rate limit store from memory to Disk (better for production restarts).",
+      "status": "todo"
+    },
+    {
+      "id": "INF-013",
+      "priority": "HIGH",
+      "title": "Graceful Shutdown Handler",
+      "description": "Implement SIGTERM/SIGINT handlers in server.js to close connections and flush logs properly.",
+      "status": "todo"
+    },
+    {
+      "id": "LOG-014",
+      "priority": "CRITICAL",
+      "title": "Persistent File Logging (Winston)",
+      "description": "Replace console.log with Winston logger + rotating file appender in /logs directory.",
+      "status": "todo"
+    },
+    {
+      "id": "QUA-015",
+      "priority": "HIGH",
+      "title": "Automated Core Testing (Jest)",
+      "description": "Initialize a test suite for getContextData and API health endpoints to prevent regressions.",
+      "status": "todo"
+    },
+    {
+      "id": "INF-016",
+      "priority": "MEDIUM",
+      "title": "API Documentation (Swagger/OpenAPI)",
+      "description": "Generate or document the /api/v1 contract for ecosystem integrations.",
+      "status": "todo"
+    },
+    {
+      "id": "PERF-017",
+      "priority": "MEDIUM",
+      "title": "Frontend Assets Build Pipeline",
+      "description": "Add simple minification for app.js and styles.css before serving in production mode.",
+      "status": "todo"
+    },
+    {
+      "id": "OPS-018",
+      "priority": "HIGH",
+      "title": "Deployment Post-Check (Health Probe)",
+      "description": "Update Deploy-VPS.ps1 to verify /health after service restart.",
+      "status": "todo"
+    },
+    {
+      "id": "SEC-019",
+      "priority": "CRITICAL",
+      "title": "Dependency Security Audit",
+      "description": "Perform npm audit fix and update vulnerable middleware packages.",
+      "status": "todo"
+    },
+    {
+      "id": "QUA-020",
+      "priority": "MEDIUM",
+      "title": "SSoT Sync Enforcement",
+      "description": "Implement a 'Stale Metadata' warning if the last vcms-scan was more than 24h ago.",
+      "status": "todo"
+    }
+  ]
+}
