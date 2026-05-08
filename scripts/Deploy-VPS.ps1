@@ -43,7 +43,14 @@ $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $RepoRoot
 
 $distLocal = Join-Path $RepoRoot "docs\.vitepress\dist"
-$requiredRootFiles = @("server.js", "package.json", "package-lock.json", "ecosystem.config.js")
+$requiredRootFiles = @(
+    "server.js",
+    "package.json",
+    "package-lock.json",
+    "ecosystem.config.js",
+    "repos.yaml",
+    "flex-vcms-todo.json"
+)
 $requiredDirectories = @("public", "src", "deploy-context")
 
 function Write-Plan {
