@@ -53,7 +53,7 @@ Zanim cokolwiek planujesz lub implementujesz, odśwież stan ekosystemu lokalnie
 
 **PowerShell (referencyjnie):**
 
-1) `Set-Location "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"`
+1) `Set-Location "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"`
 2) `node tools\\vcms-scan.js`
 
 **Co sprawdzasz po skanie (must-have):**

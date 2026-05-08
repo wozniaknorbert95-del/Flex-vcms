@@ -8,7 +8,7 @@
  * - docs/ecosystem/map.md (ecosystem map + canonical pointers)
  *
  * Run (PowerShell):
- *   Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+ *   Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
  *   node tools/vcms-scan.js
  */
 

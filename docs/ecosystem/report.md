@@ -14,7 +14,7 @@ updated: "2026-04-09"
 
 ## Header
 
-- **Workspace**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
+- **Workspace**: `C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms`
 - **Session anchor / latest handoff**: `docs/handoffs/2026-04-09-phase4-init.md`
 - **Selected module (1-1-1)**: `flex-vcms`
 - **NEXT (1 rzecz)**: SQ-001 — samodzielny /handoff bez pomocy AG, potem /checkpoint z KODA (PH4-006)
@@ -56,7 +56,7 @@ updated: "2026-04-09"
 - **Command**:
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 node tools\vcms-scan.js
 ```
 

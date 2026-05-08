@@ -16,7 +16,7 @@ updated: "2026-04-09"
 PROJECT: flex-vcms
 PHASE: [numer fazy]
 MODULE: [nazwa modułu, np. flex-vcms]
-WORKSPACE_ROOT: C:\Users\FlexGrafik\Desktop\flex-vcms
+WORKSPACE_ROOT: C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms
 ECOSYSTEM_ROOT: C:\Users\FlexGrafik\FlexGrafik\github
 VERIFY: node tools\vcms-scan.js
 ARTIFACTS: data/vcms-index.json; docs/ecosystem/conflicts.md; docs/ecosystem/map.md; docs/ecosystem/repos/*.md

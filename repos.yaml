@@ -7,7 +7,7 @@ repos:
     type: "vcms-orchestrator"
     owner: "Norbert Wozniak"
     risk_level: "LOW"
-    path: "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"
     canonical_brain:
       path: "brain.md"
       note: "Operational contract for Dowódca + agents; VitePress mirror: docs/brain.md"

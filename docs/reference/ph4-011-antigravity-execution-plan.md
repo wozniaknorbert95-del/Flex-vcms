@@ -46,7 +46,7 @@ Dowódca musi potwierdzić w czacie (wystarczy krótko):
 Na maszynie Dowódcy, w root `flex-vcms`:
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 git status -sb
 ```
 
