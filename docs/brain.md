@@ -4,12 +4,12 @@ title: "VCMS Brain — Dowodca SSoT (Rendered)"
 updated: "2026-04-09"
 ---
 
-> Kanoniczny plik jest w root: `flex-vcms/brain.md`.  
-> Ten dokument istnieje po to, zeby VitePress mogl go renderowac pod `/brain`.
+> Kanoniczny plik jest w root: `BRAIN.md`.  
+> Ten dokument istnieje po to, żeby VitePress mógł go renderować pod `/brain`.
 
 ---
 
-## VCMS Brain — Dowodca SSoT (Operational Contract)
+## FlexGrafik VCMS — BRAIN (Operational Contract)
 
 **owner**: Norbert Wozniak (Dowodca)  
 **audience**: Dowodca / Antigravity (AG) / Gemini CLI
@@ -148,9 +148,9 @@ Uczymy sie *na realnym zadaniu*, nie przez kurs.
 
 ## 7) Context packets (minimalne, gotowe do uzycia)
 
-### DLA AG (Orchestrator) — start kazdej sesji
+### DLA Senior Agency (Orchestrator) — start każdej sesji
 Wczytaj:
-- `flex-vcms/brain.md` (kanoniczny)
+- `BRAIN.md` (kanoniczny)
 - `flexgrafik-meta/docs/core/workflow-manual.md`
 - `flex-vcms/docs/core/global-rules.md`
 - `flexgrafik-meta/docs/core/master-plan.md`
