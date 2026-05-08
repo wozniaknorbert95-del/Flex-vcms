@@ -26,7 +26,6 @@ const setupGuards = (app) => {
                 connectSrc: ["'self'", ...allowedOrigins],
                 frameAncestors: ["'none'"], // Prevent Clickjacking
                 objectSrc: ["'none'"],
-                upgradeInsecureRequests: [],
             },
         },
         crossOriginEmbedderPolicy: false,
