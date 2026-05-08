@@ -241,7 +241,7 @@ Nigdy odwrotnie.
 | [📝 TEMPLATES](/templates/tmpl-session-log) | Gotowe szablony YAML do sesji i incydentów |
 | [📔 JOURNAL](/journal/logs-index) | Rejestr operacyjny — historia sessions |
 | [🧪 LAB](/lab/lab-index) | Poligon promptów i eksperymentów |
-| [🧠 STUDY](/study/study-index) | Systematyczna nauka technologii |
+| **VIBE COACH (nauka)** | Kanoniczna nauka i skill map: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md` |
 
 ---
 

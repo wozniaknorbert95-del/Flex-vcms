@@ -5,7 +5,8 @@ title: "PH4-011 — wynik testu mobile (Command Center prod)"
 
 # PH4-011 — weryfikacja mobile (prod)
 
-> Skopiuj ten plik do `docs/handoffs/` z nazwą `YYYY-MM-DD-ph4-011-mobile.md` albo dopisz skrót do `docs/study/study-index.md`.  
+> Skopiuj ten plik do `docs/handoffs/` z nazwą `YYYY-MM-DD-ph4-011-mobile.md`.  
+> Jeśli wynik jest “lekcją”, dopisz skrót do **Vibe Coach**: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md`.  
 > Acceptance: zadanie **PH4-011** w root `flex-vcms-todo.json`.
 
 ## SESSIONANCHOR
