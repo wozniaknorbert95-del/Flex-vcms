@@ -26,6 +26,9 @@ const setupGuards = (app) => {
                 connectSrc: ["'self'", ...allowedOrigins],
                 frameAncestors: ["'none'"], // Prevent Clickjacking
                 objectSrc: ["'none'"],
+                // IMPORTANT: this breaks IP-based HTTP access by upgrading subresources to HTTPS.
+                // We keep Nginx Basic Auth + TLS as the "real" protection; for raw IP HTTP we must not upgrade.
+                upgradeInsecureRequests: null,
             },
         },
         crossOriginEmbedderPolicy: false,
