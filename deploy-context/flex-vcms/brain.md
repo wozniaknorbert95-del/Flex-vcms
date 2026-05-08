@@ -1,4 +1,19 @@
 ---
+status: "[LEGACY]"
+title: "VCMS brain.md — legacy pointer"
+owner: "Norbert Woźniak (Dowódca)"
+updated: "2026-05-08"
+---
+
+Ten plik nie jest już kanoniczny.
+
+## Kanoniczny brain VCMS
+Czytaj: `BRAIN.md`.
+
+## Nauka / study track
+Kanonicznie w repo: `vibe-coach`.
+
+---
 status: "[STABLE]"
 title: "VCMS Brain — Dowodca SSoT (Operational Contract)"
 owner: "Norbert Wozniak (Dowodca)"
