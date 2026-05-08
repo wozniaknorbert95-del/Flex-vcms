@@ -1,6 +1,6 @@
 ---
-status: "[IN PROGRESS — czeka na DNS]"
-title: "2026-05-08 — TLS setup, deploy prod, smoke HTTP PASS"
+status: "[DONE — HTTP smoke PASS + TLS ACTIVE, czeka na PH4-011 test telefonu]"
+title: "2026-05-08 — TLS setup DONE, deploy prod, smoke HTTP+HTTPS PASS"
 session: "Senior Agency — kompleksowe przywrócenie prod VCMS"
 ---
 
@@ -16,8 +16,8 @@ HEAD: d091fd7
 VERIFY: node tools\vcms-scan.js
 CONFLICTS: (do sprawdzenia na starcie następnej sesji)
 LAST_HANDOFF: docs/handoffs/2026-05-08-vps-ui-csp-backlog-handoff.md
-NEXT: Dodaj rekord A w Cyber-Folks → uruchom TLS activation script → smoke HTTPS PASS → test telefonu.
-BLOCKER: DNS A record dla cmd.flexgrafik.nl → 185.243.54.115 musi być dodany w panelu Cyber-Folks.
+NEXT: Test telefonu PH4-011 na https://cmd.flexgrafik.nl (Basic Auth: dowodca) — zapisz wynik wg tmpl-ph4-011-mobile.md.
+BLOCKER: brak (TLS aktywny, DNS propaguje).
 
 ---
 
@@ -120,9 +120,12 @@ Invoke-WebRequest "https://cmd.flexgrafik.nl/api/v1/backlog" -UseBasicParsing
 |-------|------|
 | VPS dostępny | ✅ 185.243.54.115 |
 | PM2 vcms-core | ✅ online v1.3.0-hardened |
-| HTTP nginx Basic Auth | ✅ dowodca/*** |
-| HTTPS / TLS | ⏳ czeka na DNS A record |
-| DNS cmd.flexgrafik.nl | ❌ NXDOMAIN |
-| Smoke HTTP (loopback) | ✅ PASS |
-| Smoke HTTPS (publiczny) | ⏳ blocked |
-| PH4-011 test telefonu | ⏳ blocked (czeka na HTTPS) |
+| HTTP → HTTPS redirect (301) | ✅ aktywny |
+| HTTPS / TLS Let's Encrypt | ✅ AKTYWNY (ważny do 2026-08-06) |
+| DNS cmd.flexgrafik.nl | ✅ 185.243.54.115 (propaguje) |
+| Certyfikat | ✅ CN=cmd.flexgrafik.nl, issuer=Let's Encrypt E7 |
+| Auto-renewal certbot | ✅ skonfigurowany (systemd timer) |
+| Smoke HTTP → HTTPS redirect | ✅ 301 PASS |
+| Smoke HTTPS Basic Auth (401) | ✅ PASS |
+| Smoke health/backlog/chat | ✅ PASS (loopback) |
+| PH4-011 test telefonu | ⏳ do wykonania przez Dowódcę |
