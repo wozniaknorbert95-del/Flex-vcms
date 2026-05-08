@@ -6,6 +6,14 @@ updated: "2026-04-10"
 
 # Study Index — Dziennik Nauki
 
+> [!IMPORTANT]
+> Ten plik jest w trakcie wydzielania do osobnego narzędzia **Vibe Coach**.
+> Kanoniczna wersja docelowo mieszka w:
+>
+> `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md`
+>
+> Flex VCMS ma pozostać narzędziem dla ekosystemu FlexGrafik: **scan → conflicts → repo pages**.
+
 > Kanoniczny rejestr poziomow wiedzy i planu nauki Dowodcy (Faza 4 SSoT).
 > KODA czyta go przed kazdym `/checkpoint` i `/review-week`.
 > Aktualizuj po kazdej sesji gdzie cos sie zmienilo — nie po kazdej sesji.
