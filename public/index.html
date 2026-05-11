@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlexGrafik VCMS — Senior Level Master Command Center. Hardened v3.0 Script.">
+    <meta name="theme-color" content="#050505">
+    <title>VCMS Master CMD — System Control</title>
+    
+    <!-- External Dependencies (SSoT White-listed CDNs) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.363.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+    
+    <!-- Internal Assets -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <aside>
+        <div class="brand">
+            <i data-lucide="shield-check"></i>
+            <h1>FLEX-VCMS</h1>
+        </div>
+        <nav>
+            <div class="nav-item active" data-tab="dashboard">
+                <i data-lucide="layout-dashboard"></i> Dashboard
+            </div>
+            <div class="nav-item" data-tab="knowledge">
+                <i data-lucide="book-open"></i> Baza Wiedzy
+            </div>
+            <div class="nav-item" data-tab="lab">
+                <i data-lucide="message-square"></i> Control Lab
+            </div>
+            <div class="nav-item" data-tab="ecosystem">
+                <i data-lucide="layers"></i> Ekosystem
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            v3.0 Hardened — Swiss Watch
+        </div>
+    </aside>
+
+    <div class="bottom-nav">
+        <a href="javascript:void(0)" class="mobile-nav-item active" data-tab="dashboard">
+            <i data-lucide="layout-dashboard"></i><span>Main</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="knowledge">
+            <i data-lucide="book-open"></i><span>Docs</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="lab">
+            <i data-lucide="message-square"></i><span>Lab</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="ecosystem">
+            <i data-lucide="layers"></i><span>System</span>
+        </a>
+    </div>
+
+    <main>
+        <!-- Tab: Dashboard -->
+        <div id="tab-dashboard" class="tab-content active">
+            <header>
+                <div class="page-title">
+                    <h2 id="human-status">System Hardened v3.0</h2>
+                    <p>Status centralny ekosystemu FlexGrafik</p>
+                    <div class="uncle-tip-container">
+                        <i data-lucide="info" class="uncle-tip-icon"></i>
+                        <div>
+                            <div class="uncle-tip-label">Senior's Tip</div>
+                            <div class="uncle-tip-text" id="uncle-tip-text">Ładowanie mądrości wujka...</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tag tag-success">Hardened Core</div>
+            </header>
+
+            <div class="status-strip">
+                <div class="stat-card">
+                    <div class="label">LLM Latency</div>
+                    <div class="value" id="val-latency">0ms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Queries</div>
+                    <div class="value" id="val-requests">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">System Uptime</div>
+                    <div class="value" id="val-uptime">0s</div>
+                </div>
+                <div class="stat-card" style="border-color: var(--accent);">
+                    <div class="label">Knowledge Context</div>
+                    <div class="value" id="val-knowledge">0</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+                <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <i data-lucide="database" style="color: var(--accent);"></i>
+                            <h3 style="margin:0; font-size: 1.1rem;">Context Health</h3>
+                        </div>
+                        <i data-lucide="refresh-cw" id="btn-refresh-health" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);"></i>
+                    </div>
+                    <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        <div class="status-pill"><div class="dot"></div> Checking...</div>
+                    </div>
+                </div>
+
+                <div class="backlog-widget">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; color: var(--accent); font-weight: 800;">Next Priority</span>
+                        <span id="backlog-sync-info" style="font-size: 0.7rem; color: var(--text-dim); font-family: 'JetBrains Mono';">...</span>
+                    </div>
+                    <h3 id="next-task-title" style="margin: 0.5rem 0; font-size: 1.35rem; font-weight: 600;">Loading...</h3>
+                    <p id="next-task-desc" style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">Pobieranie backlogu z SSoT...</p>
+                    <button class="btn" id="btn-execute-task" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;">Execute Task</button>
+                </div>
+
+                <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
+                    <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
+                        <i data-lucide="file-text" style="color: var(--accent);"></i>
+                        <h3 style="margin:0; font-size: 1.1rem;">Quick Access</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                        <a href="javascript:void(0)" onclick="loadDoc('PORADNIK_UZYTKOWNIKA.html')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                            <i data-lucide="book" style="width:16px;"></i> User Guide
+                        </a>
+                        <a href="javascript:void(0)" onclick="loadDoc('index.html')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                            <i data-lucide="home" style="width:16px;"></i> Project Index
+                        </a>
+                        <a href="javascript:void(0)" onclick="showTab('ecosystem')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                            <i data-lucide="map" style="width:16px;"></i> System Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-list">
+                <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center;">
+                    <h3 style="margin:0">Action Log</h3>
+                    <button id="btn-deep-scan" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Deep Scan</button>
+                </div>
+                <div id="log-container">
+                    <div class="log-row" style="color:var(--text-dim)">Ładowanie aktywności...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Knowledge -->
+        <div id="tab-knowledge" class="tab-content">
+            <header>
+                <div class="page-title">
+                    <h2>Knowledge Base</h2>
+                    <p>Techniczna dokumentacja projektu FlexGrafik.</p>
+                </div>
+            </header>
+            <div class="iframe-container">
+                <iframe src="/docs/" id="docs-iframe"></iframe>
+            </div>
+        </div>
+
+        <!-- Tab: Lab -->
+        <div id="tab-lab" class="tab-content">
+            <header>
+                <div class="page-title">
+                    <h2>Control Lab</h2>
+                    <p>Live context analysis & LLM gateway.</p>
+                </div>
+            </header>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="msg msg-ai">System Hardened. Witaj Dowódco.</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chat-input" placeholder="Wpisz komendę...">
+                    <button id="btn-chat-send">Wyślij</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Ecosystem -->
+        <div id="tab-ecosystem" class="tab-content">
+            <header>
+                <div class="page-title">
+                    <h2>Ecosystem Command Bridge</h2>
+                    <p>Live health and synchronization status for all modules.</p>
+                </div>
+                <button id="btn-refresh-ecosystem" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Refresh Bridge</button>
+            </header>
+            
+            <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 0; border-radius: 28px; overflow: hidden;">
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                        <thead>
+                            <tr style="background: rgba(255,255,255,0.03); text-align: left;">
+                                <th style="padding: 1.2rem; border-bottom: 1px solid var(--border);">Moduł</th>
+                                <th style="padding: 1.2rem; border-bottom: 1px solid var(--border);">Typ</th>
+                                <th style="padding: 1.2rem; border-bottom: 1px solid var(--border);">Branch</th>
+                                <th style="padding: 1.2rem; border-bottom: 1px solid var(--border);">Status</th>
+                                <th style="padding: 1.2rem; border-bottom: 1px solid var(--border);">Last Commit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ecosystem-table-body">
+                            <tr><td colspan="5" style="padding: 2rem; text-align: center; color: var(--text-dim);">Scanning modules...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

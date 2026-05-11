@@ -121,7 +121,7 @@ Pre-commit guard: [pre-commit.md](/checklists/pre-commit)
 
 1) Otwórz `scan-rules.json` i sprawdź, że denylist zawiera `.env*` i `wp-config.php`.
 2) Uruchom skan:\n
-   - `Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"`\n
+   - `Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"`\n
    - `node tools\vcms-scan.js`\n
 3) Sprawdź `docs/ecosystem/conflicts.md` → `Conflicts found: 0`.
 4) Przed commitem przejdź: [pre-commit.md](/checklists/pre-commit).

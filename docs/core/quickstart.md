@@ -13,7 +13,7 @@ Użyj tego gdy startujesz **nową sesję** albo wracasz po przerwie. To jest skr
 ## 3 komendy (PowerShell)
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 node tools\vcms-scan.js
 git status
 ```

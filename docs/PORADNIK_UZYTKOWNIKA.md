@@ -53,7 +53,7 @@ Zanim cokolwiek planujesz lub implementujesz, odśwież stan ekosystemu lokalnie
 
 **PowerShell (referencyjnie):**
 
-1) `Set-Location "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"`
+1) `Set-Location "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"`
 2) `node tools\\vcms-scan.js`
 
 **Co sprawdzasz po skanie (must-have):**
@@ -241,7 +241,7 @@ Nigdy odwrotnie.
 | [📝 TEMPLATES](/templates/tmpl-session-log) | Gotowe szablony YAML do sesji i incydentów |
 | [📔 JOURNAL](/journal/logs-index) | Rejestr operacyjny — historia sessions |
 | [🧪 LAB](/lab/lab-index) | Poligon promptów i eksperymentów |
-| [🧠 STUDY](/study/study-index) | Systematyczna nauka technologii |
+| **VIBE COACH (nauka)** | Kanoniczna nauka i skill map: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md` |
 
 ---
 

@@ -34,13 +34,13 @@ updated: "2026-04-09"
 
 ### Konwencje środowiska
 
-- **WORKSPACE_ROOT**: `C:\Users\FlexGrafik\Desktop\flex-vcms`
+- **WORKSPACE_ROOT**: `C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms`
 - **ECOSYSTEM_ROOT** (z `repos.yaml`): `C:\Users\FlexGrafik\FlexGrafik\github`
 
 ### OP-001 (scan) — referencyjnie
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 node tools\vcms-scan.js
 ```
 
@@ -78,7 +78,7 @@ Każdy scenariusz ma identyczną strukturę:
 - **Preconditions**:
   - Zgodność z polityką bezpieczeństwa: [`docs/core/security-policy.md`](../core/security-policy.md)
   - Dostępny Node.js oraz możliwość uruchomienia OP-001.
-  - Pracujesz lokalnie w `C:\Users\FlexGrafik\Desktop\flex-vcms` (PowerShell).
+  - Pracujesz lokalnie w `C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms` (PowerShell).
 - **Steps**:
   1. Uruchom OP-001 (scan) zgodnie z kontraktem w [`docs/core/orchestration-commands.md`](../core/orchestration-commands.md).
   2. Sprawdź, że istnieją artefakty: `data/vcms-index.json`, `docs/ecosystem/conflicts.md`, `docs/ecosystem/map.md`, `docs/ecosystem/repos/*.md`.

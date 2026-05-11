@@ -58,7 +58,7 @@ title: "Phase 3 Verification — Quality Gates + DoD (Orchestration)"
 - [ ] **PASS**: komenda kończy się sukcesem:
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 node tools\vcms-scan.js
 ```
 

@@ -45,12 +45,12 @@ To nie są „magiczne komendy” — to **kontrakty** na realne operacje oparte
 - **How to run** (PowerShell):
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
 node tools\vcms-scan.js
 ```
 
 - **Preconditions**:
-  - cwd = `C:\Users\FlexGrafik\Desktop\flex-vcms`
+  - cwd = `C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms`
   - zgodność z [security-policy.md](/core/security-policy) (brak pracy na sekretach / brak skanowania poza whitelistą)
 - **Inputs (files)**:
   - `repos.yaml` (root: `C:\Users\FlexGrafik\FlexGrafik\github`)

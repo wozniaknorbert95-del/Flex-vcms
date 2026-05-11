@@ -1,0 +1,26 @@
+{
+  "project": "flexgrafik-nl",
+  "last_updated": "2026-04-02",
+  "current_agent": null,
+  "tasks": [
+    "FLEX-FINAL-001: Algemene Voorwaarden (Regulamin) Zbudować na styl Dark Premium B2B lub wykasować link",
+    "FLEX-FINAL-002: Ons Verhaal (O nas) Zbudować zaufanie do Agencji FlexGrafik na /over-ons/ PHP Template",
+    "FLEX-FINAL-003: Hoe scoor jij je branding? Zbudować dark gamified landing na /hoe-scoor-jij-je-branding/"
+  ],
+  "completed": [
+    "FLEX-GRAPHICS-001", "FLEX-GRAPHICS-002", "FLEX-PORTFOLIO-001", "FLEX-W2-002", "FLEX-W3-001", "FLEX-W6-001", "FLEX-W6-002", "FLEX-W5-001", 
+    "FLEX-W5-002", "FLEX-W5-003", "FLEX-W1-001", "FLEX-W7-001", "FLEX-W9-002", 
+    "FLEX-W6-004", "FLEX-W7-003", "FLEX-007", "FLEX-W9-003", "FLEX-W10-002", 
+    "FLEX-004", "FLEX-005", "FLEX-006", "FLEX-W6-003", "FLEX-W9-001", "FLEX-002", 
+    "FLEX-003", "FLEX-009", "FLEX-010", "FLEX-W4-001", "FLEX-W4-002", "FLEX-W4-003", 
+    "FLEX-W7-002", "FLEX-W10-001", "FLEX-008", "FLEX-011", "FLEX-012", "FLEX-013", 
+    "FLEX-W10-003", "FLEX-W10-004", "FLEX-001", "COHESION-FLEX-STAGE1-10", "UI-COHESION-HOTFIX-1",
+    "FLEX-CONTACT-V2-UI", "FLEX-LEGAL-B2B-PAGES", "FLEX-FAQ-REMOVAL",
+    "FLEX-AI-CHATBOT-DEPLOYMENT",
+    "FLEX-PORTFOLIO-ASSETS-FIX",
+    "FLEX-NAV-LINKS-FIX",
+    "FLEX-RESCUE-KRZYSZTOFWOZNIAK",
+    "FLEX-DB-MIGRATION-FIX"
+  ],
+  "blocked_by": null
+}

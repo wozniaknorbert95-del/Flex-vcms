@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: zzpackage.flexgrafik.nl"
-updated: "2026-04-09T17:15:38.420Z"
+updated: "2026-05-11T09:59:48.398Z"
 repo_name: "zzpackage.flexgrafik.nl"
 repo_slug: "zzpackage-flexgrafik-nl"
 repo_type: "wp-shop"
@@ -11,12 +11,12 @@ canonical_brain: "MASTER-BRAIN.md"
 canonical_todo: "docs/audit-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-09-sprint5-ssot-tabs.md"
-last_handoff_mtime: "2026-04-09T13:44:29.367Z"
+last_handoff_rel: "docs/handoffs/caddy_hardening_handoff.md"
+last_handoff_mtime: "2026-04-24T05:04:29.790Z"
 warnings: []
 links_agents: ["AGENTS.md"]
-links_cursor_rules: [".cursor/rules/wizard-ssot.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-04-09-sprint5-ssot-tabs.md (2026-04-09T13:44:29.367Z)", "docs/handoffs/2026-04-09-p3-01-aria.md (2026-04-09T10:39:29.885Z)", "docs/handoffs/2026-04-09-p3-02-keyboard-navigation.md (2026-04-09T09:37:56.245Z)"]
+links_cursor_rules: [".cursor/rules/00-project-index.mdc", ".cursor/rules/playwright-e2e.mdc", ".cursor/rules/wizard-ssot.mdc"]
+links_recent_handoffs: ["docs/handoffs/caddy_hardening_handoff.md (2026-04-24T05:04:29.790Z)", "docs/handoffs/2026-04-22-deploy-sync.md (2026-04-22T15:18:05.259Z)", "docs/handoffs/2026-04-22-brand-hardening.md (2026-04-22T14:13:10.939Z)"]
 ---
 
 ## zzpackage.flexgrafik.nl
@@ -34,18 +34,20 @@ links_recent_handoffs: ["docs/handoffs/2026-04-09-sprint5-ssot-tabs.md (2026-04-
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-09-sprint5-ssot-tabs.md` (2026-04-09T13:44:29.367Z)
+- **Last handoff**: `docs/handoffs/caddy_hardening_handoff.md` (2026-04-24T05:04:29.790Z)
 
 ## Quick links (by file type)
 
 - **AGENTS**:
   - `AGENTS.md`
 - **Cursor rules**:
+  - `.cursor/rules/00-project-index.mdc`
+  - `.cursor/rules/playwright-e2e.mdc`
   - `.cursor/rules/wizard-ssot.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-09-sprint5-ssot-tabs.md (2026-04-09T13:44:29.367Z)`
-  - `docs/handoffs/2026-04-09-p3-01-aria.md (2026-04-09T10:39:29.885Z)`
-  - `docs/handoffs/2026-04-09-p3-02-keyboard-navigation.md (2026-04-09T09:37:56.245Z)`
+  - `docs/handoffs/caddy_hardening_handoff.md (2026-04-24T05:04:29.790Z)`
+  - `docs/handoffs/2026-04-22-deploy-sync.md (2026-04-22T15:18:05.259Z)`
+  - `docs/handoffs/2026-04-22-brand-hardening.md (2026-04-22T14:13:10.939Z)`
 
 ## Back
 

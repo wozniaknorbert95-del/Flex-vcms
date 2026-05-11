@@ -149,13 +149,6 @@ export default defineConfig({
         ]
       },
       {
-        text: 'STUDY',
-        collapsible: true,
-        items: [
-          { text: 'Study Index', link: '/study/study-index' }
-        ]
-      },
-      {
         text: 'ARCHIVE',
         collapsible: true,
         items: [

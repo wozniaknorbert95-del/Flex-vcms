@@ -8,13 +8,14 @@
  * - docs/ecosystem/map.md (ecosystem map + canonical pointers)
  *
  * Run (PowerShell):
- *   Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+ *   Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
  *   node tools/vcms-scan.js
  */
 
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { execFileSync } = require("child_process");
 
 const VCMS_ROOT = path.resolve(__dirname, "..");
 const REPOS_YAML = path.join(VCMS_ROOT, "repos.yaml");
@@ -705,8 +706,8 @@ function writeMapMd(index) {
 
   lines.push("## Where is the truth (canonical pointers)");
   lines.push("");
-  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs |");
-  lines.push("|------|----------|------------------|----------------|------------|----------|");
+  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs | Vibe-Ready |");
+  lines.push("|------|----------|------------------|----------------|------------|----------|------------|");
 
   for (const repo of index.repos) {
     const slug = slugByName.get(repo.name) || slugifyRepoName(repo.name);
@@ -716,7 +717,12 @@ function writeMapMd(index) {
     const handoffs = repo.files.some((f) => f.type === "HANDOFF") || handoffsDirExists ? "yes" : "no";
     const brain = repo.canonical.brain ? `\`${repo.canonical.brain}\`` : "—";
     const todo = repo.canonical.todo ? `\`${repo.canonical.todo}\`` : "—";
-    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} |`);
+    
+    // Vibe-Ready check
+    const isReady = repo.exists && guard === "yes" && handoffs === "yes" && brain !== "—" && todo !== "—";
+    const vibeReady = isReady ? "✅ READY" : "❌ NOT_READY";
+
+    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} | ${vibeReady} |`);
   }
 
   lines.push("");
@@ -739,6 +745,14 @@ function main() {
   writeConflictsMd(conflicts, index);
   writeMapMd(index);
   writeRepoPages(index);
+
+  // Audit 3.0: Update SQLite Knowledge Index
+  try {
+    console.log("Updating SQLite Knowledge Index...");
+    execFileSync("node", [path.join(VCMS_ROOT, "tools", "vcms-sync-db.js")], { stdio: "inherit" });
+  } catch (err) {
+    console.error("Failed to sync SQLite DB:", err.message);
+  }
 
   console.log("VCMS scan complete.");
   console.log(" -", path.relative(VCMS_ROOT, OUT_INDEX));

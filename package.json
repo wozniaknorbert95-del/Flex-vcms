@@ -4,6 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "start": "node server.js",
+        "test": "jest",
+        "build:prod": "echo 'Building production assets...' && node -v",
         "docs:dev": "vitepress dev docs",
         "docs:preview": "vitepress preview docs",
         "docs:build": "vitepress build docs",
@@ -14,15 +17,22 @@
     "license": "ISC",
     "type": "commonjs",
     "devDependencies": {
+        "@dotenvx/dotenvx": "^1.61.0",
         "@types/node": "^25.5.2",
+        "jest": "^30.3.0",
         "vitepress": "^1.6.4"
     },
     "dependencies": {
+        "better-sqlite3": "^12.9.0",
         "cors": "^2.8.6",
         "dotenv": "^17.4.0",
         "express": "^5.2.1",
         "express-rate-limit": "^8.3.2",
         "helmet": "^8.1.0",
-        "marked": "^17.0.5"
+        "joi": "^18.1.2",
+        "js-yaml": "^4.1.1",
+        "marked": "^18.0.3",
+        "winston": "^3.19.0",
+        "winston-daily-rotate-file": "^5.0.0"
     }
 }

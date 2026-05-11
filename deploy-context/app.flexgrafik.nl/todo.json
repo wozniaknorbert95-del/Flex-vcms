@@ -1,0 +1,918 @@
+﻿{
+    "_meta":  {
+                  "project":  "Bouwplaats Chaos â€” ZZP Advergame",
+                  "url":  "https://app.flexgrafik.nl",
+                  "last_updated":  "2026-05-09",
+                  "last_root_cause_session":  "2026-04-11",
+                  "last_root_cause_by":  "Antigravity AG",
+                  "last_root_cause_topic":  "BUG-06 â€” Level transition safe-spawn and height parity",
+                  "branch_live":  "main",
+                  "branch_dev":  "main",
+                  "engine":  "ReactGameCanvas V3 (ENABLE_NEW_ENGINE=true)",
+                  "build":  "375 modules, Vite 6, React 19",
+                  "bundle_warning":  "VERIFIED 2026-05-09 — Vite ~381 modules; hashed chunks rotate per build (index + heavy-app gzipped ~59-66 kB range observed). dist/.htaccess present (LiteSpeed cache strategy v1.8). Vitest 84.",
+                  "last_deploy_verify":  "2026-05-09 — prod: scripts/deploy_all.ps1 from main @c70e577 (Cyber-Folks flexgrafik.nl/public_html/app/ + mu-plugins fg-game-api.php). Turnstile site key via VITE_TURNSTILE_SITE_KEY at build (.env local). Pre: npm run lint (tsc), vitest 84/84, vite build. Post: curl.exe -sI hashed /assets/*.js Cache-Control max-age=31536000; npm run test:e2e:prod 3/3; deploy removes stale server assets/.htaccess after tar unpack.",
+                  "device_smoke_pending":  "2026-04-17 â€” DowÃ³dca zgÅ‚osiÅ‚ PASS peÅ‚nego smoke (checklista: docs/handoffs/2026-04-17-manual-prod-smoke-instructions.md). Opcjonalnie: kolejny cykl na innym urzÄ…dzeniu / zapis modelu telefonu. Priority Q2: docs/handoffs/2026-04-17-priority-plan-q2-execution.md."
+              },
+    "proof_of_done":  {
+                          "description":  "Gra jest DONE gdy speÅ‚nia WSZYSTKIE te kryteria",
+                          "criteria":  [
+                                           "Gra przechodzi przez Level 1-3 bez freeze lub crash",
+                                           "KaÅ¼dy level ma dziaÅ‚ajÄ…cy LEVEL_END i ADVANCE_LEVEL",
+                                           "CHOICE overlay pojawia siÄ™ i moÅ¼na go rozwiÄ…zaÄ‡",
+                                           "GAME_OVER overlay pojawia siÄ™ z score i restart dziaÅ‚a",
+                                           "Mobile (iOS/Android): touch dziaÅ‚a, brak layout breakage",
+                                           "LevelEndChallenge pojawia siÄ™ po ukoÅ„czeniu levelu",
+                                           "Brak bÅ‚Ä™dÃ³w JS w konsoli podczas normalnej gry"
+                                       ]
+                      },
+    "status_legend":  {
+                          "done":  "Zweryfikowane na produkcji",
+                          "live_untested":  "WdroÅ¼one ale nie zweryfikowane manualnie",
+                          "in_progress":  "W trakcie implementacji",
+                          "blocked":  "Blokowane przez inny task",
+                          "todo":  "Do zrobienia"
+                      },
+    "bugs":  [
+                 {
+                     "id":  "BUG-01",
+                     "title":  "Level 2+ freeze â€” CHOICE loop exhaustion",
+                     "description":  "Po ~2-3min gry wszystkie 5 CHOICE_EVENTS sÄ… wyczerpane. triggerChoice() zwraca false ale update loop wychodzi kaÅ¼dÄ… klatkÄ™ przez return â€” gra pozornie zamarza (brak ruchu).",
+                     "status":  "done",
+                     "fixed_in":  "feat/sprint-4-challenge",
+                     "fix":  "ReactGameCanvas.tsx L637 â€” sprawdzanie return value triggerChoice(), nextChoiceTime = MAX gdy eventy wyczerpane",
+                     "proof_of_done":  "Gra dziaÅ‚a pÅ‚ynnie przez 5+ minut bez freeze"
+                 },
+                 {
+                     "id":  "BUG-02",
+                     "title":  "Level 5 boss path never reaches LEVEL_CHALLENGE â€” two failure modes",
+                     "description":  "STALE DESCRIPTION CORRECTED (2026-04-08): The original description was wrong. resolveBoss() in physics.ts DOES set LEVEL_CHALLENGE correctly. Actual failure modes: (A) Stale closure in useBossFight.ts â€” \u0027finalPower\u0027 reads stale useState value at RAF completion, may send power=0 to resolveBoss even after many taps. (B) Level 5 stat-gate â€” resolveBoss() requires score\u003e=5000 AND finances\u003e=60 AND professionalism\u003e=50 AND reputation\u003e=50. Failing stats â†’ phase=PLAYING returned silently, LEVEL_CHALLENGE skipped. Boss is permanently marked bossTriggered=true so fight never retriggers.",
+                     "status":  "done",
+                     "fixed_in":  "feat/sprint-s-boss-fix",
+                     "component_a":  {
+                                         "file":  "src/hooks/useBossFight.ts",
+                                         "lines":  "38-44",
+                                         "bug_type":  "stale-closure",
+                                         "description":  "Fixed stale closure by using useRef synchronized strictly with setState."
+                                     },
+                     "component_b":  {
+                                         "file":  "src/engine/physics.ts",
+                                         "function":  "resolveBoss()",
+                                         "lines":  "119-133",
+                                         "bug_type":  "silent-stat-gate-fallback",
+                                         "description":  "Removed dirty async setTimeout lock. Implemented procedural `bossCooldownTimer` directly into the engine\u0027s main loop (dt) to ensure the boss can legally re-trigger after exactly 30s allowing player to recover stats."
+                                     },
+                     "proof_of_done":  "Level 5: Beating boss (power \u003e= threshold) with correct stats shows LEVEL_CHALLENGE overlay. Beating boss with low stats shows clear feedback and possibility to retry or gain stats."
+                 },
+                 {
+                     "id":  "BUG-03",
+                     "title":  "P4-06 â€” Regresja fizyki (nieprzetestowana)",
+                     "description":  "Coyote time i collision detection nie byÅ‚y testowane po Sprint 3-4 zmianach.",
+                     "status":  "done",
+                     "fixed_in":  "2026-04-08-bug03-physics.md",
+                     "fix":  "ReactGameCanvas.tsx zablokowany exploit infinite-jump z uszczelnieniem coyote. PhysicsEngine.ts wprowadzono CCD i anti-tunneling za pomocÄ… weryfikacji prevBottom.",
+                     "proof_of_done":  "Gracz moÅ¼e bezpiecznie wskoczyÄ‡ na platformy, nie przelatuje w dÃ³Å‚ mapy przy spadkach fps oraz nie double-jumpuje swobodnie opadajÄ…c."
+                 },
+                 {
+                     "id":  "BUG-04",
+                     "title":  "Intermittent Freeze podczas levelu i przed overlayem",
+                     "description":  "Zrzucanie klatek w useGameEngine (throttle \u003c 33ms) gubiÅ‚o w UI sygnaÅ‚y o zmianie fazy (CHOICE / LEVEL_CHALLENGE / GAME_OVER). SkutkowaÅ‚o to permanentnym dead-lockiem (zamarzniÄ™ta fizyka, brak odpowiedniego overlayu).",
+                     "status":  "done",
+                     "fixed_in":  "feat/sprint-4-challenge",
+                     "fix":  "useGameEngine.ts L51 â€” zniesienie wymogu throtlowania jeÅ›li snap.phase !== lastPhase.",
+                     "proof_of_done":  "Gra nigdy nie wiesza siÄ™ na zmianie faz (WahadeÅ‚ko, Choice, ÅšmierÄ‡)."
+                 },
+                 {
+                     "id":  "BUG-LEADERBOARD-01",
+                     "title":  "Zapisywanie wynikÃ³w w Leaderboardzie nie dziaÅ‚a jak naleÅ¼y",
+                     "description":  "ZgÅ‚oszone pod koniec sesji wdroÅ¼eniowej (2026-03-31). Flow zapisywania w nowym formularzu sprawia problemy, byÄ‡ moÅ¼e odrzuca payload z powodu nieprawidÅ‚owego HMAC lub problemÃ³w z komunikacjÄ… z `fg-leaderboard-api.php`.",
+                     "status":  "done",
+                     "proof_of_done":  "Gracz (GoÅ›Ä‡ lub nie) moÅ¼e pomyÅ›lnie zapisaÄ‡ wynik po przeforsowaniu check-boxa zapisu z pseudonimem i widzi swÃ³j wynik natychmiast na liÅ›cie."
+                 },
+                 {
+                     "id":  "BUG-05",
+                     "title":  "Double-freeze and micro-pauses during level transitions",
+                     "description":  "Jarring 2s slow-mo and secondary 750ms UI telegraph caused double-freezes. Refactored to physical Level Gates (V-GATE) with seamless transition logic and Dutch localization.",
+                     "status":  "done",
+                     "fixed_in":  "Antigravity AG Session",
+                     "fix":  "physics.ts: Removed early UI-phase returns so timeElapsed, particles, and Rainbow Aura keep ticking seamlessly in the background. LevelChallengeOverlay.tsx: Purged 400ms abrupt telegraphing blackout. ReactGameCanvas.tsx / physics.ts: Added fail-safe platform generation if platforms scroll off-screen during slide.",
+                     "proof_of_done":  "Background stays fully animated during level UI popups. No sudden freeze/blackout. No death due to missing platforms on advanceLevel."
+                 },
+                 {
+                     "id":  "BUG-06",
+                     "title":  "Level transition safe-spawn and height parity",
+                     "description":  "Three compounding bugs: (A) GROUND_Y_OFFSET=160 clamped player to y=290 instead of real platform y=410 during LEVEL_FINISH_SEQUENCE. (B) advanceLevel() left stale platforms and no safe floor. (C) Platform failsafe only checked platforms.length===0, not player coverage.",
+                     "status":  "done",
+                     "fixed_in":  "192eb1e (main)",
+                     "fix":  "physics.ts: replaced arbitrary offset clamp with PhysicsEngine.applyPhysics() + absolute ground fallback. ReactGameCanvas.tsx: advanceLevel() now performs clean world bootstrap (clear platforms/items, spawn floor_init, set player x=100/y=300, 2s invincibility). physics.ts: failsafe now checks horizontal coverage (x-50 to x+width+50).",
+                     "proof_of_done":  "22/22 engine tests pass. Level transitions L1-\u003eL2-\u003eL3 verified on production without unfair deaths."
+                 },
+                 {
+                     "id":  "BUG-07",
+                     "title":  "CHOICE overlay â€” gra zamarza po pierwszym dylemacie (tap na opcjÄ™)",
+                     "description":  "Pierwsze zadanie w levelu to zwykle globalny CHOICE po ~30s (CHOICE_EVENTS), nie challenge na koÅ„cu levelu. NewChoiceOverlay po tapie czekaÅ‚ wyÅ‚Ä…cznie na CSS transitionend; gdy zdarzenie nie przychodzi (Safari/backdrop-filter), onResolve nigdy nie woÅ‚aÅ‚ dispatch â†’ silnik zostawaÅ‚ w fazie CHOICE, przyciski disabled.",
+                     "status":  "done",
+                     "fixed_in":  "608df54 (main)",
+                     "fix":  "NewChoiceOverlay: timeout 500ms â†’ finishResolve (jak Challenge*). snapshot-validator: getSnapshotRejectionReason + testy CHOICE_EVENTS. useGameEngine: lepszy log przy odrzuceniu snapshota.",
+                     "proof_of_done":  "Po tapie opcji gra wraca do PLAYING; brak zaleÅ¼noÅ›ci od transitionend; 40/40 testÃ³w."
+                 },
+                 {
+                     "id": "BUG-08",
+                     "title": "Turnstile token reuse failure in saveScore",
+                     "status": "done",
+                     "description": "Resolved critical token reuse race condition in EntryGate flow."
+                 },
+                 {
+                     "id": "FEAT-WIN-PROOF",
+                     "title": "Win-Proof Telemetry & Master Badge",
+                     "status": "done",
+                     "description": "Implemented isWin telemetry and 'Grand Builder' leaderboard visual rewards."
+                 }
+             ],
+    "sprints":  [
+                    {
+                        "id":  "S5c",
+                        "title":  "Sprint 5c â€” Engine Stability Audit (clito)",
+                        "status":  "done",
+                        "completed_at":  "2026-03-24",
+                        "fixes":  [
+                                      {
+                                          "id":  "S5c-1",
+                                          "title":  "CPU HOG Fix â€” RAF pauzuje gdy !assetsReady",
+                                          "description":  "PÄ™tla requestAnimationFrame teraz pauzuje i czeka aÅ¼ assetsReady bÄ™dzie true. Eliminuje stuttering systemu podczas Å‚adowania assetÃ³w.",
+                                          "file":  "src/components/ReactGameCanvas.tsx",
+                                          "lines":  "1101-1105",
+                                          "commit":  "feat/sprint-4-challenge HEAD"
+                                      },
+                                      {
+                                          "id":  "S5c-2",
+                                          "title":  "Energy System Overhaul â€” -1 Å¼ycie co 10s przy energii 0",
+                                          "description":  "Zgodnie z GDD, energia 0 ma konsekwencje. Gracz traci 1 Å¼ycie co 10 sekund jeÅ›li energia spadnie do zera.",
+                                          "file":  "src/components/ReactGameCanvas.tsx",
+                                          "lines":  "803-813",
+                                          "commit":  "fix: Sprint 5 comprehensive â€” 800100c"
+                                      },
+                                      {
+                                          "id":  "S5c-3",
+                                          "title":  "Physics Cleanup â€” reset zmiennych czasowych przy advanceLevel",
+                                          "description":  "Poprawiono resetowanie timeElapsed i lastEnergyWarningTime przy advanceLevel, zapobiega teleportacji gracza i bÅ‚Ä™dom energii przy przejÅ›ciu miÄ™dzy levelami.",
+                                          "file":  "src/components/ReactGameCanvas.tsx",
+                                          "lines":  "484-485",
+                                          "commit":  "fix: L3 freeze â€” 978c638"
+                                      },
+                                      {
+                                          "id":  "S5c-4",
+                                          "title":  "Memory Optimization â€” filtrowanie particles i floatingTexts",
+                                          "description":  "Wzmocnione filtrowanie czÄ…steczek i tekstÃ³w pÅ‚ywajÄ…cych zapobiega spadkom FPS po dÅ‚ugim czasie gry.",
+                                          "file":  "src/components/ReactGameCanvas.tsx",
+                                          "lines":  "592, 801"
+                                      }
+                                  ]
+                    },
+                    {
+                        "id":  "S1-refactor",
+                        "title":  "Sprint 1 Refactor â€” Frontend Blockers",
+                        "status":  "done",
+                        "completed_at":  "2026-04-01",
+                        "fixes":  [
+                                      {
+                                          "id":  "1A",
+                                          "title":  "Remove TailwindCSS CDN + aistudiocdn import map",
+                                          "file":  "index.html"
+                                      },
+                                      {
+                                          "id":  "1B",
+                                          "title":  "MainMenu + LeadForm + Leaderboard: Tailwind â†’ inline styles",
+                                          "file":  "components/MainMenu.tsx, components/LeadForm.tsx, components/Leaderboard.tsx"
+                                      },
+                                      {
+                                          "id":  "1C",
+                                          "title":  "LeadForm: Email field + marketing consent + validation",
+                                          "file":  "components/LeadForm.tsx"
+                                      },
+                                      {
+                                          "id":  "1D",
+                                          "title":  "Remove HMAC secret from client, add ScoreProof",
+                                          "file":  "services/storageService.ts"
+                                      },
+                                      {
+                                          "id":  "1E",
+                                          "title":  "CookieConsent.tsx: GDPR cookie consent banner (GA4 + Meta Pixel)",
+                                          "file":  "src/components/CookieConsent.tsx"
+                                      },
+                                      {
+                                          "id":  "1F",
+                                          "title":  "Footer.tsx: Tailwind â†’ inline styles + App.tsx integration",
+                                          "file":  "components/Footer.tsx, App.tsx"
+                                      }
+                                  ]
+                    },
+                    {
+                        "id":  "S6d",
+                        "title":  "Sprint 6d â€” GDD Sync \u0026 HUD Polish",
+                        "status":  "done",
+                        "completed_at":  "2026-03-24",
+                        "fixes":  [
+                                      {
+                                          "id":  "S6d-1",
+                                          "title":  "GDD Enmity Taxomony Sync",
+                                          "description":  "Dodano brakujÄ…cych ENEMY_FUSZERKA, ENEMY_CHAOS, ENEMY_LANGUAGE_BARRIER zgodnie z sekcjÄ… 4.4 GDD.",
+                                          "file":  "constants.ts, levels.ts"
+                                      },
+                                      {
+                                          "id":  "S6d-2",
+                                          "title":  "Naprawa CARD i INSURANCE",
+                                          "description":  "Odzwierciedlono zaÅ‚oÅ¼enia z GDD: CARD zyskaÅ‚ funkcjÄ™ pasywnej tarczy, INSURANCE przypisano jako dedykowanÄ… tarczÄ™ pod bossa."
+                                      },
+                                      {
+                                          "id":  "S6d-3",
+                                          "title":  "Naprawa logiki ruchu przeciwnikÃ³w i dynamiki gry",
+                                          "description":  "Parametr moveSpeed wreszcie zaczÄ…Å‚ byÄ‡ czytany i aplikowany podczas renderowania pÄ™tli, wrogowie atakujÄ… szybciej."
+                                      },
+                                      {
+                                          "id":  "S6d-4",
+                                          "title":  "HUD Polish â€” Widoczne Serca i Dynamic Halos",
+                                          "description":  "Logika renderingu w tle otacza elementy kolorowÄ… zielonÄ… lub czerwonÄ… poÅ›wiatÄ… zaleÅ¼nie od benefitu/wroga. HUD pokazuje blaknÄ…ce Å¼ywe serduszka."
+                                      }
+                                  ]
+                    },
+                    {
+                        "id":  "S3-REFACTOR",
+                        "title":  "Sprint 3 â€” God-File Split (ReactGameCanvas.tsx)",
+                        "status":  "done",
+                        "completed_at":  "2026-04-07",
+                        "fixes":  [
+                                      {
+                                          "id":  "S3-1",
+                                          "title":  "Decoupling Physics",
+                                          "description":  "Eksploatacja ReactGameCanvas.tsx z logiki fizyki i pÄ™tli gry. ZewnÄ™trzny moduÅ‚ physics.ts operuje na czystych funkcjach."
+                                      },
+                                      {
+                                          "id":  "S3-2",
+                                          "title":  "Type Safety Fix",
+                                          "description":  "Przeniesienie CoreGameState do src/engine/types.ts i zaÅ‚atanie importÃ³w (Bug TypeScript TS2459)."
+                                      }
+                                  ]
+                    },
+                    {
+                        "id":  "S-BOSS-FIX",
+                        "title":  "Sprint BOSS-FIX â€” Level 5 Boss Fight Closure + Stat-Gate Fix",
+                        "status":  "done",
+                        "completed_at":  "2026-04-08",
+                        "priority":  "high",
+                        "created_at":  "2026-04-08",
+                        "created_by":  "Antigravity AG (root-cause session)",
+                        "fixes":  [
+                                      {
+                                          "id":  "BOSS-FIX-A",
+                                          "title":  "useBossFight â€” fix stale closure for finalPower",
+                                          "file":  "src/hooks/useBossFight.ts",
+                                          "lines":  "38-44",
+                                          "approach":  "Use useRef to track the live power value. Replace: \u0027const finalPower = power\u0027 with ref-based read. Remove \u0027power\u0027 from useCallback deps array to prevent RAF chain restart on every tap."
+                                      },
+                                      {
+                                          "id":  "BOSS-FIX-B",
+                                          "title":  "resolveBoss() â€” add player feedback on stat-gate fail + retry path",
+                                          "file":  "src/engine/physics.ts",
+                                          "lines":  "119-133",
+                                          "approach":  "When stat-gate check fails: emit floatText warning about which stat is too low. Set a cooldown before boss can retrigger (reset bossTriggered after 30s). Consider relaxing Level 5 stat-gate for first attempt to prevent permanent soft-lock."
+                                      },
+                                      {
+                                          "id":  "BOSS-FIX-C",
+                                          "title":  "Update BUG-02 status to verified-root-cause (done in this sprint prep)",
+                                          "file":  "todo.json",
+                                          "approach":  "Already applied in todo.json update."
+                                      }
+                                  ]
+                    },
+                    {
+                        "id": "S11-INDUSTRIAL-HARDENING",
+                        "title": "Sprint 11 — Industrial V4.0 Hardening & UI/UX Audit",
+                        "status": "done",
+                        "completed_at": "2026-05-09",
+                        "priority": "critical",
+                        "created_at": "2026-05-09",
+                        "created_by": "Antigravity AG",
+                        "description": "Granular screen-by-screen audit and remediation to ensure 100% compliance with Industrial V4.0 tokens and Language Split (NL).",
+                        "fixes": [
+                            {
+                                "id": "S11-1",
+                                "title": "Language Leak Remediation",
+                                "description": "Fixed English leaks in NewGameOverOverlay ('Score opslaan for the' -> 'voor de') and NewChoiceOverlay ('SELECT OPTION TO PROCEED' -> Dutch)."
+                            },
+                            {
+                                "id": "S11-2",
+                                "title": "SSoT Design Token Hardening",
+                                "description": "Added missing --zzp-invoice-green and --zzp-rating-a/b/c tokens to _variables.css; synchronized GameHUD stats."
+                            },
+                            {
+                                "id": "S11-3",
+                                "title": "UX Standardization & Mobile Polish",
+                                "description": "Standardized Turnstile retry button styling in EntryGate; optimized HUD layout for <375px viewports (iPhone SE)."
+                            }
+                        ]
+                    },
+                    {
+                        "id": "S12-PROD-CACHE-TURNSTILE-E2E",
+                        "title": "Sprint 12 — Prod asset cache + Turnstile env inject + Playwright prod hooks",
+                        "status": "done",
+                        "completed_at": "2026-05-09",
+                        "priority": "critical",
+                        "created_at": "2026-05-09",
+                        "created_by": "Cursor AG",
+                        "description": "Close prod regressions: long-lived cache for fingerprinted JS/CSS/images via public/.htaccess + purge orphaned assets/.htaccess on deploy; EntryGate uses import.meta.env.VITE_TURNSTILE_SITE_KEY with localhost dev bypass; stable selectors for prod smoke E2E.",
+                        "fixes": [
+                            {
+                                "id": "S12-1",
+                                "title": "LiteSpeed Cache-Control for hashed assets",
+                                "description": "public/.htaccess v1.8: unset weak Cache-Control/Expires for asset types, set max-age=31536000 (+ immutable intent); mod_expires long TTL for static types. Removed repo copy public/assets/.htaccess that forced week-cache on images.",
+                                "files": ["public/.htaccess"]
+                            },
+                            {
+                                "id": "S12-2",
+                                "title": "Deploy purge stale assets/.htaccess",
+                                "description": "scripts/deploy_all.ps1 v1.6+: after tar extract, rm -f assets/.htaccess so old nested rules cannot override root cache policy.",
+                                "files": ["scripts/deploy_all.ps1"]
+                            },
+                            {
+                                "id": "S12-3",
+                                "title": "Turnstile build-time site key",
+                                "description": "EntryGate reads VITE_TURNSTILE_SITE_KEY; localhost mock token; UI message if key missing in prod build. typings + .env.example documented.",
+                                "files": ["src/components/screens/EntryGate.tsx", "src/vite-env.d.ts", ".env.example"]
+                            },
+                            {
+                                "id": "S12-4",
+                                "title": "Prod smoke Playwright selectors",
+                                "description": "MainMenu data-testid main-menu-play; EntryGate entry-gate-guest, entry-gate-form, nameInput/emailInput/consentCheck aligned with e2e/prod-smoke.spec.ts.",
+                                "files": ["src/components/screens/MainMenu.tsx", "src/components/screens/EntryGate.tsx", "e2e/prod-smoke.spec.ts"]
+                            }
+                        ]
+                    }
+                ],
+    "gameplay_mechanics":  [
+                               {
+                                   "id":  "GM-01",
+                                   "title":  "Level progression (5 leveli)",
+                                   "description":  "levelProgress 0â†’1.0 na podstawie score vs minScore, potem LEVEL_CHALLENGE â†’ LEVEL_END â†’ ADVANCE_LEVEL",
+                                   "status":  "done",
+                                   "proof_of_done":  "Automated QA subagent przeszedÅ‚ flow na produkcji."
+                               },
+                               {
+                                   "id":  "GM-02",
+                                   "title":  "CHOICE overlay â€” forcedChoiceAt + timer",
+                                   "description":  "Wybory biznesowe: forcedChoiceAt per level + co 30s timer. Po wyczerpaniu â€” gra kontynuuje (fix BUG-01).",
+                                   "status":  "done",
+                                   "proof_of_done":  "Weryfikacja na stabilnym silniku v1.5."
+                               },
+                               {
+                                   "id":  "GM-03",
+                                   "title":  "LevelEndChallenge â€” timing bar",
+                                   "description":  "Po level progress \u003e= 1.0: overlay z timing barem, tap â†’ bonus 0-200 pkt, per-level NL tematyka.",
+                                   "status":  "done",
+                                   "proof_of_done":  "Weryfikacja na stabilnym silniku v1.5."
+                               },
+                               {
+                                   "id":  "GM-04",
+                                   "title":  "GAME_OVER + ShareScore",
+                                   "description":  "Ekran koÅ„cowy z score, coupon GAME10, share button (Web Share API + Twitter fallback).",
+                                   "status":  "done",
+                                   "proof_of_done":  "Gra over â†’ overlay z score â†’ restart dziaÅ‚a"
+                               },
+                               {
+                                   "id":  "GM-05",
+                                   "title":  "Mobile touch â€” jump i challenge tap",
+                                   "description":  "Touch events dla skoku (caÅ‚y canvas) i LevelChallengeOverlay (pointerDown).",
+                                   "status":  "done",
+                                   "proof_of_done":  "Automated QA subagent zweryfikowaÅ‚ interakcjÄ™ UI."
+                               }
+                           ],
+    "ui_components":  [
+                          {
+                              "id":  "UI-01",
+                              "title":  "MainMenu â€” benefit strip, dark bg",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-02",
+                              "title":  "NewGameHUD â€” stats + progress",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-03",
+                              "title":  "NewChoiceOverlay",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-04",
+                              "title":  "NewGameOverOverlay + ShareButton",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "BUG-05",
+                              "task":  "Behavioral Transition Polish \u0026 \u0027ZnajomoÅ›ci\u0027 Power-up",
+                              "status":  "done",
+                              "priority":  "high",
+                              "description":  "Implement safe level transitions (auto-pilot) and repurpose gates as \u0027ZnajomoÅ›ci\u0027 power-ups per behavioral architecture. (ADDED RAINBOW HSL AURA \u0026 NL MESSAGES)"
+                          },
+                          {
+                              "id":  "UI-05",
+                              "title":  "LevelCompleteOverlay",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-06",
+                              "title":  "LevelChallengeOverlay â€” timing bar",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-07",
+                              "title":  "Footer â€” ukryty podczas gameplay",
+                              "status":  "done"
+                          },
+                          {
+                              "id":  "UI-08",
+                              "title":  "Senior UX/UI Polish (V6.8) â€” Industrial Tokens, Noise, Safe Areas, Holographic Cards",
+                              "status":  "done"
+                          },
+                          {
+                              "id": "UI-09",
+                              "title": "Prod observability hooks — Playwright prod-smoke + Turnstile wiring",
+                              "status": "done",
+                              "completed_at": "2026-05-09",
+                              "proof_of_done": "npm run test:e2e:prod 3/3 against https://app.flexgrafik.nl after deploy @c70e577.",
+                              "files": [
+                                  "src/components/screens/MainMenu.tsx",
+                                  "src/components/screens/EntryGate.tsx",
+                                  "e2e/prod-smoke.spec.ts",
+                                  "playwright.prod.config.ts"
+                              ]
+                          }
+                      ],
+    "session_sprint_sync":  {
+                                "last_sync":  "2026-05-09",
+                                "synced_by":  "Antigravity AG",
+                                "phase_0_status":  "done",
+                                "phase_0_verified":  [
+                                                         "index.css â€” CSS Design Tokens (--zzp-* prefix) â€” VERIFIED IN REPO",
+                                                         "docs/game-art-bible.md â€” V1.0, 85 lines, full content â€” VERIFIED IN REPO"
+                                                     ],
+                                "phase_1_status":  "done",
+                                "phase_1_blocker":  "none",
+                                "current_session_priority":  "2026-05-09 — S12 closed on main @c70e577 (cache + Turnstile env + prod E2E hooks). Next: TB-12 manual device QA; S-PERF-ASSETS; confirm Turnstile key present in local .env before deploy when validating registered submissions."
+                            },
+    "future_sprints":  [
+                           {
+                               "id":  "S7-UI-AESTHETICS",
+                               "title":  "Sprint 7 â€” Dark Premium Bouwplaats Ambient",
+                               "description":  "Wymiana tÅ‚a na fotorealistyczne lub stylizowane game-artowe, wstawienie natywnych logotypÃ³w na struktury (taczka, budowa, flexgrafik). Zunifikowanie palety powiadomieÅ„ UI pod \u0027Dark Premium\u0027.",
+                               "status":  "done",
+                               "priority":  "high"
+                           },
+                           {
+                               "id":  "S8-HUD-REWORK",
+                               "title":  "Sprint 8 â€” Spatial Progress Bar \u0026 Empathy HUD",
+                               "description":  "Przeniesienie paska postÄ™pu (Level Progress) w pobliÅ¼e avatara (np. pierÅ›cieÅ„ Å‚adujÄ…cy, Å›ledzenie wzroku gracza). Refactor telegrafingu mini-gier na pÅ‚ynniejsze, bardziej sprawiedliwe ostrzeÅ¼enia.",
+                               "status":  "done",
+                               "priority":  "high"
+                           },
+                           {
+                               "id":  "S9-CHALLENGES-RETHEME",
+                               "title":  "Sprint 9 â€” Zmiana Tematyki Mini-Gier",
+                               "description":  "Refactor zadaÅ„: Zamiast \u0027Timing bar\u0027, uÅ¼ycie akcji budowlanych (Wbijanie GwoÅºdzi, CiÄ™cie AktywnÄ… PiÅ‚Ä…). Pozycjonowanie zadaÅ„ by nie tworzyÅ‚y wraÅ¼enia niesprawiedliwego Jumpscare\u0027a.",
+                               "status":  "done",
+                               "priority":  "high"
+                           },
+                           {
+                               "id":  "S5",
+                               "title":  "Sprint 5 â€” Analytics events",
+                               "description":  "Trackowanie: levelComplete, challengeGrade, choiceResolved, gameOver per level.",
+                               "status":  "done",
+                               "priority":  "medium"
+                           },
+                           {
+                               "id":  "SG",
+                               "title":  "Sprint G â€” Pixel-art assets",
+                               "description":  "Wymiana emoji na PNG sprity (UX remediation Wave 4 â€” ten sam zakres). BLOKOWANE: Norbert dostarcza assety z Adobe; brak zmian w kodzie do czasu dostawy.",
+                               "status":  "blocked",
+                               "priority":  "low"
+                           },
+                           {
+                               "id":  "S6",
+                               "title":  "Sprint 6 â€” Level 4-5 content + BUG-02",
+                               "description":  "Level 4-5 nie sÄ… de facto grywalne (minScore 2000/3000 trudno osiÄ…gnÄ…Ä‡). Rebalans score progression. + BUG-02: Level 5 boss challenge overlay.",
+                               "status":  "done",
+                               "completed_at":  "2026-04-08",
+                               "priority":  "high"
+                           },
+                           {
+                               "id":  "S-MUSHROOM-POWERUP",
+                               "title":  "Sprint 11 â€” ZrÄ™cznoÅ›ciowy Power-Up ZnajomoÅ›ci",
+                               "description":  "Dodanie skaczÄ…cego, trudnego do zdobycia obiektu reprezentujÄ…cego \u0027ZnajomoÅ›ci\u0027 (niczym grzybek z Mario). Jego zebranie aktywuje na czas okreÅ›lony mechanikÄ™ Infinite Jump, dajÄ…c graczowi super-zdolnoÅ›Ä‡.",
+                               "status":  "done",
+                               "completed_at":  "2026-04-09",
+                               "priority":  "medium",
+                               "created_at":  "2026-04-08"
+                           },
+                           {
+                               "id":  "S_UI_FIX",
+                               "title":  "Sprint 5.5 â€” UI/UX Start Screen \u0026 In-Game Overlays",
+                               "description":  "PrzywrÃ³cenie tÅ‚a budowy do gameplayu. Zmiana bg_bouwplaats na Ekran Startowy. Polerowanie popupÃ³w eventowych. CSS dla avatarÃ³w.",
+                               "status":  "done",
+                               "priority":  "high"
+                           },
+                           {
+                               "id":  "S10-VISUAL-GUIDELINES",
+                               "title":  "Sprint 10 â€” Game Art Bible (Visual Design Guidelines)",
+                               "description":  "Stworzenie kompletnego dokumentu \u0027docs/game-art-bible.md\u0027 definiujÄ…cego staÅ‚y charakter wizualny gry. Zawiera: paleta kolorÃ³w z CSS custom properties, typografia, styl komponentÃ³w UI (overlaye, HUD, przyciski), motion/animacje, ikonografia, spacing system. Bez Art Bible kaÅ¼da sesja UI jest nieprzewidywalna i kosztowna w poprawkach. BLOKUJE: wszystkie powaÅ¼ne zmiany UI/UX po tej dacie powinny referowaÄ‡ do Art Bible.",
+                               "status":  "done",
+                               "priority":  "critical",
+                               "created_at":  "2026-04-05",
+                               "created_by":  "Antigravity VCMS workflow migration session",
+                               "completed_at":  "2026-04-08",
+                               "stub_file":  "docs/game-art-bible.md",
+                               "blocks":  [
+
+                                          ],
+                               "proof_of_done":  "docs/game-art-bible.md uzupeÅ‚niony we wszystkich sekcjach + CSS custom properties gotowe + EntryGate zaimplementowany"
+                           },
+                           {
+                               "id":  "SB-BEHAVIORAL-UI",
+                               "title":  "Sprint B â€” Behavioral UI \u0026 Juice (SSoT: ux.md)",
+                               "description":  "Implementacja mechanik psychologii behawioralnej i efektÃ³w \u0027Juice\u0027 dla zwiÄ™kszenia retencji i dopamine hits.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-08",
+                               "tasks":  [
+                                             {
+                                                 "id":  "SB-1",
+                                                 "title":  "Taksometr FinansÃ³w",
+                                                 "description":  "Licznik punktÃ³w/finansÃ³w animowany numerycznie w rogu (odliczanie / wzrost) by wzmacniaÄ‡ strzaÅ‚y dopaminy.",
+                                                 "priority":  "high",
+                                                 "status":  "done"
+                                             },
+                                             {
+                                                 "id":  "SB-2",
+                                                 "title":  "Kubek Kawy HUD",
+                                                 "description":  "Energia prezentowana jako ikona kubka kawy (zamiast generycznego paska).",
+                                                 "priority":  "high",
+                                                 "status":  "done"
+                                             },
+                                             {
+                                                 "id":  "SB-3",
+                                                 "title":  "3-Tap Reward Drop",
+                                                 "description":  "Overlay na koÅ„cu gry: pudÅ‚o z ZZPackage musi byÄ‡ uderzone 3 razy (feedback fizyczny), Å¼eby wyÅ›wietliÅ‚ siÄ™ kupon.",
+                                                 "priority":  "high",
+                                                 "status":  "done"
+                                             },
+                                             {
+                                                 "id":  "SB-4",
+                                                 "title":  "Hit-Stopy \u0026 Vignette",
+                                                 "description":  "WpiÄ™cie 50ms zatrzymaÅ„ fizyki (hit-stop) przy kolizjach oraz winiety Canvas (vignette na krawÄ™dziach) pulsujÄ…cej przy wydarzeniach.",
+                                                 "priority":  "high",
+                                                 "status":  "done"
+                                             },
+                                             {
+                                                 "id":  "SB-5",
+                                                 "title":  "Anti-Cheat Telemetry",
+                                                 "description":  "Zbieranie metryk jumps, collisions, duration, optionsResolved i doklejanie ich do payloadu ScoreProof dla weryfikacji serwerowej.",
+                                                 "priority":  "critical",
+                                                 "status":  "done"
+                                             }
+                                         ]
+                           },
+                           {
+                               "id":  "SD-LEAD-CAPTURE",
+                               "title":  "Sprint D â€” Lead Capture Pipeline (EntryGate â†’ saveLead API)",
+                               "status":  "done",
+                               "priority":  "critical",
+                               "created_at":  "2026-04-09",
+                               "completed_at":  "2026-04-30",
+                               "description":  "saveLead() hardening: Turnstile + Nonce verification, retry 1x, relaxed rate limit (30/hr), fix optional email validation bug. Verified build PASS.",
+                               "files":  [
+                                             "src/services/storageService.ts",
+                                             "src/components/EntryGate.tsx"
+                                         ]
+                           },
+                           {
+                               "id":  "SE-WEB-HARDENING",
+                               "title":  "Sprint E â€” Web Hardening (Canonical Link + Security Headers)",
+                               "description":  "Added \u003clink rel=\u0027canonical\u0027\u003e to index.html. Added security headers to public/.htaccess: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, HSTS. CSP deferred (requires nonce-based script loading due to inline GA4/Meta Pixel).",
+                               "status":  "done",
+                               "priority":  "medium",
+                               "created_at":  "2026-04-11",
+                               "completed_at":  "2026-04-11",
+                               "files":  [
+                                             "index.html",
+                                             "public/.htaccess"
+                                         ]
+                           },
+                           {
+                               "id":  "SF-BUG06-REGRESSION",
+                               "title":  "Sprint F â€” BUG-06 Regression Tests (Level Transition Safety Net)",
+                               "description":  "12 regression tests covering BUG-06 fix areas: forceSafetyCleanUp (invincibility, momentum zero, item wipe, levelCompleteFired), LEVEL_FINISH_SEQUENCE physics (platform landing, ground fallback, autopilot, deceleration, phase transition to LEVEL_CHALLENGE), platform failsafe horizontal coverage (rescue spawn when no coverage, no false rescue, rescue despite non-empty but uncovering platform list). Test count: 22 â†’ 34.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-11",
+                               "completed_at":  "2026-04-11",
+                               "files":  [
+                                             "src/engine/__tests__/physics.levelTransition.test.ts"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-FIX",
+                               "title":  "Sprint H-UX-FIX â€” Critical UX Audit Fixes (Session 1)",
+                               "description":  "Fixed 3 CRITICAL + 1 HIGH from professional UX/UI audit: (C1) PL/EN strings â†’ Dutch in 5 components, (C2) onGoToWizard wired before redirect in game-over CTA, (C3) @keyframes fadeIn added, (H2) Wizard URLs unified to zzpackage.flexgrafik.nl/wizard/ with UTM.",
+                               "status":  "done",
+                               "priority":  "critical",
+                               "created_at":  "2026-04-11",
+                               "completed_at":  "2026-04-11",
+                               "files":  [
+                                             "src/components/ChallengeDefault.tsx",
+                                             "src/components/ChallengeBalance.tsx",
+                                             "src/components/ChallengeTapMash.tsx",
+                                             "src/components/NewLevelCompleteOverlay.tsx",
+                                             "src/components/NewGameOverOverlay.tsx",
+                                             "src/components/ZZPReportCard.tsx",
+                                             "src/components/MainMenu.tsx",
+                                             "src/index.css"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S2",
+                               "title":  "Sprint H-UX-S2 â€” Touch Targets, WCAG AA Contrast, Accessibility (Session 2)",
+                               "description":  "Part A: 7 touch targets enforced to --space-touch-target (56px) across 6 components. Part B: 3 WCAG AA contrast fixes (ZZPReportCard opacity/font, NewChoiceOverlay footer, GameHUD MiniStat). Part C: Accessibility hardening (viewport zoom unlock, prefers-reduced-motion, BossFight meter responsive).",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-11",
+                               "completed_at":  "2026-04-11",
+                               "files":  [
+                                             "index.html",
+                                             "src/index.css",
+                                             "src/components/NewGameOverOverlay.tsx",
+                                             "src/components/NewLevelCompleteOverlay.tsx",
+                                             "src/components/ShareButton.tsx",
+                                             "src/components/MainMenu.tsx",
+                                             "src/components/Leaderboard.tsx",
+                                             "src/components/ZZPReportCard.tsx",
+                                             "src/components/NewChoiceOverlay.tsx",
+                                             "src/components/GameHUD.tsx",
+                                             "src/components/BossFightOverlay.tsx"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S3",
+                               "title":  "Sprint H-UX-S3 â€” Conversion + Retention (Session 3)",
+                               "description":  "H5: failReason set in physics.ts (GEVALLEN, ENERGIE OP, BAAS GEVECHT VERLOREN) + Dutch loss-aversion on game-over + Speeltijd from sessionStartTime. H8: Leaderboard (jij) highlight, gap-to-next-rank, pulse animation. M10: theme-color #0D0D0F unified. M2: Tailwind remnant removed from MainMenu.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-11",
+                               "completed_at":  "2026-04-11",
+                               "files":  [
+                                             "src/engine/physics.ts",
+                                             "src/components/NewGameOverOverlay.tsx",
+                                             "src/components/Leaderboard.tsx",
+                                             "src/App.tsx",
+                                             "index.html",
+                                             "public/manifest.json",
+                                             "src/components/MainMenu.tsx"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S4",
+                               "title":  "Sprint H-UX-S4 â€” Design tokens + stacking docs (Session 4)",
+                               "description":  "H1: hex â†’ --zzp-* (+ color-mix) in MainMenu, NewChoiceOverlay, NewGameOverOverlay, NewLevelCompleteOverlay, TopBar; legacy --fg-* aliased to zzp/accent in index.css. H9: z-index scale documented in index.css. M1: --radius-md/lg/xl/pill + component border-radius wired to tokens. M12: removed unused AnimatedCounter.tsx (HUD keeps inline memo). CSP Report-Only: monitor console before enforcing.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-12",
+                               "completed_at":  "2026-04-12",
+                               "files":  [
+                                             "src/index.css",
+                                             "src/components/MainMenu.tsx",
+                                             "src/components/NewChoiceOverlay.tsx",
+                                             "src/components/NewGameOverOverlay.tsx",
+                                             "src/components/NewLevelCompleteOverlay.tsx",
+                                             "src/components/TopBar.tsx",
+                                             "src/components/GameHUD.tsx"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S5",
+                               "title":  "Sprint H-UX-S5 â€” Game feel + HUD polish (audit H6, M14, M13, M11)",
+                               "description":  "H6: canvas translate shake in GameRenderer from shakeTimer/shakeIntensity; removed duplicate DOM body shake from physics + coyote jump. M14: energy bar fill via scaleY + absolute positioning (index.css). M13: HUD stress vignette at stress\u003e=100 only (title glow still \u003e70). M11: exit opacity/scale transitions on NewChoiceOverlay, NewLevelCompleteOverlay, NewGameOverOverlay + prefers-reduced-motion instant path. Type alignment: UISnapshot.telemetry in engine-adapter, globalVars counters, failReason on globalVars, UserData.currentLevelId, GameContainer/ReactGameCanvas cleanup. Phase A handoff: docs/handoffs/2026-04-13-phase-a-mobile-csp-gate.md.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-13",
+                               "completed_at":  "2026-04-13",
+                               "files":  [
+                                             "src/rendering/GameRenderer.ts",
+                                             "src/engine/physics.ts",
+                                             "src/components/ReactGameCanvas.tsx",
+                                             "src/components/GameHUD.tsx",
+                                             "src/index.css",
+                                             "src/components/NewChoiceOverlay.tsx",
+                                             "src/components/NewLevelCompleteOverlay.tsx",
+                                             "src/components/NewGameOverOverlay.tsx",
+                                             "src/engine/engine-adapter.ts",
+                                             "src/config/types.ts",
+                                             "src/components/GameContainer.tsx",
+                                             "docs/handoffs/2026-04-13-phase-a-mobile-csp-gate.md"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S6",
+                               "title":  "Sprint H-UX-S6 â€” Challenge overlay exits (audit M11)",
+                               "description":  "M11: opacity/scale exit + prefers-reduced-motion instant complete on ChallengeDefault, ChallengeBalance, ChallengeTapMash (aligned with NewChoiceOverlay). Phase A gate closed; CSP enforcing on prod.",
+                               "status":  "done",
+                               "priority":  "high",
+                               "created_at":  "2026-04-13",
+                               "completed_at":  "2026-04-13",
+                               "files":  [
+                                             "src/components/ChallengeDefault.tsx",
+                                             "src/components/ChallengeBalance.tsx",
+                                             "src/components/ChallengeTapMash.tsx",
+                                             "docs/handoffs/2026-04-13-phase-a-mobile-csp-gate.md"
+                                         ]
+                           },
+                           {
+                               "id":  "SH-UX-S7",
+                               "title":  "Sprint H-UX-S7 â€” SoundSynth respects reduced motion",
+                               "description":  "playSlang + procedural tone SFX no-op when prefers-reduced-motion: reduce (aligned with GameRenderer). Vitest coverage for early exit vs play path. Prod verified 2026-04-13 (deploy c32cc0e, 200 OK, CSP enforcing).",
+                               "status":  "done",
+                               "priority":  "medium",
+                               "created_at":  "2026-04-13",
+                               "completed_at":  "2026-04-13",
+                               "files":  [
+                                             "src/audio/SoundSynth.ts",
+                                             "src/audio/__tests__/SoundSynth.test.ts",
+                                             "docs/handoffs/2026-04-13-post-h7-smoke-sound-reduced-motion.md"
+                                         ]
+                           },
+                           {
+                               "id":  "S-LEVEL-END-PRO",
+                               "title":  "Sprint â€” Level-end challenges PRO (game feel + ludonarration)",
+                               "description":  "Program podniesienia jakoÅ›ci mini-gier na koÅ„cu poziomu: baseline â†’ audio/telegraph â†’ ludonarracja TAP/BALANCE â†’ brama Track C â†’ sign-off prod. SSoT planu: .cursor/plans/level-end_pro_roadmap_2f5ef803.plan.md (nie edytowaÄ‡). Handoffy: docs/handoffs/2026-04-19-level-end-pro-*.md.",
+                               "status":  "done",
+                               "priority":  "critical",
+                               "created_at":  "2026-04-19",
+                               "completed_at":  "2026-04-19",
+                               "quality_bar":  [
+                                                   "Stawka jasna: tylko scorebonus w challenge; kod na nastÄ™pnym ekranie (MoFu bez zmian).",
+                                                   "KaÅ¼dy z 5 poziomÃ³w: czytelny skill (nie samo \u0027szybciej klikaj\u0027); TAP naprzemienne strefy L/R.",
+                                                   "Audio: fazy prep â†’ okno interaktywne â†’ akcja â†’ wynik (Web Audio); prefers-reduced-motion = ciszej/procedural no-op jak reszta synth.",
+                                                   "Telemetria: GTM/GA4 challenge_* przed agresywnym tuningiem progÃ³w (LE-P0).",
+                                                   "Regresja: npm run lint + test + test:e2e + build/BUNDLE; po deploy test:e2e:prod."
+                                               ],
+                               "tasks":  [
+                                             {
+                                                 "id":  "LE-P0",
+                                                 "title":  "Baseline: playtest + GTM challenge_*",
+                                                 "description":  "Szablon playtestu 2 profile + checklista GTM/GA4 DebugView + hipotezy (timed_out, grade per level_id). Output: docs/handoffs/2026-04-19-level-end-pro-playtest-baseline.md; priority plan Q2.",
+                                                 "status":  "done",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "docs/handoffs/2026-04-19-level-end-pro-playtest-baseline.md",
+                                                               "docs/handoffs/2026-04-17-priority-plan-q2-execution.md"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P1",
+                                                 "title":  "Etap 1: SFX level-end (SoundSynth + overlay bridge)",
+                                                 "description":  "Procedural cues: start okna interaktywnego, snap timingu, mash krok (throttle), balance nudge; register synth z ReactGameCanvas. Vitest istniejÄ…cego SoundSynth.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "src/audio/SoundSynth.ts",
+                                                               "src/audio/challengeOverlayBridge.ts",
+                                                               "src/components/ReactGameCanvas.tsx",
+                                                               "src/components/ChallengeDefault.tsx",
+                                                               "src/components/ChallengeTapMash.tsx",
+                                                               "src/components/ChallengeBalance.tsx"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P1b",
+                                                 "title":  "Etap 1b: Telegraph DEFAULT level 1",
+                                                 "description":  "useLevelChallenge: jeden cykl ping-pong na sucho po prep (tylko levelId===1), potem normalna faza; dokumentacja w baseline.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "src/hooks/useLevelChallenge.ts",
+                                                               "src/components/ChallengeDefault.tsx"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P2",
+                                                 "title":  "Etap 2: Ludonarracja TAP (L/R) + affordance BALANCE",
+                                                 "description":  "TAP_MASH: liczone tylko naprzemienne strefy L/R; copy w levels.ts. BALANCE: etykiety stref dotyku + opis w levels.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "src/components/ChallengeTapMash.tsx",
+                                                               "src/components/ChallengeBalance.tsx",
+                                                               "src/config/levels.ts"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P3",
+                                                 "title":  "Etap 3: Brama Track C (decyzja A vs B)",
+                                                 "description":  "Mini-brief: gÅ‚Ä™boki tuning trzech archetypÃ³w vs jeden nowy typ LevelChallengeTheme. DowÃ³dca wybiera; osobny scope-lock przed implementacjÄ… C.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "medium",
+                                                 "files":  [
+                                                               "docs/handoffs/2026-04-19-level-end-pro-track-c-gate.md"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P4",
+                                                 "title":  "Etap 4: QA urzÄ…dzeÅ„ + discovery Â§6",
+                                                 "description":  "Checklista manual + 360px/iOS; aktualizacja tabeli w discovery audit po dowodach.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "docs/handoffs/2026-04-16-level-end-challenge-discovery-audit.md",
+                                                               "docs/handoffs/2026-04-19-level-end-pro-signoff-checklist.md"
+                                                           ]
+                                             },
+                                             {
+                                                 "id":  "LE-P5",
+                                                 "title":  "Etap 5: Deploy + prod smoke + todo _meta",
+                                                 "description":  "Wykonane 2026-04-19 (GO DowÃ³dca): push main @6693f3c, deploy_all.ps1, curl -sI, test:e2e:prod 3/3, last_deploy_verify. Handoff: docs/handoffs/2026-04-19-level-end-pro-deploy-verify.md.",
+                                                 "status":  "done",
+                                                 "completed_at":  "2026-04-19",
+                                                 "priority":  "high",
+                                                 "files":  [
+                                                               "todo.json",
+                                                               "scripts/deploy_all.ps1",
+                                                               "docs/handoffs/2026-04-19-level-end-pro-deploy-verify.md"
+                                                           ]
+                                             }
+                                         ]
+                           },
+                           {
+                               "status":  "todo",
+                               "title":  "Optymalizacja PNG do WebP",
+                               "description":  "Natychmiastowa optymalizacja wagi assetów PNG do WebP (zwłaszcza ikon FUSZERKA, LOST_CLIENT).",
+                               "id":  "S-PERF-ASSETS",
+                               "priority":  "high"
+                           },
+                           {
+                               "status":  "done",
+                               "title":  "Rozwój dynamiki Level-End",
+                               "description":  "Rozwój dynamiki zręcznościowej w plikach Level-End Challenge (ChallengeBalance) bazując na wytycznych Track B.",
+                               "id":  "S-LEVEL-END-TRACK-B",
+                               "priority":  "high",
+                               "completed_at":  "2026-05-06",
+                               "proof_of_done":  "TB-1..11 PASS: duration z theme, L/R zone split, M11 exit, grace period, analytics, per-level polish. Vitest 84/84. Deploy @179c7aa — prod 200 OK.",
+                               "files":  [
+                                   "src/components/ChallengeTapMash.tsx",
+                                   "src/components/ChallengeBalance.tsx",
+                                   "src/components/ChallengeDefault.tsx",
+                                   "src/config/levels.ts",
+                                   "src/services/ChallengeDifficultyManager.ts",
+                                   "src/services/__tests__/ChallengeDifficultyManager.test.ts"
+                               ]
+                           },
+                           {
+                               "status":  "done",
+                               "title":  "Poprawki copywriterskie (MoFu)",
+                               "description":  "Drobne poprawki copywriterskie zgodnie z sekcją compliance dokumentu strategy-marketing.md.",
+                               "id":  "S-MOFU-COPY",
+                               "priority":  "high",
+                               "completed_at":  "2026-05-06",
+                               "proof_of_done":  "EntryGate.tsx fold PRE+POST_GAME: €50 korting → 10% korting GAME10; aankoopbonus incl. BTW. Deploy @179c7aa.",
+                               "files":  [
+                                   "src/components/EntryGate.tsx"
+                               ]
+                           },
+                           {
+                               "status":  "done",
+                               "title":  "UI CSS Architecture Refactor (Budowlany Klimat)",
+                               "description":  "Rozbicie monolitycznego index.css na _variables.css, _components.css i _game.css z zachowaniem pełnej kaskady. Strukturalne przeniesienie 24 komponentów TSX do odpowiednich folderów (ui, screens, layout, game, overlays) wraz z napisaną od nowa fasadą eksportów (index.ts) i aktualizacją rollup/vite.",
+                               "id":  "S-UI-ARCH-REFACTOR",
+                               "priority":  "high",
+                               "completed_at":  "2026-05-07",
+                               "proof_of_done":  "Struktura katalogów i SSoT CSS zaimplementowane. npm run build przechodzi < 1s bez błędów tsc. Bundle size ~68KB gzipped.",
+                               "files":  [
+                                   "src/index.css",
+                                   "src/components/index.ts",
+                                   "vite.config.ts"
+                               ]
+                           }
+                       ],
+    "repo_health":  {
+                        "branches":  {
+                                         "main":  "2026-05-09 @c70e577 LIVE: S12 prod ops — LiteSpeed long-cache hashed assets, Turnstile via VITE_TURNSTILE_SITE_KEY at build, prod Playwright hooks (main-menu-play, entry-gate-*). Prior: S-LEVEL-END-TRACK-B + S-MOFU-COPY @179c7aa baseline."
+                                     },
+                        "pending_pr":  "None.",
+                        "cleanup_done":  "2026-05-09",
+                        "deploy_commit":  "2026-05-09 — deploy_all.ps1 @c70e577 to flexgrafik.nl/public_html/app/ + fg-game-api.php. Verified: HTTP 200, CSP enforcing, Cache-Control max-age=31536000 on hashed JS, test:e2e:prod 3/3.",
+                        "test_count":  "84 unit (Vitest). Playwright prod-smoke: 3/3 (prod-smoke.spec.ts). Dev suite unchanged — run as needed before larger UI changes.",
+                        "golden_mechanic_status":  "2026-04-09 â€” Nowa mechanika buffa (Infinite Jump) wpiÄ™ta z bezinwazyjnym by-passem na uziemionym silniku.",
+                        "next_action":  "TB-12: Manual QA L1-L5 op device. Before deploy: zorg dat .env VITE_TURNSTILE_SITE_KEY gezet is als je echte registratie-flow op prod test (gast-smoke via Playwright vereist dit niet). Daarna: S-PERF-ASSETS (PNG naar WebP) of SG (Adobe assets)."
+                    }
+}

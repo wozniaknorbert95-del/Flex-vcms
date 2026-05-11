@@ -43,11 +43,27 @@ $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $RepoRoot
 
 $distLocal = Join-Path $RepoRoot "docs\.vitepress\dist"
-$requiredRootFiles = @("server.js", "package.json", "package-lock.json", "ecosystem.config.js")
+$requiredRootFiles = @(
+    "server.js",
+    "package.json",
+    "package-lock.json",
+    "ecosystem.config.js",
+    "repos.yaml",
+    "flex-vcms-todo.json"
+)
+$requiredDirectories = @("public", "src", "deploy-context")
 
 function Write-Plan {
     param([string]$Line)
     Write-Host "[Plan] $Line" -ForegroundColor Cyan
+}
+
+# 0. Sync Context (Senior Edition)
+Write-Plan "node tools/vcms-sync-context.js"
+if ($WhatIf) {
+    Write-Host "  (skipped sync - WhatIf)"
+} else {
+    node tools/vcms-sync-context.js
 }
 
 if (-not $SkipBuild) {
@@ -63,19 +79,31 @@ if (-not $SkipBuild) {
 foreach ($f in $requiredRootFiles) {
     $p = Join-Path $RepoRoot $f
     if (-not (Test-Path $p)) {
-        throw "Brak wymaganego pliku: $p"
+        throw "Missing required file: $p"
     }
 }
 
 if (-not (Test-Path $distLocal)) {
-    throw "Brak katalogu dist: $distLocal - uruchom npm run docs:build lub usun -SkipBuild."
+    throw "Missing dist directory: $distLocal - run 'npm run docs:build' or remove -SkipBuild."
+}
+
+# Senior Pre-flight: Check if dist is actually built and not empty
+$indexFile = Join-Path $distLocal "index.html"
+if (-not (Test-Path $indexFile)) {
+    throw "Build Error: docs/.vitepress/dist/index.html does not exist. Build might have failed."
+}
+if ((Get-Item $indexFile).Length -lt 1kb) {
+    throw "Build Error: index.html in dist is suspiciously small (< 1KB). Check docs build."
+}
+if ((Get-ChildItem $distLocal -Recurse | Measure-Object -Property Length -Sum).Sum -lt 100kb) {
+    throw "Build Error: The entire dist folder is too small (< 100KB). Build likely failed."
 }
 
 $remoteDist = ($RemotePath.TrimEnd("/") + "/docs/.vitepress/dist")
 $remoteVite = ($RemotePath.TrimEnd("/") + "/docs/.vitepress")
 $logDir = "/var/www/vcms/logs"
 
-$sshMkdir = "mkdir -p `"$remoteDist`" && mkdir -p `"$logDir`""
+$sshMkdir = "mkdir -p `"$remoteDist`"; mkdir -p `"$logDir`""
 Write-Plan "ssh $SshTarget `"$sshMkdir`""
 if (-not $WhatIf) {
     ssh $SshTarget $sshMkdir
@@ -90,18 +118,54 @@ foreach ($f in $requiredRootFiles) {
     }
 }
 
+foreach ($d in $requiredDirectories) {
+    if ($d -eq "deploy-context") { continue } # Obsłużymy to osobno na końcu dla atomowości
+    $local = Join-Path $RepoRoot $d
+    $dest = "$($RemotePath.TrimEnd("/"))/"
+    Write-Plan "scp -r `"$local`" ${SshTarget}:$dest"
+    if (-not $WhatIf) {
+        scp -r $local "${SshTarget}:$dest"
+    }
+}
+
+# --- Atomic Context Swap ---
+$localCtx = Join-Path $RepoRoot "deploy-context"
+$remoteCtxTmp = ($RemotePath.TrimEnd("/") + "/deploy-context_tmp")
+$remoteCtxFinal = ($RemotePath.TrimEnd("/") + "/deploy-context")
+
+Write-Plan "Atomic Swap: scp `deploy-context` -> $remoteCtxTmp"
+if (-not $WhatIf) {
+    # Clean tmp on remote first
+    ssh $SshTarget "rm -rf `"$remoteCtxTmp`""
+    scp -r $localCtx "${SshTarget}:$remoteCtxTmp"
+}
+
 Write-Plan "scp -r dist -> ${SshTarget}:$remoteDist/"
 if (-not $WhatIf) {
     scp -r "$distLocal\*" "${SshTarget}:$remoteDist/"
 }
 
-$remoteShell = "cd `"$RemotePath`" && npm ci --omit=dev && pm2 reload ecosystem.config.js --update-env"
+$remoteShell = "cd `"$RemotePath`"; rm -rf `"$remoteCtxFinal`"; mv `"$remoteCtxTmp`" `"$remoteCtxFinal`"; npm ci --omit=dev; pm2 reload ecosystem.config.js --update-env"
 Write-Plan "ssh $SshTarget `"$remoteShell`""
 if (-not $WhatIf) {
     ssh $SshTarget $remoteShell
 }
 
-Write-Host "Deploy-VPS: zakonczono." -ForegroundColor Green
+Write-Plan "Post-Deploy Health Check: curl -s http://127.0.0.1:8001/health"
+if (-not $WhatIf) {
+    Write-Host "Waiting for service to stabilize..." -ForegroundColor Gray
+    Start-Sleep -Seconds 5
+    $health = ssh $SshTarget "curl -s http://127.0.0.1:8001/health"
+    if ($health -match '"status":"OK"') {
+        Write-Host "Health Check: PASSED" -ForegroundColor Green
+    } else {
+        Write-Host "Health Check: FAILED! Output: $health" -ForegroundColor Red
+        Write-Warning "Check PM2 logs on VPS: pm2 logs vcms"
+    }
+}
+
+Write-Host "Deploy-VPS: complete." -ForegroundColor Green
+
 if ($WhatIf) {
-    Write-Host "Uruchomiono w trybie -WhatIf - nic nie wykonano." -ForegroundColor Yellow
+    Write-Host "Running in -WhatIf mode - no changes made." -ForegroundColor Yellow
 }
