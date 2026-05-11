@@ -1,5 +1,5 @@
 # Brain APP — APP.FLEXGRAFIK.NL
-## Źródło prawdy dla modułu Game / PWA | v1.5+ | 2026-05-01
+## Źródło prawdy dla modułu Game / PWA | v1.5+ | 2026-05-09
 
 ---
 
@@ -10,7 +10,7 @@
 **Hosting:** Cyber-Folks (s34.cyber-folks.pl:222)
 **Database:** `uhqsycwpjz_app` (User: `uhqsycwpjz_app`)
 **Database Password:** *(niet in repo — team password manager of `.env` / hosting panel; zie `.env.example`)*
-**Repo:** github.com/wozniaknorbert95-del/flexgrafik-nl
+**Repo:** github.com/wozniaknorbert95-del/app.flexgrafik.nl
 **Rol:** Platforma grywalizacji (Bouwplaats Chaos), lead magnet i hub dla mobilnych użytkowników.
 
 ---
@@ -47,23 +47,14 @@ Mario-style side-scrolling platformer ("Bouwplaats Chaos: ZZP Blitz")
 
 - Geen wachtwoorden, API-keys of HMAC-secrets in markdown of gecommitte bestanden.
 - Lokale secrets: kopieer `.env.example` → `.env` (`.env` staat in `.gitignore`).
+- **Turnstile (publieke site key):** `VITE_TURNSTILE_SITE_KEY` — alleen voor `npm run build` / deploy (statisch ingebakken). Zonder key: prod-build toont waarschuwing; **gast-flow** en Playwright `test:e2e:prod` blijven bruikbaar. Echte registratie-flow test je met key in `.env` vóór `deploy_all.ps1`.
 
-### Nog te doen (24 taken in todo.json)
-**Fase 1 — Core alignment:**
-- [ ] 6 spelstatistieken: reputatie, contacten, professionaliteit, financiën, merk, energie
-- [ ] Nieuwe entity types (mentoren, vijanden, bosses)
-- [ ] Placeholder assets vervangen door echte sprites
+### Productie-backlog (detail)
+Strategische taken en sprint-status staan in **`todo.json`** (`future_sprints`, `repo_health.next_action`). De onderstaande bullets zijn **historisch / roadmap** — niet als realtime checklist gebruiken.
 
-**Fase 2 — Level systeem:**
-- [ ] 5 niveaus met doelen (niet meer endless runner)
-- [ ] Boss: Belastingdienst (Level 5)
-- [ ] Thematische achtergronden per level
-
-**Fase 3 — Polish:**
-- [ ] HUD met 6 statistieken
-- [x] Narratieve tips in-game (`narrativeEvents` + NARRATIVE-fase)
-- [ ] Social share na game over
-- [ ] Beloningen + leaderboard prijzen
+**Roadmap (samenvatting):**
+- Langlopend: asset-optimalisatie (o.a. PNG naar WebP — `S-PERF-ASSETS`), pixel-art (`SG`, blok op Adobe-levering).
+- Handmatige QA: TB-12 device-pass (`repo_health.next_action`).
 
 ---
 
@@ -121,7 +112,8 @@ Code moet verhuizen van `bouwplaats-chaos` → `app.flexgrafik.nl`:
 
 ### Sleutelbestanden
 - `App.tsx` — Hoofdcomponent (menu, game, leaderboard)
-- `components/ReactGameCanvas.tsx` — Game engine + render loop
+- `src/components/game/ReactGameCanvas.tsx` — Game engine + render loop
+- `src/components/screens/EntryGate.tsx` — Lead gate + Turnstile + prod test hooks
 - `constants.ts` — Scoring, physics, assets configuratie
 - `levels.ts` — Level definities
 - `types.ts` — TypeScript interfaces
@@ -164,22 +156,27 @@ npm run build
 # Krok 3: Zachowaj .htaccess na serwerze (nie nadpisuj)
 ```
 
-**Ostatni deploy zweryfikowany z repo:** 2026-04-20 — `scripts/deploy_all.ps1` @ **18b6817**; `https://app.flexgrafik.nl/` HEAD **200**; prod HTML ładuje `index-0nLEpU-X.js`; `npm run test:e2e:prod` **3/3** po deploy. Zmiany skumulowane: MoFu bridge strip out + mobile challenge/HUD + canvas ring removal (**b9fd58b** ścieżka) + fix „pustego paska” po wyniku challenge + DRY `CHALLENGE_POST_RESULT_EXIT_MS` + szybsze `lcFadeIn` (**a360df1**–**18b6817**). Audyt: `docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md`.
+**Laatste prod-close (cache + Turnstile + E2E):** 2026-05-09 — `main` @ **c70e577**; `scripts/deploy_all.ps1`; na deploy **`npm run test:e2e:prod`** → **3/3**; hashed `/assets/index-*.js` → **`Cache-Control: public, max-age=31536000`** (LiteSpeed kan `immutable` uit de header-string strippen — gedrag blijft jaar-cache). Turnstile-widget gebruikt **`import.meta.env.VITE_TURNSTILE_SITE_KEY`** (build-time); localhost bypass mock-token. Handoff + checklist: `docs/handoffs/2026-05-09-prod-cache-turnstile-e2e-verify.md`.
+
+**Eerdere verify milestone:** 2026-04-20 — `deploy_all.ps1` @ **18b6817**; post-deploy prod smoke 3/3. Audyt: `docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md`.
 
 ### ⚠️ .htaccess WYMAGANY dla LiteSpeed
 
 Serwer Cyber-Folks z LiteSpeed **wymaga** pliku `.htaccess` w katalogu aplikacji.
 Bez niego: assety PNG/webp dają HTTP 404, SPA routing nie działa.
 
-Właściwy `.htaccess` jest w repo: `public/.htaccess`
+Właściwy `.htaccess` jest w repo: `public/.htaccess` (wersja **v1.8+**: długi cache dla fingerprintowanych assetów JS/CSS/obrazy/audio + nagłówki bezpieczeństwa tam gdzie wdrożone).
 Po buildzie trafia do: `dist/.htaccess` (Vite kopiuje z `public/`)
 Na serwerze: `/home/uhqsycwpjz/domains/flexgrafik.nl/public_html/app/.htaccess`
 
-Kluczowe dyrektywy:
+**Ważne operacyjnie:** nie utrzymuj osobnego `public/assets/.htaccess` w repo — krótszy cache tam **nadpisywał** politykę root po deployu. Skrypt `deploy_all.ps1` usuwa po rozpakowaniu ewentualny **`assets/.htaccess`** ze starej instalacji (`rm -f .../assets/.htaccess`).
+
+Kluczowe dyrektywy (skrót):
 ```apache
 AddType application/javascript .js .mjs
 AddType image/webp .webp
 # + RewriteRule dla SPA routing
+# + Cache-Control / Expires dla hashed assets (root .htaccess)
 ```
 
 ### ⚠️ ASSETY — stan po audycie 2026-03-20
@@ -196,14 +193,22 @@ AddType image/webp .webp
 ### ⚠️ WERYFIKACJA PO DEPLOYU
 
 ```powershell
-# Sprawdź kluczowe URL:
+# Kluczowy asset (HEAD):
 Invoke-WebRequest "https://app.flexgrafik.nl/assets/sprite-player-main.png" -Method Head
-# Oczekiwane: 200, ~380307B
 
-# Sprawdź czy NL:
+# Hashed JS bundle — rok cache (podmień nazwę pliku z index.html na prod):
+curl.exe -sI "https://app.flexgrafik.nl/assets/index-<HASH>.js"
+# Oczekiwane m.in.: Cache-Control: public, max-age=31536000
+
+# Automatyczny prod-smoke (Playwright):
+cd <repo>
+npm run test:e2e:prod
+
+# Sprawdź język strony:
 (Invoke-WebRequest "https://app.flexgrafik.nl/").Content | Select-String "lang=|Word een slimme"
-# Oczekiwane: lang="nl", "Word een slimme ZZP-er"
 ```
+
+Pełniejsza checklista: `docs/handoffs/2026-05-09-prod-cache-turnstile-e2e-verify.md`.
 
 ---
 

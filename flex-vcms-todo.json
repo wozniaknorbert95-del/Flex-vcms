@@ -2,7 +2,7 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-05-08T17:00:00.000Z",
+    "updated": "2026-05-11T10:11:40.490Z",
     "workstream": "PH4-PROD na TLS (cmd.flexgrafik.nl), Red Team Review wykonany 2026-05-08 → PH4-016 hardening backlog otwarty. PH4-011 mobile chromium=DONE, real-device=PENDING (PH4-017).",
     "plan_now": {
       "primary": "PH4-016: VCMS Prod Hardening (3 sesje A/B/C) — patrz docs/audits/2026-05-08-vcms-prod-redteam.md sekcja 6. Start: Sesja A (fail2ban + nginx headers + pm2-logrotate).",

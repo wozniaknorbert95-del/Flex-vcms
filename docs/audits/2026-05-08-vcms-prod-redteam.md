@@ -1,12 +1,12 @@
 ---
-
-## status: "[DONE]"
-title: "VCMS Prod — Red Team Review (Senior Agency)"
+status: "DONE"
+title: "VCMS Prod - Red Team Review (Senior Agency)"
 date: "2026-05-08"
-target: "[https://cmd.flexgrafik.nl](https://cmd.flexgrafik.nl)"
+target: "https://cmd.flexgrafik.nl"
 auditor: "Senior Agency (read-only first)"
 branch: "feat/audit-3.0-knowledge-index"
-head: "5f68c04"
+commit: "5f68c04"
+---
 
 # VCMS Prod — Red Team Review
 

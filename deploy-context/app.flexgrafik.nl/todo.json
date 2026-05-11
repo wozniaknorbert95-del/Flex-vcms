@@ -1,8 +1,8 @@
-{
+﻿{
     "_meta":  {
                   "project":  "Bouwplaats Chaos â€” ZZP Advergame",
                   "url":  "https://app.flexgrafik.nl",
-                  "last_updated":  "2026-05-01",
+                  "last_updated":  "2026-05-09",
                   "last_root_cause_session":  "2026-04-11",
                   "last_root_cause_by":  "Antigravity AG",
                   "last_root_cause_topic":  "BUG-06 â€” Level transition safe-spawn and height parity",
@@ -10,8 +10,8 @@
                   "branch_dev":  "main",
                   "engine":  "ReactGameCanvas V3 (ENABLE_NEW_ENGINE=true)",
                   "build":  "375 modules, Vite 6, React 19",
-                  "bundle_warning":  "VERIFIED 2026-05-01 — gzip index-DxfmN2xK.js ~59.6 kB; heavy-app-D1rPP2hz.js ~67.8 kB — BUNDLE_LIMIT PASS @234d758. Vite 380 modules. dist/.htaccess present. Vitest 73.",
-                  "last_deploy_verify":  "2026-05-01 — prod: scripts/deploy_all.ps1 from main @234d758 (Cyber-Folks app/ + mu-plugins fg-game-api.php). Pre: vitest 73, tsc, vite build, playwright 17/17 dev + 3/3 prod. Post: curl https://app.flexgrafik.nl/ HTTP 200; test:e2e:prod 3/3; Last-Modified 2026-05-01.",
+                  "bundle_warning":  "VERIFIED 2026-05-09 — Vite ~381 modules; hashed chunks rotate per build (index + heavy-app gzipped ~59-66 kB range observed). dist/.htaccess present (LiteSpeed cache strategy v1.8). Vitest 84.",
+                  "last_deploy_verify":  "2026-05-09 — prod: scripts/deploy_all.ps1 from main @c70e577 (Cyber-Folks flexgrafik.nl/public_html/app/ + mu-plugins fg-game-api.php). Turnstile site key via VITE_TURNSTILE_SITE_KEY at build (.env local). Pre: npm run lint (tsc), vitest 84/84, vite build. Post: curl.exe -sI hashed /assets/*.js Cache-Control max-age=31536000; npm run test:e2e:prod 3/3; deploy removes stale server assets/.htaccess after tar unpack.",
                   "device_smoke_pending":  "2026-04-17 â€” DowÃ³dca zgÅ‚osiÅ‚ PASS peÅ‚nego smoke (checklista: docs/handoffs/2026-04-17-manual-prod-smoke-instructions.md). Opcjonalnie: kolejny cykl na innym urzÄ…dzeniu / zapis modelu telefonu. Priority Q2: docs/handoffs/2026-04-17-priority-plan-q2-execution.md."
               },
     "proof_of_done":  {
@@ -284,6 +284,69 @@
                                           "approach":  "Already applied in todo.json update."
                                       }
                                   ]
+                    },
+                    {
+                        "id": "S11-INDUSTRIAL-HARDENING",
+                        "title": "Sprint 11 — Industrial V4.0 Hardening & UI/UX Audit",
+                        "status": "done",
+                        "completed_at": "2026-05-09",
+                        "priority": "critical",
+                        "created_at": "2026-05-09",
+                        "created_by": "Antigravity AG",
+                        "description": "Granular screen-by-screen audit and remediation to ensure 100% compliance with Industrial V4.0 tokens and Language Split (NL).",
+                        "fixes": [
+                            {
+                                "id": "S11-1",
+                                "title": "Language Leak Remediation",
+                                "description": "Fixed English leaks in NewGameOverOverlay ('Score opslaan for the' -> 'voor de') and NewChoiceOverlay ('SELECT OPTION TO PROCEED' -> Dutch)."
+                            },
+                            {
+                                "id": "S11-2",
+                                "title": "SSoT Design Token Hardening",
+                                "description": "Added missing --zzp-invoice-green and --zzp-rating-a/b/c tokens to _variables.css; synchronized GameHUD stats."
+                            },
+                            {
+                                "id": "S11-3",
+                                "title": "UX Standardization & Mobile Polish",
+                                "description": "Standardized Turnstile retry button styling in EntryGate; optimized HUD layout for <375px viewports (iPhone SE)."
+                            }
+                        ]
+                    },
+                    {
+                        "id": "S12-PROD-CACHE-TURNSTILE-E2E",
+                        "title": "Sprint 12 — Prod asset cache + Turnstile env inject + Playwright prod hooks",
+                        "status": "done",
+                        "completed_at": "2026-05-09",
+                        "priority": "critical",
+                        "created_at": "2026-05-09",
+                        "created_by": "Cursor AG",
+                        "description": "Close prod regressions: long-lived cache for fingerprinted JS/CSS/images via public/.htaccess + purge orphaned assets/.htaccess on deploy; EntryGate uses import.meta.env.VITE_TURNSTILE_SITE_KEY with localhost dev bypass; stable selectors for prod smoke E2E.",
+                        "fixes": [
+                            {
+                                "id": "S12-1",
+                                "title": "LiteSpeed Cache-Control for hashed assets",
+                                "description": "public/.htaccess v1.8: unset weak Cache-Control/Expires for asset types, set max-age=31536000 (+ immutable intent); mod_expires long TTL for static types. Removed repo copy public/assets/.htaccess that forced week-cache on images.",
+                                "files": ["public/.htaccess"]
+                            },
+                            {
+                                "id": "S12-2",
+                                "title": "Deploy purge stale assets/.htaccess",
+                                "description": "scripts/deploy_all.ps1 v1.6+: after tar extract, rm -f assets/.htaccess so old nested rules cannot override root cache policy.",
+                                "files": ["scripts/deploy_all.ps1"]
+                            },
+                            {
+                                "id": "S12-3",
+                                "title": "Turnstile build-time site key",
+                                "description": "EntryGate reads VITE_TURNSTILE_SITE_KEY; localhost mock token; UI message if key missing in prod build. typings + .env.example documented.",
+                                "files": ["src/components/screens/EntryGate.tsx", "src/vite-env.d.ts", ".env.example"]
+                            },
+                            {
+                                "id": "S12-4",
+                                "title": "Prod smoke Playwright selectors",
+                                "description": "MainMenu data-testid main-menu-play; EntryGate entry-gate-guest, entry-gate-form, nameInput/emailInput/consentCheck aligned with e2e/prod-smoke.spec.ts.",
+                                "files": ["src/components/screens/MainMenu.tsx", "src/components/screens/EntryGate.tsx", "e2e/prod-smoke.spec.ts"]
+                            }
+                        ]
                     }
                 ],
     "gameplay_mechanics":  [
@@ -370,10 +433,23 @@
                               "id":  "UI-08",
                               "title":  "Senior UX/UI Polish (V6.8) â€” Industrial Tokens, Noise, Safe Areas, Holographic Cards",
                               "status":  "done"
+                          },
+                          {
+                              "id": "UI-09",
+                              "title": "Prod observability hooks — Playwright prod-smoke + Turnstile wiring",
+                              "status": "done",
+                              "completed_at": "2026-05-09",
+                              "proof_of_done": "npm run test:e2e:prod 3/3 against https://app.flexgrafik.nl after deploy @c70e577.",
+                              "files": [
+                                  "src/components/screens/MainMenu.tsx",
+                                  "src/components/screens/EntryGate.tsx",
+                                  "e2e/prod-smoke.spec.ts",
+                                  "playwright.prod.config.ts"
+                              ]
                           }
                       ],
     "session_sprint_sync":  {
-                                "last_sync":  "2026-04-11",
+                                "last_sync":  "2026-05-09",
                                 "synced_by":  "Antigravity AG",
                                 "phase_0_status":  "done",
                                 "phase_0_verified":  [
@@ -382,7 +458,7 @@
                                                      ],
                                 "phase_1_status":  "done",
                                 "phase_1_blocker":  "none",
-                                "current_session_priority":  "Deploy 2026-04-11 live. BUG-06 fixed. Next: manual mobile QA for 1.2s GET READY, Sprint G (Pixel Art) blocked on Adobe assets, residual items (canonical link, security headers, vignette tuning)."
+                                "current_session_priority":  "2026-05-09 — S12 closed on main @c70e577 (cache + Turnstile env + prod E2E hooks). Next: TB-12 manual device QA; S-PERF-ASSETS; confirm Turnstile key present in local .env before deploy when validating registered submissions."
                             },
     "future_sprints":  [
                            {
@@ -830,13 +906,13 @@
                        ],
     "repo_health":  {
                         "branches":  {
-                                         "main":  "2026-05-06 @179c7aa LIVE: S-LEVEL-END-TRACK-B (TB-1..11) + S-MOFU-COPY. Bundle index-DZ7DSNEy ~59.6 kB + heavy-app-HkQhekUT ~68.4 kB. Vitest 84; deploy_all.ps1 - prod 200 OK, CSP enforcing."
+                                         "main":  "2026-05-09 @c70e577 LIVE: S12 prod ops — LiteSpeed long-cache hashed assets, Turnstile via VITE_TURNSTILE_SITE_KEY at build, prod Playwright hooks (main-menu-play, entry-gate-*). Prior: S-LEVEL-END-TRACK-B + S-MOFU-COPY @179c7aa baseline."
                                      },
                         "pending_pr":  "None.",
-                        "cleanup_done":  "2026-05-06",
-                        "deploy_commit":  "2026-05-06 - deploy_all.ps1 @179c7aa to flexgrafik.nl/public_html/app/ + fg-game-api.php. Verified HTTP 200 + CSP enforcing + Last-Modified 2026-05-06.",
-                        "test_count":  "84 unit (Vitest) - +11 vs baseline (ChallengeDifficultyManager + L/R alternation). Playwright e2e: next run at TB-12 manual QA.",
+                        "cleanup_done":  "2026-05-09",
+                        "deploy_commit":  "2026-05-09 — deploy_all.ps1 @c70e577 to flexgrafik.nl/public_html/app/ + fg-game-api.php. Verified: HTTP 200, CSP enforcing, Cache-Control max-age=31536000 on hashed JS, test:e2e:prod 3/3.",
+                        "test_count":  "84 unit (Vitest). Playwright prod-smoke: 3/3 (prod-smoke.spec.ts). Dev suite unchanged — run as needed before larger UI changes.",
                         "golden_mechanic_status":  "2026-04-09 â€” Nowa mechanika buffa (Infinite Jump) wpiÄ™ta z bezinwazyjnym by-passem na uziemionym silniku.",
-                        "next_action":  "TB-12: Manual QA L1-L5 op device (L/R alternatie mobile, grace period L3, fever L5). Dan: S-PERF-ASSETS (PNG naar WebP) of SG (pixel-art assets na Adobe delivery)."
+                        "next_action":  "TB-12: Manual QA L1-L5 op device. Before deploy: zorg dat .env VITE_TURNSTILE_SITE_KEY gezet is als je echte registratie-flow op prod test (gast-smoke via Playwright vereist dit niet). Daarna: S-PERF-ASSETS (PNG naar WebP) of SG (Adobe assets)."
                     }
 }
