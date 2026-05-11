@@ -16,16 +16,27 @@ const githubBase = process.env.AGENT_CONTEXT_PATH || path.resolve(process.cwd(),
 // --- Rate Limiting ---
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 200, 
+    max: 200,
     message: { error: 'Przekroczono globalny limit zapytań API.' },
     standardHeaders: true,
     legacyHeaders: false,
 });
 
 const chatLimiter = rateLimit({
-    windowMs: 5 * 60 * 1000, 
-    max: 30, 
-    message: { error: 'Osiągnięto limit wymiany z LLM. Poczekaj 5 minut.' }
+    windowMs: 5 * 60 * 1000,
+    max: 30,
+    message: { error: 'Osiągnięto limit wymiany z LLM. Poczekaj 5 minut.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// Heavy scan endpoint: max 5 per hour to prevent DoS via full ecosystem scan
+const scanLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 5,
+    message: { error: 'Limit skanowania: max 5 razy na godzinę.' },
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 
 // --- In-Memory Metrics Store ---
@@ -69,7 +80,12 @@ const getGitStatus = (repoPath) => {
     });
 };
 
+// --- Helpers ---
+const isWindowsPath = (p) => typeof p === 'string' && (/^[A-Za-z]:[/\\]/.test(p) || p.includes('\\'));
+
 // --- Routes ---
+
+router.use(apiLimiter);
 
 router.get('/v1/status', async (req, res) => {
     try {
@@ -97,7 +113,23 @@ router.get('/v1/status', async (req, res) => {
     }
 });
 
-router.post('/v1/scan', apiLimiter, async (req, res) => {
+router.post('/v1/scan', scanLimiter, async (req, res) => {
+    try {
+        const reposPath = path.join(vcmsBase, 'repos.yaml');
+        const yamlText = await fs.readFile(reposPath, 'utf8');
+        const data = yaml.load(yamlText);
+        const repos = data.repos || [];
+        const hasWindowsPaths = repos.some(r => isWindowsPath(r.path));
+        if (hasWindowsPaths) {
+            return res.status(400).json({
+                error: 'Scan aborted: repos.yaml contains local Windows paths not portable to this environment. Run scan from your laptop.',
+                hint: 'Update repos.yaml with VPS-relative paths or run vcms-scan.js locally.'
+            });
+        }
+    } catch (e) {
+        return res.status(500).json({ error: 'Failed to read repos.yaml before scan.' });
+    }
+
     console.log('[VCMS] Triggering Ecosystem Scan...');
     execFile('node', [path.join(vcmsBase, 'tools', 'vcms-scan.js')], (error, stdout) => {
         if (error) {
@@ -230,14 +262,25 @@ router.get('/v1/ecosystem/status', async (req, res) => {
         const data = yaml.load(yamlText);
         const repos = data.repos || [];
 
+        // When repos.yaml contains Windows-origin paths (laptop config deployed to VPS),
+        // return a safe remote stub instead of leaking host filesystem layout.
+        const hasWindowsPaths = repos.some(r => isWindowsPath(r.path));
+        if (hasWindowsPaths) {
+            return res.json({
+                status: 'remote',
+                note: 'Git status unavailable on remote server — repos.yaml contains laptop-local paths. Run ecosystem scan from your development machine.',
+                generated_at: new Date().toISOString(),
+                repos: repos.map(r => ({
+                    name: r.name,
+                    type: r.type,
+                    risk_level: r.risk_level || 'UNKNOWN'
+                }))
+            });
+        }
+
         const statusPromises = repos.map(async (repo) => {
             const gitStatus = await getGitStatus(repo.path);
-            return {
-                name: repo.name,
-                type: repo.type,
-                path: repo.path,
-                git: gitStatus
-            };
+            return { name: repo.name, type: repo.type, git: gitStatus };
         });
 
         const ecosystemStatus = await Promise.all(statusPromises);

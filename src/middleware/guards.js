@@ -14,7 +14,6 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS
 const setupGuards = (app) => {
     app.disable('x-powered-by');
 
-    // Strict Security Headers
     app.use(helmet({
         contentSecurityPolicy: {
             directives: {
@@ -24,15 +23,24 @@ const setupGuards = (app) => {
                 fontSrc: ["'self'", "https://fonts.gstatic.com"],
                 imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
                 connectSrc: ["'self'", ...allowedOrigins],
-                frameAncestors: ["'none'"], // Prevent Clickjacking
+                frameAncestors: ["'none'"],
                 objectSrc: ["'none'"],
-                // IMPORTANT: this breaks IP-based HTTP access by upgrading subresources to HTTPS.
-                // We keep Nginx Basic Auth + TLS as the "real" protection; for raw IP HTTP we must not upgrade.
+                // upgradeInsecureRequests omitted: would break IP-direct HTTP fallback.
+                // TLS enforcement is handled by nginx (HTTP→HTTPS 301).
                 upgradeInsecureRequests: null,
             },
         },
         crossOriginEmbedderPolicy: false,
     }));
+
+    // Permissions-Policy not set by helmet ≥6; add explicitly.
+    app.use((req, res, next) => {
+        res.setHeader(
+            'Permissions-Policy',
+            'camera=(), microphone=(), geolocation=(), interest-cohort=(), payment=()'
+        );
+        next();
+    });
 
     app.use(cors({
         origin: function(origin, callback){

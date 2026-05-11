@@ -83,7 +83,9 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Service Unavailable' });
 });
 
-const server = app.listen(port, '0.0.0.0', () => {
+// Bind to localhost only — nginx is the public-facing gateway (reverse proxy).
+// UFW also blocks 8001 externally, but defense-in-depth: don't expose Node to all interfaces.
+const server = app.listen(port, '127.0.0.1', () => {
     winLogger.info(`--- VCMS CORE Hardened v3.0 ---`);
     winLogger.info(`Port: ${port}`);
     winLogger.info(`Base Context Path: ${githubBase}`);
