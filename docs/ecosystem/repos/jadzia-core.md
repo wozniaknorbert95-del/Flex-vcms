@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: jadzia-core"
-updated: "2026-05-08T13:00:08.179Z"
+updated: "2026-05-11T09:59:48.398Z"
 repo_name: "jadzia-core"
 repo_slug: "jadzia-core"
 repo_type: "ai-core"

@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flex-vcms"
-updated: "2026-05-08T13:00:08.179Z"
+updated: "2026-05-11T09:59:48.398Z"
 repo_name: "flex-vcms"
 repo_slug: "flex-vcms"
 repo_type: "vcms-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "flex-vcms-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-09-phase2-repo-pages.md"
-last_handoff_mtime: "2026-04-28T16:23:15.931Z"
+last_handoff_rel: "docs/handoffs/2026-05-08-vcms-prod-redteam-handoff.md"
+last_handoff_mtime: "2026-05-11T09:59:48.398Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-28T16:23:15.931Z)", "docs/handoffs/2026-04-16-hardened-v3-1-complete.md (2026-04-16T17:52:36.163Z)", "docs/handoffs/2026-04-16-audit-3-indexing-complete.md (2026-04-16T06:40:50.728Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-05-08-vcms-prod-redteam-handoff.md (2026-05-11T09:59:48.398Z)", "docs/handoffs/2026-05-08-session-final-handoff.md (2026-05-08T15:42:18.415Z)", "docs/handoffs/2026-05-08-tls-setup-handoff.md (2026-05-08T15:24:53.358Z)"]
 ---
 
 ## flex-vcms
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-09-phase2-repo-pages.md` (2026-04-28T16:23:15.931Z)
+- **Last handoff**: `docs/handoffs/2026-05-08-vcms-prod-redteam-handoff.md` (2026-05-11T09:59:48.398Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-
 - **Cursor rules**:
   - —
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-09-phase2-repo-pages.md (2026-04-28T16:23:15.931Z)`
-  - `docs/handoffs/2026-04-16-hardened-v3-1-complete.md (2026-04-16T17:52:36.163Z)`
-  - `docs/handoffs/2026-04-16-audit-3-indexing-complete.md (2026-04-16T06:40:50.728Z)`
+  - `docs/handoffs/2026-05-08-vcms-prod-redteam-handoff.md (2026-05-11T09:59:48.398Z)`
+  - `docs/handoffs/2026-05-08-session-final-handoff.md (2026-05-08T15:42:18.415Z)`
+  - `docs/handoffs/2026-05-08-tls-setup-handoff.md (2026-05-08T15:24:53.358Z)`
 
 ## Back
 

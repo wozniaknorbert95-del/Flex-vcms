@@ -2,11 +2,11 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-05-08T15:00:24.473Z",
-    "workstream": "PH4-PROD zamkniety w kodzie (007–012); master zsynchronizowany z GitHub (PR#14). Fokus operacyjny: PH4-011 (mobile prod).",
+    "updated": "2026-05-08T17:00:00.000Z",
+    "workstream": "PH4-PROD na TLS (cmd.flexgrafik.nl), Red Team Review wykonany 2026-05-08 → PH4-016 hardening backlog otwarty. PH4-011 mobile chromium=DONE, real-device=PENDING (PH4-017).",
     "plan_now": {
-      "primary": "PH4-011: deploy Command Center (Deploy-VPS.ps1) jesli nie na prod → vcms-prod-smoke PASS → test telefonu → zapis z tmpl-ph4-011-mobile → DONE w todo.",
-      "parallel_optional": "PH4-004 (study): samodzielny handoff do docs/handoffs/ — nie blokuje PH4-011.",
+      "primary": "PH4-016: VCMS Prod Hardening (3 sesje A/B/C) — patrz docs/audits/2026-05-08-vcms-prod-redteam.md sekcja 6. Start: Sesja A (fail2ban + nginx headers + pm2-logrotate).",
+      "parallel_optional": "PH4-017: realny test telefonu (Dowódca, 4G/5G) — nie blokuje PH4-016.",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
     },
     "session_anchor": {
@@ -19,16 +19,16 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "PH4-011",
-      "title": "Weryfikacja mobile (telefon) na URL produkcyjnym",
-      "before_you_start": "Jesli prod jeszcze nie aktualny: Deploy-VPS.ps1 (najpierw -WhatIf), potem vcms-prod-smoke.md do PASS. Szablon wyniku: docs/templates/tmpl-ph4-011-mobile.md.",
+      "task_id": "PH4-016",
+      "title": "VCMS Prod Hardening — Sesja A (Ops/Infra)",
+      "before_you_start": "Czytaj docs/audits/2026-05-08-vcms-prod-redteam.md sekcja 6. Sesja A: fail2ban (F1) + nginx security headers (F4) + pm2-logrotate (F6) + server_tokens off (F7) + TLS 1.2+ globalnie (F13) + usuń listen 8010 (F14). Manual deploy na VPS (Zasada 11).",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
       "rank": 2,
-      "task_id": "PH4-004",
-      "title": "SQ-001: samodzielny handoff (study track)",
-      "note": "Alternatywa gdy prod/mobile czeka na VPS lub DNS."
+      "task_id": "PH4-017",
+      "title": "PH4-011 follow-up: real device mobile test (Dowódca)",
+      "note": "Wypełnić docs/templates/tmpl-ph4-011-mobile.md → docs/handoffs/2026-05-08-ph4-011-mobile-real.md. Wymóg: 4G/5G (nie Wi-Fi z hosts-file workaround). Nie blokuje PH4-016."
     },
     "ph4_prod_export": "docs/plans/ph4-prod-workstream.json",
     "version": "1.0",
@@ -656,6 +656,68 @@
         "Skrypt deployu weryfikuje istnienie folderu dist przed transferem."
       ],
       "definition_of_done": "System jest szybszy, bardziej odporny i profesjonalnie zaprezentowany."
+    },
+    {
+      "id": "PH4-016",
+      "area": "SECURITY",
+      "status": "TODO",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "VCMS Prod Hardening — Red Team Review followup (3 sesje)",
+      "audit_source": "docs/audits/2026-05-08-vcms-prod-redteam.md",
+      "subtasks": [
+        {
+          "id": "PH4-016-A",
+          "title": "Sesja A — Ops/Infra (manual VPS): F1 fail2ban + F4 nginx security headers (HSTS/XFO/CSP for 401) + F6 pm2-logrotate + F7 server_tokens off + F13 TLS 1.2+ globalnie + F14 usuń listen 8010",
+          "priority": "P0",
+          "status": "TODO",
+          "deploy_type": "manual_ssh",
+          "estimated_effort": "1.5h"
+        },
+        {
+          "id": "PH4-016-B",
+          "title": "Sesja B — App/Kod: F2 sanityzacja /v1/ecosystem/status + F3 scanLimiter (5/h) + walidacja repos.yaml + F5 Permissions-Policy + F8 min_uptime ecosystem + F9 bind 127.0.0.1 + F11 globalny apiLimiter na /api/v1/*",
+          "priority": "P0",
+          "status": "TODO",
+          "deploy_type": "Deploy-VPS.ps1",
+          "estimated_effort": "3h"
+        },
+        {
+          "id": "PH4-016-C",
+          "title": "Sesja C — Deps: F10 npm audit fix (express-rate-limit + ip-address override) + lokalne testy + smoke",
+          "priority": "P2",
+          "status": "TODO",
+          "deploy_type": "Deploy-VPS.ps1",
+          "estimated_effort": "1h"
+        }
+      ],
+      "acceptance": [
+        "Po Sesji A: zewnętrzny curl -I https://cmd.flexgrafik.nl/ pokazuje Strict-Transport-Security, X-Frame-Options, X-Content-Type-Options, Referrer-Policy nawet w 401",
+        "Po Sesji A: fail2ban-client status pokazuje aktywne jaile (sshd, nginx-http-auth)",
+        "Po Sesji A: pm2 conf pm2-logrotate zwraca skonfigurowane wartości",
+        "Po Sesji A: curl -I pokazuje Server: nginx (bez wersji)",
+        "Po Sesji B: /api/v1/ecosystem/status NIE zawiera C:\\\\Users w response na prod",
+        "Po Sesji B: 6+ POST /api/v1/scan w godz zwraca 429 dla 6+ requestu",
+        "Po Sesji B: helmet response zawiera Permissions-Policy",
+        "Po Sesji C: npm audit --omit=dev zwraca 0 vulnerabilities"
+      ],
+      "definition_of_done": "Wszystkie 14 findings P0/P1/P2 z audytu Red Team 2026-05-08 zamknięte; weryfikacja 7 komendami z sekcji 7 raportu audytu."
+    },
+    {
+      "id": "PH4-017",
+      "area": "UX",
+      "status": "TODO",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "title": "PH4-011 follow-up: realny test telefonu (4G/5G) na cmd.flexgrafik.nl",
+      "note": "PH4-011 (chromium symulacja) zamknięty 2026-04-09. To follow-up dla weryfikacji realnego urządzenia na prod TLS — nie wykonany w sesji 2026-05-08 (audyt). Wypełnić tmpl-ph4-011-mobile.md → docs/handoffs/YYYY-MM-DD-ph4-011-mobile-real.md.",
+      "constraint": "TEST WYŁĄCZNIE na 4G/5G — Wi-Fi domowe ma hosts-file workaround i nie reflektuje realnej DNS propagacji.",
+      "acceptance": [
+        "Plik docs/handoffs/<DATA>-ph4-011-mobile-real.md utworzony",
+        "Wynik PASS lub FAIL + dokładnie 1 NEXT jeśli FAIL",
+        "Jeśli PASS: meta.next w flex-vcms-todo.json przesunięty z PH4-017 na PH4-016-A"
+      ],
+      "definition_of_done": "Wiesz obiektywnie czy telefon jest równoprawnym klientem prod TLS (nie tylko za Wi-Fi z hosts-file)."
     }
   ]
 }

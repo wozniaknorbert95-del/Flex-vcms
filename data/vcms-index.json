@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-05-08T13:00:51.994Z",
+    "generated_at": "2026-05-11T10:02:57.703Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -22,9 +22,9 @@
         {
           "rel": "brain.md",
           "type": "BRAIN",
-          "bytes": 9054,
-          "mtime": "2026-04-13T19:51:24.747Z",
-          "sha256": "88df5502c05add42d5fdf776163277ad27e524ab506e2961ac849916857367da"
+          "bytes": 9323,
+          "mtime": "2026-05-08T14:50:59.689Z",
+          "sha256": "604e7c92098e277b3e861030870f15a495df8a1f5a1251ff7d3949a6ee649370"
         },
         {
           "rel": "todo.json",
@@ -36,9 +36,9 @@
         {
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
-          "bytes": 32124,
-          "mtime": "2026-04-16T06:59:28.044Z",
-          "sha256": "8bd6afb21945a458653ae32917214c6aaa8e2e2cb1cfff6ea8baff00fa43f223"
+          "bytes": 35730,
+          "mtime": "2026-05-11T09:59:48.398Z",
+          "sha256": "ed29e3b62670bb1916b74a12f59ac091db264b24e79dc23d34afd99a1669365e"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -193,6 +193,34 @@
           "bytes": 2234,
           "mtime": "2026-04-16T06:25:40.432Z",
           "sha256": "d3806b7cab1bc7805f482ba74f1c7824836f0ebfc41e82d2f05919b37f993e4d"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-session-final-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 3551,
+          "mtime": "2026-05-08T15:42:18.415Z",
+          "sha256": "77d2002c4c93b12cb6bbcfaf06e887d5d5e9bf3c218e6b72dbe90895007335bf"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-tls-setup-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 4564,
+          "mtime": "2026-05-08T15:24:53.358Z",
+          "sha256": "ca5f6c4f65280a81ebdc258e45bd52ce5b97804029adbb340e128b57e87937b3"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-vcms-prod-redteam-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 5710,
+          "mtime": "2026-05-11T09:59:48.398Z",
+          "sha256": "53068622f1b3e0bed2d177534297da86a6a5cb8f8e03e330e032e4d9d5032ecc"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-vps-ui-csp-backlog-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 2270,
+          "mtime": "2026-05-08T14:51:18.274Z",
+          "sha256": "46be163ed7b8e0ecac8a7077eaf544a61a09e3ae712fcd2f3a7066ecb4af445f"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",
@@ -754,23 +782,23 @@
         {
           "rel": "AGENTS.md",
           "type": "AGENTS",
-          "bytes": 1173,
-          "mtime": "2026-04-16T06:23:29.162Z",
-          "sha256": "5d30bc6727224797319e8900652084922b08722e0b29678e5cae14f44f07d8b3"
+          "bytes": 2385,
+          "mtime": "2026-05-08T13:06:52.550Z",
+          "sha256": "e5002dc73741fc46f50e095ed9eefd4b55d0e706f507798670f4da36cba919e2"
         },
         {
           "rel": "brain.md",
           "type": "BRAIN",
-          "bytes": 691,
-          "mtime": "2026-05-01T05:01:15.463Z",
-          "sha256": "7713b8b8a7205cbf47938d20e26b981c21dcedd9a34af0c1af8841a4cda89705"
+          "bytes": 9222,
+          "mtime": "2026-05-09T12:22:36.521Z",
+          "sha256": "3e698c35d6c466269e9340d0dcace1b0dd1663347da086f033c61e4c8c4b646a"
         },
         {
           "rel": "todo.json",
           "type": "TODO",
-          "bytes": 67203,
-          "mtime": "2026-05-07T16:05:26.320Z",
-          "sha256": "cc729af5803536515e950d7899059c28c8d7f2f24f5244bf959c34e39f6f2245"
+          "bytes": 73010,
+          "mtime": "2026-05-11T09:59:03.084Z",
+          "sha256": "485bb1ab8009b7b71847505a6fbbfb611867dae5c47d7a367b027debddda52e8"
         },
         {
           "rel": "docs/handoffs/2026-03-19-v2-core-and-polish.md",
@@ -1175,7 +1203,7 @@
           "rel": "docs/handoffs/2026-04-16-level-end-challenge-product-backlog.md",
           "type": "HANDOFF",
           "bytes": 5699,
-          "mtime": "2026-05-06T16:35:34.839Z",
+          "mtime": "2026-05-11T09:59:03.063Z",
           "sha256": "37710a597055f78fbd74d0893b028f5838f0328f5e2ea1f8100fbb28ffcf2f22"
         },
         {
@@ -1343,7 +1371,7 @@
           "rel": "docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md",
           "type": "HANDOFF",
           "bytes": 1457,
-          "mtime": "2026-05-06T16:35:34.852Z",
+          "mtime": "2026-05-11T09:59:03.073Z",
           "sha256": "290f48fd1e304aa766acd61cb0d74bbd6f5de0049aa2fff3b9a9166e25d30e27"
         },
         {
@@ -1357,14 +1385,14 @@
           "rel": "docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md",
           "type": "HANDOFF",
           "bytes": 3373,
-          "mtime": "2026-05-06T16:35:34.844Z",
+          "mtime": "2026-05-11T09:59:03.073Z",
           "sha256": "88cb64ca049d3b2d3317594575c5adeb36d97aa8cc0c50e845e90823f8f3d8ce"
         },
         {
           "rel": "docs/handoffs/2026-04-20-challenge-mobile-hud-mofu-deploy.md",
           "type": "HANDOFF",
           "bytes": 2078,
-          "mtime": "2026-05-06T16:35:34.840Z",
+          "mtime": "2026-05-11T09:59:03.063Z",
           "sha256": "30b2955fd6c1b83b74451795c2be8c8e8e27d7f7852fd954be270bd674305ad5"
         },
         {
@@ -1426,9 +1454,44 @@
         {
           "rel": "docs/handoffs/2026-05-07-ui-css-architecture-refactor.md",
           "type": "HANDOFF",
-          "bytes": 1754,
-          "mtime": "2026-05-07T17:08:17.217Z",
-          "sha256": "79aa51bde094bb2060d07b99ccf31abb7bf38f94b6d5988e8a9acc3a23b11167"
+          "bytes": 1782,
+          "mtime": "2026-05-08T15:23:20.308Z",
+          "sha256": "cb76c81c45ec8c717b6eb48f870b9d48f468a796d8908b1cac89deab5c472a8b"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-industrial-ui-refactor.md",
+          "type": "HANDOFF",
+          "bytes": 2189,
+          "mtime": "2026-05-08T15:23:20.308Z",
+          "sha256": "ff1417403023e631972f349744ff00ed9c12e9d7ddbb50e0bce67183a0aff86c"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-main-menu-redesign.md",
+          "type": "HANDOFF",
+          "bytes": 2557,
+          "mtime": "2026-05-08T15:23:20.309Z",
+          "sha256": "7fc40ecaf688aadfb0cabec14017a7d13dd52ef5c2c00b73bed41b73d6604873"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-08-repo-cleanup-and-consolidation.md",
+          "type": "HANDOFF",
+          "bytes": 2041,
+          "mtime": "2026-05-08T15:23:20.309Z",
+          "sha256": "48fbe6e9640134089c4b106af0a1f71b0676929c86399dbfa29c27a686ec9b02"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-09-prod-cache-turnstile-e2e-verify.md",
+          "type": "HANDOFF",
+          "bytes": 1700,
+          "mtime": "2026-05-09T12:22:36.521Z",
+          "sha256": "64062414583bbcce6aae37c0186d7050f38ee2d8cc436634179a054438d84db8"
+        },
+        {
+          "rel": "docs/handoffs/2026-05-09-session-handoff.md",
+          "type": "HANDOFF",
+          "bytes": 3531,
+          "mtime": "2026-05-10T04:14:10.989Z",
+          "sha256": "de72b1e294e33eefa66b013be7c81ab4e196ba5a800dc27705c86ac719f7dddb"
         },
         {
           "rel": "docs/handoffs/handoff-diamond-polish.md",
@@ -1730,6 +1793,13 @@
           "sha256": "52c2687c655670fbb740c06e3f5363e9a244c6633737d9b171377692525ead54"
         },
         {
+          "rel": "docs/core/tool-bindings.md",
+          "type": "DOC",
+          "bytes": 2168,
+          "mtime": "2026-05-08T13:29:18.947Z",
+          "sha256": "2a17a1554fc84d4f7aa87c52b33b48c2ad8be536428a05777dbf6a64fb78815d"
+        },
+        {
           "rel": "docs/core/vps-ops.md",
           "type": "DOC",
           "bytes": 7538,
@@ -1739,9 +1809,9 @@
         {
           "rel": "docs/core/workflow-manual.md",
           "type": "WORKFLOW_MANUAL",
-          "bytes": 10216,
-          "mtime": "2026-03-19T05:14:59.302Z",
-          "sha256": "77d86588d88f2bbaa2529db65c1823081301b87c7a9cef63e17ba5c4e1852dd0"
+          "bytes": 10328,
+          "mtime": "2026-05-08T13:29:22.924Z",
+          "sha256": "a674cbb70fe5a83a1664451436fd1a8a1ee8cca1c8d2d4e3c82219a7757fc579"
         }
       ],
       "warnings": [],

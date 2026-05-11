@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
-updated: "2026-05-08T13:00:08.179Z"
+updated: "2026-05-11T09:59:48.398Z"
 repo_name: "app.flexgrafik.nl"
 repo_slug: "app-flexgrafik-nl"
 repo_type: "game"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-05-07-ui-css-architecture-refactor.md"
-last_handoff_mtime: "2026-05-07T17:08:17.217Z"
+last_handoff_rel: "docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md"
+last_handoff_mtime: "2026-05-11T09:59:03.073Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/app-flexgrafik-e2e.mdc", ".cursor/rules/app-flexgrafik-game.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-05-07-ui-css-architecture-refactor.md (2026-05-07T17:08:17.217Z)", "docs/handoffs/2026-05-06-track-b-mofu-deploy.md (2026-05-06T17:04:51.452Z)", "docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-06T16:35:34.852Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-11T09:59:03.073Z)", "docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md (2026-05-11T09:59:03.073Z)", "docs/handoffs/2026-04-16-level-end-challenge-product-backlog.md (2026-05-11T09:59:03.063Z)"]
 ---
 
 ## app.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-05-07-ui-css-architecture-refactor.m
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-05-07-ui-css-architecture-refactor.md` (2026-05-07T17:08:17.217Z)
+- **Last handoff**: `docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md` (2026-05-11T09:59:03.073Z)
 
 ## Quick links (by file type)
 
@@ -44,9 +44,9 @@ links_recent_handoffs: ["docs/handoffs/2026-05-07-ui-css-architecture-refactor.m
   - `.cursor/rules/app-flexgrafik-e2e.mdc`
   - `.cursor/rules/app-flexgrafik-game.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-05-07-ui-css-architecture-refactor.md (2026-05-07T17:08:17.217Z)`
-  - `docs/handoffs/2026-05-06-track-b-mofu-deploy.md (2026-05-06T17:04:51.452Z)`
-  - `docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-06T16:35:34.852Z)`
+  - `docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-11T09:59:03.073Z)`
+  - `docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md (2026-05-11T09:59:03.073Z)`
+  - `docs/handoffs/2026-04-16-level-end-challenge-product-backlog.md (2026-05-11T09:59:03.063Z)`
 
 ## Back
 
