@@ -17,7 +17,7 @@
 | PROVEN/DEMO badges | `BehindTheScenes.tsx` + `vcmsFeatureStatus` |
 | Enterprise copy fix | `pricing/page.tsx` |
 | DoD scorecard | **Full GO** — `VCMS_DOD_SCORECARD.md` |
-| PR #18 | merged to master |
+| PR #18 | merged — `e8cd10d` |
 
 **Video hosting:** self-hosted on Vercel (`/gratka/vcms-demo.mp4`) — source `flex-vcms/docs/demo/final-portfolio-demo.mp4`. Optional later: swap URL to Loom/Vimeo embed in `proof.ts`.
 
