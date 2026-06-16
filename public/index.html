@@ -126,13 +126,13 @@
                         <h3 style="margin:0; font-size: 1.1rem;">Quick Access</h3>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                        <a href="javascript:void(0)" onclick="loadDoc('PORADNIK_UZYTKOWNIKA')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                        <a href="#" class="quick-link" data-quick-doc="PORADNIK_UZYTKOWNIKA" onclick="event.preventDefault(); loadDoc('PORADNIK_UZYTKOWNIKA'); return false;">
                             <i data-lucide="book" style="width:16px;"></i> User Guide
                         </a>
-                        <a href="javascript:void(0)" onclick="loadDoc('')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                        <a href="#" class="quick-link" data-quick-doc="" onclick="event.preventDefault(); loadDoc(''); return false;">
                             <i data-lucide="home" style="width:16px;"></i> Docs Home
                         </a>
-                        <a href="javascript:void(0)" onclick="showTab('ecosystem')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                        <a href="#" class="quick-link" data-quick-doc="ecosystem/map" onclick="event.preventDefault(); loadDoc('ecosystem/map'); return false;">
                             <i data-lucide="map" style="width:16px;"></i> System Map
                         </a>
                     </div>
@@ -221,6 +221,6 @@
     </main>
 
     <!-- App Logic -->
-    <script src="app.js"></script>
+    <script src="app.js?v=20260616-qa"></script>
 </body>
 </html>

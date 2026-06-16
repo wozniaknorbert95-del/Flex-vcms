@@ -46,14 +46,13 @@
     window.showTab = (tabName) => {
         if (!tabName) return;
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelectorAll('aside .nav-item').forEach(n => n.classList.remove('active'));
         document.querySelectorAll('.mobile-nav-item').forEach(n => n.classList.remove('active'));
-        
+
         const targetContent = document.getElementById('tab-' + tabName);
         if (targetContent) targetContent.classList.add('active');
-        
-        // Find links by data-tab or fallback to onclick matching
-        document.querySelectorAll(`[data-tab="${tabName}"], [onclick*="'${tabName}'"]`).forEach(nav => nav.classList.add('active'));
+
+        document.querySelectorAll(`aside [data-tab="${tabName}"], .mobile-nav-item[data-tab="${tabName}"]`).forEach(nav => nav.classList.add('active'));
     };
 
     window.copyCode = (id) => {
@@ -231,11 +230,19 @@
         };
         marked.setOptions({ renderer });
         
-        // Robust Navigation
-        document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(el => {
+        // Sidebar / mobile nav only — Quick Access uses .quick-link (not .nav-item)
+        document.querySelectorAll('aside .nav-item, .mobile-nav-item').forEach(el => {
             el.addEventListener('click', () => {
                 const tab = el.getAttribute('data-tab');
                 if (tab) window.showTab(tab);
+            });
+        });
+
+        document.querySelectorAll('[data-quick-doc]').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.loadDoc(el.getAttribute('data-quick-doc') || '');
             });
         });
 
@@ -288,7 +295,11 @@
     }
 
     // Export minimal set if needed, or just run
-    document.addEventListener('DOMContentLoaded', init);
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
     
     // Bind public triggers (required due to old-school onclick in HTML)
     // In v4.0 we should move to addEventListener
