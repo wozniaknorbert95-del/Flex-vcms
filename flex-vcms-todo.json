@@ -110,7 +110,7 @@
         "Wskazane aktywne projekty i 1 cel na najblizszy tydzien"
       ],
       "done_at": "2026-04-09",
-      "note": "Wersja v1.0 przygotowana jako kontrakt operacyjny dla Dowodcy/AG/Gemini CLI."
+      "note": "Wersja v1.0 przygotowana jako kontrakt operacyjny; aktywny stack zostal pozniej zmigrowany na OpenCode + Cursor + OpenRouter."
     },
     {
       "id": "PH1-001",
@@ -569,7 +569,7 @@
       "repo": "flex-vcms",
       "title": "Aktualizacja API KEY KODY na VPS po wycieku w Google LLM Upstream",
       "acceptance": [
-        "Nowy, bezpieczny GEMINI_API_KEY wprowadzony nadpisanym plikiem .env poleceniem bezposrednio na VPS root@185.243.54.115",
+        "Nowy, bezpieczny klucz backendu AI wprowadzony nadpisanym plikiem .env bezposrednio na VPS root@185.243.54.115",
         "Przedostanie komendy dzialajacej po stronie PM2: pm2 reload ecosystem.config.js --update-env",
         "Zweryfikowanie bledu upstream ustapilo z 403 API KEY LEAKED na zwroty generatywne z /api/chat"
       ],
@@ -678,7 +678,7 @@
           "id": "PH4-016-B",
           "title": "Sesja B — App/Kod: F2 sanityzacja /v1/ecosystem/status + F3 scanLimiter (5/h) + walidacja repos.yaml + F5 Permissions-Policy + F8 min_uptime ecosystem + F9 bind 127.0.0.1 + F11 globalny apiLimiter na /api/v1/*",
           "priority": "P0",
-          "status": "TODO",
+          "status": "DONE",
           "deploy_type": "Deploy-VPS.ps1",
           "estimated_effort": "3h"
         },
@@ -686,7 +686,7 @@
           "id": "PH4-016-C",
           "title": "Sesja C — Deps: F10 npm audit fix (express-rate-limit + ip-address override) + lokalne testy + smoke",
           "priority": "P2",
-          "status": "TODO",
+          "status": "DONE",
           "deploy_type": "Deploy-VPS.ps1",
           "estimated_effort": "1h"
         }
