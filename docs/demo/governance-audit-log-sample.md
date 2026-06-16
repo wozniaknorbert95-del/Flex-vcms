@@ -6,8 +6,8 @@ date: "2026-06-16"
 
 # Governance audit log (sample)
 
-> **DEMO fixture** — ilustruje docelowy format Audit Event Export (roadmap 30d).  
-> Produkcja dziś: handoffy markdown + `docs/audits/latest-verification.md` (ops security).
+> **DEMO fixture** — ilustruje docelowy format.  
+> Produkcja dziś: handoffy markdown + `data/governance-audit.jsonl` (append po `npm run scan`) + ops `latest-verification.md`.
 
 ## Format (planned: JSONL)
 

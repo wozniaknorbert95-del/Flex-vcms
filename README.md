@@ -2,7 +2,9 @@
 
 **Versioned Content Management & Supervision** — orchestrator ekosystemu FlexGrafik: skan repozytoriów, wykrywanie konfliktów SSoT, mapa modułów, handoffy i command center (docs + dashboard).
 
-> Interaktywny LLM gateway (KODA) jest **wyłączony** — AI workflows przez Agent OS. Zobacz [Portfolio Truth](docs/VCMS_PORTFOLIO_TRUTH.md).
+**Wersja UI:** v3.0 Hardened (Swiss Watch) · API `3.0.0-hardened`
+
+> **KODA** (`POST /api/chat`) — asystent RAG read-only w dashboardzie i docs. Wymaga `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env`. Egzekucja zadań: **Agent OS UI**. Zobacz [Portfolio Truth](docs/VCMS_PORTFOLIO_TRUTH.md).
 
 ## Szybki start
 
@@ -45,8 +47,8 @@ Szczegóły: [VCMS_PORTFOLIO_TRUTH.md](docs/VCMS_PORTFOLIO_TRUTH.md) · [DoD Sco
 | Repo / content scan | **PROVEN** | `tools/vcms-scan.js` |
 | Conflict detection | **PROVEN** | `docs/ecosystem/conflicts.md` |
 | SSoT registry | **PROVEN** | `repos.yaml`, deploy-context |
-| Conflict severity (info/warning/blocking) | **PLANNED** | Roadmap 30d — dziś binarne 0/N |
-| Governance audit log | **PLANNED** | Handoffy = lightweight trail |
+| Conflict severity (info/warning/blocking) | **PROVEN** | `scan-rules.json`, `conflicts.md` summary |
+| Governance audit log | **DEMO** | JSONL append lokalnie + demo fixture |
 | Human approve / reject | **DEMO** | `agent-os-ui` HITL; handoffy w VCMS |
 | Agent cards UI | **DEMO** | `agent-os-ui` + portfolio assets |
 

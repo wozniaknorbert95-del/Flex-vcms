@@ -1,21 +1,36 @@
 {
   "_meta": {
-    "project": "flexgrafik-meta",
-    "role": "Strategy + global rules + workflow + cohesion audits",
+    "project": "flexgrafik-ecosystem-workflow-optimization",
+    "role": "Strategy + global rules + workflow + cohesion audits + tool integration + agent hierarchy modernization",
     "owner": "Norbert Wozniak",
-    "updated": "2026-04-09",
-    "canonical": true
+    "created": "2026-04-09",
+    "updated": "2026-05-22",
+    "canonical": true,
+    "version": "2.0",
+    "note": "Merged from todo.json + todo-fix.json on 2026-05-22. Antigravity items cancelled (stack migrated to Cursor Pro + OpenCode + OpenRouter)."
   },
   "status_legend": {
-    "done": "Zweryfikowane",
-    "in_progress": "W trakcie",
-    "next": "Nastepne",
-    "todo": "Do zrobienia",
-    "blocked": "Blokowane"
+    "done": "Verified & complete",
+    "in_progress": "Currently being worked on",
+    "next": "Next in queue",
+    "todo": "Planned",
+    "blocked": "Waiting on dependency",
+    "cancelled": "No longer applicable"
+  },
+  "streams": {
+    "S0": "Meta-Repo Core (canonical docs)",
+    "S1": "Tool Registry (tool-bindings, mcp-tools)",
+    "S2": "Workflow Modernization",
+    "S3": "VCMS Path Fix",
+    "S4": "CORE Meta-Repo Consolidation",
+    "S5": "Per-Repo Standardization",
+    "S6": "Agent Hierarchy V2",
+    "S7": "Vibe-Coach Integration"
   },
   "tasks": [
     {
       "id": "META-001",
+      "stream": "S0",
       "status": "next",
       "priority": "P0",
       "title": "Utrzymac master-plan.md / workflow-manual.md / agents.md jako jedyne kanoniczne dyrektywy",
@@ -26,13 +41,228 @@
     },
     {
       "id": "META-002",
+      "stream": "S0",
       "status": "next",
       "priority": "P1",
       "title": "Zdefiniowac minimalny standard brain-[module].md + todo.json dla wszystkich modulow",
       "acceptance": [
         "Istnieje brain.md i AGENTS.md w kazdym repo (po Fazie 1)"
       ]
+    },
+    {
+      "id": "FIX-001",
+      "stream": "S1",
+      "phase": "A",
+      "status": "done",
+      "priority": "P0",
+      "title": "Update tool-bindings.md with new stack (Cursor Pro + OpenCode + OpenRouter)",
+      "description": "Rewritten tool-bindings.md for new tooling stack (2026-05-22)",
+      "target_file": "flexgrafik-meta/docs/core/tool-bindings.md",
+      "acceptance": [
+        "All tools have dedicated sections in tool-bindings.md",
+        "Every path is verified against filesystem",
+        "Each section says WHEN to use the tool"
+      ]
+    },
+    {
+      "id": "FIX-002",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P0",
+      "title": "Create /browser-audit AG workflow",
+      "description": "New AG global workflow for browser-use automated auditing",
+      "target_file": "~/.gemini/antigravity/global_workflows/browser-audit.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["Workflow file exists", "References verified browser-use paths", "Includes domain options (flex/app/zzp)"]
+    },
+    {
+      "id": "FIX-003",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P0",
+      "title": "Create /ci-gate AG workflow",
+      "description": "New AG global workflow for GitHub Actions CI verification",
+      "target_file": "~/.gemini/antigravity/global_workflows/ci-gate.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["Workflow file exists", "References gh CLI commands", "Maps which repos have CI"]
+    },
+    {
+      "id": "FIX-004",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P1",
+      "title": "Create /docker-dev AG workflow",
+      "description": "New AG global workflow for Docker-based local dev environments",
+      "target_file": "~/.gemini/antigravity/global_workflows/docker-dev.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["Workflow file exists", "Clearly states Docker is NOT yet configured", "Provides templates for jadzia-core compose"]
+    },
+    {
+      "id": "FIX-005",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P0",
+      "title": "Update /vibe-init workflow with tool awareness",
+      "description": "Extend vibe-init to include tool availability check and session tool selection",
+      "target_file": "~/.gemini/antigravity/global_workflows/vibe-init.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["vibe-init references tool-bindings.md", "Asks which tools are needed for session"]
+    },
+    {
+      "id": "FIX-006",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P1",
+      "title": "Update /audit-red-team with CI/CD section",
+      "description": "Add CI pipeline verification to audit-red-team checklist",
+      "target_file": "~/.gemini/antigravity/global_workflows/audit-red-team.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["Has CI/CD PIPELINE section", "References verified repo CI status"]
+    },
+    {
+      "id": "FIX-007",
+      "stream": "S2",
+      "phase": "A",
+      "status": "cancelled",
+      "priority": "P1",
+      "title": "Update /handoff with tools-used and skill-learned sections",
+      "description": "Extend handoff to track tool usage per session and link to vibe-coach",
+      "target_file": "~/.gemini/antigravity/global_workflows/handoff.md",
+      "note": "CANCELLED — Antigravity removed from stack. Workflow to be reimplemented as OpenCode skill or Cursor workflow.",
+      "acceptance": ["Has 'Narzedzia uzyte' section", "Has 'Skill learned' section referencing vibe-coach"]
+    },
+    {
+      "id": "FIX-008",
+      "stream": "S3",
+      "phase": "B",
+      "status": "todo",
+      "priority": "P0",
+      "title": "Fix VCMS repos.yaml — add missing repos and verify paths",
+      "description": "Add browser-use-test and vibe-coach to repos.yaml. Verify all paths match filesystem.",
+      "target_file": "Flex-vcms/flex-vcms/repos.yaml",
+      "evidence": {
+        "current_repos_in_yaml": ["flex-vcms", "zzpackage.flexgrafik.nl", "jadzia-core", "app.flexgrafik.nl", "flexgrafik-nl", "flexgrafik-meta"],
+        "missing_repos": ["browser-use-test", "vibe-coach"],
+        "all_paths_verified_correct": true
+      },
+      "acceptance": ["repos.yaml has 8 entries", "vcms-scan.js runs with 0 conflicts"]
+    },
+    {
+      "id": "FIX-009",
+      "stream": "S4",
+      "phase": "B",
+      "status": "todo",
+      "priority": "P0",
+      "title": "Modernize workflow-manual.md for V4.1",
+      "description": "Update 12-step workflow: remove Claude SOP dependency, add tool-bindings integration, add browser-audit and CI gate steps",
+      "target_file": "flexgrafik-meta/docs/core/workflow-manual.md",
+      "acceptance": [
+        "Step 2 no longer requires Claude SOP",
+        "Step 5 references tool-bindings.md sections",
+        "Step 7 includes browser-audit option",
+        "Step 9 includes CI gate check"
+      ]
+    },
+    {
+      "id": "FIX-010",
+      "stream": "S4",
+      "phase": "B",
+      "status": "todo",
+      "priority": "P0",
+      "title": "Update agents.md with 3 new agent roles",
+      "description": "Add Browser-Auditor, DevOps-Node, LLM-Router to agent hierarchy and Agent Cards table",
+      "target_file": "flexgrafik-meta/docs/core/agents.md",
+      "acceptance": ["3 new roles in Agent Cards table", "Tool mappings verified", "Hierarchy diagram updated"]
+    },
+    {
+      "id": "FIX-011",
+      "stream": "S4",
+      "phase": "C",
+      "status": "done",
+      "priority": "P1",
+      "title": "Update master-plan.md section 4 (current status)",
+      "description": "Section 4 updated to reflect May 2026 status and new tooling stack (2026-05-22)",
+      "target_file": "flexgrafik-meta/docs/core/master-plan.md",
+      "acceptance": ["Section 4 reflects May 2026 status", "Tooling stack documented"]
+    },
+    {
+      "id": "FIX-012",
+      "stream": "S4",
+      "phase": "C",
+      "status": "todo",
+      "priority": "P2",
+      "title": "Replace flexgrafik-meta/README.md with META-README.md content",
+      "description": "Current README.md is old boilerplate. META-README.md has the correct content.",
+      "target_file": "flexgrafik-meta/README.md",
+      "acceptance": ["README.md matches META-README.md + added Quick Links section"]
+    },
+    {
+      "id": "FIX-013",
+      "stream": "S5",
+      "phase": "C",
+      "status": "todo",
+      "priority": "P1",
+      "title": "Create brain.md and todo.json for browser-use-test",
+      "description": "browser-use-test repo has NO brain.md, NO todo.json, NO AGENTS.md — violates per-repo standard",
+      "target_files": ["browser-use-test/brain.md", "browser-use-test/todo.json"],
+      "acceptance": ["brain.md exists with role, tools, constraints", "todo.json exists with standard format"]
+    },
+    {
+      "id": "FIX-014",
+      "stream": "S5",
+      "phase": "C",
+      "status": "todo",
+      "priority": "P2",
+      "title": "Create brain.md and todo.json for vibe-coach",
+      "description": "vibe-coach has README.md and docs but no brain.md or todo.json",
+      "target_files": ["vibe-coach/brain.md", "vibe-coach/todo.json"],
+      "acceptance": ["brain.md exists describing learning workflow", "todo.json tracks skill development"]
+    },
+    {
+      "id": "FIX-015",
+      "stream": "S5",
+      "phase": "C",
+      "status": "todo",
+      "priority": "P1",
+      "title": "Audit and standardize brain.md naming across all repos",
+      "description": "Some repos use brain.md, flexgrafik-nl uses brain-flex.md + brain-app.md + brain-zzp.md + brain-krzys.md (all in one repo!). Verify SSOT.",
+      "acceptance": ["Each repo has exactly ONE canonical brain.md", "No cross-contamination between repos"]
+    },
+    {
+      "id": "FIX-016",
+      "stream": "S7",
+      "phase": "C",
+      "status": "todo",
+      "priority": "P2",
+      "title": "Add new tool skills to vibe-coach study-index.md",
+      "description": "Add GitHub Actions, Docker, OpenRouter, browser-use, CDP to skill map with current levels",
+      "target_file": "vibe-coach/docs/study-index.md",
+      "acceptance": ["5 new skills in skill map", "Current level reflects Dowodca's actual experience"]
+    },
+    {
+      "id": "FIX-017",
+      "stream": "S1",
+      "phase": "B",
+      "status": "todo",
+      "priority": "P1",
+      "title": "Fix CDP poradnik reference — file moved from Desktop",
+      "description": "tool-bindings.md and README.md reference Desktop\\Cursor-CDP-Live-Debug-Poradnik.md which does NOT exist. Real docs are in workflow-cdp-ai-debug\\README.md",
+      "acceptance": ["All references point to workflow-cdp-ai-debug\\README.md", "No broken paths"]
+    },
+    {
+      "id": "FIX-018",
+      "stream": "S4",
+      "phase": "B",
+      "status": "todo",
+      "priority": "P1",
+      "title": "Complete deployment-pipeline-plan.md TODO items",
+      "description": "Document has 5 unchecked TODO items for GitHub Actions pipeline rollout",
+      "acceptance": ["All 5 TODO items have correct status", "Missing deploy YAMLs identified"]
     }
   ]
 }
-

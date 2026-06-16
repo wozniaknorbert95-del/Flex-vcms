@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: agent-os"
-updated: "2026-05-23T06:29:01.882Z"
+updated: "2026-06-16T19:07:41.283Z"
 repo_name: "agent-os"
 repo_slug: "agent-os"
 repo_type: "agent-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "SESSION-ANCHOR.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/task-67ce9d47.md"
-last_handoff_mtime: "2026-05-22T14:55:18.576Z"
+last_handoff_rel: "docs/handoffs/task-d42b9d90.md"
+last_handoff_mtime: "2026-05-29T10:44:30.574Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/task-67ce9d47.md (2026-05-22T14:55:18.576Z)", "docs/handoffs/task-3ad84f8d.md (2026-05-22T14:51:10.298Z)", "docs/handoffs/2026-05-22-faza5-closure-e2e-persistence-ui.md (2026-05-22T14:47:24.316Z)"]
+links_recent_handoffs: ["docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574Z)", "docs/handoffs/2026-05-29-session-summary.md (2026-05-29T10:00:14.675Z)", "docs/handoffs/2026-05-29-session-closure.md (2026-05-29T09:50:06.842Z)"]
 ---
 
 ## agent-os
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/task-67ce9d47.md (2026-05-22T14:55:18.576
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/task-67ce9d47.md` (2026-05-22T14:55:18.576Z)
+- **Last handoff**: `docs/handoffs/task-d42b9d90.md` (2026-05-29T10:44:30.574Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/task-67ce9d47.md (2026-05-22T14:55:18.576
 - **Cursor rules**:
   - —
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/task-67ce9d47.md (2026-05-22T14:55:18.576Z)`
-  - `docs/handoffs/task-3ad84f8d.md (2026-05-22T14:51:10.298Z)`
-  - `docs/handoffs/2026-05-22-faza5-closure-e2e-persistence-ui.md (2026-05-22T14:47:24.316Z)`
+  - `docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574Z)`
+  - `docs/handoffs/2026-05-29-session-summary.md (2026-05-29T10:00:14.675Z)`
+  - `docs/handoffs/2026-05-29-session-closure.md (2026-05-29T09:50:06.842Z)`
 
 ## Back
 

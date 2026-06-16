@@ -1,7 +1,7 @@
 ---
 status: "[STABLE]"
 title: "VCMS Command Center — smoke prod + rollback"
-updated: "2026-04-09"
+updated: "2026-06-16"
 ---
 
 # VCMS Command Center — smoke (produkcja)
@@ -28,15 +28,42 @@ Wykonaj z maszyny z dostępem do URL (lub przez `curl` z nagłówkiem auth):
 - [ ] **`GET /health`** (bez auth, jeśli Nginx nie chroni wyjątku — u Ciebie zwykle całość za auth): odpowiedź **200**, JSON z polami `status`, `uptime`, `timestamp` (zgodnie z `server.js`).
 - [ ] **Strona główna dokumentacji** (po zalogowaniu do Basic Auth): ładuje się HTML VitePress (brak komunikatu „Brak GUI…”).
 - [ ] **`GET /api/knowledge`** (z limitem globalnym API): odpowiedź **200** (JSON kontekstu) lub **500** z ciałem `{"error":"..."}` — oba traktuj jako **świadomy** wynik serwera (ważne: nie timeout, nie 502 z Nginx bez proxowania).
-- [ ] **`POST /api/chat`** z pustym lub niepoprawnym JSON: oczekiwane **400** z komunikatem walidacji (patrz `server.js`). Nie wymaga klucza Gemini do sprawdzenia ścieżki walidacji.
+- [ ] **`GET /api/v1/status`**: odpowiedź **200**, JSON z polami `status`, `uptime`, `knowledge`, `version` — **bez** pola `llm` (Swiss Watch SW-2).
 
 Jeśli któryś krok kończy się **502/504**: sprawdź `pm2 logs vcms-core` i `nginx -t`.
 
 ---
 
-## Smoke — KODY (opcjonalnie, z kluczem)
+## Swiss Watch UI (prod — `https://cmd.flexgrafik.nl`)
 
-- [ ] Przy skonfigurowanym `GEMINI_API_KEY` na VPS: jedna krótka wiadomość przez UI KODY → odpowiedź asystenta lub kontrolowany błąd upstream (bez wycieku klucza w przeglądarce).
+Po hard refresh (Ctrl+Shift+R). Każdy punkt **TAK / NIE**:
+
+1. [ ] Dashboard **15+ min** otwarty — brak toastów „limit API”; uptime rośnie.
+2. [ ] **Quick Access → User Guide** — Poradnik w zakładce Baza Wiedzy (iframe).
+3. [ ] **Quick Access → Docs Home** — `/docs/` w iframe.
+4. [ ] **Quick Access → System Map** — `ecosystem/map` w iframe.
+5. [ ] **Governance → Portfolio Truth** — `VCMS_PORTFOLIO_TRUTH` w iframe.
+6. [ ] **Governance → Readiness Audit** — `VCMS_READINESS_AUDIT` w iframe.
+7. [ ] **Context Health** — ~14 pigułek, zielone LED (healthy).
+8. [ ] **Ecosystem** — 8 repo **REMOTE**, konsola przeglądarki **0 errors**.
+9. [ ] **Run Scan** — przycisk **disabled** na prod + tooltip „npm run scan” (SW-1).
+10. [ ] **Laptop:** `npm run scan` → `Conflicts: 0` w `docs/ecosystem/conflicts.md`.
+
+**Gate Loom:** 10/10 TAK → Dowódca nagrywa według `docs/VCMS_DEMO_SCRIPT.md`.
+
+---
+
+## Smoke — KODA (opcjonalnie)
+
+Wymaga `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env` na serwerze (chmod 600).
+
+```bash
+curl -u USER:PASS -X POST https://cmd.flexgrafik.nl/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages":[{"role":"user","parts":[{"text":"Co to VCMS?"}]}]}'
+```
+
+Oczekiwane: `200` + `message.parts[0].text` lub kontrolowany `502` gdy brak/wadliwy klucz upstream.
 
 ---
 

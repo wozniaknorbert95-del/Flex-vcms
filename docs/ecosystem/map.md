@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "FlexGrafik Ecosystem Map (Local-First)"
-updated: "2026-05-23T06:29:01.882Z"
+updated: "2026-06-16T19:07:41.283Z"
 ---
 
 ## System diagram

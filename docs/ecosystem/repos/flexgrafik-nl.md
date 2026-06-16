@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flexgrafik-nl"
-updated: "2026-05-11T09:59:48.398Z"
+updated: "2026-06-16T19:07:41.283Z"
 repo_name: "flexgrafik-nl"
 repo_slug: "flexgrafik-nl"
 repo_type: "portal"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-02-portfolio-rescue-and-db-migration.md"
-last_handoff_mtime: "2026-04-02T10:25:41.113Z"
+last_handoff_rel: "docs/handoffs/2026-06-04-flexerka-temp-page.md"
+last_handoff_mtime: "2026-06-04T14:46:12.620Z"
 warnings: []
 links_agents: ["AGENTS.md"]
-links_cursor_rules: [".cursor/rules/flexgrafik-portal.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-04-02-portfolio-rescue-and-db-migration.md (2026-04-02T10:25:41.113Z)", "docs/handoffs/2026-03-30-portfolio-contact-rescue.md (2026-03-30T04:35:49.966Z)", "docs/handoffs/2026-03-28-FLEX-AI-CHATBOT-DEPLOYMENT.md (2026-03-28T08:35:52.276Z)"]
+links_cursor_rules: [".cursor/rules/00-project-index.mdc", ".cursor/rules/flexgrafik-portal.mdc"]
+links_recent_handoffs: ["docs/handoffs/2026-06-04-flexerka-temp-page.md (2026-06-04T14:46:12.620Z)", "docs/handoffs/2026-05-18-portal-modernization-deploys.md (2026-05-18T21:02:18.007Z)", "docs/handoffs/2026-05-18-contact-faq-upgrades.md (2026-05-18T19:02:12.256Z)"]
 ---
 
 ## flexgrafik-nl
@@ -34,18 +34,19 @@ links_recent_handoffs: ["docs/handoffs/2026-04-02-portfolio-rescue-and-db-migrat
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-02-portfolio-rescue-and-db-migration.md` (2026-04-02T10:25:41.113Z)
+- **Last handoff**: `docs/handoffs/2026-06-04-flexerka-temp-page.md` (2026-06-04T14:46:12.620Z)
 
 ## Quick links (by file type)
 
 - **AGENTS**:
   - `AGENTS.md`
 - **Cursor rules**:
+  - `.cursor/rules/00-project-index.mdc`
   - `.cursor/rules/flexgrafik-portal.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-02-portfolio-rescue-and-db-migration.md (2026-04-02T10:25:41.113Z)`
-  - `docs/handoffs/2026-03-30-portfolio-contact-rescue.md (2026-03-30T04:35:49.966Z)`
-  - `docs/handoffs/2026-03-28-FLEX-AI-CHATBOT-DEPLOYMENT.md (2026-03-28T08:35:52.276Z)`
+  - `docs/handoffs/2026-06-04-flexerka-temp-page.md (2026-06-04T14:46:12.620Z)`
+  - `docs/handoffs/2026-05-18-portal-modernization-deploys.md (2026-05-18T21:02:18.007Z)`
+  - `docs/handoffs/2026-05-18-contact-faq-upgrades.md (2026-05-18T19:02:12.256Z)`
 
 ## Back
 

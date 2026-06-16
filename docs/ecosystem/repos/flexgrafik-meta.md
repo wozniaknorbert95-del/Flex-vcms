@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flexgrafik-meta"
-updated: "2026-05-11T09:59:48.398Z"
+updated: "2026-06-16T19:07:41.283Z"
 repo_name: "flexgrafik-meta"
 repo_slug: "flexgrafik-meta"
 repo_type: "meta"
@@ -11,12 +11,12 @@ canonical_brain: "docs/core/master-plan.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-03-21-vibe-init-strategy.md"
-last_handoff_mtime: "2026-03-21T09:42:43.943Z"
+last_handoff_rel: "docs/handoffs/2026-05-16-workflow-optimization.md"
+last_handoff_mtime: "2026-05-16T14:05:41.279Z"
 warnings: []
 links_agents: ["docs/core/agents.md"]
-links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/2026-03-21-vibe-init-strategy.md (2026-03-21T09:42:43.943Z)", "docs/handoffs/handoff-2026-03-20-W10-performance-FINAL.md (2026-03-20T16:15:23.501Z)", "docs/handoffs/handoff-2026-03-20-W9-mobile-consistency.md (2026-03-20T16:03:54.301Z)"]
+links_cursor_rules: [".cursor/rules/00-agents-hierarchy.mdc", ".cursor/rules/00-ai-guardrails.mdc", ".cursor/rules/00-global-rules.mdc", ".cursor/rules/00-master-plan.mdc", ".cursor/rules/00-workflow-manual.mdc"]
+links_recent_handoffs: ["docs/handoffs/2026-05-16-workflow-optimization.md (2026-05-16T14:05:41.279Z)", "docs/handoffs/2026-03-21-vibe-init-strategy.md (2026-03-21T09:42:43.943Z)", "docs/handoffs/handoff-2026-03-20-W10-performance-FINAL.md (2026-03-20T16:15:23.501Z)"]
 ---
 
 ## flexgrafik-meta
@@ -34,18 +34,22 @@ links_recent_handoffs: ["docs/handoffs/2026-03-21-vibe-init-strategy.md (2026-03
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-03-21-vibe-init-strategy.md` (2026-03-21T09:42:43.943Z)
+- **Last handoff**: `docs/handoffs/2026-05-16-workflow-optimization.md` (2026-05-16T14:05:41.279Z)
 
 ## Quick links (by file type)
 
 - **AGENTS**:
   - `docs/core/agents.md`
 - **Cursor rules**:
-  - —
+  - `.cursor/rules/00-agents-hierarchy.mdc`
+  - `.cursor/rules/00-ai-guardrails.mdc`
+  - `.cursor/rules/00-global-rules.mdc`
+  - `.cursor/rules/00-master-plan.mdc`
+  - `.cursor/rules/00-workflow-manual.mdc`
 - **Recent handoffs (up to 3)**:
+  - `docs/handoffs/2026-05-16-workflow-optimization.md (2026-05-16T14:05:41.279Z)`
   - `docs/handoffs/2026-03-21-vibe-init-strategy.md (2026-03-21T09:42:43.943Z)`
   - `docs/handoffs/handoff-2026-03-20-W10-performance-FINAL.md (2026-03-20T16:15:23.501Z)`
-  - `docs/handoffs/handoff-2026-03-20-W9-mobile-consistency.md (2026-03-20T16:03:54.301Z)`
 
 ## Back
 

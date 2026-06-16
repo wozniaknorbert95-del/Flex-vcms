@@ -31,6 +31,15 @@
     ],
     "max_file_bytes": 1048576
   },
+  "conflict_severity": {
+    "DUPLICATE_TODO": "blocking",
+    "DUPLICATE_BRAIN": "blocking",
+    "CANONICAL_TODO_MISSING": "warning",
+    "CANONICAL_BRAIN_MISSING": "warning",
+    "MISSING_GUARDRAILS": "warning",
+    "MISSING_HANDOFFS": "info",
+    "MISSING_REPO": "blocking"
+  },
   "denylist": {
     "paths_contains": [
       "node_modules",

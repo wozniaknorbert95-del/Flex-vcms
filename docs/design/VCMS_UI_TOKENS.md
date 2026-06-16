@@ -87,7 +87,23 @@ Markup (generowany w `app.js` → `fetchHealth()`):
 <link rel="stylesheet" href="styles.css">
 ```
 
-`tokens.css` **zawsze przed** `styles.css`.
+`tokens.css` **zawsze przed** `styles.css`. Terminal v2 dodaje `theme-terminal.css` **po** `styles.css`.
+
+## Terminal theme v2 (2026-06)
+
+Dashboard portfolio / CLI vibe (OpenCode, Hermes, Gemini CLI).
+
+| Reguła | Wartość |
+|--------|---------|
+| Font UI | `--font-mono` (JetBrains Mono) na całym `body[data-app="flex-vcms"]` |
+| Border radius | `--radius-terminal: 3px` max na panelach, przyciskach, chat |
+| Layout | `.vcms-shell` > `.vcms-terminal` — jedno okno terminala, topbar z kropkami |
+| Nawigacja | `.vcms-nav__item` — pseudo-CLI `[ DASHBOARD ]` |
+| Akcent | **Fiolet** `--accent-primary` — bez emerald z przykładów zewnętrznych |
+| Przyciski | `.btn-cmd` — tekstowe komendy `> Run Scan` |
+| Custom CSS slot | `public/theme-terminal.css` — Dowódca może dopisać krawędzie/odstępy |
+
+Zakaz: duże `border-radius` (8px+), Inter/sans jako font główny dashboardu, sidebar jako primary nav (ukryty — nav w topbar).
 
 ## Weryfikacja (manual)
 

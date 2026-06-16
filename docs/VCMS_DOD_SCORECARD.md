@@ -2,9 +2,9 @@
 status: "[AUDIT]"
 title: "VCMS DoD Scorecard — flex-vcms ↔ services ↔ Definition of Done"
 date: "2026-06-16"
-updated: "2026-06-16-rate-limit-fix"
+updated: "2026-06-16-polish"
 verdict: "CONDITIONAL GO"
-gate_for_prompt: "OPEN — video remains Dowódca task"
+gate_for_prompt: "OPEN — VCMS polish done; video DEFERRED (Dowódca, any recorder)"
 ---
 
 # VCMS DoD Scorecard
@@ -64,10 +64,12 @@ Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\git
 
 | # | Kryterium | Status |
 |---|-----------|--------|
-| D1 | Video istnieje lub sekcja ukryta | **GO** ukryte; **NO-GO** nagranie — Dowódca |
-| D2–D6 | Flow w skrypcie | **PLANNED** | `VCMS_DEMO_SCRIPT.md` |
+| D1 | Video istnieje lub sekcja ukryta | **GO** — ukryte (`VideoSlot` → null) |
+| D2–D6 | Flow w skrypcie | **DEFERRED** | `VCMS_DEMO_SCRIPT.md` + `docs/handoffs/2026-06-16-vcms-video-ready.md` |
 
-**Sekcja D:** **NO-GO** (tylko nagranie blokuje pełne GO)
+**Sekcja D:** **DEFERRED** — nie blokuje pracy nad VCMS. **FULL GO** dopiero po `VCMS-VIDEO` (dowolne narzędzie nagrywania, nie tylko Loom).
+
+> Embed URL: Loom, Vimeo, YouTube unlisted — wszystko OK w `proof.ts`.
 
 ---
 
@@ -95,7 +97,7 @@ Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\git
 | 8 repos governance | `proof.ts` | `npm run scan` | **PROVEN** | — |
 | audit log screen | `proof.ts` auditLog | Brak assetu | **PLANNED** | DONE — ukryty z grid |
 | agent cards = VCMS | BehindTheScenes | agent-os-ui | **DEMO** | — |
-| vcms video 75s | `videos.vcms` | null | **PLANNED** | Ukryte; nagrać Loom |
+| vcms video 75s | `videos.vcms` | null | **DEFERRED** | Po polish; dowolny recorder |
 | dashboard screenshot | `vcmsDashboard` | prod/local | **PROVEN** | Caption DONE |
 
 ---
@@ -122,6 +124,7 @@ Deploy `services` na Vercel — **poza tym repo**.
 - LLM UI disabled, ecosystem remote-safe, `npm run scan`, Portfolio Truth, prod deploy 2026-06-16
 - Portfolio gate docs: Sales Report, Demo Script, scorecard (ta sesja)
 - **2026-06-16:** F11 fix — tiered rate limits (`pollLimiter` / `readLimiter`); dashboard poll 15s + visibility pause (konflikt globalnego `apiLimiter` 200/15m vs polling 5s)
+- **2026-06-16 polish (VCMS-P*):** conflict counter dashboard, severity matrix, audit JSONL hook, docs hygiene, video DEFERRED
 
 ---
 
@@ -131,9 +134,11 @@ Deploy `services` na Vercel — **poza tym repo**.
 - [x] `brain.md` + `README.md`
 - [x] `VCMS_SALES_REPORT.md`
 - [x] services P0 patch (local)
-- [ ] Video 75s (Dowódca)
+- [x] Swiss Watch gate 10/10
+- [x] VCMS polish P2-01..04 + P1 docs
+- [ ] Video 75s (Dowódca — **DEFERRED**, gate OPEN po polish)
 
-**Prompt portfolio:** **GATE OPEN**
+**Prompt portfolio:** **GATE OPEN** (development) · **FULL GO after VCMS-VIDEO**
 
 ---
 

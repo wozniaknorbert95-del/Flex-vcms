@@ -216,7 +216,7 @@ commit: "5f68c04"
 | G7  | `trust proxy: 1`                                  | poprawne IP w logach przez X-Forwarded-For                         |
 | G8  | Graceful shutdown SIGTERM/SIGINT                  | server.close + db.close + 10s force timeout                        |
 | G9  | execFile zamiast exec dla git/scan                | brak shell injection                                               |
-| G10 | Joi walidacja env + body                          | `GEMINI_API_KEY` required, body schema na `/chat`                  |
+| G10 | Joi walidacja env                                  | wymagane zmienne środowiskowe walidowane przy starcie              |
 | G11 | Winston daily rotate (7d, 20MB)                   | `logs/vcms-2026-05-08.log` rotuje OK                               |
 | G12 | `/deploy-context` zwraca 403                      | secret leak protection ✅                                           |
 | G13 | nginx logrotate (14 dni, compress)                | `/etc/logrotate.d/nginx` config OK                                 |
@@ -346,4 +346,3 @@ ssh root@185.243.54.115 "curl -sS http://127.0.0.1:8001/api/v1/ecosystem/status 
 - **TRYB**: Read-only audit (Zasada 11 zachowana — żaden plik na VPS nie zmodyfikowany).
 - **NEXT**: PH4-016 — VCMS Prod Hardening (3 sesje: A/B/C wg sekcji 6) + PH4-011 mobile real device (Dowódca).
 - **BLOCKER**: brak.
-

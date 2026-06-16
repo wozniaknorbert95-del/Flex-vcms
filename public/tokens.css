@@ -10,6 +10,13 @@
   --bg-elevated: #0b0d12;
   --bg-muted: #11141b;
 
+  /* Terminal theme v2 */
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --radius-terminal: 3px;
+  --panel-terminal: rgba(255, 255, 255, 0.02);
+  --border-terminal: rgba(255, 255, 255, 0.08);
+  --vcms-accent: var(--accent-primary, #8b5cf6);
+
   --border-subtle: #252937;
   --border-strong: #3a3f55;
 
@@ -129,6 +136,14 @@ body[data-app="flex-vcms"] .btn-outline {
   cursor: pointer;
 }
 
+body[data-app="flex-vcms"] .btn-outline:disabled,
+body[data-app="flex-vcms"] .btn-outline.btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: var(--text-dim);
+  color: var(--text-dim);
+}
+
 /* Context Health LEDs */
 body[data-app="flex-vcms"] .led {
   display: inline-block;
@@ -153,4 +168,16 @@ body[data-app="flex-vcms"] .led--stale {
 body[data-app="flex-vcms"] .led--missing {
   background-color: var(--fx-time);
   box-shadow: 0 0 6px color-mix(in srgb, var(--fx-time) 50%, transparent);
+}
+
+body[data-app="flex-vcms"] .badge--koda {
+  background: color-mix(in srgb, var(--fx-efficiency) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--fx-efficiency) 45%, transparent);
+  color: var(--fx-efficiency);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }

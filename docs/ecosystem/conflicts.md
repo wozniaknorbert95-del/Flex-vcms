@@ -1,13 +1,14 @@
 ---
 status: "[DRAFT]"
 title: "Ecosystem Conflicts — VCMS Scanner Report"
-updated: "2026-05-23T06:29:01.882Z"
+updated: "2026-06-16T19:07:41.283Z"
 ---
 
 ## Summary
-Generated at: `2026-05-23T06:29:01.882Z`
+Generated at: `2026-06-16T19:07:41.283Z`
 Repos scanned: **8**
 Conflicts found: **0**
+| blocking | **0** | warning | **0** | info | **0** |
 
 ## flex-vcms
 - ✅ No conflicts detected.

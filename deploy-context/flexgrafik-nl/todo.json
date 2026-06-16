@@ -1,26 +1,696 @@
 {
   "project": "flexgrafik-nl",
-  "last_updated": "2026-04-02",
-  "current_agent": null,
+
+  "status": "ACTIVE",
+  "last_updated": "2026-05-18",
+  "current_sprint": {
+    "id": "S7",
+    "title": "Portal modernization deployed (diensten, over-ons, contact); FX-PERF-IMG-01 open.",
+    "started": "2026-05-18",
+    "first_task_id": "FX-PERF-IMG-01",
+    "plan_handoff": "docs/handoffs/2026-05-18-portal-modernization-deploys.md"
+  },
+  "stage_plan": [
+    {
+      "stage": "S1",
+      "title": "Homepage portfolio proof",
+      "goal": "Dodać na home małą, mocną sekcję portfolio opartą o istniejące /ons-werk/ i podział Design & Print oraz Recente Installaties.",
+      "status": "DONE",
+      "deploy_handoff": "docs/handoffs/2026-05-12-s1-portfolio-deployed.md",
+      "production_url": "https://flexgrafik.nl"
+    },
+    {
+      "stage": "S2",
+      "title": "Google Reviews sync",
+      "goal": "Ustalić źródło prawdziwych opinii Google i zsynchronizować te same treści na flexgrafik.nl oraz zzpackage.flexgrafik.nl bez zmiany obecnego wyglądu sekcji.",
+      "status": "BLOCKED_BY_CONTENT"
+    },
+    {
+      "stage": "S3",
+      "title": "Over ons rebuild",
+      "goal": "Naprawić i zoptymalizować Over ons dopiero po dostarczeniu finalnych treści i instrukcji układu od Norbiego.",
+      "status": "DONE"
+    },
+    {
+      "stage": "S4",
+      "title": "Contact and Privacy visual repair",
+      "goal": "Ujednolicić Contact i Privacybeleid wizualnie z homepage, bez naruszania formularza, widgetu i treści prawnych.",
+      "status": "DONE",
+      "plan_handoff": "docs/handoffs/2026-05-12-s4-sprint-plan.md"
+    },
+    {
+      "stage": "S5",
+      "title": "Content quality audit",
+      "goal": "Przejrzeć wszystkie strony poza home pod jakość treści, NL copy, trust signals, SEO i konwersję.",
+      "status": "DONE",
+      "plan_handoff": "docs/handoffs/2026-05-12-s5-session-handoff.md"
+    }
+  ],
   "tasks": [
-    "FLEX-FINAL-001: Algemene Voorwaarden (Regulamin) Zbudować na styl Dark Premium B2B lub wykasować link",
-    "FLEX-FINAL-002: Ons Verhaal (O nas) Zbudować zaufanie do Agencji FlexGrafik na /over-ons/ PHP Template",
-    "FLEX-FINAL-003: Hoe scoor jij je branding? Zbudować dark gamified landing na /hoe-scoor-jij-je-branding/"
+    {
+      "id": "FX-OPT-S1-001",
+      "stage": "S1",
+      "title": "Zaprojektuj dokładny układ mini-portfolio na homepage",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/page-ons-werk.php"
+      ],
+      "depends_on": [],
+      "notes": "Sekcja ma wejść między 'Wat wij voor je doen' i 'Wat klanten zeggen'. Podział: Design & Print oraz Recente Installaties. Maksymalnie mały zakres: 6 kart + CTA naar /ons-werk/.",
+      "proof_of_done": [
+        "Dokładne miejsce w front-page.php jest wskazane.",
+        "Wybrane są 3 karty Design & Print oraz 3 karty Recente Installaties z istniejących zasobów.",
+        "Układ zachowuje styl homepage: dark premium, fg-card, container, section, obecne akcenty brandowe.",
+        "CTA prowadzi do /ons-werk/ i nie konkuruje z główną ścieżką Wizard."
+      ]
+    },
+    {
+      "id": "FX-OPT-S1-002",
+      "stage": "S1",
+      "title": "Wdroż mini-portfolio na homepage bez refaktoru reszty strony",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S1-001"
+      ],
+      "notes": "Implementacja ma używać istniejących obrazów i patternów z /ons-werk/. Bez przebudowy innych sekcji home.",
+      "proof_of_done": [
+        "Na homepage istnieje sekcja portfolio z dwoma czytelnymi blokami.",
+        "Sekcja działa responsywnie na mobile, tablet i desktop.",
+        "Obrazy mają sensowne alt-teksty po niderlandzku.",
+        "Nie zmieniono treści ani layoutu sekcji opinii Google."
+      ]
+    },
+    {
+      "id": "FX-OPT-S1-003",
+      "stage": "S1",
+      "title": "Przetestuj etap homepage portfolio jakościowo",
+      "area": "QA",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S1-002"
+      ],
+      "notes": "QA ma potwierdzić, że nowa sekcja wzmacnia trust proof, nie wydłuża strony chaotycznie i nie psuje flow do opinii.",
+      "proof_of_done": [
+        "Sekcja renderuje się poprawnie bez błędów PHP.",
+        "CTA /ons-werk/ działa.",
+        "Visual rhythm między usługami, portfolio i opiniami jest spójny.",
+        "Brak regresji w sticky/nav/footer oraz głównych CTA.",
+        "Zastosowano poprawki Senior Specialist: glow hover, ujednolicone nagłówki, lepszy kontrast CTA."
+      ]
+    },
+    {
+      "id": "FX-OPT-S2-001",
+      "stage": "S2",
+      "title": "Ustal techniczne źródło prawdziwych opinii Google",
+      "area": "INTEGRATION",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [],
+      "depends_on": [],
+      "notes": "Decyzja: Opcja 1 (Static Array/JSON). Ręczny eksport opinii do pliku, aby zachować 100% spójności Dark Premium i uniknąć bloatware z zewnętrznych widgetów. Brak automatu API.",
+      "proof_of_done": [
+        "Potwierdzona decyzja: statyczny JSON/array (ręczny eksport), bez widgetów zewnętrznych i bez API w etapie 1.",
+        "Ustalono wspólny model danych dla flexgrafik.nl i zzpackage (shared JSON lub osobna konfiguracja — do wdrożenia w FX-OPT-S2-002).",
+        "Link do profilu Google Reviews i zasady zachęty do opinii są uwzględnione w strategii GMB."
+      ]
+    },
+    {
+      "id": "FX-OPT-S2-002",
+      "stage": "S2",
+      "title": "Zdefiniuj wspólny model danych dla opinii",
+      "area": "DATA",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "BLOCKED",
+      "files": [
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/front-page.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S2-001"
+      ],
+      "notes": "Model ma obsłużyć te same treści na flexgrafik.nl i w sklepie. Czekamy na treści opinii od klientów premium. Format: author, rating, text, source_url, relative_time/date, initials/avatar fallback.",
+      "proof_of_done": [
+        "Ustalono minimalny zestaw pól opinii.",
+        "Fallback dla braku API jest opisany.",
+        "Nie ma wymogu zmiany schematu bazy danych.",
+        "Model pozwala zachować obecny wygląd kart opinii."
+      ]
+    },
+    {
+      "id": "FX-OPT-S2-003",
+      "stage": "S2",
+      "title": "Podmień treści opinii na realne Google Reviews bez zmiany sekcji",
+      "area": "COPY",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "BLOCKED",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S2-002"
+      ],
+      "notes": "Zachować obecną estetykę sekcji 'Wat klanten zeggen'. Czekamy na treści od klientów premium (zablokowane).",
+      "proof_of_done": [
+        "Karty opinii pokazują prawdziwe treści z Google albo zatwierdzony statyczny snapshot.",
+        "Rating i link do Google są poprawne.",
+        "Sekcja wizualnie wygląda tak samo lub lepiej, bez przebudowy layoutu.",
+        "Brak fałszywych/anonomizowanych opinii udających Google Reviews."
+      ]
+    },
+    {
+      "id": "FX-OPT-S2-004",
+      "stage": "S2",
+      "title": "Przygotuj handoff synchronizacji opinii dla zzpackage.flexgrafik.nl",
+      "area": "ECO",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "TODO",
+      "files": [],
+      "depends_on": [
+        "FX-OPT-S2-002"
+      ],
+      "notes": "Repo sklepu nie jest częścią aktualnego workspace, więc ten task ma przygotować jasny kontrakt danych i start prompt dla sklepu.",
+      "proof_of_done": [
+        "Opisany jest sposób użycia tych samych opinii w sklepie.",
+        "Wskazany jest format danych lub endpoint.",
+        "Wiadomo, które elementy sklepu mają tylko podmienić treść bez zmiany layoutu.",
+        "Gotowy jest prompt startowy dla sesji w repo zzpackage."
+      ]
+    },
+    {
+      "id": "FX-OPT-S3-001",
+      "stage": "S3",
+      "title": "Odbierz i zweryfikuj finalne treści Over ons od Norbiego",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-about.php"
+      ],
+      "depends_on": [
+        "NORBI_OVER_ONS_CONTENT"
+      ],
+      "notes": "Nie zaczynać przebudowy Over ons bez kompletnej treści i instrukcji układu. To jest kontrola jakości, nie blokada techniczna.",
+      "proof_of_done": [
+        "Dostarczony jest finalny tekst NL lub zaakceptowany brief do przepisania na NL.",
+        "Dostarczona jest instrukcja układu sekcji.",
+        "Wiadomo, które informacje są obowiązkowe: historia, studio, misja, proces, partnerzy, CTA.",
+        "Nie ma sprzeczności między treścią a aktualnym positioningiem FlexGrafik jako portal zaufania."
+      ]
+    },
+    {
+      "id": "FX-OPT-S3-002",
+      "stage": "S3",
+      "title": "Przebuduj Over ons pod zaufanie i konwersję",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-about.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S3-001"
+      ],
+      "notes": "Strona ma wzmacniać wiarygodność Norbiego/FlexGrafik i prowadzić do Wizard/contact, bez generycznego agencyjnego tonu.",
+      "proof_of_done": [
+        "Strona zawiera finalne sekcje zgodne z instrukcją Norbiego.",
+        "Copy jest po niderlandzku i pasuje do tonu B2B/ZZP.",
+        "CTA są jasne i nie rozpraszają.",
+        "Layout jest spójny z homepage i resztą child theme."
+      ]
+    },
+    {
+      "id": "FX-OPT-S4-001",
+      "stage": "S4",
+      "title": "Zrób audyt różnic wizualnych Contact i Privacybeleid względem home",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/page-privacybeleid.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": [],
+      "notes": "Sprint S4 — zie docs/handoffs/2026-05-12-s4-sprint-plan.md. Eerst wskazać dokładne różnice: font size, spacing, hero style, ton copy, card treatment, mobile behavior.",
+      "proof_of_done": [
+        "Lista różnic jest konkretna i przypisana do Contact lub Privacybeleid.",
+        "Wiadomo, które style można naprawić lokalnie, a które warto przenieść do wspólnych klas.",
+        "Zakres nie obejmuje zmiany działania formularza ani treści prawnych.",
+        "Priorytetem jest spójność z home, nie nowy design system."
+      ]
+    },
+    {
+      "id": "FX-OPT-S4-002",
+      "stage": "S4",
+      "title": "Ujednolić Contact z homepage bez naruszania formularza",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": [
+        "FX-OPT-S4-001"
+      ],
+      "notes": "Sprint S4 — zie docs/handoffs/2026-05-12-s4-sprint-plan.md. Zachować WhatsApp CTA, native contact form i AI chat widget. Zmiany dotyczą rytmu, typografii, kart i profesjonalizacji copy.",
+      "proof_of_done": [
+        "Contact wizualnie pasuje do homepage.",
+        "Formularz dalej wysyła przez admin-ajax.",
+        "WhatsApp i Wizard CTA działają.",
+        "Mobile layout jest czytelny i bez przełamań."
+      ]
+    },
+    {
+      "id": "FX-OPT-S4-003",
+      "stage": "S4",
+      "title": "Ujednolić Privacybeleid z homepage i tonem B2B",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-privacybeleid.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": [
+        "FX-OPT-S4-001"
+      ],
+      "notes": "Sprint S4 — zie docs/handoffs/2026-05-12-s4-sprint-plan.md. Privacybeleid ma wyglądać profesjonalnie i spokojnie. Treść prawna zostaje zachowana, ale ton wizualny ma być mniej agresywny.",
+      "proof_of_done": [
+        "Nagłówek i sekcje mają spójny spacing z homepage.",
+        "Karty prawne są czytelne i profesjonalne.",
+        "Treść AVG/GDPR nie traci sensu.",
+        "Strona nie wygląda jak osobny, odklejony landing page.",
+        "Handmatige deploy op Cyber-Folks (Zasada 11); visuele check op live /contact/ en /privacybeleid/."
+      ]
+    },
+    {
+      "id": "FX-OPT-S5-001",
+      "stage": "S5",
+      "title": "Zrób inventory stron do finalnego audytu jakości treści",
+      "area": "CONTENT",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/page-about.php",
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/page-privacybeleid.php",
+        "flexgrafik-child/page-algemene-voorwaarden.php",
+        "flexgrafik-child/page-services.php",
+        "flexgrafik-child/page-game-rules.php",
+        "flexgrafik-child/page-portfolio.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/footer.php",
+        "docs/handoffs/2026-05-12-s5-public-pages-inventory.md",
+        "docs/handoffs/2026-05-12-s5-deploy-gha-verify.md"
+      ],
+      "depends_on": [
+        "FX-OPT-S1-003",
+        "FX-OPT-S4-003"
+      ],
+      "notes": "Home jest wyłączony z finalnego audytu zgodnie z decyzją. Audyt obejmuje pozostałe strony publiczne. Deploy-verify: docs/handoffs/2026-05-12-s5-deploy-gha-verify.md + scripts/deploy.ps1 -SmokeOnly.",
+      "proof_of_done": [
+        "Lista audytowanych stron jest kompletna.",
+        "Wiadomo, które strony są publiczne i linkowane w nav/footer.",
+        "Dla każdej strony jest określony cel biznesowy.",
+        "Home nie jest objęty tym etapem."
+      ]
+    },
+    {
+      "id": "FX-OPT-S5-002",
+      "stage": "S5",
+      "title": "Przeprowadź audyt NL copy, trust signals, SEO i konwersji",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/page-about.php",
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/page-privacybeleid.php",
+        "flexgrafik-child/page-algemene-voorwaarden.php",
+        "flexgrafik-child/page-services.php",
+        "flexgrafik-child/page-game-rules.php",
+        "docs/handoffs/2026-05-12-s5-content-audit.md"
+      ],
+      "depends_on": [
+        "FX-OPT-S5-001"
+      ],
+      "notes": "Efektem audytu ma być krótka lista poprawek P0/P1/P2, a nie wielki dokument.",
+      "proof_of_done": [
+        "Każda strona ma ocenę: clear, needs polish albo needs rewrite.",
+        "Wskazane są konkretne poprawki copy/UX.",
+        "Wskazane są braki SEO/a11y tylko tam, gdzie mają realny wpływ.",
+        "Powstaje kolejny mały, sensowny backlog zamiast dużej przebudowy."
+      ]
+    },
+    {
+      "id": "FX-OPT-S5-003",
+      "stage": "S5",
+      "title": "Przygotuj końcowy handoff i start prompt do realizacji kolejnego etapu",
+      "area": "WORKFLOW",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "docs/handoffs/2026-05-12-s5-session-handoff.md"
+      ],
+      "depends_on": [
+        "FX-OPT-S5-002"
+      ],
+      "notes": "Zgodnie z workflow sesję kończymy handoffem i gotowym promptem startowym dla następnej sesji.",
+      "proof_of_done": [
+        "Handoff podsumowuje branch, zakres, decyzje, blokady i następny krok.",
+        "Start prompt wskazuje pierwszy otwarty etap backlogu (np. S5 content audit po domknięciu S4).",
+        "Nie ma niejasności, od którego taska zacząć w nowej sesji.",
+        "todo.json odzwierciedla aktualny stan po planowaniu."
+      ]
+    },
+    {
+      "id": "FX-OPT-S5-IMPL-001",
+      "stage": "S5",
+      "title": "P0 audit: /services/ zichtbaar in header, footer Snel naar, mobiel menu",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/footer.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S5-002"
+      ],
+      "notes": "Besluit: link naar funnel-pagina services; aparte regels Portfolio (ons-werk) en Diensten (/services/). Zie docs/handoffs/2026-05-12-s6-p0-p1-services-onswerk-yoast.md.",
+      "proof_of_done": [
+        "Desktop Hoofdnavigatie bevat Diensten → /services/.",
+        "Footer Snel naar heeft Portfolio en Diensten gescheiden.",
+        "Mobiel menu bevat Portfolio en Diensten."
+      ]
+    },
+    {
+      "id": "FX-OPT-S5-IMPL-002",
+      "stage": "S5",
+      "title": "P1 audit: NL alt-teksten Ons Werk + Yoast schema inLanguage nl-NL",
+      "area": "SEO",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": [
+        "FX-OPT-S5-002"
+      ],
+      "notes": "Theme fallback filters wpseo_schema_website/webpage; WP admin site language blijft bron van waarheid.",
+      "proof_of_done": [
+        "Geen Engelstalige card-alt op projectcards waar relevant.",
+        "functions.php zet inLanguage nl-NL op WebSite en WebPage schema.",
+        "Handoff documenteert Yoast admin check voor prod."
+      ]
+    },
+    {
+      "id": "FX-DEV-GITLEAKS-01",
+      "stage": "S5",
+      "title": "Repo: gitleaks pre-commit via .githooks + Windows bootstrap",
+      "area": "DEVX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        ".githooks/pre-commit",
+        ".gitleaks.toml",
+        "scripts/setup-git-hooks.ps1",
+        "scripts/bootstrap-gitleaks.ps1",
+        "AGENTS.md",
+        ".gitignore"
+      ],
+      "depends_on": [],
+      "notes": "git config core.hooksPath .githooks; lokaal binair .tools/gitleaks/gitleaks.exe (gitignored). Eerste clone: powershell -File scripts/setup-git-hooks.ps1.",
+      "proof_of_done": [
+        "Commit triggert gitleaks protect --staged",
+        "AGENTS.md beschrijft setup",
+        "Bootstrap downloadt windows_x64 zip"
+      ]
+    },
+    {
+      "id": "FX-PERF-IMG-01",
+      "title": "Upload echte werk/product-foto's voor pakket-cards en diensten-cards",
+      "area": "PERF",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "TODO",
+      "notes": "placeholder-pakket-*.webp en dienst-afbeeldingen zijn donkere placeholders. Echte before/after foto's van klanten (bus wraps, werkkleding) hier plaatsen — maximale social proof."
+    },
+    {
+      "id": "FX-HOME-PORTFOLIO-01",
+      "title": "Voeg mini-portfolio sectie toe op homepage (6 foto's of before/after slider)",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "notes": "Geïmplementeerd als statische sectie #portfolio-proof na Waarom FlexGrafik, vóór reviews. CTA naar /ons-werk/ (i.p.v. /portfolio-diensten/). Zie FX-OPT-S1-002."
+    },
+    {
+      "id": "FX-HERO-PRICE-01",
+      "title": "Voeg 'Vanaf €199' prijsindicatie toe als microcopy direct onder primaire CTA-knop",
+      "area": "COPY",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "notes": "ZZP-ers scannen op prijs. Prijs-verwachting instellen verlaagt klik-barrière naar Wizard. Format: kleine tekstregel 'Vanaf €199 · Geen verborgen kosten' onder de button."
+    },
+    {
+      "id": "FX-PORTFOLIO-PAGE-01",
+      "title": "Bouw /portfolio-diensten/ pagina met projectfoto's en diensten-overzicht",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "L",
+      "status": "TODO",
+      "notes": "Footer 'Snel naar' heeft al aparte links: Portfolio → /ons-werk/, Diensten → /services/. Open: dedicated landingspagina /portfolio-diensten/ (of gekozen slug) met min. 6 projecten (bus, kleding, borden), dark premium, CTA Wizard onderaan. Eventueel extra crosslinks vanaf home — geen kapotte enkele footerlink meer."
+    },
+    {
+      "id": "FX-ABOUT-ONS-01",
+      "title": "Bouw /over-ons/ pagina (Ons Verhaal — PHP template)",
+      "area": "CONTENT",
+      "impact": "MED",
+      "effort": "M",
+      "status": "DONE",
+      "notes": "Was FLEX-FINAL-002. Norbert's verhaal, studio Rotterdam, missie. Vertrouwen opbouwen bij ZZP. Nav-link 'OVER ONS' verwijst momenteel nergens naar."
+    },
+    {
+      "id": "FX-COPY-VOOR-WIE-01",
+      "title": "Voeg 'Voor wie?' sectie toe met sector-iconen (installateur, hovenier, schilder, dakdekker, etc.)",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "M",
+      "status": "TODO",
+      "notes": "ZZP-ers identificeren zich sterk met hun sector. Toon 5-6 beroepen als pills/icons. Plaatsen tussen hero en pakket-sectie. Verhoogt relevantie-herkenning direct."
+    },
+    {
+      "id": "FX-SOCIAL-PROOF-01",
+      "title": "Versterk review-cards: naam + foto + beroep + concreet tarief-resultaat",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "S",
+      "status": "BLOCKED",
+      "notes": "Huidig: anonieme quotes zonder foto. Doel: 'Marco V. (foto) · Hovenier Rotterdam · uurtarief +€15 na rebrand'. Wacht op data van premium klanten (blocked)."
+    },
+    {
+      "id": "FX-FAQ-NL-01",
+      "title": "FAQ: kernvragen op homepage (compact) + uitgebreide FAQ op /contact/ — één strategie, geen losse eilanden",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/brand-colors.css",
+        "flexgrafik-child/assets/js/chat-widget.js",
+        "docs/copy/faq-portal-master-nl.md"
+      ],
+      "notes": "Live: accordion <details> op home (#faq-home) en contact (#faq); 5 kern + 4 extra op contact. Regels: €199 Wizard-minimum, zelfde werkdag antwoord, Wizard-chat, 2 correctierondes, fysiek overleg betaald/offerte, 10 werkdagen na conceptakkoord (alleen in FAQ; sitewide 7 dagen → aparte taak FX-COPY-LEVERTIJD-10-01). Mastercopy: docs/copy/faq-portal-master-nl.md."
+    },
+    {
+      "id": "FX-COPY-LEVERTIJD-10-01",
+      "title": "Sitewide: vervang '7 dagen'-levertijdboodschap door '10 werkdagen' (excl. FAQ-blokken home + contact)",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/page-about.php",
+        "flexgrafik-child/page-services.php"
+      ],
+      "notes": "FAQ gebruikt al 10 werkdagen (weekend telt niet). Hero, trust-bar (Mimaki), portfolio-cards, Yoast wpseo_metadesc, about: consistente verwachting. .bak-bestanden overslaan."
+    },
+    {
+      "id": "FX-SEO-META-01",
+      "title": "Herschrijf homepage meta description op ZZP-zoekgedrag",
+      "area": "SEO",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/functions.php"
+      ],
+      "notes": "Live: Yoast wpseo_metadesc override in functions.php — ZZP-branding Rotterdam + Vanaf €199 + 10 werkdagen. (Eerdere generieke ZZPackage-zin vervangen.)"
+    },
+    {
+      "id": "FX-COPY-SUBHEAD-01",
+      "title": "Herschrijf hero subhead naar maximaal 1 zin (nu 3 zinnen)",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "notes": "Hero: één zin met em-dash. Premium/tarieven-zin onder Waarom FlexGrafik (#waarom). Zie docs/handoffs/2026-05-12-s8-hero-subhead-waarom.md."
+    },
+    {
+      "id": "FX-UX-CTA-GAME-01",
+      "title": "Herpositioneer 'SPEEL DE GAME' in sticky bar als secundaire ghost-button",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/footer.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Sticky mobiel: Game als fg-button--ghost + flex 3:1, scoped contrast op donkere bar; app.flexgrafik.nl target _blank + aria-label. Wizard blijft primary + tap-target."
+    },
+    {
+      "id": "FX-ECO-BRIDGE-01",
+      "title": "Voeg visuele bridge-widget toe bij CTA-sectie: ZZPackage logo + Wizard preview",
+      "area": "ECO",
+      "impact": "MED",
+      "effort": "M",
+      "status": "TODO",
+      "notes": "Bezoeker weet niet wat hem te wachten staat na klik. Toon ZZPackage sublogo + screenshot/mockup van Wizard stappen bij de primaire CTA-sectie. Verwachting instellen = meer kliks."
+    },
+    {
+      "id": "FX-ECO-TOOLS-01",
+      "title": "Voeg 'Onze tools' sectie toe met ZZPackage Wizard + Game als pills/badges",
+      "area": "ECO",
+      "impact": "MED",
+      "effort": "S",
+      "status": "TODO",
+      "notes": "Ecosysteem-zichtbaarheid op de portal. Twee pills: [ZZPackage Wizard — configureer je branding] [Branding Game — win kortingscodes]. Met korte toelichting."
+    },
+    {
+      "id": "FX-A11Y-ALT-01",
+      "title": "Voeg beschrijvende alt-teksten toe aan alle hero- en dienst-afbeeldingen",
+      "area": "A11Y",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/page-game-rules.php"
+      ],
+      "notes": "Placeholders pakketten: NL illustratie-alts i.p.v. PL technische specs; trust-bar logo’s verduidelijkt; ErKa-montageraster + erka-p1 EN gefixt; game-icoon + ZZPackage-mascotte NL; typo og→en in werkkleding-placeholder. page-services.php: geen <img>. page-ons-werk: al conformeert NL-alts."
+    },
+    {
+      "id": "FX-PERF-PRELOAD-01",
+      "title": "Fix placeholder-hero.webp preload-fout (console spam)",
+      "area": "PERF",
+      "impact": "LOW",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "notes": "Preload href = zelfde WebP als hero LCP (grafika-po-zestawie.webp) via wp_head in front-page.php."
+    },
+    {
+      "id": "FX-LEGAL-AV-01",
+      "title": "Bouw Algemene Voorwaarden pagina of verwijder nav-link",
+      "area": "CONTENT",
+      "impact": "LOW",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-algemene-voorwaarden.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/footer.php"
+      ],
+      "notes": "Prod 2026-05-13: /algemene-voorwaarden/ HTTP 200, child template (fg-legal-*), juridische secties zichtbaar. Nav-links al aanwezig."
+    },
+    {
+      "id": "FX-GAME-LANDING-01",
+      "title": "Bouw /hoe-scoor-jij-je-branding/ gamified dark landing page",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "M",
+      "status": "TODO",
+      "notes": "Was FLEX-FINAL-003. Bridge-pagina tussen portal en game. Uitleg hoe de game werkt + CTA naar app.flexgrafik.nl. Dark gamified look."
+    },
+    {
+      "id": "FX-PRIVACY-OPT-01",
+      "title": "Optymalizacja Privacybeleid (Polityka Prywatności)",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "notes": "Przegląd i ujednolicenie wizualne/treściowe polityki prywatności pod standard B2B/Dark Premium."
+    }
   ],
   "completed": [
-    "FLEX-GRAPHICS-001", "FLEX-GRAPHICS-002", "FLEX-PORTFOLIO-001", "FLEX-W2-002", "FLEX-W3-001", "FLEX-W6-001", "FLEX-W6-002", "FLEX-W5-001", 
-    "FLEX-W5-002", "FLEX-W5-003", "FLEX-W1-001", "FLEX-W7-001", "FLEX-W9-002", 
-    "FLEX-W6-004", "FLEX-W7-003", "FLEX-007", "FLEX-W9-003", "FLEX-W10-002", 
-    "FLEX-004", "FLEX-005", "FLEX-006", "FLEX-W6-003", "FLEX-W9-001", "FLEX-002", 
-    "FLEX-003", "FLEX-009", "FLEX-010", "FLEX-W4-001", "FLEX-W4-002", "FLEX-W4-003", 
-    "FLEX-W7-002", "FLEX-W10-001", "FLEX-008", "FLEX-011", "FLEX-012", "FLEX-013", 
+    "FX-LEGAL-AV-01",
+    "FX-A11Y-ALT-01",
+    "FX-COPY-LEVERTIJD-10-01",
+    "FLEX-GRAPHICS-001", "FLEX-GRAPHICS-002", "FLEX-PORTFOLIO-001", "FLEX-W2-002", "FLEX-W3-001",
+    "FLEX-W6-001", "FLEX-W6-002", "FLEX-W5-001", "FLEX-W5-002", "FLEX-W5-003", "FLEX-W1-001",
+    "FLEX-W7-001", "FLEX-W9-002", "FLEX-W6-004", "FLEX-W7-003", "FLEX-007", "FLEX-W9-003",
+    "FLEX-W10-002", "FLEX-004", "FLEX-005", "FLEX-006", "FLEX-W6-003", "FLEX-W9-001",
+    "FLEX-002", "FLEX-003", "FLEX-009", "FLEX-010", "FLEX-W4-001", "FLEX-W4-002", "FLEX-W4-003",
+    "FLEX-W7-002", "FLEX-W10-001", "FLEX-008", "FLEX-011", "FLEX-012", "FLEX-013",
     "FLEX-W10-003", "FLEX-W10-004", "FLEX-001", "COHESION-FLEX-STAGE1-10", "UI-COHESION-HOTFIX-1",
     "FLEX-CONTACT-V2-UI", "FLEX-LEGAL-B2B-PAGES", "FLEX-FAQ-REMOVAL",
-    "FLEX-AI-CHATBOT-DEPLOYMENT",
-    "FLEX-PORTFOLIO-ASSETS-FIX",
-    "FLEX-NAV-LINKS-FIX",
-    "FLEX-RESCUE-KRZYSZTOFWOZNIAK",
-    "FLEX-DB-MIGRATION-FIX"
+    "FLEX-AI-CHATBOT-DEPLOYMENT", "FLEX-PORTFOLIO-ASSETS-FIX", "FLEX-NAV-LINKS-FIX",
+    "FLEX-RESCUE-KRZYSZTOFWOZNIAK", "FLEX-DB-MIGRATION-FIX", "FLEX-CHATBOT-NL-FIX",
+    "FLEX-AV-UPDATE-17-ARTICLES", "FX-PRIVACY-OPT-01", "FX-PORTFOLIO-UX-01",
+    "FX-ABOUT-ONS-01", "FX-OPT-S3-001", "FX-OPT-S3-002"
   ],
   "blocked_by": null
 }

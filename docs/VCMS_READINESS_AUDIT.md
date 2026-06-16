@@ -107,12 +107,16 @@ verdict: "PARTIAL"
 - `indexer.search()` — zaimplementowane, niepodpięte
 - PH4-017 mobile test — preflight gotowy, wynik brak
 
-### Zamknięte (P0 + portfolio gate, 2026-06-16)
+### Zamknięte (P0 + portfolio gate + Swiss Watch, 2026-06-16)
 - ~~Control Lab / KODA~~ → Governance tab, chat wyłączony
-- ~~Fake LLM metrics~~ → Ecosystem Mode / Repo Count
+- ~~Fake LLM metrics~~ → Ecosystem Mode / Repo Count; pole `llm` usunięte z API status
 - ~~Ecosystem tab crash na prod~~ → remote-safe w `app.js`
 - ~~`dashboard.html`~~ → `/` + README
 - ~~Brak `npm run scan`~~ → alias w `package.json`
+- ~~Quick Access broken~~ → `.quick-link` + `data-quick-doc` (User Guide, Docs Home, System Map)
+- ~~Governance inline onclick~~ → `data-quick-doc` (Portfolio Truth, Readiness Audit)
+- ~~Run Scan wygląda jak bug na prod~~ → przycisk disabled + tooltip „npm run scan”
+- ~~Rate limit toast spam~~ → tiered limiters + poll 15s + visibility pause
 
 ### Opisane, nie istnieje w tym repo (PLANNED)
 - Governance audit log JSON (handoffy + demo fixture tylko)
@@ -145,29 +149,29 @@ verdict: "PARTIAL"
 
 | ID | Co zrobić | Status |
 |----|-----------|--------|
-| P1-1 | Fake LLM metrics | **DONE** (P0) |
+| P1-1 | Fake LLM metrics | **DONE** |
 | P1-2 | Backlog `before_you_start` | **DONE** |
-| P1-3 | Severity w konfliktach | OPEN |
-| P1-4 | Governance audit log JSONL | OPEN (demo fixture istnieje) |
-| P1-5 | Odśwież `ecosystem/report.md` | OPEN |
-| P1-6 | Banner FLASH audit superseded | OPEN |
-| P1-7 | `data/README.md` | OPEN |
-| P1-8 | Ujednolicenie wersji | OPEN |
+| P1-3 | Severity w konfliktach | **DONE** — `scan-rules.json` + `vcms-scan.js` |
+| P1-4 | Governance audit log JSONL | **DONE** — `tools/vcms-audit-log.js` (lokalnie) |
+| P1-5 | Odśwież `ecosystem/report.md` | **DONE** — 2026-06-16 |
+| P1-6 | Banner FLASH audit superseded | **DONE** — Swiss Watch |
+| P1-7 | `data/README.md` | **DONE** |
+| P1-8 | Ujednolicenie wersji | **DONE** — package 3.0.0, API 3.0.0-hardened |
 | P1-9 | `npm run scan` | **DONE** |
 | P1-10 | `conflict-example.md` | **DONE** |
-| P1-11 | UI tokens fiolet governance | **W TOKU** — `tokens.css` |
+| P1-11 | UI tokens fiolet governance | **DONE** — Swiss Watch |
 
 
-### P2 — wzmacnia produkt, nie blokuje prezentacji
+### P2 — wzmacnia produkt
 
-| ID | Co zrobić | Pliki |
-|----|-----------|-------|
-| P2-1 | Konflikty w dashboard UI (licznik z API czytający `conflicts.md` lub SQLite) | `api.js`, `public/app.js` |
-| P2-2 | Agent boundaries → prosta „agent card” strona w VitePress (nie full UI) | `docs/agents/` |
-| P2-3 | Rozszerzyć testy — API routes, scan integration | `tests/` |
-| P2-4 | VitePress nav: audits, jobs | `docs/.vitepress/config.mts` |
-| P2-5 | Usunąć / przenieść `docs/audit/` strategię ARR z ścieżki operatora | `docs/audit/` |
-| P2-6 | PH4-017 mobile PASS | handoff + todo |
+| ID | Co zrobić | Status |
+|----|-----------|--------|
+| P2-1 | Konflikty w dashboard UI | **DONE** — SSoT Conflicts stat card |
+| P2-2 | Agent boundaries → VitePress card page | OPEN |
+| P2-3 | Rozszerzyć testy API | OPEN |
+| P2-4 | VitePress nav: audits, jobs | OPEN |
+| P2-5 | Przenieść docs/audit/ ARR | OPEN |
+| P2-6 | PH4-017 mobile PASS | OPEN — Dowódca |
 
 ### P3 — później
 

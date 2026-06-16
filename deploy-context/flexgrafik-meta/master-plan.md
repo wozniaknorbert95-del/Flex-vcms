@@ -2,13 +2,13 @@ master-plan.md
 Rola: Strategiczny Roadmap Ekosystemu FlexGrafik V4.0
 Właściciel: Norbert Woźniak (Dowódca)
 Status: DOKUMENT STRATEGICZNY – nadrzędny wobec pojedynczych feature’ów
-Ostatnia aktualizacja: 19 marca 2026
+Ostatnia aktualizacja: 22 maja 2026
 
 ==================================================
-0. INSTRUKCJA DLA ANTIGRAVITY / JADZI
+0. INSTRUKCJA DLA AGENTOW (OpenCode / Cursor)
 ==================================================
 
-Kiedy ten plik jest załadowany, AG / Jadzia MUSZĄ:
+Kiedy ten plik jest załadowany, OpenCode / Cursor / Jadzia MUSZĄ:
 
 - Traktować go jako główne „źródło kierunku” (strategia makro), ważniejsze niż pojedyncze zadania z `todo.json`.
 - W Fazie PLAN (`/vibe-init`) sprawdzać, czy wybrane zadanie:
@@ -184,10 +184,13 @@ Cel techniczny:
   - spójny Dark Premium UX.
 
 ==================================================
-4. AKTUALNY STATUS (STAN NA 19.03.2026)
+4. AKTUALNY STATUS (STAN NA 22.05.2026)
 ==================================================
 
 > Uwaga: ta sekcja ma być AKTUALIZOWANA po większych sesjach /handoff.
+
+**Tooling stack (maj 2026):** Cursor Pro + OpenCode + OpenRouter
+(migracja i modernizacja workflow Faz 0-4 domknięta lokalnie; Agent OS działa jako Faza 5 MVP/dev)
 
 | Moduł       | Gotowość | Kluczowe wyzwania                                                                 |
 |------------|----------|-------------------------------------------------------------------------------------|
@@ -195,8 +198,14 @@ Cel techniczny:
 | Jadzia Core   | ~30%     | Brak pełnej hierarchii agentów, brak produkcyjnych nodów operacyjnych             |
 | Gra Mobilna   | ~85%     | Migracja z repo „bouwplaats-chaos”, lokalizacja NL, dopięcie integracji z Jadzią  |
 | Wizytówka     | ~60%     | Menu, spójność Dark Premium, dopięcie ścieżek do Wizarda i Gry                    |
+| Workflow/Tooling | stable/dev | Cursor Pro + OpenCode + OpenRouter jako aktywny stack; Agent OS w trybie MVP/dev |
 
-AG w Fazie PLAN powinna używać tego statusu, by:
+**Zakończone fazy:**
+- Faza A (Tool Registry) — tool-bindings.md zaktualizowany
+- Migracja toolingu i workflow — Cursor Pro + OpenCode + OpenRouter
+- Faza B (Workflow Modernization) — domknięta lokalnie; dalszy rozwój w Faza 5 Agent OS
+
+Agent w Fazie PLAN powinien używać tego statusu, by:
 
 - priorytetyzować zadania z `todo.json` (np. najpierw krytyczne rzeczy w Sklepie i Jadzi),
 - unikać zadań „kosmetycznych”, gdy core nie jest stabilny.

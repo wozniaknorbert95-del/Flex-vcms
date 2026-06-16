@@ -2,11 +2,12 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-06-16T06:57:26.663Z",
-    "workstream": "PH4-PROD na TLS (cmd.flexgrafik.nl), Red Team Review wykonany 2026-05-08 → PH4-016 hardening backlog otwarty. PH4-011 mobile chromium=DONE, real-device=PENDING (PH4-017).",
+    "updated": "2026-06-16T17:24:45.371Z",
+    "workstream": "VCMS portfolio polish — video DEFERRED (DoD §D na koniec)",
     "plan_now": {
-      "primary": "PH4-017: real device mobile test (4G/5G) na cmd.flexgrafik.nl. PH4-018 DONE 2026-06-16.",
-      "parallel_optional": "PH4-017: realny test telefonu (Dowódca, 4G/5G) — nie blokuje PH4-016.",
+      "primary": "VCMS-P2-01..04: dashboard conflicts, severity, audit JSONL, docs polish",
+      "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca)",
+      "video_gate": "VCMS-VIDEO — po polish; narzędzie dowolne (Loom/OBS/Chrome DevTools)",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
     },
     "session_anchor": {
@@ -19,9 +20,9 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "PH4-017",
-      "title": "PH4-011 follow-up: real device mobile test (4G/5G)",
-      "before_you_start": "Czytaj docs/handoffs/2026-06-16-ph4-017-mobile-preflight.md. Wypełnij tmpl-ph4-011-mobile.md na 4G/5G (bez Wi-Fi).",
+      "task_id": "VCMS-VIDEO",
+      "title": "Nagranie demo 75s (Dowódca) — po polish",
+      "before_you_start": "docs/VCMS_DEMO_SCRIPT.md + docs/handoffs/2026-06-16-vcms-video-ready.md. Dowolne narzędzie nagrywania.",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
@@ -739,6 +740,142 @@
         "Jeśli PASS: meta.next w flex-vcms-todo.json przesunięty z PH4-017 na PH4-016-A"
       ],
       "definition_of_done": "Wiesz obiektywnie czy telefon jest równoprawnym klientem prod TLS (nie tylko za Wi-Fi z hosts-file)."
+    },
+    {
+      "id": "VCMS-P1-01",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Odświeżyć docs/ecosystem/report.md (8 repo, 2026-06)",
+      "audit_source": "docs/VCMS_READINESS_AUDIT.md P1-5"
+    },
+    {
+      "id": "VCMS-P1-02",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "data/README.md — vcms.db, governance-audit.jsonl",
+      "audit_source": "docs/VCMS_READINESS_AUDIT.md P1-7"
+    },
+    {
+      "id": "VCMS-P1-03",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Runbook bez /api/chat — Governance tab",
+      "audit_source": "LIVE-AUDIT R1"
+    },
+    {
+      "id": "VCMS-P1-04",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Ujednolicenie wersji package.json 3.0.0 + API 3.0.0-hardened",
+      "audit_source": "Readiness R10"
+    },
+    {
+      "id": "VCMS-P1-05",
+      "area": "DOCS",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Sync VCMS_READINESS_AUDIT §6 po Swiss Watch + polish",
+      "audit_source": "VCMS polish plan"
+    },
+    {
+      "id": "VCMS-P2-01",
+      "area": "UX",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Dashboard — licznik SSoT Conflicts z conflicts.md / deploy snapshot",
+      "audit_source": "VCMS polish plan",
+      "acceptance": [
+        "GET /api/v1/status zwraca conflicts.count",
+        "Dashboard stat card SSoT Conflicts pokazuje 0 po npm run scan",
+        "Prod czyta deploy-context/conflicts-snapshot.json po deploy"
+      ]
+    },
+    {
+      "id": "VCMS-P2-02",
+      "area": "SCAN",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Severity info/warning/blocking w vcms-scan.js",
+      "audit_source": "DoD roadmap 6.1",
+      "acceptance": [
+        "scan-rules.json conflict_severity map",
+        "conflicts.md summary z blocking/warning/info"
+      ]
+    },
+    {
+      "id": "VCMS-P2-03",
+      "area": "GOVERNANCE",
+      "status": "DONE",
+      "priority": "P2",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Governance audit JSONL append po npm run scan",
+      "audit_source": "DoD roadmap 6.2",
+      "acceptance": [
+        "tools/vcms-audit-log.js append po scan",
+        "data/governance-audit.jsonl lokalnie (gitignored)"
+      ]
+    },
+    {
+      "id": "VCMS-P2-04",
+      "area": "DEMO",
+      "status": "DONE",
+      "priority": "P2",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "HITL demo asset — docs/demo/hitl-demo.md + link w DEMO_SCRIPT",
+      "audit_source": "VCMS_DEMO_SCRIPT.md 50-62s"
+    },
+    {
+      "id": "VCMS-VIDEO",
+      "area": "PORTFOLIO",
+      "status": "TODO",
+      "priority": "P1",
+      "repo": "services",
+      "title": "Nagranie demo 75s + videos.vcms.url (Dowódca)",
+      "note": "DEFERRED do końca polish. Dowolne narzędzie (Loom/Vimeo/OBS). Handoff: docs/handoffs/2026-06-16-vcms-video-ready.md",
+      "acceptance": [
+        "Nagranie wg VCMS_DEMO_SCRIPT.md",
+        "services proof.ts videos.vcms.url + ready: true",
+        "Redeploy services (Zasada 11)"
+      ],
+      "definition_of_done": "DoD §D FULL GO; scorecard werdykt FULL GO portfolio"
+    },
+    {
+      "id": "VCMS-P3-01",
+      "area": "SCAN",
+      "status": "TODO",
+      "priority": "P2",
+      "repo": "flex-vcms",
+      "title": "tools/vcms-semantic-check.js (G3 LIVE-AUDIT)",
+      "audit_source": "docs/audits/2026-06-15-LIVE-AUDIT-FLASH.md"
+    },
+    {
+      "id": "VCMS-P3-02",
+      "area": "UX",
+      "status": "TODO",
+      "priority": "P2",
+      "repo": "flex-vcms",
+      "title": "SSoT Health Score widget (roadmap 6.3)",
+      "audit_source": "docs/VCMS_SALES_REPORT.md §6.3"
     }
   ]
 }

@@ -1,0 +1,58 @@
+{
+  "videoInput": "docs/demo/input.mp4",
+  "audioInput": "docs/demo/ambient.mp3",
+  "output": "docs/demo/final-portfolio-demo.mp4",
+  "targetWidth": 1920,
+  "targetHeight": 1080,
+  "ambientVolume": 0.12,
+  "style": {
+    "fontName": "Arial",
+    "fontSize": 40,
+    "primaryColour": "&H00FFFFFF",
+    "outlineColour": "&H00050608",
+    "backColour": "&H90050608",
+    "bold": 0,
+    "italic": 0,
+    "borderStyle": 3,
+    "outline": 2,
+    "shadow": 0,
+    "alignment": 2,
+    "marginL": 48,
+    "marginR": 48,
+    "marginV": 60
+  },
+  "subtitles": [
+    {
+      "time": [0.5, 5.5],
+      "text": "Most see the website. This is the governance layer behind it."
+    },
+    {
+      "time": [6.5, 13.0],
+      "text": "VCMS orchestrates 8 repositories, enforcing a Single Source of Truth."
+    },
+    {
+      "time": [14.5, 21.0],
+      "text": "Before any deployment, a system-wide scan is executed."
+    },
+    {
+      "time": [22.0, 29.0],
+      "text": "It detects code drifts across canonical brains, backlogs, and guardrails."
+    },
+    {
+      "time": [30.0, 39.0],
+      "text": "Zero conflicts means we are clear to ship. Every action is secured in the audit log."
+    },
+    {
+      "time": [41.0, 48.0],
+      "text": "KODA, our read-only RAG assistant, analyzes the ecosystem context in real-time."
+    },
+    {
+      "time": [49.0, 57.0],
+      "text": "But AI doesn't publish autonomously. The system proposes; a human approves."
+    },
+    {
+      "time": [62.0, 68.5],
+      "text": "Fewer surprises. Controlled changes. Documented handovers."
+    }
+  ]
+}

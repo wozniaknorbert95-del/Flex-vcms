@@ -26,8 +26,8 @@ Jedna strona prawdy przed pokazaniem VCMS zawodowcom. Bez marketingu.
 
 | Obietnica | Status | Gdzie naprawdę |
 |-----------|--------|----------------|
-| LLM Gateway / KODA chat | **Wyłączone** w tej wersji | Plan: Agent OS integration |
-| Governance audit log (kto/co/dlaczego) | **Roadmap** | Handoffy markdown = lightweight |
+| LLM Gateway / KODA chat | **Aktywne** (RAG read-only) | `POST /api/chat` · wymaga klucza w `.env` |
+| Governance audit log (kto/co/dlaczego) | **Częściowo** | `data/governance-audit.jsonl` + dashboard Action Log |
 | Human approval (HITL) | **Inny produkt** | `agent-os-ui` |
 | Agent cards (UI) | **Roadmap** | `docs/agents/agent-boundaries.md` = prose |
 | Deep Scan z VPS | **Lokalnie only** | `repos.yaml` ma ścieżki Windows |
@@ -38,9 +38,9 @@ Jedna strona prawdy przed pokazaniem VCMS zawodowcom. Bez marketingu.
 1. `npm run scan`
 2. Otwórz `docs/ecosystem/conflicts.md` (0 lub wykryte problemy)
 3. Otwórz `docs/ecosystem/map.md`
-4. Opcjonalnie: `npm start` → `http://localhost:8001/` → zakładka Ecosystem
+4. Opcjonalnie: `npm start` → `http://localhost:8001/` → zakładka **KODA** (wymaga klucza LLM w `.env`)
 
-**Nie pokazuj:** Control Lab chat, metryki LLM, Deep Scan na prod VPS.
+**Nie pokazuj:** Deep Scan na prod VPS bez laptopa dev. **Nie myl:** KODA (analiza) ≠ Agent OS (egzekucja).
 
 ## Powiązane
 

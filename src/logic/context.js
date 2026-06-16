@@ -99,12 +99,24 @@ const getContextData = async (vcmsBase, githubBase) => {
 
             for (const mod of manifest.modules) {
                 const modKey = `PROJECT_CONTEXT_${mod.name.replace(/[\.\-]/g, '_')}`;
-                const brainPath = path.join(contextDir, mod.name, mod.brain);
-                const todoPath = path.join(contextDir, mod.name, mod.todo);
-                
+                const brainPath = mod.brain
+                    ? path.join(contextDir, mod.name, mod.brain)
+                    : null;
+                const todoPath = mod.todo
+                    ? path.join(contextDir, mod.name, mod.todo)
+                    : null;
+
                 consolidated[modKey] = {
-                    [mod.brain]: await safeExists(brainPath) ? await fs.readFile(brainPath, 'utf8') : '[BRAK BRAIN]',
-                    [mod.todo]: await safeExists(todoPath) ? await fs.readFile(todoPath, 'utf8') : '[BRAK TODO]'
+                    ...(mod.brain ? {
+                        [mod.brain]: brainPath && await safeExists(brainPath)
+                            ? await fs.readFile(brainPath, 'utf8')
+                            : '[BRAK BRAIN]'
+                    } : {}),
+                    ...(mod.todo ? {
+                        [mod.todo]: todoPath && await safeExists(todoPath)
+                            ? await fs.readFile(todoPath, 'utf8')
+                            : '[BRAK TODO]'
+                    } : {})
                 };
             }
             return consolidated;

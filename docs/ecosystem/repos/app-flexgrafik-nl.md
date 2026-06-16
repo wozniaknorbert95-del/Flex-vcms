@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
-updated: "2026-05-11T09:59:48.398Z"
+updated: "2026-06-16T19:07:41.283Z"
 repo_name: "app.flexgrafik.nl"
 repo_slug: "app-flexgrafik-nl"
 repo_type: "game"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md"
-last_handoff_mtime: "2026-05-11T09:59:03.073Z"
+last_handoff_rel: "docs/handoffs/2026-06-12-COMPLETE-HANDOFF.md"
+last_handoff_mtime: "2026-06-12T09:03:25.929Z"
 warnings: []
 links_agents: ["AGENTS.md"]
-links_cursor_rules: [".cursor/rules/app-flexgrafik-e2e.mdc", ".cursor/rules/app-flexgrafik-game.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-11T09:59:03.073Z)", "docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md (2026-05-11T09:59:03.073Z)", "docs/handoffs/2026-04-16-level-end-challenge-product-backlog.md (2026-05-11T09:59:03.063Z)"]
+links_cursor_rules: [".cursor/rules/app-flexgrafik-e2e.mdc", ".cursor/rules/app-flexgrafik-game.mdc", ".cursor/rules/app-flexgrafik-session-end.mdc"]
+links_recent_handoffs: ["docs/handoffs/2026-06-12-COMPLETE-HANDOFF.md (2026-06-12T09:03:25.929Z)", "docs/handoffs/2026-06-12-p2-test-naming-audit-complete.md (2026-06-12T08:48:41.209Z)", "docs/handoffs/README.md (2026-06-12T08:48:41.209Z)"]
 ---
 
 ## app.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-04-19-level-end-ui-remediation-shipp
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md` (2026-05-11T09:59:03.073Z)
+- **Last handoff**: `docs/handoffs/2026-06-12-COMPLETE-HANDOFF.md` (2026-06-12T09:03:25.929Z)
 
 ## Quick links (by file type)
 
@@ -43,10 +43,11 @@ links_recent_handoffs: ["docs/handoffs/2026-04-19-level-end-ui-remediation-shipp
 - **Cursor rules**:
   - `.cursor/rules/app-flexgrafik-e2e.mdc`
   - `.cursor/rules/app-flexgrafik-game.mdc`
+  - `.cursor/rules/app-flexgrafik-session-end.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-04-19-level-end-ui-remediation-shipped.md (2026-05-11T09:59:03.073Z)`
-  - `docs/handoffs/2026-04-20-audit-deploy-post-result-challenge-ux.md (2026-05-11T09:59:03.073Z)`
-  - `docs/handoffs/2026-04-16-level-end-challenge-product-backlog.md (2026-05-11T09:59:03.063Z)`
+  - `docs/handoffs/2026-06-12-COMPLETE-HANDOFF.md (2026-06-12T09:03:25.929Z)`
+  - `docs/handoffs/2026-06-12-p2-test-naming-audit-complete.md (2026-06-12T08:48:41.209Z)`
+  - `docs/handoffs/README.md (2026-06-12T08:48:41.209Z)`
 
 ## Back
 

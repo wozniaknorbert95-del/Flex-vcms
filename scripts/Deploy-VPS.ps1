@@ -146,6 +146,16 @@ if (-not $WhatIf) {
     scp -r "$distLocal\*" "${SshTarget}:$remoteDist/"
 }
 
+$conflictsLocal = Join-Path $RepoRoot "docs\ecosystem\conflicts.md"
+if (Test-Path $conflictsLocal) {
+    $remoteEco = ($RemotePath.TrimEnd("/") + "/docs/ecosystem")
+    Write-Plan "scp conflicts.md -> ${SshTarget}:$remoteEco/"
+    if (-not $WhatIf) {
+        ssh $SshTarget "mkdir -p `"$remoteEco`""
+        scp $conflictsLocal "${SshTarget}:$remoteEco/conflicts.md"
+    }
+}
+
 $remoteShell = "cd `"$RemotePath`"; rm -rf `"$remoteCtxFinal`"; mv `"$remoteCtxTmp`" `"$remoteCtxFinal`"; npm ci --omit=dev; pm2 reload ecosystem.config.js --update-env"
 Write-Plan "ssh $SshTarget `"$remoteShell`""
 if (-not $WhatIf) {

@@ -91,6 +91,21 @@ function sync() {
 
     // 4. Save manifest
     fs.writeFileSync(path.join(CONTEXT_DIR, 'manifest.json'), JSON.stringify(manifest, null, 2));
+
+    // 5. Conflicts snapshot for prod dashboard (from last local scan)
+    const conflictsPath = path.join(__dirname, '..', 'docs', 'ecosystem', 'conflicts.md');
+    const snapshotPath = path.join(CONTEXT_DIR, 'conflicts-snapshot.json');
+    try {
+        const { parseConflictsReport } = require('../src/logic/conflicts');
+        const parsed = parseConflictsReport(conflictsPath);
+        if (parsed) {
+            fs.writeFileSync(snapshotPath, JSON.stringify(parsed, null, 2));
+            console.log('[VCMS Sync] Conflicts snapshot bundled for prod dashboard');
+        }
+    } catch (e) {
+        console.warn(`[VCMS Sync] Conflicts snapshot skipped: ${e.message}`);
+    }
+
     console.log('[VCMS Sync] Context manifest generated successfully.');
 }
 

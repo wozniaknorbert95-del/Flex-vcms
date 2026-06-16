@@ -7,7 +7,7 @@ updated: "2026-04-09"
 # SESSION BRIEF — [YYYY-MM-DD] — [TEMAT]
 
 > **Jak używać:**
-> Wklej ten blok jako START PROMPTU do nowego czatu (AG / Gemini CLI).
+> Wklej ten blok jako START PROMPTU do nowego czatu (OpenCode / Cursor Agent).
 > Wypełnij pola w `[...]`. Nie zmieniaj kluczy — muszą być maszynowo parsowalne.
 >
 > SSoT: `docs/core/session-anchor-and-handoff-spec.md`
@@ -78,7 +78,7 @@ Title: [tytuł zadania]
 | `repos.yaml` | Gdy dodajesz / zmieniasz moduł |
 | `docs/core/security-policy.md` | Przed każdą operacją na plikach |
 
-### P1 — dla Gemini CLI (execution)
+### P1 — dla OpenCode / Cursor Agent (execution)
 
 | Plik | Kiedy |
 |------|-------|

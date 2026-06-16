@@ -7,6 +7,9 @@ const path = require('path');
 const { execFile } = require('child_process');
 const yaml = require('js-yaml');
 const { getContextData } = require('../logic/context');
+const { getConflictsSummary } = require('../logic/conflicts');
+const { runKodaChat } = require('../logic/koda-chat');
+const { readRecentEvents } = require('../../tools/vcms-audit-log');
 
 // --- Configuration ---
 const vcmsBase = process.env.VCMS_DIR || process.cwd();
@@ -47,13 +50,30 @@ const scanLimiter = rateLimit({
     legacyHeaders: false,
 });
 
+const chatLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 30,
+    message: { error: 'Limit chatu KODA — max 30 wiadomości na 15 minut.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const chatSchema = Joi.object({
+    messages: Joi.array().items(
+        Joi.object({
+            role: Joi.string().valid('user', 'model', 'assistant').required(),
+            parts: Joi.array().items(
+                Joi.object({ text: Joi.string().max(8000).required() })
+            ).optional(),
+            content: Joi.string().max(8000).optional(),
+            text: Joi.string().max(8000).optional()
+        }).or('parts', 'content', 'text')
+    ).min(1).max(20).required()
+});
+
 // --- In-Memory Metrics Store ---
 const metrics = {
-    total_requests: 0,
-    last_latency: 0,
-    last_status: 'unknown',
-    start_time: Date.now(),
-    history: [] 
+    start_time: Date.now()
 };
 
 const uncleTips = [
@@ -63,6 +83,20 @@ const uncleTips = [
     "Standard 'Swiss Watch' (V6.5) wymaga, by każdy produkt miał prawidłowy SKU. Sprawdzaj product-master-table.json.",
     "Pamiętaj o 'Zasadzie 11'. Tylko ręczny deploy na produkcję daje Ci 100% pewności."
 ];
+
+const uncleTipsEn = [
+    "Good latency is the baseline. If it spikes above 1500ms, check VPS load or OpenRouter limits.",
+    "Always run 'node tools/vcms-scan.js' before major changes. SSoT is your only compass.",
+    "403 errors in production? Usually misconfigured Express or Nginx 'trust proxy'.",
+    "Swiss Watch standard (V6.5) requires every product to have a valid SKU. Check product-master-table.json.",
+    "Remember Rule 11. Manual production deploy only gives you 100% certainty."
+];
+
+function pickUncleTip(req) {
+    const locale = req.query.locale === 'en' ? 'en' : 'pl';
+    const pool = locale === 'en' ? uncleTipsEn : uncleTips;
+    return pool[Math.floor(Math.random() * pool.length)];
+}
 
 // --- Utilities ---
 const getGitStatus = (repoPath) => {
@@ -95,24 +129,20 @@ const isWindowsPath = (p) => typeof p === 'string' && (/^[A-Za-z]:[/\\]/.test(p)
 
 router.get('/v1/status', pollLimiter, async (req, res) => {
     try {
-        const randomTip = uncleTips[Math.floor(Math.random() * uncleTips.length)];
+        const randomTip = pickUncleTip(req);
         const contextData = await getContextData(vcmsBase, githubBase);
         const knowledgeCount = Object.keys(contextData.VCMS_INTERNAL_KNOWLEDGE).length;
+        const conflicts = getConflictsSummary(vcmsBase);
 
         res.json({
             status: 'OK',
             uptime: Math.floor((Date.now() - metrics.start_time) / 1000),
-            llm: {
-                last_status: metrics.last_status,
-                last_latency_ms: metrics.last_latency,
-                total_requests: metrics.total_requests,
-                history: metrics.history.slice(-10).reverse()
-            },
             knowledge: {
                 file_count: knowledgeCount
             },
+            conflicts,
             uncle_tip: randomTip,
-            version: '1.3.0-hardened'
+            version: '3.0.0-hardened'
         });
     } catch (err) {
         res.status(500).json({ error: 'Błąd podczas pobierania statusu systemu.' });
@@ -233,6 +263,21 @@ router.get('/v1/backlog', readLimiter, async (req, res) => {
     }
 });
 
+router.get('/v1/audit-log', readLimiter, async (req, res) => {
+    try {
+        const limit = Math.min(parseInt(req.query.limit, 10) || 25, 100);
+        const entries = readRecentEvents(limit);
+        res.json({
+            status: 'ok',
+            source: 'data/governance-audit.jsonl',
+            count: entries.length,
+            entries
+        });
+    } catch (err) {
+        res.status(500).json({ error: 'Nie udało się odczytać audit log.' });
+    }
+});
+
 router.get('/v1/ecosystem/status', readLimiter, async (req, res) => {
     try {
         const reposPath = path.join(vcmsBase, 'repos.yaml');
@@ -270,6 +315,33 @@ router.get('/v1/ecosystem/status', readLimiter, async (req, res) => {
     } catch (err) {
         console.error(`[Ecosystem API Error] ${err.message}`);
         res.status(500).json({ status: 'error', error: 'Błąd skanowania ekosystemu.' });
+    }
+});
+
+router.post('/chat', chatLimiter, apiLimiter, async (req, res) => {
+    const { error, value } = chatSchema.validate(req.body || {});
+    if (error || !value?.messages?.length) {
+        return res.status(400).json({
+            error: error?.details?.[0]?.message || 'Pole "messages" jest wymagane.'
+        });
+    }
+
+    try {
+        const contextData = await getContextData(vcmsBase, githubBase);
+        const result = await runKodaChat(value.messages, contextData);
+
+        if (!result.ok) {
+            return res.status(result.status || 502).json({ error: result.error });
+        }
+
+        res.json({
+            message: result.message,
+            provider: result.provider,
+            model: result.model
+        });
+    } catch (err) {
+        console.error(`[KODA Error] ${err.message}`);
+        res.status(500).json({ error: 'Błąd przetwarzania chatu KODA.' });
     }
 });
 
