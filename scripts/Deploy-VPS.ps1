@@ -52,7 +52,7 @@ $requiredRootFiles = @(
     "flex-vcms-todo.json",
     "brain.md"
 )
-$requiredDirectories = @("public", "src", "deploy-context", "scripts")
+$requiredDirectories = @("public", "src", "tools", "deploy-context", "scripts")
 
 function Write-Plan {
     param([string]$Line)
