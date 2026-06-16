@@ -34,7 +34,7 @@ aside {
     padding-left: 0.5rem;
 }
 
-.brand i { color: var(--accent); filter: drop-shadow(0 0 8px var(--accent-glow)); }
+.brand i { color: var(--accent-primary, var(--accent)); filter: drop-shadow(0 0 8px var(--accent-glow)); }
 .brand h1 {
     margin: 0;
     font-size: 1.2rem;

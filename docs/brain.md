@@ -1,27 +1,32 @@
 ---
 status: "[STABLE]"
 title: "VCMS Brain — Dowodca SSoT (Rendered)"
-updated: "2026-04-09"
+updated: "2026-06-16"
 ---
 
-> Kanoniczny plik jest w root: `BRAIN.md`.  
-> Ten dokument istnieje po to, żeby VitePress mógł go renderować pod `/brain`.
+> Kanoniczny plik jest w root: [`brain.md`](../brain.md).  
+> Ten dokument jest mirrorem do VitePress (`/brain`). Przy zmianach edytuj root, potem zsynchronizuj tutaj.
 
 ---
 
 ## FlexGrafik VCMS — BRAIN (Operational Contract)
 
 **owner**: Norbert Wozniak (Dowodca)  
-**audience**: Dowodca / Antigravity (AG) / Gemini CLI
+**audience**: Dowodca / OpenCode / Cursor Agent
 
 ## DLA KOGO JEST TEN BRAIN (kontrakt)
 
 - **Dowodca (Ty)**: Twoj kompas decyzyjny. Gdy masz chaos → wracasz tutaj, wybierasz 1 modul i 1 zadanie.
-- **Antigravity (AG)**: Orkiestracja sesji. Po przeczytaniu masz egzekwowac `workflow-manual.md`, nie „pomysly z kosmosu”.
-- **Gemini CLI**: Warstwa wykonawcza. Po przeczytaniu masz stosowac tylko „deploy gates” i checklisty. Bez autonapraw na produkcji.
+- **OpenCode (Agent)**: Coding agent CLI. Po przeczytaniu egzekwujesz `workflow-manual.md`, pracujesz w trybie Plan/Build.
+- **Cursor (IDE)**: Cockpit codzienny. MCP, inline agents, live-debug przez CDP.
 
 ## Jedno zdanie (misja)
-VCMS ma trzymac Twoj workflow w ryzach: **jedno zrodlo prawdy, jedna sesja = jedno zadanie, zawsze handoff**.
+
+**Versioned Content Management & Supervision** — warstwa governance ekosystemu FlexGrafik: skan repozytoriów, wykrywanie konfliktów SSoT, mapa modułów, handoffy i command center.
+
+Operacyjnie: **jedno źródło prawdy, jedna sesja = jedno zadanie, zawsze handoff**.
+
+Pełna granica produktu: [`VCMS_PORTFOLIO_TRUTH.md`](./VCMS_PORTFOLIO_TRUTH.md).
 
 ---
 
@@ -75,26 +80,23 @@ Zrodlo: `docs/core/global-rules.md`.
 
 ---
 
-## 4) Aktywny ekosystem (moduly + rola)
+## 4) Aktywny ekosystem (8 repo — warstwy)
 
-Kanoniczny rejestr modulow: `repos.yaml`.
+Kanoniczny rejestr: `repos.yaml` · mapa: `docs/ecosystem/map.md` · skan: `npm run scan`.
 
-### Moduly (5)
-- **zzpackage.flexgrafik.nl** — Wizard / Cash Engine
-  - Canonical backlog: `docs/audit-todo.json`
-  - Canonical brain: `MASTER-BRAIN.md`
-- **jadzia-core** — OS operacyjny / automaty / dane
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **app.flexgrafik.nl** — gra / lead magnet
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **flexgrafik-nl** — portal zaufania / authority
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **flexgrafik-meta** — meta: strategia + rules + workflow + cohesion
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `docs/core/master-plan.md`
+Zobacz pełną tabelę warstw w [`brain.md`](../brain.md) §4 i §4.1 (Governance / Produkty / AI).
+
+---
+
+## 4.1) Granice produktu
+
+| Capability | Gdzie | Status |
+|------------|-------|--------|
+| Skan, konflikty SSoT | flex-vcms | PROVEN |
+| HITL approval UI | agent-os-ui | DEMO |
+| LLM chat | wyłączone w VCMS | PLANNED |
+
+Szczegóły: [`VCMS_PORTFOLIO_TRUTH.md`](./VCMS_PORTFOLIO_TRUTH.md).
 
 ---
 
@@ -115,7 +117,7 @@ Kanoniczny rejestr modulow: `repos.yaml`.
 
 ## 5.1) Weekly Review (5 minut, raz w tygodniu)
 
-**DLA KOGO**: Dowodca + AG (jako prowadzący).
+**DLA KOGO**: Dowodca + agent prowadzacy.
 
 **Cel**: utrzymac kierunek i nie gubic sie w backlogach.
 
@@ -159,11 +161,11 @@ Wczytaj:
 - backlog modulu (np. `zzpackage.flexgrafik.nl/docs/audit-todo.json`)
 - ostatni handoff modulu (`docs/handoffs/*` najnowszy)
 
-Output od AG po /vibe-init:
+Output od agenta po /vibe-init:
 - `STATUS: Faza 1, Krok 1 (/vibe-init)` + modul + branch + cel sesji (2 zdania)
 - 1–3 zadania z backlogu (kandydaci)
 
-### DLA Gemini CLI (Execution / Deploy)
+### DLA OpenCode / Cursor Agent (Execution / Deploy Prep)
 Przed deploy:
 - checklista: `docs/checklists/prep-deploy.md`
 - diff: `git diff` (w module)
@@ -177,7 +179,7 @@ Po deploy:
 
 ## 8) Session Exit Checklist (1 ekran, zawsze na koniec)
 
-**DLA KOGO**: Dowodca + AG.
+**DLA KOGO**: Dowodca + agent prowadzacy.
 
 Jesli jakikolwiek punkt jest NIE / NIE WIEM → **STOP** (nie „zamykać sesji na szybko”).
 
@@ -188,6 +190,34 @@ Jesli jakikolwiek punkt jest NIE / NIE WIEM → **STOP** (nie „zamykać sesji 
 - [ ] Jesli byl deploy: **prep-deploy checklist** odhaczona + smoke test wykonany.
 - [ ] Jesli sesja utknela: zapisany **SESSIONANCHOR** (ponizej) + 1 zdanie *dlaczego utknelo*.
 
+---
+
+## 9) VCMS Command Center (Instrukcja Obslugi)
+
+Nowoczesne centrum dowodzenia (PH4-014) integruje wiedze z calego ekosystemu.
+
+### Jak to dziala (SSoT Sync)
+1. **Lokalnie**: `tools/vcms-sync-context.js` zbiera `brain.md` i `todo.json` z repozytoriów.
+2. **Deploy**: `Deploy-VPS.ps1` uruchamia sync i wysyla paczke na serwer (Atomic Swap).
+3. **Na serwerze**: Dashboard czyta manifest i wyswietla stan systemu.
+
+### Governance tab (dashboard)
+- Zakładka **Governance** (`npm start` → `http://localhost:8001/`) — zakres produktu, Portfolio Truth, Readiness Audit.
+- **LLM chat wyłączony** — brak `/api/chat`. AI: Agent OS.
+- Skan: `npm run scan` → `docs/ecosystem/conflicts.md`.
+
+### Widgety i LEDy
+- **Next Action**: `flex-vcms-todo.json`
+- **Context Health**: HEALTHY (&lt;24h) · STALE (&gt;24h) · MISSING (brak SSoT)
+
+### 9.1 UI/UX (dashboard)
+
+- **SSoT tokenów:** [`VCMS_UI_TOKENS.md`](./design/VCMS_UI_TOKENS.md) · `public/tokens.css`
+- **Motyw:** `<body data-app="flex-vcms">` — akcent **fiolet** (`--accent-primary`), nie emerald
+- **LEDy:** `led--healthy` / `led--stale` / `led--missing` → `fx-money` / `fx-calm` / `fx-time`
+- **Governance tab:** `panel panel--governance`
+
+---
+
 ### SESSIONANCHOR (gdy przerywamy bez stresu)
 Kanoniczny format i walidacja: [session-anchor-and-handoff-spec.md](/core/session-anchor-and-handoff-spec)
-

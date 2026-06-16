@@ -131,11 +131,13 @@ body[data-app="flex-vcms"] .btn-outline {
 
 /* Context Health LEDs */
 body[data-app="flex-vcms"] .led {
+  display: inline-block;
   width: 0.6rem;
   height: 0.6rem;
   border-radius: 999px;
   border: 1px solid #111827;
   flex-shrink: 0;
+  vertical-align: middle;
 }
 
 body[data-app="flex-vcms"] .led--healthy {
