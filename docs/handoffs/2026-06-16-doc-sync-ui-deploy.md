@@ -12,14 +12,24 @@ status: DONE
 - Dashboard UI: `public/tokens.css`, fiolet governance, LED `fx-*`, `panel--governance`
 - Spec agentów: `docs/design/VCMS_UI_TOKENS.md`, brain §9.1, README Design
 - Senior review: mirror §9 w `docs/brain.md`, LED `inline-block`, `.brand i` → accent-primary
-- Commit: `a189e14` (+ follow-up polish commit)
-- Deploy VPS: `Deploy-VPS.ps1 -SshTarget root@185.243.54.115`
+- Commit: `a189e14`, `d17776a` (senior polish)
+- **Git push:** `feat/audit-3.0-knowledge-index` → origin OK
+- Deploy VPS: **BLOCKED z agenta** — SSH `:22` timeout (IP) / host key (hostname). **Dowódca uruchamia lokalnie** (poniżej).
 
 ## DOWÓD
 
+- `npm run scan` → Conflicts: 0
 - Lokalnie: `npm start` → akcent fiolet, Governance border, Context Health LEDy
-- Prod health: `ssh root@185.243.54.115 "curl -s http://127.0.0.1:8001/health"`
-- Prod tokens: `curl -s https://cmd.flexgrafik.nl/tokens.css` (po Basic Auth w przeglądarce)
+- Prod (przed deploy): stary bundle — po deploy sprawdź `tokens.css` zawiera `#8b5cf6`
+
+## DEPLOY (Dowódca — lokalny terminal)
+
+```powershell
+cd C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms
+.\scripts\Deploy-VPS.ps1 -SshTarget root@185.243.54.115
+```
+
+Oczekiwane: `Health Check: PASSED`. Potem w przeglądarce: `https://cmd.flexgrafik.nl/` → fioletowy akcent.
 
 ## NASTĘPNY KROK
 
@@ -29,6 +39,6 @@ status: DONE
 
 ## SESSIONANCHOR
 
-- **ANCHOR:** branch `feat/audit-3.0-knowledge-index`, deploy prod z tokens.css
-- **NEXT:** Cursor prompt → repo `services` (KROK 1–4 z VCMS_CURSOR_PROMPT_UPDATED.md)
-- **BLOCKER:** brak — video Loom (Dowódca) nadal NO-GO na pełny DoD §D
+- **ANCHOR:** branch `feat/audit-3.0-knowledge-index` pushed; prod deploy czeka na lokalny SSH
+- **NEXT:** (1) Deploy lokalnie (2) Cursor prompt → repo `services`
+- **BLOCKER:** SSH do VPS z środowiska agenta — timeout; deploy jednym poleceniem u Dowódcy
