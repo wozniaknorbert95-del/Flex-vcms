@@ -6,7 +6,7 @@ updated: "2026-04-11"
 
 # PH4-011 — jedna sciezka operatorska
 
-Pelny plan krok-po-kroku dla Antigravity (sesja na maszynie Dowódcy): [PH4-011 — plan Antigravity](/reference/ph4-011-antigravity-execution-plan).
+Ten runbook prowadzi operatora przez deploy, smoke i mobile check bez zależności od konkretnego agenta. Historyczny plan starego stacka został przeniesiony do `docs/archive/`.
 
 Ten dokument spinacza kroki **poza agentem** (VPS, Basic Auth, telefon). Agenty wg `AGENTS.md` (root repo) i [Agent boundaries](/agents/agent-boundaries) nie wykonuja deployu na prod za Ciebie.
 

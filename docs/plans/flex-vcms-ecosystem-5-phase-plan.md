@@ -4,7 +4,7 @@ title: "FlexGrafik Ecosystem — 5‑Phase Stabilization Plan (Local‑First)"
 owner: "Norbert Wozniak (Dowodca)"
 updated: "2026-04-09"
 scope_root: "C:\\Users\\FlexGrafik\\FlexGrafik\\github"
-vcms_root: "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"
+vcms_root: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"
 ---
 
 ## Cel planu (jedno zdanie)
@@ -13,7 +13,7 @@ Zrobic z Flex‑VCMS lokalny **system operacyjny** do zarzadzania modulami FlexG
 ## Definicje
 - **Modul**: osobne repozytorium w `C:\\Users\\FlexGrafik\\FlexGrafik\\github` (np. `zzpackage.flexgrafik.nl`, `jadzia-core`).
 - **Meta**: repo `flexgrafik-meta` (strategia makro, global rules, workflow, cohesion).
-- **VCMS**: `C:\\Users\\FlexGrafik\\Desktop\\flex-vcms` (dashboard + dokumentacja + asystent workflow).
+- **VCMS**: `C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms` (dashboard + dokumentacja + asystent workflow).
 - **Canonical**: jeden wskazany plik per typ (brain/todo/rules), reszta to mirror albo archive.
 
 ## Zasady (hard constraints)
@@ -102,8 +102,8 @@ Asystent prowadzi sesje jak ksiazka: wymusza kroki z `workflow-manual.md` i konc
    - context packet (lista plikow do zaladowania)
    - checklisty (pre-commit, prep-deploy, verification)
 2) Generator „Context Packet” dla:
-   - Antigravity (orchestrator)
-   - Gemini CLI (execution / deploy steps)
+   - OpenCode / Cursor Agent (orchestrator)
+   - OpenCode Builder (execution / deploy prep)
 3) Lokalne logi sesji w `docs/journal/` (z szablonu `tmpl-session-log.md`).
 
 ### Kryteria sukcesu
@@ -131,4 +131,3 @@ Po ukonczeniu Fazy N:
    - zamykamy zadania Fazy N
    - dodajemy zadania Fazy N+1
 2) Dopisujemy krótki handoff do `docs/handoffs/` w VCMS (co zrobione, co dalej, co zablokowalo).
-

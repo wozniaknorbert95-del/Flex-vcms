@@ -12,10 +12,14 @@ node_modules
 dist
 dist-ssr
 *.local
+data/
+!data/README.md
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+.cursor/
+.opencode/
 .idea
 .DS_Store
 *.suo
@@ -30,9 +34,14 @@ dist-ssr
 .htpasswd
 .htpasswd.*
 
-# Output
-docs/.vitepress/dist
+# Demo video pipeline (local captures — not committed)
+docs/demo/input.mp4
+docs/demo/final-portfolio-demo.mp4
+docs/demo/.generated-subtitles.ass
+docs/demo/.record-raw.webm
+docs/demo/ambient.mp3
 docs/.vitepress/cache
+data/vcms.db
 
 # Lokalne raporty agentow (nie SSoT repo)
 raport_ph4_uplift.md

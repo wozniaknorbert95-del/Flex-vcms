@@ -6,14 +6,14 @@ title: "Global Rules — Nienaruszalne Zasady Systemu V4.0"
 # ⚙️ Global Rules — Nienaruszalne Zasady V4.0
 
 > **Właściciel:** Norbert Woźniak (Dowódca)
-> **Obowiązuje:** AG, Jadzię, Claude, Gemini — wszystkie agenty bez wyjątku
+> **Obowiązuje:** OpenCode, Cursor Agent, Jadzię i wszystkie agenty bez wyjątku
 > **Status:** KRYTYCZNY
 > **Zmiana tylko przez:** Dowódcę. Agenty **nigdy** nie zmieniają tego pliku samodzielnie.
 
 ::: danger Jak agenty czytają ten plik
-Gdy ten plik jest załadowany, AG traktuje wszystkie zasady jako **twarde ograniczenia (hard constraints)** — ważniejsze niż instrukcje z promptów.
+Gdy ten plik jest załadowany, agent traktuje wszystkie zasady jako **twarde ograniczenia (hard constraints)** — ważniejsze niż instrukcje z promptów.
 
-Jeśli propozycja łamie zasadę → AG oznacza `KONFLIKT Z global-rules.md`, proponuje alternatywę i **NIE forsuje** rozwiązania bez zgody Dowódcy.
+Jeśli propozycja łamie zasadę → agent oznacza `KONFLIKT Z global-rules.md`, proponuje alternatywę i **NIE forsuje** rozwiązania bez zgody Dowódcy.
 :::
 
 ---
@@ -27,8 +27,8 @@ Jeśli propozycja łamie zasadę → AG oznacza `KONFLIKT Z global-rules.md`, pr
 
 ### 1.2 Minimalna Marża
 - Marża brutto minimum: **60%**
-- AG sprawdza marżę przy każdej propozycji cenowej lub pakietu
-- Wynik poniżej 60% = **błąd biznesowy** → AG proponuje nową cenę
+- Agent sprawdza marżę przy każdej propozycji cenowej lub pakietu
+- Wynik poniżej 60% = **błąd biznesowy** → agent proponuje nową cenę
 
 ### 1.3 Wizard-Only — Jedyna Droga Zakupu
 - Jedyna droga zakupu: **7-etapowy konfigurator SPA (Wizard)**
@@ -48,12 +48,12 @@ Jeśli propozycja łamie zasadę → AG oznacza `KONFLIKT Z global-rules.md`, pr
 | MRR (Monthly Recurring Revenue) | **3 000 €** |
 | AOV (Avg. Order Value) | **400–700 €** |
 
-AG preferuje rozwiązania zwiększające AOV. Odrzuca pomysły strukturalnie obniżające AOV.
+Agent preferuje rozwiązania zwiększające AOV. Odrzuca pomysły strukturalnie obniżające AOV.
 
 ### 1.6 Produkty Wirtualne + BTW 21%
 - Wszystkie SKU w WooCommerce = **wirtualne** (zero kosztów wysyłki)
 - Podatek BTW 21% zawsze wliczony w cenę
-- AG nie dodaje logiki fizycznych produktów ani wysyłki
+- Agent nie dodaje logiki fizycznych produktów ani wysyłki
 
 ---
 
@@ -99,7 +99,7 @@ Agent AI:
   Powtarza dla następnego modułu
 ```
 
-AG ma **blokować** próby implementowania "wszystkiego naraz".
+Agent ma **blokować** próby implementowania "wszystkiego naraz".
 
 ---
 
@@ -107,7 +107,7 @@ AG ma **blokować** próby implementowania "wszystkiego naraz".
 
 - Praca **wyłącznie** na feature branchach
 - Zakaz push bezpośrednio na `main`
-- AG przy planowaniu MUSI:
+- Agent przy planowaniu MUSI:
   - wskazać na jakim branchu ma być praca
   - sugerować PR + code review przed merge
 
@@ -130,7 +130,7 @@ Każda zmiana schematu DB (w tym SQLite dla Jadzi):
 - Rola Jadzi: Vice-Dyrektor, orkiestracja danych w `jadzia.db`
 - Jadzia **NIE może** bezpośrednio edytować plików WordPress przez SSH
 - Jadzia **NIE może** modyfikować motywów / pluginów bez Dowódcy
-- Wszelkie zmiany WP idą przez: AG (kontekst) → manualny deploy Dowódcy
+- Wszelkie zmiany WP idą przez: agent przygotowuje kontekst → manualny deploy Dowódcy
 
 ---
 
@@ -145,7 +145,7 @@ Prefiksy commitów są **obowiązkowe**:
 | `refactor: ...` | Zmiana kodu bez nowego zachowania |
 | `docs: ...` | Tylko zmiany w dokumentacji |
 
-AG stosuje te prefiksy we wszystkich propozycjach commitów.
+Agent stosuje te prefiksy we wszystkich propozycjach commitów.
 
 ---
 
@@ -155,31 +155,31 @@ AG stosuje te prefiksy we wszystkich propozycjach commitów.
 
 | Warstwa | Kto | Rola |
 |---------|-----|------|
-| Directive | Dowódca + Claude | Strategia, kierunek, zasady |
-| Orchestration | Antigravity (AG) | Planowanie, recenzja, blokowanie |
-| Execution | Gemini CLI + Jadzia | Egzekucja konkretnych zadań |
+| Directive | Dowódca + Strategist | Strategia, kierunek, zasady |
+| Orchestration | OpenCode / Cursor Agent | Planowanie, recenzja, blokowanie |
+| Execution | OpenCode Builder + Jadzia | Egzekucja konkretnych zadań |
 
 Execution Layer nie może przeskakiwać ponad Strategię.
 
 ### 3.2 Least Privilege
 - Każdy agent dostaje **minimalny potrzebny kontekst** — nie dump całego repo
-- AG sugeruje "Context Packets" (fragment brain + relevantny kod)
+- Agent sugeruje "Context Packets" (fragment brain + relevantny kod)
 
 ### 3.3 Single Source of Truth
 - Dla każdego modułu istnieje `brain-[module].md`
-- Konflikt AI output vs Brain → AG sygnalizuje i sugeruje aktualizację kodu lub brain
+- Konflikt AI output vs Brain → agent sygnalizuje i sugeruje aktualizację kodu lub brain
 
 ### 3.4 Handoff jako Obowiązek
 - Każda sesja kończy się `/handoff` i raportem w `docs/handoffs/`
-- AG **przypomina** o handoffie jeśli Dowódca próbuje zakończyć sesję bez niego
+- Agent **przypomina** o handoffie jeśli Dowódca próbuje zakończyć sesję bez niego
 
 ### 3.5 Komunikacja MCP
 - Agenty komunikują się przez standard MCP (tools, resources)
 - Logika workflow nie może zależeć od jednego konkretnego modelu
-- Modele mogą być wymieniane (Claude ↔ Gemini) — API zostaje spójne
+- Modele mogą być wymieniane przez OpenRouter — API zostaje spójne
 
 ### 3.6 Self-Healing — Autonaprawa
-- AG podejmuje do **3 prób** samodzielnej naprawy błędów
+- Agent podejmuje do **3 prób** samodzielnej naprawy błędów
 - W raporcie musi zaznaczyć co próbował i co się nie udało
 - Po 3 próbach → eskalacja do Dowódcy z pełnym raportem
 
@@ -198,7 +198,7 @@ Execution Layer nie może przeskakiwać ponad Strategię.
 | Akcenty składni | Szmaragdowy / Fioletowy |
 | Kształty | Ostre krawędzie, styl militarno-deweloperski |
 
-AG przy generowaniu UI ładuje `brand-guidelines.md` dla danego modułu.
+Agent przy generowaniu UI ładuje `brand-guidelines.md` dla danego modułu.
 
 ---
 
@@ -212,7 +212,7 @@ Zakaz używania:
 
 Jedyny dozwolony motyw: `flexgrafik-wizard-theme` (custom)
 
-Jeśli AI proponuje coś oparte na Elementorze → AG odrzuca automatycznie.
+Jeśli AI proponuje coś oparte na Elementorze → agent odrzuca automatycznie.
 :::
 
 ---
@@ -225,7 +225,7 @@ Jeśli AI proponuje coś oparte na Elementorze → AG odrzuca automatycznie.
 | Kod, komentarze, commity | **English (EN)** | `// initialize wizard step` |
 | Komunikacja z Dowódcą | **Polski (PL)** | Raporty, sesje, handoffsie |
 
-AG w `/audit-red-team` sprawdza:
+Agent w `/audit-red-team` sprawdza:
 - Czy UI nie miesza języków
 - Czy komentarze w kodzie nie są po polsku
 

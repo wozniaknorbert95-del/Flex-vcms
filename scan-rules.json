@@ -8,6 +8,8 @@
       "MASTER-BRAIN.md",
       "brain.md",
       "BRAIN.md",
+      "README.md",
+      "SESSION-ANCHOR.md",
       "todo.json",
       "flex-vcms-todo.json"
     ],
@@ -28,6 +30,15 @@
       ".txt"
     ],
     "max_file_bytes": 1048576
+  },
+  "conflict_severity": {
+    "DUPLICATE_TODO": "blocking",
+    "DUPLICATE_BRAIN": "blocking",
+    "CANONICAL_TODO_MISSING": "warning",
+    "CANONICAL_BRAIN_MISSING": "warning",
+    "MISSING_GUARDRAILS": "warning",
+    "MISSING_HANDOFFS": "info",
+    "MISSING_REPO": "blocking"
   },
   "denylist": {
     "paths_contains": [

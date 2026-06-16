@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VCMS Scan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0c0c0c;
+      color: #e5e7ef;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      font-size: 18px;
+      padding: 48px;
+      min-height: 100vh;
+    }
+    .prompt { color: #a855f7; }
+    .dim { color: #6b7280; }
+    .ok { color: #22c55e; }
+    .line { margin-bottom: 8px; white-space: pre-wrap; }
+    #output { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="line"><span class="prompt">PS C:\flex-vcms&gt;</span> <span id="cmd"></span><span id="cursor">█</span></div>
+  <div id="output"></div>
+  <script>
+    const cmd = 'npm run scan';
+    const lines = window.SCAN_LINES || [
+      '> node tools/vcms-scan.js',
+      'Scanning 8 repositories...',
+      'Conflicts: 0',
+      'Written docs/ecosystem/conflicts.md'
+    ];
+    const cmdEl = document.getElementById('cmd');
+    const outEl = document.getElementById('output');
+    const cursor = document.getElementById('cursor');
+    let i = 0;
+    const typeCmd = () => {
+      if (i < cmd.length) {
+        cmdEl.textContent += cmd[i++];
+        setTimeout(typeCmd, 55);
+      } else {
+        cursor.style.display = 'none';
+        setTimeout(showOutput, 400);
+      }
+    };
+    let li = 0;
+    const showOutput = () => {
+      if (li < lines.length) {
+        const div = document.createElement('div');
+        div.className = 'line ' + (lines[li].includes('Conflicts: 0') ? 'ok' : 'dim');
+        div.textContent = lines[li++];
+        outEl.appendChild(div);
+        setTimeout(showOutput, 450);
+      }
+    };
+    setTimeout(typeCmd, 500);
+  </script>
+</body>
+</html>

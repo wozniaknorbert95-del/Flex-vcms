@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FlexGrafik VCMS — Senior Level Master Command Center. Hardened v3.0 Script.">
+    <meta name="theme-color" content="#4c1d95">
+    <title>VCMS Master CMD — System Control</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.363.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+
+    <link rel="stylesheet" href="tokens.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="theme-terminal.css">
+</head>
+<body data-app="flex-vcms">
+    <div id="toast-container"></div>
+
+    <div class="vcms-shell">
+        <div class="vcms-terminal">
+            <div class="vcms-terminal__topbar">
+                <div class="vcms-terminal__dots">
+                    <span class="vcms-terminal__dot vcms-terminal__dot--close"></span>
+                    <span class="vcms-terminal__dot vcms-terminal__dot--min"></span>
+                    <span class="vcms-terminal__dot vcms-terminal__dot--max"></span>
+                </div>
+                <div class="vcms-terminal__title" data-i18n="meta.topbar">flex-vcms :: system control</div>
+                <nav class="vcms-nav" aria-label="Main navigation">
+                    <div class="vcms-nav__item nav-item active" data-tab="dashboard" data-i18n="nav.dashboard">Dashboard</div>
+                    <div class="vcms-nav__item nav-item" data-tab="knowledge" data-i18n="nav.knowledge">Baza Wiedzy</div>
+                    <div class="vcms-nav__item nav-item" data-tab="lab" data-i18n="nav.koda">KODA</div>
+                    <div class="vcms-nav__item nav-item" data-tab="ecosystem" data-i18n="nav.ecosystem">Ekosystem</div>
+                </nav>
+            </div>
+
+            <div class="vcms-terminal__body">
+                <main>
+                    <div id="tab-dashboard" class="tab-content active">
+                        <header class="vcms-header">
+                            <div class="page-title">
+                                <h2 class="vcms-header__title" id="human-status" data-i18n="dashboard.title">System Hardened v3.0</h2>
+                                <p class="vcms-header__subtitle" data-i18n="dashboard.subtitle">Status centralny ekosystemu FlexGrafik</p>
+                                <section class="vcms-tip uncle-tip-container">
+                                    <div class="vcms-tip__label uncle-tip-label" data-i18n="tip.label">Senior's Tip</div>
+                                    <div class="uncle-tip-text" id="uncle-tip-text" data-i18n="tip.loading">Ładowanie mądrości wujka...</div>
+                                </section>
+                            </div>
+                            <div class="tag tag-success" data-i18n="status.hardened_core">Hardened Core</div>
+                        </header>
+
+                        <div class="status-strip vcms-status-grid">
+                            <div class="stat-card vcms-status-item">
+                                <div class="label vcms-status-item__label" data-i18n="status.ecosystem_mode">Ecosystem Mode</div>
+                                <div class="value vcms-status-item__value" id="val-latency">—</div>
+                            </div>
+                            <div class="stat-card vcms-status-item">
+                                <div class="label vcms-status-item__label" data-i18n="status.repo_count">Repo Count</div>
+                                <div class="value vcms-status-item__value" id="val-requests">0</div>
+                            </div>
+                            <div class="stat-card vcms-status-item">
+                                <div class="label vcms-status-item__label" data-i18n="status.uptime">System Uptime</div>
+                                <div class="value vcms-status-item__value" id="val-uptime">0s</div>
+                            </div>
+                            <div class="stat-card vcms-status-item" id="stat-conflicts-card">
+                                <div class="label vcms-status-item__label" data-i18n="status.conflicts">SSoT Conflicts</div>
+                                <div class="value vcms-status-item__value" id="val-conflicts">—</div>
+                            </div>
+                            <div class="stat-card vcms-status-item">
+                                <div class="label vcms-status-item__label" data-i18n="status.knowledge">Knowledge Context</div>
+                                <div class="value vcms-status-item__value" id="val-knowledge">0</div>
+                            </div>
+                        </div>
+
+                        <div class="vcms-grid-panels">
+                            <div class="card panel-card vcms-section">
+                                <div class="vcms-section__head">
+                                    <h3 class="vcms-section__title" data-i18n="context_health.title">Context Health</h3>
+                                    <i data-lucide="refresh-cw" id="btn-refresh-health" class="vcms-icon-btn"></i>
+                                </div>
+                                <div id="context-health-list" class="vcms-log-list context-health-wrap">
+                                    <div class="status-pill"><span class="led"></span> <span data-i18n="context_health.checking">Checking...</span></div>
+                                </div>
+                            </div>
+
+                            <div class="backlog-widget vcms-section">
+                                <div class="vcms-section__head">
+                                    <span class="text-accent vcms-section__title-inline" data-i18n="backlog.next_priority">Next Priority</span>
+                                    <span id="backlog-sync-info" class="vcms-dim">...</span>
+                                </div>
+                                <h3 id="next-task-title" class="vcms-task-title" data-i18n="backlog.loading_title">Loading...</h3>
+                                <p id="next-task-desc" class="vcms-dim" data-i18n="backlog.loading_desc">Pobieranie backlogu z SSoT...</p>
+                                <button type="button" class="btn-primary btn-cmd" data-quick-doc="VCMS_PORTFOLIO_TRUTH">Portfolio Truth</button>
+                            </div>
+
+                            <div class="card panel-card vcms-section">
+                                <h3 class="vcms-section__title" data-i18n="quick_access.title">Quick Access</h3>
+                                <div class="vcms-quick">
+                                    <a href="#" class="quick-link vcms-quick__link" data-quick-doc="PORADNIK_UZYTKOWNIKA" onclick="event.preventDefault(); loadDoc('PORADNIK_UZYTKOWNIKA'); return false;" data-i18n="quick.user_guide">user_guide</a>
+                                    <a href="#" class="quick-link vcms-quick__link" data-quick-doc="" onclick="event.preventDefault(); loadDoc(''); return false;" data-i18n="quick.docs_home">docs_home</a>
+                                    <a href="#" class="quick-link vcms-quick__link" data-quick-doc="ecosystem/map" onclick="event.preventDefault(); loadDoc('ecosystem/map'); return false;" data-i18n="quick.system_map">system_map</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="history-list vcms-section">
+                            <div class="vcms-section__head">
+                                <h3 class="vcms-section__title vcms-section__title--inline" data-i18n="action_log.title">Action Log</h3>
+                                <button type="button" id="btn-deep-scan" class="btn-outline btn-cmd" data-i18n="scan.run" data-i18n-title="scan.title_remote">> Run Scan</button>
+                            </div>
+                            <div id="log-container" class="vcms-action-log">
+                                <div class="log-row vcms-action-log__entry" style="color:var(--text-dim)" data-i18n="action_log.loading">Ładowanie aktywności...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-knowledge" class="tab-content">
+                        <header class="vcms-header">
+                            <div class="page-title">
+                                <h2 class="vcms-header__title" data-i18n="knowledge.title">Knowledge Base</h2>
+                                <p class="vcms-header__subtitle" data-i18n="knowledge.subtitle">Techniczna dokumentacja projektu FlexGrafik.</p>
+                            </div>
+                        </header>
+                        <div class="iframe-container">
+                            <iframe src="/docs/index.html" id="docs-iframe" title="VCMS Documentation"></iframe>
+                        </div>
+                    </div>
+
+                    <div id="tab-lab" class="tab-content">
+                        <header class="vcms-header">
+                            <div class="page-title">
+                                <h2 class="vcms-header__title" data-i18n="koda.title">KODA — Governance Assistant</h2>
+                                <p class="vcms-header__subtitle" data-i18n="koda.subtitle">Asystent RAG read-only — analiza docs, logów i SSoT.</p>
+                            </div>
+                            <span class="badge badge--koda" data-i18n="koda.badge">RAG · read-only</span>
+                        </header>
+                        <div class="chat-container chat-container--koda">
+                            <div class="chat-toolbar panel-header">
+                                <span>:: KODA</span>
+                                <span class="chat-toolbar-hint" data-i18n="koda.toolbar_hint">Kontekst z docs/ + deploy-context</span>
+                            </div>
+                            <div class="chat-messages" id="koda-messages">
+                                <div class="msg msg-ai">
+                                    <div class="msg-content" id="koda-greeting" data-i18n="koda.greeting">Cześć Dowódco — jestem KODA.</div>
+                                </div>
+                            </div>
+                            <div class="chat-input">
+                                <textarea id="koda-input" rows="2" data-i18n-placeholder="koda.placeholder" data-i18n-aria="koda.placeholder" placeholder="Zapytaj o konflikty…"></textarea>
+                                <button type="button" id="koda-send" class="btn-primary btn-cmd" data-i18n="koda.send">> Send</button>
+                            </div>
+                        </div>
+                        <div class="vcms-doc-links">
+                            <button type="button" class="btn-outline btn-cmd" data-quick-doc="VCMS_PORTFOLIO_TRUTH">Portfolio Truth</button>
+                            <button type="button" class="btn-outline btn-cmd" data-quick-doc="agents/agent-boundaries">Agent Boundaries</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-ecosystem" class="tab-content">
+                        <header class="vcms-header">
+                            <div class="page-title">
+                                <h2 class="vcms-header__title" data-i18n="ecosystem.title">Ecosystem Command Bridge</h2>
+                                <p class="vcms-header__subtitle" data-i18n="ecosystem.subtitle">Live health and synchronization status for all modules.</p>
+                            </div>
+                            <button id="btn-refresh-ecosystem" class="btn-outline btn-cmd" data-i18n="ecosystem.refresh">> Refresh Bridge</button>
+                        </header>
+                        <div class="card vcms-table-wrap">
+                            <table class="vcms-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="ecosystem.col_module">Moduł</th>
+                                        <th data-i18n="ecosystem.col_type">Typ</th>
+                                        <th data-i18n="ecosystem.col_branch">Branch</th>
+                                        <th data-i18n="ecosystem.col_status">Status</th>
+                                        <th data-i18n="ecosystem.col_commit">Last Commit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ecosystem-table-body">
+                                    <tr><td colspan="5" class="vcms-table-empty" data-i18n="ecosystem.scanning">Scanning modules...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <div class="vcms-terminal__footer" data-i18n="meta.footer">v3.0 Hardened — Swiss Watch</div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="javascript:void(0)" class="mobile-nav-item active" data-tab="dashboard">
+            <i data-lucide="layout-dashboard"></i><span data-i18n="mobile.main">Main</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="knowledge">
+            <i data-lucide="book-open"></i><span data-i18n="mobile.docs">Docs</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="lab">
+            <i data-lucide="message-square"></i><span data-i18n="nav.koda">KODA</span>
+        </a>
+        <a href="javascript:void(0)" class="mobile-nav-item" data-tab="ecosystem">
+            <i data-lucide="layers"></i><span data-i18n="mobile.system">System</span>
+        </a>
+    </div>
+
+    <script src="locale.js"></script>
+    <script src="app.js?v=20260616-terminal-v2"></script>
+</body>
+</html>

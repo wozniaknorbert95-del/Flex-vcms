@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  ignoreDeadLinks: true,
+  base: '/docs/',
   title: "VCMS",
   description: "Visual Content Management System",
   appearance: 'dark',
@@ -17,11 +19,24 @@ export default defineConfig({
         text: 'START',
         items: [
           { text: 'Poradnik użytkownika', link: '/PORADNIK_UZYTKOWNIKA' },
+          { text: 'Portfolio Truth', link: '/VCMS_PORTFOLIO_TRUTH' },
+          { text: 'Readiness Audit', link: '/VCMS_READINESS_AUDIT' },
+          { text: 'DoD Scorecard', link: '/VCMS_DOD_SCORECARD' },
+          { text: 'Sales Report', link: '/VCMS_SALES_REPORT' },
+          { text: 'Demo Script (75s)', link: '/VCMS_DEMO_SCRIPT' },
+          { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' },
           { text: 'Jeśli zgubiony', link: '/if-lost' },
           { text: 'Quickstart (Orchestrator)', link: '/core/quickstart' },
           { text: 'Brain Dowódcy (render)', link: '/brain' },
           { text: 'KODA — czat', link: '/koda' },
           { text: 'Ewolucja systemu', link: '/system-evolution' }
+        ]
+      },
+      {
+        text: 'DESIGN',
+        collapsible: true,
+        items: [
+          { text: 'UI Tokens (dashboard)', link: '/design/VCMS_UI_TOKENS' }
         ]
       },
       {
@@ -76,11 +91,8 @@ export default defineConfig({
         collapsible: true,
         items: [
           { text: 'KODA (profil docs)', link: '/agents/koda' },
-          { text: 'Antigravity', link: '/agents/antigravity' },
-          { text: 'Gemini CLI', link: '/agents/gemini-cli' },
           { text: 'Boot: Senior Agency', link: '/agents/boot-senior-agency' },
-          { text: 'Agent Boundaries', link: '/agents/agent-boundaries' },
-          { text: 'NotebookLM Roadmap', link: '/agents/notebooklm-roadmap' }
+          { text: 'Agent Boundaries', link: '/agents/agent-boundaries' }
         ]
       },
       {
@@ -113,7 +125,6 @@ export default defineConfig({
           { text: 'PH4-011 operator runbook', link: '/reference/ph4-011-operator-runbook' },
           { text: 'PH4-011 smoke curl', link: '/reference/ph4-011-smoke-curl' },
           { text: 'PH4-011 close backlog', link: '/reference/ph4-011-close-backlog' },
-          { text: 'PH4-011 — plan Antigravity', link: '/reference/ph4-011-antigravity-execution-plan' },
           { text: 'Glossary', link: '/reference/glossary' },
           { text: 'Anti-Patterns', link: '/reference/anti-patterns' },
           { text: 'Prompt Formulas', link: '/reference/prompt-formulas' },
@@ -146,13 +157,6 @@ export default defineConfig({
         collapsible: true,
         items: [
           { text: 'Lab Index', link: '/lab/lab-index' }
-        ]
-      },
-      {
-        text: 'STUDY',
-        collapsible: true,
-        items: [
-          { text: 'Study Index', link: '/study/study-index' }
         ]
       },
       {

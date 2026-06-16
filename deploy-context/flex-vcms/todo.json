@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "canonical_backlog": "flex-vcms-todo.json",
+    "archived_legacy": "docs/archive/todo-root-legacy-2026-04-04.json",
+    "updated": "2026-04-09",
+    "note": "Root todo.json is a pointer only. All VCMS + ecosystem phase work lives in flex-vcms-todo.json."
+  },
+  "tasks": []
+}

@@ -7,7 +7,7 @@ repos:
     type: "vcms-orchestrator"
     owner: "Norbert Wozniak"
     risk_level: "LOW"
-    path: "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"
     canonical_brain:
       path: "brain.md"
       note: "Operational contract for Dowódca + agents; VitePress mirror: docs/brain.md"
@@ -100,4 +100,38 @@ repos:
     deploy_notes:
       manual_only: true
       post_deploy: []
+
+  - name: "agent-os"
+    type: "agent-orchestrator"
+    owner: "Norbert Wozniak"
+    risk_level: "LOW"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\agent-os"
+    canonical_brain:
+      path: "SESSION-ANCHOR.md"
+      note: "Project state anchor; graph in src/graph.py"
+    canonical_todo:
+      path: "todo.json"
+      note: "Agent OS backlog; task handoffs in docs/handoffs/"
+    deploy_notes:
+      manual_only: true
+      checklist: "docs/handoffs/2026-05-22-faza5-closure-e2e-persistence-ui.md"
+      post_deploy:
+        - "uv run python _run.py (dev) or docker-compose on VPS"
+        - "Mission Control UI: agent-os-ui on :3000"
+
+  - name: "agent-os-ui"
+    type: "agent-ui"
+    owner: "Norbert Wozniak"
+    risk_level: "LOW"
+    path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\agent-os-ui"
+    canonical_brain:
+      path: "README.md"
+      note: "Next.js Mission Control; proxies to agent-os :8080"
+    canonical_todo:
+      path: "todo.json"
+      note: "UI backlog; cross-ref agent-os handoffs for graph tasks"
+    deploy_notes:
+      manual_only: true
+      post_deploy:
+        - "npm run build && npm start; BASE_URL points to agent-os backend"
 

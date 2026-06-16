@@ -1,0 +1,78 @@
+{
+  "audit_version": "3.0-enterprise",
+  "project": "Flex-VCMS",
+  "commander": "Norbert Wozniak",
+  "status": "OPERATIONAL",
+  "tasks": [
+    {
+      "id": "UX-021",
+      "priority": "HIGH",
+      "title": "WebSocket Integration (Real-time Pulse)",
+      "description": "Replace 5s polling with Socket.io for instant dashboard updates (Git status, logs).",
+      "status": "todo"
+    },
+    {
+      "id": "PERF-022",
+      "priority": "MEDIUM",
+      "title": "Knowledge Search Index (SQLite)",
+      "description": "Implement a simple indexing service to avoid reading hundreds of files on every LLM prompt.",
+      "status": "done"
+    },
+    {
+      "id": "INF-023",
+      "priority": "HIGH",
+      "title": "Self-Healing Deploy (Rollback Logic)",
+      "description": "Update Deploy-VPS.ps1 to automatically rollback PM2 state if Health Check fails.",
+      "status": "todo"
+    },
+    {
+      "id": "SEC-024",
+      "priority": "CRITICAL",
+      "title": "Rate Limit Persistence (SQLite)",
+      "description": "Move rate limits to a persistent store to prevent limit evasion on restart.",
+      "status": "todo"
+    },
+    {
+      "id": "OPS-025",
+      "priority": "MEDIUM",
+      "title": "Production Dockerization",
+      "description": "Create Dockerfile/docker-compose to standardize Node v20 environment across local and VPS.",
+      "status": "todo"
+    },
+    {
+      "id": "UX-026",
+      "priority": "MEDIUM",
+      "title": "Interactive Terminal (xterm.js)",
+      "description": "Stream output from tools/vcms-scan.js directly to the Dashboard UI.",
+      "status": "todo"
+    },
+    {
+      "id": "QUA-027",
+      "priority": "HIGH",
+      "title": "Integration Test Suite",
+      "description": "Expand tests to cover the full API cycle (Scan -> Sync -> Chat).",
+      "status": "todo"
+    },
+    {
+      "id": "INF-028",
+      "priority": "MEDIUM",
+      "title": "API v2 Transition",
+      "description": "Refactor router to support /api/v1 and /api/v2 naming for breaking changes management.",
+      "status": "todo"
+    },
+    {
+      "id": "MON-029",
+      "priority": "HIGH",
+      "title": "Remote Ecosystem Pulse",
+      "description": "Extend dashboard to check HTTP health of all modules (e.g., flexgrafik.nl status).",
+      "status": "todo"
+    },
+    {
+      "id": "QUA-030",
+      "priority": "CRITICAL",
+      "title": "Zasada 12: Automated Reporting",
+      "description": "Integrate auto-handoff generation into the CLI tools.",
+      "status": "todo"
+    }
+  ]
+}

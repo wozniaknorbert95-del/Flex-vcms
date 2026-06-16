@@ -1,0 +1,473 @@
+{
+  "_meta": {
+    "project": "Bouwplaats Chaos — ZZP Advergame",
+    "url": "https://app.flexgrafik.nl",
+    "last_updated": "2026-06-12 16:45 UTC — P1 deployed, operational phase started, Q3 planning initiated",
+    "current_phase": "OPERATIONAL (Post-P1 Deployment)",
+    "branch_live": "main @d8802af (session closure committed)",
+    "branch_dev": "main @d8802af",
+    "production_status": "✅ LIVE (HTTP 200, HTTP/1.1)",
+    "tests_status": "✅ 209/209 PASS",
+    "typescript_status": "✅ 0 ERRORS (strict mode)",
+    "security_status": "✅ 0 CVEs (npm audit clean)",
+    "bundle_status": "✅ 456 KB JS, 140 KB gzip (within budget)",
+    "deployment_latest": "2026-06-12 15:42 UTC — GHA #27404099820 SUCCESS",
+    "session_summary": "docs/handoffs/2026-06-12-FINAL-SESSION-SUMMARY.md"
+  },
+
+  "operational_roadmap": [
+    {
+      "phase": "WEEK 1 — Stabilization & Monitoring",
+      "priority": "CRITICAL",
+      "status": "in_progress",
+      "owner": "Senior Specialist",
+      "start_date": "2026-06-12",
+      "end_date": "2026-06-18",
+      "epic": "OPS-W1",
+      "tasks": [
+        {
+          "id": "OPS-W1-1",
+          "title": "Daily Monitoring Dashboard Setup",
+          "description": "Configure real-time monitoring for production app",
+          "acceptance_criteria": [
+            "GA4 dashboard created with game_start, level_complete, score_submitted events",
+            "Sentry alerts configured (error threshold = 5+ per day)",
+            "Uptime monitoring set (alert on HTTP 5xx or timeout >10s)",
+            "Email alerts configured to owner/Dowódca"
+          ],
+          "definition_of_done": "Monitoring active, first alert received (test), dashboard shared with team",
+          "effort": "1 hour",
+          "priority": "CRITICAL",
+          "status": "pending"
+        },
+        {
+          "id": "OPS-W1-2",
+          "title": "Mobile Smoke Test (iOS + Android)",
+          "description": "Verify game works on real mobile devices",
+          "acceptance_criteria": [
+            "iOS (iPhone 12+): EntryGate loads, touch input works, game boots Level 1",
+            "Android (API 30+): Same as iOS",
+            "Console: 0 errors",
+            "Network: All API calls 200 OK (leaderboard, score submission)"
+          ],
+          "definition_of_done": "Screenshot proof from both devices, signed-off in handoff",
+          "effort": "1.5 hours",
+          "priority": "CRITICAL",
+          "status": "pending",
+          "devices": ["iPhone 12+", "Android API 30+"]
+        },
+        {
+          "id": "OPS-W1-3",
+          "title": "Lead Capture Verification",
+          "description": "Verify Bouwpas registration → email pipeline works",
+          "acceptance_criteria": [
+            "Submit test lead (name=Test, email=test@example.com)",
+            "Verify email received in inbox within 5 minutes",
+            "Verify record in database (SELECT from uhqsycwpjz_app)",
+            "Verify GA4 event 'lead_captured' fires"
+          ],
+          "definition_of_done": "Email received, database record confirmed, logged in handoff",
+          "effort": "0.5 hours",
+          "priority": "CRITICAL",
+          "status": "pending"
+        },
+        {
+          "id": "OPS-W1-4",
+          "title": "Team Handoff & Knowledge Transfer",
+          "description": "Ensure team understands production setup and runbook",
+          "acceptance_criteria": [
+            "Handoff meeting held (30 min)",
+            "docs/handoffs/ links shared",
+            "brain.md walkthrough (5 min)",
+            "Escalation protocol explained"
+          ],
+          "definition_of_done": "Team members can navigate handoffs, know who to call, meeting notes saved",
+          "effort": "1 hour",
+          "priority": "HIGH",
+          "status": "pending"
+        }
+      ]
+    },
+
+    {
+      "phase": "WEEK 2-3 — Performance & Health Checks",
+      "priority": "HIGH",
+      "status": "pending",
+      "owner": "Senior Specialist",
+      "start_date": "2026-06-19",
+      "end_date": "2026-07-02",
+      "epic": "OPS-W2W3",
+      "tasks": [
+        {
+          "id": "OPS-W2-1",
+          "title": "Bundle Size Regression Check",
+          "description": "Verify no unintended bundle bloat introduced post-P1",
+          "acceptance_criteria": [
+            "npm run check:bundle passes (gzip budget)",
+            "JS chunk < 140 KB gzip",
+            "CSS chunk < 20 KB gzip",
+            "No orphaned modules in dist/"
+          ],
+          "definition_of_done": "Bundle budget verified, trend graphed (add to monitoring)",
+          "effort": "0.5 hours",
+          "priority": "HIGH",
+          "status": "pending"
+        },
+        {
+          "id": "OPS-W2-2",
+          "title": "Web Vitals Baseline (LCP, CLS, INP)",
+          "description": "Capture production performance metrics for trend analysis",
+          "acceptance_criteria": [
+            "npm run lighthouse:ci executed on main",
+            "LCP < 2.5s recorded",
+            "CLS < 0.1 recorded",
+            "INP < 200ms recorded",
+            "Screenshot of report saved"
+          ],
+          "definition_of_done": "Metrics logged in spreadsheet for monthly tracking",
+          "effort": "0.5 hours",
+          "priority": "HIGH",
+          "status": "pending"
+        },
+        {
+          "id": "OPS-W2-3",
+          "title": "GA4 Metrics Review & Alerts",
+          "description": "Analyze player behavior, identify anomalies, set thresholds",
+          "acceptance_criteria": [
+            "Weekly unique players counted",
+            "Average score per level calculated",
+            "Churn rate identified (Day 1, Day 7)",
+            "Error/exception rate < 2%"
+          ],
+          "definition_of_done": "Spreadsheet created, alerts set in GA4, weekly review scheduled",
+          "effort": "1 hour",
+          "priority": "HIGH",
+          "status": "pending"
+        },
+        {
+          "id": "OPS-W2-4",
+          "title": "Code Review Checklist Creation",
+          "description": "Document standards for all future PRs to main",
+          "acceptance_criteria": [
+            "Checklist file created (docs/CODE_REVIEW_CHECKLIST.md)",
+            "Covers: tests, lint, build, scope (1-1-1), secrets, pre-commit",
+            "Template added to .github/PULL_REQUEST_TEMPLATE.md",
+            "Shared with team"
+          ],
+          "definition_of_done": "Checklist used on next PR, feedback collected",
+          "effort": "1 hour",
+          "priority": "HIGH",
+          "status": "pending"
+        }
+      ]
+    },
+
+    {
+      "phase": "WEEK 4 — Q3 Planning & Feature Prioritization",
+      "priority": "HIGH",
+      "status": "pending",
+      "owner": "Senior Specialist + Dowódca",
+      "start_date": "2026-07-03",
+      "end_date": "2026-07-09",
+      "epic": "PLANNING-Q3",
+      "tasks": [
+        {
+          "id": "PLAN-Q3-1",
+          "title": "Create Q3 2026 Feature Plan Document",
+          "description": "High-level roadmap with priorities, effort estimates, dependencies",
+          "acceptance_criteria": [
+            "File created: docs/Q3-2026-PLAN.md",
+            "Includes MUST, SHOULD, NICE categories",
+            "ROI analysis per feature",
+            "Risk mitigation strategies",
+            "Success metrics (EOQ targets)",
+            "Signed off by Dowódca"
+          ],
+          "definition_of_done": "Plan shared with team, sprint backlog populated from MUST items",
+          "effort": "3 hours",
+          "priority": "CRITICAL",
+          "status": "pending",
+          "blocked_by": "None"
+        },
+        {
+          "id": "PLAN-Q3-2",
+          "title": "Technical Debt Audit & Prioritization",
+          "description": "Review open items (P2-2, P2-3, SG), decide keep/defer",
+          "acceptance_criteria": [
+            "P2-2 Polish (CSS, a11y): Keep in backlog or DEFER?",
+            "P2-3 Performance: Keep or DEFER?",
+            "SG Pixel-art: Status on Adobe delivery?",
+            "New tech debt items identified from production",
+            "Decision matrix created"
+          ],
+          "definition_of_done": "Debt backlog updated in todo.json, rationale documented",
+          "effort": "1.5 hours",
+          "priority": "HIGH",
+          "status": "pending",
+          "blocks": ["PLAN-Q3-1"]
+        },
+        {
+          "id": "PLAN-Q3-3",
+          "title": "Quarterly Review Meeting (Dowódca Sync)",
+          "description": "Align on Q3 goals, resource allocation, risks",
+          "acceptance_criteria": [
+            "Meeting held (1 hour)",
+            "Dowódca approves top 3 features",
+            "Resource allocation confirmed",
+            "Known risks discussed + mitigation",
+            "Notes documented"
+          ],
+          "definition_of_done": "Q3-2026-PLAN.md signed, sprint 1 backlog ready",
+          "effort": "1.5 hours",
+          "priority": "CRITICAL",
+          "status": "pending",
+          "depends_on": ["PLAN-Q3-1"]
+        }
+      ]
+    }
+  ],
+
+  "future_features": [
+    {
+      "id": "FEAT-LEADERBOARD-UX",
+      "title": "Leaderboard UX Polish (Seasonal Features)",
+      "epic": "Q3-FEATURE-1",
+      "priority": "MUST",
+      "roi": "HIGH (conversion driver)",
+      "description": "Improve leaderboard UI: season selector, rank progress, tie-breaker clarification",
+      "acceptance_criteria": [
+        "Season dropdown renders correctly",
+        "Highlight current player row",
+        "Show gap-to-next-rank",
+        "Display trophies (1st, 2nd, 3rd)",
+        "Mobile responsive (375px+)"
+      ],
+      "definition_of_done": "E2E tests pass, design reviewed, deployed to prod",
+      "effort": "1 week",
+      "status": "todo",
+      "blocked_by": "None"
+    },
+
+    {
+      "id": "FEAT-LEAD-OPTIMIZATION",
+      "title": "Lead Capture Rate Optimization (A/B Test CTA)",
+      "epic": "Q3-FEATURE-2",
+      "priority": "MUST",
+      "roi": "CRITICAL (revenue driver)",
+      "description": "Test button copy, form fields, incentives to increase Bouwpas registration",
+      "acceptance_criteria": [
+        "A/B test framework integrated (GA4 experiment)",
+        "2 CTA variants created",
+        "Metric: lead_captured events tracked",
+        "Minimum 1000 impressions per variant",
+        "Winner declared + implemented"
+      ],
+      "definition_of_done": "Stats significant (p < 0.05), best variant deployed",
+      "effort": "2 weeks",
+      "status": "todo",
+      "blocked_by": "None"
+    },
+
+    {
+      "id": "FEAT-MOBILE-KEYBOARD",
+      "title": "Mobile Keyboard Handling (EntryGate Form)",
+      "epic": "Q3-FEATURE-3",
+      "priority": "SHOULD",
+      "roi": "MEDIUM (UX improvement)",
+      "description": "Prevent keyboard from covering form on mobile; improve input experience",
+      "acceptance_criteria": [
+        "Keyboard dismissed after form submit",
+        "Form scrolls into view when keyboard open",
+        "Touch targets >= 56px",
+        "No layout shift",
+        "Works iOS + Android"
+      ],
+      "definition_of_done": "Tested on real devices (iPhone 12+, Galaxy S20+), no regress",
+      "effort": "1 week",
+      "status": "todo",
+      "blocked_by": "None"
+    },
+
+    {
+      "id": "FEAT-P2-2-POLISH",
+      "title": "P2-2: CSS Consistency & Accessibility Audit (WCAG AA)",
+      "epic": "Q3-OPTIONAL",
+      "priority": "NICE",
+      "roi": "LOW (already compliant)",
+      "description": "Polish pass: standardize CSS tokens, verify WCAG AA, final UX touches",
+      "acceptance_criteria": [
+        "CSS audit complete (colors, spacing, typography)",
+        "axe-core scan: 0 Critical, 0 Serious",
+        "Contrast ratio verified (AA standard)",
+        "Focus indicators visible",
+        "Reduced motion respected"
+      ],
+      "definition_of_done": "Audit report generated, improvements prioritized",
+      "effort": "3 hours",
+      "status": "todo",
+      "blocked_by": "None",
+      "deferred_reason": "App already meets AA compliance; low ROI for detailed polish"
+    },
+
+    {
+      "id": "FEAT-P2-3-PERFORMANCE",
+      "title": "P2-3: Performance Optimization (FPS, Memory, Bundle)",
+      "epic": "Q3-OPTIONAL",
+      "priority": "NICE",
+      "roi": "LOW (already 60 FPS mobile)",
+      "description": "Deep performance work: heap snapshots, FPS profiling, code-splitting",
+      "acceptance_criteria": [
+        "60 FPS sustained on mobile (profile with DevTools)",
+        "Memory baseline established (heap snapshot)",
+        "No memory leaks detected (Sentry)",
+        "Critical path optimized"
+      ],
+      "definition_of_done": "Performance report with trends, optimizations backlogged",
+      "effort": "2 weeks",
+      "status": "todo",
+      "blocked_by": "None",
+      "deferred_reason": "Performance already sufficient; improvements would be incremental"
+    },
+
+    {
+      "id": "FEAT-SG-PIXEL-ART",
+      "title": "Sprint G: Pixel-Art Assets (Adobe Delivery)",
+      "epic": "BLOCKED",
+      "priority": "MUST (when unblocked)",
+      "roi": "HIGH (visual polish)",
+      "description": "Replace emoji with hand-drawn pixel-art sprites (awaiting Adobe delivery)",
+      "acceptance_criteria": [
+        "Assets delivered by Adobe",
+        "All 30+ icons converted to PNG/WebP",
+        "Sprite sheet integrated",
+        "Regress tests: 209/209 pass",
+        "Visual QA complete"
+      ],
+      "definition_of_done": "Deployed to prod, visual polish approved",
+      "effort": "1 week (once assets arrive)",
+      "status": "blocked",
+      "blocked_by": "Adobe asset delivery (external)",
+      "unblock_trigger": "Assets received from design team"
+    }
+  ],
+
+  "operational_metrics": [
+    {
+      "metric": "Unique Players (Weekly)",
+      "target": "100+",
+      "baseline": "TBD (measure W1)",
+      "frequency": "Weekly",
+      "owner": "GA4 Dashboard"
+    },
+    {
+      "metric": "Average Score per Player",
+      "target": "1200+",
+      "baseline": "TBD",
+      "frequency": "Weekly",
+      "owner": "GA4 Dashboard"
+    },
+    {
+      "metric": "Level 5 Completion Rate",
+      "target": "15%+",
+      "baseline": "TBD",
+      "frequency": "Weekly",
+      "owner": "GA4 Dashboard"
+    },
+    {
+      "metric": "Error Rate (Sentry)",
+      "target": "<2%",
+      "baseline": "0% (currently)",
+      "frequency": "Daily",
+      "owner": "Sentry"
+    },
+    {
+      "metric": "LCP (Lighthouse)",
+      "target": "<2.5s",
+      "baseline": "TBD (measure W2)",
+      "frequency": "Weekly",
+      "owner": "Lighthouse CI"
+    },
+    {
+      "metric": "Uptime",
+      "target": "99.9%+",
+      "baseline": "100% (W1)",
+      "frequency": "Daily",
+      "owner": "Uptime Monitor"
+    },
+    {
+      "metric": "Lead Submission Success Rate",
+      "target": "95%+",
+      "baseline": "TBD",
+      "frequency": "Weekly",
+      "owner": "GA4 / Database"
+    }
+  ],
+
+  "risk_register": [
+    {
+      "id": "RISK-1",
+      "title": "Adobe Asset Delivery Delay (SG Sprint)",
+      "impact": "HIGH (visual polish blocked)",
+      "probability": "MEDIUM",
+      "mitigation": "Weekly check-in with design; fallback: use current emoji longer",
+      "owner": "Dowódca"
+    },
+    {
+      "id": "RISK-2",
+      "title": "Turnstile Rate Limiting on Lead Form",
+      "impact": "MEDIUM (lead capture blocked)",
+      "probability": "LOW",
+      "mitigation": "Monitor Turnstile API quota; increase limits with Cloudflare if needed",
+      "owner": "Senior Specialist"
+    },
+    {
+      "id": "RISK-3",
+      "title": "Mobile Layout Breakage (New Android/iOS Version)",
+      "impact": "MEDIUM (user experience)",
+      "probability": "MEDIUM",
+      "mitigation": "Weekly device testing; monitor Sentry for layout errors",
+      "owner": "QA / Senior Specialist"
+    },
+    {
+      "id": "RISK-4",
+      "title": "Server Downtime (Cyber-Folks Infrastructure)",
+      "impact": "CRITICAL",
+      "probability": "LOW",
+      "mitigation": "Status monitoring; escalation to Cyber-Folks SLA 4-hour",
+      "owner": "Uptime Monitor / Dowódca"
+    }
+  ],
+
+  "dependencies": [
+    {
+      "from": "PLAN-Q3-1",
+      "to": "PLAN-Q3-2",
+      "type": "blocks",
+      "reason": "Q3 plan requires tech debt prioritization first"
+    },
+    {
+      "from": "PLAN-Q3-2",
+      "to": "PLAN-Q3-3",
+      "type": "blocks",
+      "reason": "Review meeting needs updated plan + decisions"
+    },
+    {
+      "from": "OPS-W1-1",
+      "to": "OPS-W2-3",
+      "type": "enables",
+      "reason": "Monitoring must be active before metrics review"
+    },
+    {
+      "from": "FEAT-SG-PIXEL-ART",
+      "to": "All Visuals",
+      "type": "enhances",
+      "reason": "Pixel-art lift visual quality across entire game"
+    }
+  ],
+
+  "archive": {
+    "note": "Historical sprints (S5c-S13, P0-P1) documented in docs/archive/ and handoffs/",
+    "path": "docs/archive/",
+    "last_historical_entry": "2026-06-09 — S17-W6 (wall-kick + combo HUD) deployed"
+  }
+}

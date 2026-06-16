@@ -1,12 +1,12 @@
 ---
 status: "[STABLE]"
 title: "VCMS VPS Runbook — Command Center (Node + PM2 + Nginx)"
-updated: "2026-04-09"
+updated: "2026-06-16"
 ---
 
 # VCMS VPS Runbook
 
-Operacyjny opis wdrożenia **flex-vcms Command Center** na VPS: Express serwuje zbudowany **VitePress** (`docs/.vitepress/dist`) i endpointy KODY (`/api/chat`, `/api/knowledge`). **Jadzia-Core** (np. FastAPI na porcie **8000**) to osobny proces — w tym repozytorium go nie zmieniamy; ważna jest tylko **rozdzielność portów** i reverse proxy.
+Operacyjny opis wdrożenia **flex-vcms Command Center** na VPS: Express serwuje zbudowany **VitePress** (`docs/.vitepress/dist`), dashboard (`public/`) i API governance (`/api/v1/*`, `/api/knowledge`, **`/api/chat`**). **KODA** = RAG read-only (wymaga `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env`). **Agent OS UI** = egzekucja + HITL. **Jadzia-Core** (np. FastAPI na porcie **8000**) to osobny proces.
 
 Bezpieczeństwo i sekrety: [security policy](/core/security-policy).
 
@@ -43,7 +43,11 @@ Na serwerze **musisz** mieć strukturę zgodną z `server.js`:
 | `VCMS_DIR` | VPS | Katalog root aplikacji Node (często = `cwd`) — `server.js` używa jako bazy ścieżek |
 | `AGENT_CONTEXT_PATH` | VPS | Katalog kontekstu dla API (np. `.../deploy-context`); **nie** commituj treści z sekretami |
 | `ALLOWED_ORIGINS` | VPS | Opcjonalnie: lista CORS po przecinku |
-| `GEMINI_API_KEY` | VPS | Wyłącznie w pliku `.env` na serwerze; **nigdy** w git |
+| `OPENROUTER_API_KEY` | VPS | Preferowany provider KODA (`POST /api/chat`) |
+| `OPENROUTER_MODEL` | VPS | Opcjonalnie, domyślnie `openrouter/free` (unika `openrouter/auto` bez kredytów) |
+| `GEMINI_API_KEY` | VPS | Fallback gdy brak OpenRouter |
+| `GEMINI_MODEL` | VPS | Opcjonalnie, domyślnie `gemini-2.0-flash` |
+| `VCMS_PUBLIC_URL` | VPS | Opcjonalnie — nagłówek HTTP-Referer dla OpenRouter |
 
 Plik `.env` trzymasz tylko na VPS (uprawnienia `600`). Szablon nazw możesz trzymać w notatkach poza repo lub w password managerze.
 
@@ -65,7 +69,7 @@ Plik `.env` trzymasz tylko na VPS (uprawnienia `600`). Szablon nazw możesz trzy
 
 ## Weryfikacja mobile (PH4-011) {#weryfikacja-mobile-ph4-011}
 
-Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` lub `docs/study/study-index.md` (data, urządzenie, PASS/FAIL, NEXT). Szablon: [tmpl-ph4-011-mobile](/templates/tmpl-ph4-011-mobile).
+Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` (operacyjnie), a naukę/skill map w **Vibe Coach**: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md` (data, urządzenie, PASS/FAIL, NEXT). Szablon: [tmpl-ph4-011-mobile](/templates/tmpl-ph4-011-mobile).
 
 ## Deploy z Windows
 

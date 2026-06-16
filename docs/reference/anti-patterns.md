@@ -29,7 +29,7 @@ Krótka lista **zachowań**, które kosztują czas i pieniądze. Pełniejsze zas
 
 | Antywzorzec | Zamiast |
 |-------------|---------|
-| Kurs „na zapas” | Mikro-lekcja przy realnym zadaniu ([study-index](/study/study-index)) |
+| Kurs „na zapas” | Mikro-lekcja przy realnym zadaniu (kanonicznie w Vibe Coach: `C:\\Users\\FlexGrafik\\FlexGrafik\\github\\vibe-coach\\docs\\study-index.md`) |
 | 10 rzeczy na raz w kolejce | Max 3 pozycje w Study Queue |
 
 ---

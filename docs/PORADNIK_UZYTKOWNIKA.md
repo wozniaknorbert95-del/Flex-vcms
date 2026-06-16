@@ -15,7 +15,7 @@ title: "Poradnik Użytkownika — Start Tutaj"
 **Vibe Coding Mastery System** to Twój osobisty system operacyjny dla pracy z AI.
 Zamiast każdą sesję zaczynać od zera i tłumaczyć agentowi wszystko od nowa, VCMS zapewnia że:
 
-- Agenty (AG, Gemini) **zawsze znają reguły gry** — nie trzeba im tłumaczyć od zera
+- Agenty (OpenCode / Cursor) **zawsze znają reguły gry** — nie trzeba im tłumaczyć od zera
 - Każda sesja ma **jasny start i jasny koniec** — wiesz gdzie jesteś
 - **Żadna wiedza nie ginie** między sesjami — handoff to obowiązek
 - Deploy na produkcję jest **zawsze kontrolowany przez Ciebie** — agenty nigdy nie deployują autonomicznie
@@ -53,7 +53,7 @@ Zanim cokolwiek planujesz lub implementujesz, odśwież stan ekosystemu lokalnie
 
 **PowerShell (referencyjnie):**
 
-1) `Set-Location "C:\\Users\\FlexGrafik\\Desktop\\flex-vcms"`
+1) `Set-Location "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms"`
 2) `node tools\\vcms-scan.js`
 
 **Co sprawdzasz po skanie (must-have):**
@@ -78,14 +78,14 @@ W katalogu `scripts/` (root `flex-vcms`):
 
 ### KROK 1 — Otwórz sesję komendą `/vibe-init`
 
-Wpisz to Antigravity (AG) na początku **KAŻDEJ** sesji:
+Rozpocznij sesję w OpenCode / Cursor Agent od komendy:
 
 ```
 /vibe-init
 ```
 
-AG przeczyta kontekst projektu (`flex-vcms-todo.json` w repo VCMS + ewentualnie `brain.md`) i powie Ci w 2 zdaniach co rozumie jako cel sesji.
-**Zatwierdź lub popraw** zanim AG napisze JAKIKOLWIEK kod.
+Agent przeczyta kontekst projektu (`flex-vcms-todo.json` w repo VCMS + ewentualnie `brain.md`) i powie Ci w 2 zdaniach co rozumie jako cel sesji.
+**Zatwierdź lub popraw** zanim agent napisze JAKIKOLWIEK kod.
 
 ---
 
@@ -95,7 +95,7 @@ AG przeczyta kontekst projektu (`flex-vcms-todo.json` w repo VCMS + ewentualnie 
 /blast [opisz krótko co chcesz zrobić]
 ```
 
-AG używa frameworka BLAST, żeby zaplanować pracę:
+Agent używa frameworka BLAST, żeby zaplanować pracę:
 
 | Litera | Co to | Po co |
 |--------|-------|-------|
@@ -107,14 +107,14 @@ AG używa frameworka BLAST, żeby zaplanować pracę:
 
 ::: info
 **Zawsze zatwierdź plan BLAST** zanim AG napisze pierwszą linię kodu.
-Bez zgody Twojej = AG nie pisze kodu.
+Bez zgody Twojej = agent nie pisze kodu.
 :::
 
 ---
 
 ### KROK 3 — Implementacja: Zasada 1-1-1
 
-AG implementuje **JEDEN moduł na raz**.
+Agent implementuje **JEDEN moduł na raz**.
 
 ```
 1 moduł → 1 diff → 1 wdrożenie → sprawdź → powtórz
@@ -135,7 +135,7 @@ To jest przepis na regresje, konflikty i utratę kontroli nad projektem.
 /audit-red-team
 ```
 
-AG "atakuje" swój własny kod jak red team. Sprawdza:
+Agent "atakuje" swój własny kod jak red team. Sprawdza:
 - 🔒 Security (sekrety w kodzie, walidacja inputów, SQL injection)
 - 📡 Reliability (co gdy API nie odpowie, co przy duplikacji)
 - 🗄️ Data (backup przed migracją, rollback możliwy?)
@@ -151,11 +151,11 @@ Wynik: **🟢 Gotowe / 🟡 Drobne uwagi / 🔴 Blokuje deploy**
 
 ### KROK 5 — Deploy ZAWSZE ręcznie przez Ciebie
 
-AG przygotuje gotowe komendy przez `/deploy-cf` lub `/deploy-wp`.
-**Ty je uruchamiasz.** AG NIGDY nie deployuje autonomicznie.
+Agent przygotuje gotowe komendy przez `/deploy-cf` lub `/deploy-wp`.
+**Ty je uruchamiasz.** Agent NIGDY nie deployuje autonomicznie.
 
 ```powershell
-# Przykład — AG przygotuje, Ty uruchamiasz:
+# Przykład — agent przygotuje, Ty uruchamiasz:
 scp -i C:\Users\FlexGrafik\.ssh\cyberfolks_key -P 222 deploy.tar.gz ...
 ```
 
@@ -167,7 +167,7 @@ scp -i C:\Users\FlexGrafik\.ssh\cyberfolks_key -P 222 deploy.tar.gz ...
 /handoff
 ```
 
-AG zapisze raport sesji:
+Agent zapisze raport sesji:
 - Co zrobiono (lista zmian)
 - Stan obecny (branch, ostatni commit)
 - Co niedokończone (i dlaczego)
@@ -175,7 +175,7 @@ AG zapisze raport sesji:
 
 ::: danger
 Bez handoffu — wiedza ginie między sesjami.
-To obowiązek, nie opcja. AG przypomni jeśli spróbujesz zakończyć bez handoffu.
+To obowiązek, nie opcja. Agent przypomni jeśli spróbujesz zakończyć bez handoffu.
 :::
 
 ---
@@ -205,7 +205,7 @@ Kanoniczna specyfikacja `SESSIONANCHOR` + format i walidacja handoff: [session-a
 | `/deploy-cf` | Deploy na Cyber-Folks | Przygotowuje komendy SCP + SSH |
 | `/deploy-wp` | Deploy WordPress | Backup → pull → smoke test |
 | `/debug` | Gdy coś nie działa | 5-krokowa diagnostyka root cause, nie zgaduje |
-| `/context-reset` | AG kręci się w kółko (>2 próby) | Reset — AG tłumaczy problem i nowe podejście |
+| `/context-reset` | Agent kręci się w kółko (>2 próby) | Reset — agent tłumaczy problem i nowe podejście |
 | `/handoff` | **Koniec KAŻDEJ sesji** | Raport + commit + push |
 
 ---
@@ -223,7 +223,7 @@ Nie "wszystko naraz" — nigdy.
 :::
 
 ::: tip ZASADA 3 — Deploy to Ty, nie AG
-AG daje gotowe komendy. Ty je uruchamiasz. Ty masz kontrolę.
+Agent daje gotowe komendy. Ty je uruchamiasz. Ty masz kontrolę.
 Nigdy odwrotnie.
 :::
 
@@ -241,7 +241,7 @@ Nigdy odwrotnie.
 | [📝 TEMPLATES](/templates/tmpl-session-log) | Gotowe szablony YAML do sesji i incydentów |
 | [📔 JOURNAL](/journal/logs-index) | Rejestr operacyjny — historia sessions |
 | [🧪 LAB](/lab/lab-index) | Poligon promptów i eksperymentów |
-| [🧠 STUDY](/study/study-index) | Systematyczna nauka technologii |
+| **VIBE COACH (nauka)** | Kanoniczna nauka i skill map: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md` |
 
 ---
 
@@ -253,8 +253,8 @@ Nigdy odwrotnie.
 | Coś się zepsuło w kodzie | Wpisz `/debug` |
 | Agent się gubi i powtarza | Wpisz `/context-reset` |
 | Chcesz poznać zasady systemu | [→ global-rules.md](/core/global-rules) |
-| Chcesz wiedzieć co może AG | [→ agent-boundaries.md](/agents/agent-boundaries) |
-| Chcesz rozumieć jak rozmawiać z AG | [→ antigravity.md](/agents/antigravity) |
+| Chcesz wiedzieć co może agent | [→ agent-boundaries.md](/agents/agent-boundaries) |
+| Chcesz rozumieć role agentów | [→ agents.md](/agents/agent-boundaries) |
 
 ---
 
@@ -281,7 +281,7 @@ To jest mechanizm, który broni Cię przed regresjami i „kreatywnym” AI.
 
 ### Jeśli skan nie działa / nie generuje plików
 
-- Upewnij się, że jesteś w `C:\\Users\\FlexGrafik\\Desktop\\flex-vcms`
+- Upewnij się, że jesteś w `C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms`
 - Uruchom ponownie `node tools\\vcms-scan.js`
 - Jeśli dalej źle: przejdź przez protokół ratunkowy: [→ if-lost.md](/if-lost)
 

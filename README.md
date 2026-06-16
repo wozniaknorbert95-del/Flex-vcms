@@ -1,25 +1,89 @@
-# VCMS
-Stage 1 Skeleton
+# VCMS — Local-First Orchestrator & Governance Docs
 
-## Backlog (canonical)
+**Versioned Content Management & Supervision** — orchestrator ekosystemu FlexGrafik: skan repozytoriów, wykrywanie konfliktów SSoT, mapa modułów, handoffy i command center (docs + dashboard).
 
-- **Ecosystem + phase work**: `flex-vcms-todo.json` (PH0–PH4).
-- **Legacy root todo** (archived): `docs/archive/todo-root-legacy-2026-04-04.json` — root `todo.json` is a pointer only.
+**Wersja UI:** v3.0 Hardened (Swiss Watch) · API `3.0.0-hardened`
 
-## Quickstart (Phase 3)
+> **KODA** (`POST /api/chat`) — asystent RAG read-only w dashboardzie i docs. Wymaga `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env`. Egzekucja zadań: **Agent OS UI**. Zobacz [Portfolio Truth](docs/VCMS_PORTFOLIO_TRUTH.md).
 
-- **Start here**: `docs/core/quickstart.md`
-- **Verify (local)**:
+## Szybki start
 
 ```powershell
-Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
-node tools\vcms-scan.js
+npm install
+npm run scan
 ```
 
-Expected: `Conflicts: 0` and refreshed artifacts in `docs/ecosystem/*` + `data/vcms-index.json`.
+Oczekiwany wynik: `Conflicts: 0`.
 
-## Contributing (PR-only)
+Opcjonalnie (serwer lokalny + dashboard):
 
-- **No direct pushes to `master`**: use branch → PR → review → merge.
-- **PR body**: include `## Summary` and `## Test plan` (even if `N/A` for docs-only).
-- **Gate evidence** (Phase 3): if you touch orchestration workflow, attach evidence via a handoff in `docs/handoffs/`.
+```powershell
+npm start
+# Dashboard: http://localhost:8001/
+```
+
+## Scan → read report
+
+| Krok | Komenda / plik |
+|------|----------------|
+| 1 | `npm run scan` |
+| 2 | [conflicts.md](docs/ecosystem/conflicts.md) — wynik (0 = zielone) |
+| 3 | [map.md](docs/ecosystem/map.md) — 8 modułów |
+| 4 | [SCAN-REPORT demo](docs/demo/SCAN-REPORT.md) — skrypt pokazania klientowi |
+
+## Co VCMS jest / czego nie jest
+
+| | |
+|-|-|
+| **Jest** | Skan, konflikty SSoT, mapa, handoffy, ops audit, weekly re-audit |
+| **Nie jest (jeszcze)** | Health score widget, audit export UI, HITL UI w VCMS |
+
+Szczegóły: [VCMS_PORTFOLIO_TRUTH.md](docs/VCMS_PORTFOLIO_TRUTH.md) · [DoD Scorecard](docs/VCMS_DOD_SCORECARD.md)
+
+## Status legend (PROVEN / DEMO / PLANNED)
+
+| Funkcja | Status | Gdzie |
+|---------|--------|-------|
+| Repo / content scan | **PROVEN** | `tools/vcms-scan.js` |
+| Conflict detection | **PROVEN** | `docs/ecosystem/conflicts.md` |
+| SSoT registry | **PROVEN** | `repos.yaml`, deploy-context |
+| Conflict severity (info/warning/blocking) | **PROVEN** | `scan-rules.json`, `conflicts.md` summary |
+| Governance audit log | **DEMO** | JSONL append lokalnie + demo fixture |
+| Human approve / reject | **DEMO** | `agent-os-ui` HITL; handoffy w VCMS |
+| Agent cards UI | **DEMO** | `agent-os-ui` + portfolio assets |
+
+## Approve / reject (human-in-the-loop)
+
+VCMS **nie** hostuje approval UI. Proces review:
+
+1. **Agent OS / Mission Control** — approval gates przed deployem (HITL).
+2. **Handoffy** — `docs/handoffs/` dokumentują decyzje sesji.
+3. **Zasada:** *The system proposes; a human approves what ships.*
+
+## Gdzie jest prawda (SSoT)
+
+- **Backlog:** [flex-vcms-todo.json](flex-vcms-todo.json)
+- **Kontrakt Dowódcy:** [brain.md](brain.md)
+- **Mapa modułów:** [docs/ecosystem/map.md](docs/ecosystem/map.md)
+- **Konflikty:** [docs/ecosystem/conflicts.md](docs/ecosystem/conflicts.md)
+- **Portfolio / sprzedaż:** [VCMS_SALES_REPORT.md](docs/VCMS_SALES_REPORT.md)
+
+## Zasady
+
+1. **1-1-1** — jedna sesja = jeden moduł.
+2. **Brak sekretów** w repo (`.env` tylko lokalnie / na VPS).
+3. **Deploy manual only** — Zasada 11.
+
+## Monitoring
+
+- **Dashboard:** `http://localhost:8001/` (po `npm start`)
+- **Prod:** `https://cmd.flexgrafik.nl` (Basic Auth + docs)
+- **Weekly audit:** `npm run verify:prod-audit`
+
+## Design
+
+Dashboard używa tokenów governance (fiolet, nie emerald). SSoT: [docs/design/VCMS_UI_TOKENS.md](docs/design/VCMS_UI_TOKENS.md) · `public/tokens.css`.
+
+## Portfolio (Quietforge)
+
+Publiczna prezentacja: [flexgrafik-services.vercel.app](https://flexgrafik-services.vercel.app/) — repo `services`. Copy musi być zgodne z Portfolio Truth (bez „LLM gateway” przy VCMS).

@@ -46,7 +46,7 @@ W handoffie zapisujesz:
 PROJECT: flex-vcms
 PHASE: 3
 MODULE: flex-vcms
-WORKSPACE_ROOT: C:\Users\FlexGrafik\Desktop\flex-vcms
+WORKSPACE_ROOT: C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms
 ECOSYSTEM_ROOT: C:\Users\FlexGrafik\FlexGrafik\github
 VERIFY: node tools\vcms-scan.js
 ARTIFACTS: data/vcms-index.json; docs/ecosystem/conflicts.md; docs/ecosystem/map.md; docs/ecosystem/repos/*.md
@@ -122,7 +122,7 @@ Każdy handoff ma mieć sekcje w tej kolejności:
 
 ## 4) Raporty agentów (audyt read-only) — jakość minimalna
 
-Dotyczy raportów typu „READ-ONLY audit” (Antigravity, inne agenty), które **nie** są pełnym handoffem sesji, ale maja byc **falsyfikowalne** i zgodne z kontraktem `NEXT (1 rzecz)`.
+Dotyczy raportów typu „READ-ONLY audit”, które **nie** są pełnym handoffem sesji, ale maja byc **falsyfikowalne** i zgodne z kontraktem `NEXT (1 rzecz)`.
 
 ### 4.1 Wymagane pola / reguły
 

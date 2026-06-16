@@ -1,0 +1,65 @@
+{
+  "updated": "2026-05-29",
+  "items": [
+    {
+      "id": "queue-background-cancel",
+      "status": "done",
+      "priority": "high",
+      "title": "Background execution with queue, MAX_CONCURRENT=2 and robust cancel"
+    },
+    {
+      "id": "metrics-endpoint-ui-meters",
+      "status": "done",
+      "priority": "high",
+      "title": "GET /metrics and UI Worker/Queue meters wired"
+    },
+    {
+      "id": "ui-pl-statuses-handoff-history",
+      "status": "done",
+      "priority": "medium",
+      "title": "UI Polish: PL copy, translated status chips, clickable handoff, history totals"
+    },
+    {
+      "id": "docs-readme-user-guide",
+      "status": "done",
+      "priority": "medium",
+      "title": "Docs: README (backend/UI) and USER_GUIDE_PL"
+    },
+    {
+      "id": "infra-prod-compose-plan",
+      "status": "open",
+      "priority": "high",
+      "title": "Production compose with Traefik (plan prepared; deploy next session)"
+    },
+    {
+      "id": "prod-deploy-steps",
+      "status": "open",
+      "priority": "high",
+      "title": "VPS deploy: DNS + start stack + verify HTTPS (manual)"
+    },
+    {
+      "id": "prod-cors-hardening",
+      "status": "open",
+      "priority": "medium",
+      "title": "Restrict backend CORS to UI domain"
+    },
+    {
+      "id": "prod-systemd-autostart",
+      "status": "open",
+      "priority": "low",
+      "title": "Systemd unit for compose auto-start (optional)"
+    },
+    {
+      "id": "history-aggregate-endpoint",
+      "status": "open",
+      "priority": "low",
+      "title": "Backend: aggregate history endpoint (totals) to avoid N+1 in UI"
+    },
+    {
+      "id": "coder-target-validation",
+      "status": "open",
+      "priority": "medium",
+      "title": "Validate Coder output against plan target_file"
+    }
+  ]
+}

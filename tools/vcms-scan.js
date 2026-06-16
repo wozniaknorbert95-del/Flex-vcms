@@ -8,13 +8,14 @@
  * - docs/ecosystem/map.md (ecosystem map + canonical pointers)
  *
  * Run (PowerShell):
- *   Set-Location "C:\Users\FlexGrafik\Desktop\flex-vcms"
+ *   Set-Location "C:\Users\FlexGrafik\FlexGrafik\github\Flex-vcms\flex-vcms"
  *   node tools/vcms-scan.js
  */
 
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
+const { execFileSync } = require("child_process");
 
 const VCMS_ROOT = path.resolve(__dirname, "..");
 const REPOS_YAML = path.join(VCMS_ROOT, "repos.yaml");
@@ -24,6 +25,7 @@ const OUT_INDEX = path.join(VCMS_ROOT, "data", "vcms-index.json");
 const OUT_CONFLICTS = path.join(VCMS_ROOT, "docs", "ecosystem", "conflicts.md");
 const OUT_MAP = path.join(VCMS_ROOT, "docs", "ecosystem", "map.md");
 const OUT_REPO_PAGES_DIR = path.join(VCMS_ROOT, "docs", "ecosystem", "repos");
+const { appendScanEvent } = require("./vcms-audit-log");
 
 function readText(p) {
   return fs.readFileSync(p, "utf8");
@@ -227,6 +229,20 @@ function loadConfig() {
   const rules = JSON.parse(readText(RULES_JSON));
   const reposDoc = parseReposYaml(readText(REPOS_YAML));
   return { rules, reposDoc };
+}
+
+function severityForCode(rules, code) {
+  const map = rules.conflict_severity || {};
+  return map[code] || "warning";
+}
+
+function tallySeverity(conflicts) {
+  const out = { blocking: 0, warning: 0, info: 0 };
+  for (const c of conflicts) {
+    const sev = c.severity || "warning";
+    if (out[sev] !== undefined) out[sev] += 1;
+  }
+  return out;
 }
 
 function isDeniedByRules(rel, rules) {
@@ -642,6 +658,8 @@ function writeConflictsMd(conflicts, index) {
   lines.push(`Generated at: \`${when}\``);
   lines.push(`Repos scanned: **${index.repos.length}**`);
   lines.push(`Conflicts found: **${conflicts.length}**`);
+  const sevTally = tallySeverity(conflicts);
+  lines.push(`| blocking | **${sevTally.blocking}** | warning | **${sevTally.warning}** | info | **${sevTally.info}** |`);
   lines.push("");
 
   const byRepo = new Map();
@@ -664,7 +682,7 @@ function writeConflictsMd(conflicts, index) {
       continue;
     }
     for (const c of list) {
-      lines.push(`- **${c.code}**`);
+      lines.push(`- **${c.code}** (${c.severity || "warning"})`);
       if (c.detail && c.detail.length) {
         for (const d of c.detail) lines.push(`  - \`${d}\``);
       }
@@ -705,8 +723,8 @@ function writeMapMd(index) {
 
   lines.push("## Where is the truth (canonical pointers)");
   lines.push("");
-  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs |");
-  lines.push("|------|----------|------------------|----------------|------------|----------|");
+  lines.push("| Repo | Repo page | Canonical brain | Canonical todo | Guardrails | Handoffs | Vibe-Ready |");
+  lines.push("|------|----------|------------------|----------------|------------|----------|------------|");
 
   for (const repo of index.repos) {
     const slug = slugByName.get(repo.name) || slugifyRepoName(repo.name);
@@ -716,7 +734,12 @@ function writeMapMd(index) {
     const handoffs = repo.files.some((f) => f.type === "HANDOFF") || handoffsDirExists ? "yes" : "no";
     const brain = repo.canonical.brain ? `\`${repo.canonical.brain}\`` : "—";
     const todo = repo.canonical.todo ? `\`${repo.canonical.todo}\`` : "—";
-    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} |`);
+    
+    // Vibe-Ready check
+    const isReady = repo.exists && guard === "yes" && handoffs === "yes" && brain !== "—" && todo !== "—";
+    const vibeReady = isReady ? "✅ READY" : "❌ NOT_READY";
+
+    lines.push(`| ${repo.name} | ${repoPage} | ${brain} | ${todo} | ${guard} | ${handoffs} | ${vibeReady} |`);
   }
 
   lines.push("");
@@ -733,12 +756,41 @@ function writeMapMd(index) {
 function main() {
   const { rules, reposDoc } = loadConfig();
   const index = buildIndex(reposDoc, rules);
-  const conflicts = detectConflicts(index);
+  const rawConflicts = detectConflicts(index);
+  const conflicts = rawConflicts.map((c) => ({
+    ...c,
+    severity: severityForCode(rules, c.code),
+  }));
+  const severity = tallySeverity(conflicts);
 
   writeJson(OUT_INDEX, index);
   writeConflictsMd(conflicts, index);
   writeMapMd(index);
   writeRepoPages(index);
+
+  const snapshot = {
+    count: conflicts.length,
+    repos_scanned: index.repos.length,
+    generated_at: stableUpdatedAt(index),
+    severity,
+    source: "docs/ecosystem/conflicts.md"
+  };
+  ensureDir(path.join(VCMS_ROOT, "deploy-context"));
+  writeJson(path.join(VCMS_ROOT, "deploy-context", "conflicts-snapshot.json"), snapshot);
+
+  try {
+    appendScanEvent(snapshot);
+  } catch (err) {
+    console.error("Failed to append governance audit log:", err.message);
+  }
+
+  // Audit 3.0: Update SQLite Knowledge Index
+  try {
+    console.log("Updating SQLite Knowledge Index...");
+    execFileSync("node", [path.join(VCMS_ROOT, "tools", "vcms-sync-db.js")], { stdio: "inherit" });
+  } catch (err) {
+    console.error("Failed to sync SQLite DB:", err.message);
+  }
 
   console.log("VCMS scan complete.");
   console.log(" -", path.relative(VCMS_ROOT, OUT_INDEX));

@@ -130,6 +130,6 @@ AG NIE zgaduje i NIE robi "quick fix". Przeprowadzi Cię przez 5 kroków:
 |-------|------|
 | Zasady systemu | [global-rules.md](/core/global-rules) |
 | Granice agentów | [agent-boundaries.md](/agents/agent-boundaries) |
-| Profil AG | [antigravity.md](/agents/antigravity) |
+| Granice agentów | [agent-boundaries.md](/agents/agent-boundaries) |
 | Deploy CF | [manual-release.md](/playbooks/manual-release) |
 | Poradnik startowy | [PORADNIK_UZYTKOWNIKA.md](/PORADNIK_UZYTKOWNIKA) |

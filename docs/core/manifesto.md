@@ -1,24 +1,24 @@
 ---
 status: "[STABLE]"
-title: "VCMS Manifesto — dlaczego ten system istnieje"
+title: "VCMS Manifesto ï¿½ dlaczego ten system istnieje"
 updated: "2026-04-09"
 ---
 
 # VCMS Manifesto
 
-**VCMS** (Vibe Coding Mastery System) to **lokalny system operacyjny** do pracy z AI nad ekosystemem FlexGrafik: regu?y, checklisty i artefakty, które utrzymuj? porz?dek mi?dzy sesjami — nie kolejny kurs.
+**VCMS** (Vibe Coding Mastery System) to **lokalny system operacyjny** do pracy z AI nad ekosystemem FlexGrafik: regu?y, checklisty i artefakty, ktï¿½re utrzymuj? porz?dek mi?dzy sesjami ï¿½ nie kolejny kurs.
 
 ## Trzy zasady
 
-1. **Jedno ?ród?o prawdy** — brain + todo + handoff na modu?; reszta to mirror lub archiwum.
-2. **Jedna sesja = jeden modu? = jeden diff** (1-1-1); deploy zawsze r?cznie przez Dowódc?.
-3. **Koniec sesji = handoff** — bez raportu wiedza ginie; `SESSIONANCHOR` + `NEXT` = jedna rzecz.
+1. **Jedno ?rï¿½d?o prawdy** ï¿½ brain + todo + handoff na modu?; reszta to mirror lub archiwum.
+2. **Jedna sesja = jeden modu? = jeden diff** (1-1-1); deploy zawsze r?cznie przez Dowï¿½dc?.
+3. **Koniec sesji = handoff** ï¿½ bez raportu wiedza ginie; `SESSIONANCHOR` + `NEXT` = jedna rzecz.
 
 ## Co VCMS robi w praktyce
 
-- **Dokumentacja** (VitePress) — SOP, playbooki, zasady, profile agentów.
-- **Orchestrator** — `node tools/vcms-scan.js` ? indeks, mapa, konflikty, strony repo (w tym sam **flex-vcms** w `repos.yaml`).
-- **KODA** — mentor w przegl?darce (opcjonalnie backend + Gemini).
+- **Dokumentacja** (VitePress) ï¿½ SOP, playbooki, zasady, profile agentï¿½w.
+- **Orchestrator** ï¿½ `node tools/vcms-scan.js` ? indeks, mapa, konflikty, strony repo (w tym sam **flex-vcms** w `repos.yaml`).
+- **KODA** ï¿½ mentor w przegl?darce (opcjonalnie backend AI).
 
 ## Gdzie zacz??
 
@@ -29,4 +29,4 @@ updated: "2026-04-09"
 
 ## Ekosystem
 
-?cie?ki modu?ów i canonical brain/todo: `repos.yaml`. Plan pi?ciu faz: [plan ekosystemu](/plans/flex-vcms-ecosystem-5-phase-plan).
+?cie?ki modu?ï¿½w i canonical brain/todo: `repos.yaml`. Plan pi?ciu faz: [plan ekosystemu](/plans/flex-vcms-ecosystem-5-phase-plan).

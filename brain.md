@@ -1,22 +1,27 @@
-﻿---
+---
 status: "[STABLE]"
 title: "VCMS Brain — Dowodca SSoT (Operational Contract)"
 owner: "Norbert Wozniak (Dowodca)"
-updated: "2026-04-09"
+updated: "2026-06-16"
 audience:
   - "Dowodca"
-  - "Antigravity (AG)"
-  - "Gemini CLI"
+  - "OpenCode (Coding Agent)"
+  - "Cursor (IDE Cockpit)"
 ---
 
 ## DLA KOGO JEST TEN BRAIN (kontrakt)
 
-- **Dowodca (Ty)**: Twoj kompas decyzyjny. Gdy masz chaos → wracasz tutaj, wybierasz 1 modul i 1 zadanie.
-- **Antigravity (AG)**: Orkiestracja sesji. Po przeczytaniu masz egzekwowac `workflow-manual.md`, nie „pomysly z kosmosu”.
-- **Gemini CLI**: Warstwa wykonawcza. Po przeczytaniu masz stosowac tylko „deploy gates” i checklisty. Bez autonapraw na produkcji.
+- **Dowodca (Ty)**: Twoj kompas decyzyjny. Gdy masz chaos -- wracasz tutaj, wybierasz 1 modul i 1 zadanie.
+- **OpenCode (Agent)**: Coding agent CLI. Po przeczytaniu egzekwujesz `workflow-manual.md`, pracujesz w trybie Plan/Build.
+- **Cursor (IDE)**: Cockpit codzienny. MCP, inline agents, live-debug przez CDP.
 
 ## Jedno zdanie (misja)
-VCMS ma trzymac Twoj workflow w ryzach: **jedno zrodlo prawdy, jedna sesja = jedno zadanie, zawsze handoff**.
+
+**Versioned Content Management & Supervision** — warstwa governance ekosystemu FlexGrafik: skan repozytoriów, wykrywanie konfliktów SSoT, mapa modułów, handoffy i command center (docs + dashboard).
+
+Operacyjnie: **jedno źródło prawdy, jedna sesja = jedno zadanie, zawsze handoff** (Zasada 1-1-1).
+
+Pełna granica produktu (co jest / czego nie ma): `docs/VCMS_PORTFOLIO_TRUTH.md`.
 
 ---
 
@@ -25,11 +30,11 @@ VCMS ma trzymac Twoj workflow w ryzach: **jedno zrodlo prawdy, jedna sesja = jed
 ### Preferowany styl komunikacji (obowiazuje wszystkich agentow)
 - Krotko, konkretnie, bez lania wody.
 - Najpierw **co robimy teraz**, potem **dlaczego**, na koncu **nastepny krok**.
-- Nie pytaj mnie 3 razy o to samo. Jak brakuje danych → pokaz brak i powiedz, co minimalnie jest potrzebne.
+- Nie pytaj mnie 3 razy o to samo. Jak brakuje danych -- pokaz brak i powiedz, co minimalnie jest potrzebne.
 - Nie rozpraszaj mnie na 5 modulow. **Jeden modul na sesje**.
 
 ### Twarde zakazy (dla agentow)
-- Zakaz „zrob wszystko naraz”.
+- Zakaz "zrob wszystko naraz".
 - Zakaz deployu autonomicznego (Zasada 11).
 - Zakaz zmieniania architektury poza zatwierdzonym planem (/blast).
 
@@ -46,7 +51,7 @@ Wtedy obowiazuje protokol: `docs/if-lost.md`.
 - **Strategia makro**: `flexgrafik-meta/docs/core/master-plan.md`
 - **Hierarchia agentow**: `flexgrafik-meta/docs/core/agents.md`
 
-### Definition of Done (sesja jest „ukonczona” tylko gdy)
+### Definition of Done (sesja jest "ukonczona" tylko gdy)
 - Zaktualizowany backlog (todo/audit-todo) w aktywnym module
 - Zrobiony wpis handoff w `docs/handoffs/` aktywnego modulu
 - Jesli byl deploy: checklista `docs/checklists/prep-deploy.md` przeszla + smoke test
@@ -55,8 +60,8 @@ Wtedy obowiazuje protokol: `docs/if-lost.md`.
 
 ## 3) Hard guardrails (Top 10 — skrot, nie duplikat)
 
-1) **Deploy manual only** (Zasada 11) — Ty uruchamiasz komendy.
-2) **Zasada 1-1-1** — jedno zadanie na iteracje, koniec z mega-diffami.
+1) **Deploy manual only** (Zasada 11) -- Ty uruchamiasz komendy.
+2) **Zasada 1-1-1** -- jedno zadanie na iteracje, koniec z mega-diffami.
 3) **Minimum checkout**: 199 EUR.
 4) **Minimum marza**: 60%.
 5) **Wizard-only**: Wizard to jedyna droga zakupu (brak klasycznego sklepu).
@@ -70,26 +75,45 @@ Zrodlo: `docs/core/global-rules.md`.
 
 ---
 
-## 4) Aktywny ekosystem (moduly + rola)
+## 4) Aktywny ekosystem (8 repo — warstwy)
 
-Kanoniczny rejestr modulow: `repos.yaml`.
+Kanoniczny rejestr: `repos.yaml` · mapa: `docs/ecosystem/map.md` · skan: `npm run scan`.
 
-### Moduly (5)
-- **zzpackage.flexgrafik.nl** — Wizard / Cash Engine
-  - Canonical backlog: `docs/audit-todo.json`
-  - Canonical brain: `MASTER-BRAIN.md`
-- **jadzia-core** — OS operacyjny / automaty / dane
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **app.flexgrafik.nl** — gra / lead magnet
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **flexgrafik-nl** — portal zaufania / authority
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `brain.md`
-- **flexgrafik-meta** — meta: strategia + rules + workflow + cohesion
-  - Canonical backlog: `todo.json`
-  - Canonical brain: `docs/core/master-plan.md`
+### Warstwa: Governance & meta
+| Repo | Rola | Canonical brain | Backlog |
+|------|------|-----------------|---------|
+| **flexgrafik-meta** | Konstytucja — rules, strategia, workflow | `docs/core/master-plan.md` | `todo.json` |
+| **flex-vcms** | Orchestrator — skan, konflikty, handoffy, command center | `brain.md` (ten plik) | `flex-vcms-todo.json` |
+
+### Warstwa: Produkty & aplikacje
+| Repo | Rola | Canonical brain | Backlog |
+|------|------|-----------------|---------|
+| **zzpackage.flexgrafik.nl** | Wizard / Cash Engine | `MASTER-BRAIN.md` | `docs/audit-todo.json` |
+| **flexgrafik-nl** | Portal zaufania | `brain.md` | `todo.json` |
+| **app.flexgrafik.nl** | Gra / lead magnet | `brain.md` | `todo.json` |
+
+### Warstwa: AI & wykonanie
+| Repo | Rola | Canonical brain | Backlog |
+|------|------|-----------------|---------|
+| **jadzia-core** | Backend AI / automaty / dane | `brain.md` | `todo.json` |
+| **agent-os** | Orkiestracja agentów (LangGraph) | `SESSION-ANCHOR.md` | `todo.json` |
+| **agent-os-ui** | Mission Control — HITL, approval UI | `README.md` | `todo.json` |
+
+---
+
+## 4.1) Granice produktu (nie mylić modułów)
+
+| Capability | Gdzie żyje | Status |
+|------------|------------|--------|
+| Skan 8 repo, konflikty SSoT | **flex-vcms** | PROVEN |
+| Handoffy sesji (markdown) | **flex-vcms** `docs/handoffs/` | PROVEN |
+| Human approval gate (UI) | **agent-os-ui** | DEMO/PROVEN |
+| Agent cards (UI) | **agent-os-ui** + portfolio gratka | DEMO |
+| LLM chat / KODA (RAG read-only) | **flex-vcms** `POST /api/chat` | PROVEN (wymaga klucza `.env`) |
+| Governance audit log (JSON trail) | **flex-vcms** `data/governance-audit.jsonl` | PROVEN (append po scan) |
+| Strona sprzedażowa Quietforge | **services** repo | osobny moduł |
+
+Portfolio copy musi być zgodne z `docs/VCMS_PORTFOLIO_TRUTH.md` — bez przypisywania HITL do flex-vcms UI.
 
 ---
 
@@ -110,7 +134,7 @@ Kanoniczny rejestr modulow: `repos.yaml`.
 
 ## 5.1) Weekly Review (5 minut, raz w tygodniu)
 
-**DLA KOGO**: Dowodca + AG (jako prowadzący).
+**DLA KOGO**: Dowodca + Agent (jako prowadzacy).
 
 **Cel**: utrzymac kierunek i nie gubic sie w backlogach.
 
@@ -122,8 +146,8 @@ Kanoniczny rejestr modulow: `repos.yaml`.
    - co jest NEXT,
    - co stoi w miejscu.
 2) Otworz najnowsze handoffy w aktywnym module (np. `zzpackage.../docs/handoffs/`) i wypisz 1 zdanie: *co bylo ostatnio realnie dowiezione*.
-3) Wybierz **1 cel na tydzien** (jedno zdanie) i **1 metryke** (np. „Wizard stabilny / brak regresji / 1 deploy bez rollbacku”).
-4) Parking lot: dopisz max 3 „pomysly” (bez realizacji).
+3) Wybierz **1 cel na tydzien** (jedno zdanie) i **1 metryke** (np. "Wizard stabilny / brak regresji / 1 deploy bez rollbacku").
+4) Parking lot: dopisz max 3 "pomysly" (bez realizacji).
 
 **Output**: 1 plik weekly review + 3 action items max.
 
@@ -135,9 +159,9 @@ Kanoniczny rejestr modulow: `repos.yaml`.
 Uczymy sie *na realnym zadaniu*, nie przez kurs.
 
 ### Jak agent ma mnie uczyc
-- 1 mikro-lekcja na koniec zadania (5–10 minut).
+- 1 mikro-lekcja na koniec zadania (5-10 minut).
 - Slowniczek max 5 pojec na sesje.
-- Zawsze pokaz: „co klikam / co wpisuje” (PowerShell, git).
+- Zawsze pokaz: "co klikam / co wpisuje" (PowerShell, git).
 
 ### Skill map (SSoT)
 Kanoniczny rejestr poziomow wiedzy + study queue: `docs/study/study-index.md`.
@@ -163,7 +187,7 @@ Obszary sledzone (7 technicznych):
 
 ## 7) Context packets (minimalne, gotowe do uzycia)
 
-### DLA AG (Orchestrator) — start kazdej sesji
+### DLA OpenCode/Cursor (Orchestrator) — start kazdej sesji
 Wczytaj:
 - `flex-vcms/brain.md` (ten plik)
 - `flexgrafik-meta/docs/core/workflow-manual.md`
@@ -174,11 +198,7 @@ Wczytaj:
 - backlog modulu (np. `zzpackage.flexgrafik.nl/docs/audit-todo.json`)
 - ostatni handoff modulu (`docs/handoffs/*` najnowszy)
 
-Output od AG po /vibe-init:
-- `STATUS: Faza 1, Krok 1 (/vibe-init)` + modul + branch + cel sesji (2 zdania)
-- 1–3 zadania z backlogu (kandydaci)
-
-### DLA Gemini CLI (Execution / Deploy)
+### DLA Deploy (Execution)
 Przed deploy:
 - checklista: `docs/checklists/prep-deploy.md`
 - diff: `git diff` (w module)
@@ -192,20 +212,52 @@ Po deploy:
 
 ## 8) Session Exit Checklist (1 ekran, zawsze na koniec)
 
-**DLA KOGO**: Dowodca + AG.
+**DLA KOGO**: Dowodca + Agent.
 
-Jesli jakikolwiek punkt jest NIE / NIE WIEM → **STOP** (nie „zamykać sesji na szybko”).
+Jesli jakikolwiek punkt jest NIE / NIE WIEM -- **STOP** (nie "zamykac sesji na szybko").
 
 - [ ] **Zadanie sesji bylo jedno (1-1-1)** i jest domkniete lub jasno oznaczone jako BLOCKED.
 - [ ] **Backlog zaktualizowany** w aktywnym module (statusy, next action).
 - [ ] **Handoff zapisany** w `docs/handoffs/` aktywnego modulu (co zrobione + co dalej).
-- [ ] **VCMS index nadal spójny** (opcjonalnie) uruchom: `node tools/vcms-scan.js` i upewnij sie, ze `conflicts.md` nie rośnie.
+- [ ] **VCMS index nadal spojny** (opcjonalnie) uruchom: `node tools/vcms-scan.js` i upewnij sie, ze `conflicts.md` nie rosnie.
 - [ ] Jesli byl deploy: **prep-deploy checklist** odhaczona + smoke test wykonany.
 - [ ] Jesli sesja utknela: zapisany **SESSIONANCHOR** (ponizej) + 1 zdanie *dlaczego utknelo*.
+
+## 9) VCMS Command Center (Instrukcja Obslugi)
+
+Nowoczesne centrum dowodzenia (PH4-014) integruje wiedze z calego ekosystemu.
+
+### Jak to dziala (SSoT Sync)
+1. **Lokalnie**: Gdy robisz zmiany w dowolnym repo (np. `zzpackage`), narzedzie `tools/vcms-sync-context.js` zbiera pliki `brain.md` i `todo.json`.
+2. **Deploy**: Skrypt `Deploy-VPS.ps1` automatycznie uruchamia sync i wysyla paczke wiedzy na serwer (Atomic Swap).
+3. **Na Serwerze**: VCMS Dashboard czyta manifest i wyswietla stan systemu.
+
+### KODA tab (dashboard + docs)
+- Zakładka **KODA** w dashboardzie (`npm start` → `http://localhost:8001/`) — asystent RAG read-only (`POST /api/chat`).
+- Kontekst: `docs/` + `deploy-context` (brain/todo modułów). Klucz LLM: `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env` (nigdy w repo).
+- **VCMS = Nadzór** — KODA tłumaczy, analizuje, nie deployuje ani nie edytuje kodu.
+- **Agent OS UI = Egzekucja** — delegowanie zadań, HITL, zatwierdzanie deployów.
+- Skan lokalny: `npm run scan` → `docs/ecosystem/conflicts.md` + append `data/governance-audit.jsonl`.
+
+### Widgety i LEDy (Jak czytac Dashboard)
+- **Next Action (Backlog)**: Pobiera dane bezposrednio z `flex-vcms-todo.json`. Zawsze wiesz, co jest priorytetem w skali calego ekosystemu.
+- **Context Health (LEDy)**:
+  - HEALTHY: Wiedza na serwerze jest aktualna (< 24h).
+  - STALE: Dane sa starsze niz 24h. Zalecany deploy (`.\scripts\Deploy-VPS.ps1`).
+  - MISSING: SSoT jest niepelne (brak pliku brain lub todo). Sprawdz `repos.yaml`.
+
+### 9.1 UI/UX (dashboard)
+
+- **SSoT tokenów:** `docs/design/VCMS_UI_TOKENS.md` · plik CSS: `public/tokens.css`
+- **Motyw:** `<body data-app="flex-vcms">` — akcent governance **fiolet** (`--accent-primary`), nie emerald
+- **LEDy Context Health:** `led--healthy` / `led--stale` / `led--missing` → `--fx-money` / `--fx-calm` / `--fx-time`
+- **Governance tab:** klasa `panel panel--governance` na głównym cardzie zakładki (legacy) · **KODA tab:** `chat-container--koda`, badge `badge--koda`
+- **Action Log:** `/api/v1/audit-log` → `data/governance-audit.jsonl` (ostatnie wpisy po `npm run scan`)
+
+---
 
 ### SESSIONANCHOR (gdy przerywamy bez stresu)
 Format:
 - `ANCHOR:` co bylo ostatnim stabilnym stanem (plik/commit/branch)
 - `NEXT:` jedna konkretna rzecz do zrobienia jako pierwsza w nastepnej sesji
 - `BLOCKER:` co brakuje (1 linia)
-

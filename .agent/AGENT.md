@@ -262,4 +262,4 @@ Aktualizuje po kazdej sesji:
 ---
 
 *KODA v1.0 — VCMS Learning & Navigation Agent*
-*Wlasciciel: Norbert Wozniak | Zbudowany przez: AG (Antigravity)*
+*Wlasciciel: Norbert Wozniak | Aktywny stack: OpenCode + Cursor + OpenRouter*

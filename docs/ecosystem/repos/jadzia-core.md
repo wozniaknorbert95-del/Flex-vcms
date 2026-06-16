@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: jadzia-core"
-updated: "2026-04-09T17:15:38.420Z"
+updated: "2026-06-16T19:07:41.283Z"
 repo_name: "jadzia-core"
 repo_slug: "jadzia-core"
 repo_type: "ai-core"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: null
-last_handoff_mtime: null
+last_handoff_rel: "docs/handoffs/2026-06-02-c1-04-api-integration-tests.md"
+last_handoff_mtime: "2026-06-02T16:51:14.431Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/jadzia-core.mdc"]
-links_recent_handoffs: []
+links_recent_handoffs: ["docs/handoffs/2026-06-02-c1-04-api-integration-tests.md (2026-06-02T16:51:14.431Z)", "docs/handoffs/2026-06-02-fix-state-package-tests.md (2026-06-02T16:33:14.885Z)", "docs/handoffs/2026-06-01-ci-pipeline.md (2026-06-01T17:43:43.008Z)"]
 ---
 
 ## jadzia-core
@@ -34,7 +34,7 @@ links_recent_handoffs: []
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: —
+- **Last handoff**: `docs/handoffs/2026-06-02-c1-04-api-integration-tests.md` (2026-06-02T16:51:14.431Z)
 
 ## Quick links (by file type)
 
@@ -43,7 +43,9 @@ links_recent_handoffs: []
 - **Cursor rules**:
   - `.cursor/rules/jadzia-core.mdc`
 - **Recent handoffs (up to 3)**:
-  - —
+  - `docs/handoffs/2026-06-02-c1-04-api-integration-tests.md (2026-06-02T16:51:14.431Z)`
+  - `docs/handoffs/2026-06-02-fix-state-package-tests.md (2026-06-02T16:33:14.885Z)`
+  - `docs/handoffs/2026-06-01-ci-pipeline.md (2026-06-01T17:43:43.008Z)`
 
 ## Back
 

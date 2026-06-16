@@ -46,8 +46,7 @@ hero:
     <p style="color: #666; font-size: 0.9rem;">Relacje z AI i granice.</p>
     <ul style="list-style: none; padding: 0;">
       <li><a href="/agents/agent-boundaries">Granice Agentow</a></li>
-      <li><a href="/agents/antigravity">Rola Antigravity</a></li>
-      <li><a href="/agents/gemini-cli">Rola Gemini CLI</a></li>
+      <li><a href="/agents/boot-senior-agency">Boot: Senior Agency</a></li>
     </ul>
   </div>
 </div>

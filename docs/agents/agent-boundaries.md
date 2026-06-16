@@ -17,15 +17,15 @@ Ekosystem działa w 3 warstwach. Każda warstwa ma swoje uprawnienia i granice.
 ```
 ┌────────────────────────────────────────────────┐
 │  DIRECTIVE LAYER — STRATEGIA                   │
-│  Dowódca (Norbert) + Claude                    │
+│  Dowódca (Norbert) + Strategist                │
 │  → Decyduje o kierunku, cenach, stacku, rules  │
 ├────────────────────────────────────────────────┤
 │  ORCHESTRATION LAYER — PLANOWANIE              │
-│  Antigravity (AG)                              │
+│  OpenCode / Cursor Agent                       │
 │  → Planuje, recenzuje, blokuje naruszenia      │
 ├────────────────────────────────────────────────┤
 │  EXECUTION LAYER — EGZEKUCJA                   │
-│  Gemini CLI + Jadzia                           │
+│  OpenCode Builder + Jadzia                     │
 │  → Wykonuje konkretne zadania, raportuje       │
 └────────────────────────────────────────────────┘
 ```
@@ -37,9 +37,22 @@ Agenty nie podejmują samodzielnych decyzji biznesowych ani architektonicznych.
 
 ---
 
-## 🛸 Antigravity (AG) — Orchetracja
+## Flex-VCMS vs Agent OS UI — Podział ról (CANONICAL)
 
-### ✅ AG MOŻE:
+| System | Warstwa | Tryb | Odpowiedzialność |
+|--------|---------|------|------------------|
+| **flex-vcms** | Nadzór / Governance | Read-only | Skan SSoT, docs, dashboard, **KODA RAG** (analiza, tłumaczenie) |
+| **agent-os-ui** | Egzekucja / HITL | Read-write | Delegowanie agentów, diff review, zatwierdzanie deployów |
+
+::: info KODA w VCMS
+KODA (`POST /api/chat`) to asystent governance z kontekstem `docs/` — **nie** zastępuje Agent OS do wykonywania zadań ani deployu (Zasada 11).
+:::
+
+---
+
+## OpenCode / Cursor Agent — Orkiestracja
+
+### Agent MOŻE:
 - Generować kod, diffy, instrukcje — na podstawie zatwierdzonego planu
 - Planować architekturę featurów przez framework BLAST
 - Przygotowywać komendy deploy — ale **nie uruchamiać ich**
@@ -48,7 +61,7 @@ Agenty nie podejmują samodzielnych decyzji biznesowych ani architektonicznych.
 - Blokować rozwiązania łamiące global-rules i zgłaszać `KONFLIKT Z global-rules.md`
 - Eskalować do Dowódcy gdy 3 próby self-healing zawiodły
 
-### ❌ AG NIE MOŻE:
+### Agent NIE MOŻE:
 - Deployować na produkcję **autonomicznie** (Zasada 11)
 - Pushować bezpośrednio na gałąź `main`
 - Modyfikować schematu DB bez wcześniejszego wpisu w `PRD-schema.md`
@@ -59,17 +72,17 @@ Agenty nie podejmują samodzielnych decyzji biznesowych ani architektonicznych.
 
 ---
 
-## ⚙️ Gemini CLI — Egzekucja
+## OpenCode Builder — Egzekucja
 
-Używasz Gemini CLI do lokalnych zadań budowania / generowania plików.
+Używasz OpenCode do lokalnych zadań budowania / generowania plików.
 
-### ✅ GEMINI CLI MOŻE:
+### OpenCode Builder MOŻE:
 - Budować pliki i struktury katalogów wg blueprintu
 - Uruchamiać skrypty lokalnie (`npm`, `composer`, `python`)
 - Generować boilerplate na podstawie zatwierdzonych szablonów
 - Czytać i modyfikować pliki lokalne
 
-### ❌ GEMINI CLI NIE MOŻE:
+### OpenCode Builder NIE MOŻE:
 - Podejmować samodzielnych decyzji architektonicznych
 - Modyfikować `global-rules.md` bez decyzji Dowódcy
 - Deployować na serwer produkcyjny
@@ -85,7 +98,7 @@ Jadzia to Vice-Dyrektor ekosystemu. Orkiestruje dane w `jadzia.db`.
 - Orkiestrować dane i procesy w `jadzia.db`
 - Automatyzować wewnętrzne procesy (powiadomienia, raporty)
 - Generować logi, statystyki, podsumowania
-- Komunikować się z AG przez MCP (tools, resources)
+- Komunikować się z agentami przez MCP (tools, resources)
 
 ### ❌ JADZIA NIE MOŻE:
 - Bezpośrednio edytować plików WordPress przez SSH
@@ -116,9 +129,9 @@ Opis naruszenia zapisz w `docs/journal/`.
 
 ---
 
-## �� Tabela Uprawnień — Szybki Przegląd
+## Tabela Uprawnień — Szybki Przegląd
 
-| Akcja | Dowódca | AG | Gemini | Jadzia |
+| Akcja | Dowódca | Agent | Builder | Jadzia |
 |-------|---------|----|----|--------|
 | Deploy na produkcję | ✅ | ❌ | ❌ | ❌ |
 | Push do `main` | ✅ | ❌ | ❌ | ❌ |
