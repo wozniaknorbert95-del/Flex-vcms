@@ -2,10 +2,10 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-05-11T10:11:40.490Z",
+    "updated": "2026-06-16T05:52:46.248Z",
     "workstream": "PH4-PROD na TLS (cmd.flexgrafik.nl), Red Team Review wykonany 2026-05-08 → PH4-016 hardening backlog otwarty. PH4-011 mobile chromium=DONE, real-device=PENDING (PH4-017).",
     "plan_now": {
-      "primary": "PH4-016: VCMS Prod Hardening (3 sesje A/B/C) — patrz docs/audits/2026-05-08-vcms-prod-redteam.md sekcja 6. Start: Sesja A (fail2ban + nginx headers + pm2-logrotate).",
+      "primary": "PH4-017: real device mobile test (4G/5G) na cmd.flexgrafik.nl. PH4-018 DONE 2026-06-16.",
       "parallel_optional": "PH4-017: realny test telefonu (Dowódca, 4G/5G) — nie blokuje PH4-016.",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
     },
@@ -19,9 +19,9 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "PH4-016",
-      "title": "VCMS Prod Hardening — Sesja A (Ops/Infra)",
-      "before_you_start": "Czytaj docs/audits/2026-05-08-vcms-prod-redteam.md sekcja 6. Sesja A: fail2ban (F1) + nginx security headers (F4) + pm2-logrotate (F6) + server_tokens off (F7) + TLS 1.2+ globalnie (F13) + usuń listen 8010 (F14). Manual deploy na VPS (Zasada 11).",
+      "task_id": "PH4-017",
+      "title": "PH4-011 follow-up: real device mobile test (4G/5G)",
+      "before_you_start": "Wypełnij docs/templates/tmpl-ph4-011-mobile.md → docs/handoffs/YYYY-MM-DD-ph4-011-mobile-real.md. Tylko 4G/5G.",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
@@ -660,9 +660,10 @@
     {
       "id": "PH4-016",
       "area": "SECURITY",
-      "status": "TODO",
+      "status": "DONE",
       "priority": "P0",
       "repo": "flex-vcms",
+      "done_at": "2026-06-16",
       "title": "VCMS Prod Hardening — Red Team Review followup (3 sesje)",
       "audit_source": "docs/audits/2026-05-08-vcms-prod-redteam.md",
       "subtasks": [
@@ -670,9 +671,11 @@
           "id": "PH4-016-A",
           "title": "Sesja A — Ops/Infra (manual VPS): F1 fail2ban + F4 nginx security headers (HSTS/XFO/CSP for 401) + F6 pm2-logrotate + F7 server_tokens off + F13 TLS 1.2+ globalnie + F14 usuń listen 8010",
           "priority": "P0",
-          "status": "TODO",
+          "status": "DONE",
           "deploy_type": "manual_ssh",
-          "estimated_effort": "1.5h"
+          "estimated_effort": "1.5h",
+          "done_at": "2026-06-16",
+          "note": "Verified via Invoke-PH4-016-SessionA.ps1 -VerifyOnly (originally applied 2026-05-11)"
         },
         {
           "id": "PH4-016-B",
@@ -702,6 +705,24 @@
         "Po Sesji C: npm audit --omit=dev zwraca 0 vulnerabilities"
       ],
       "definition_of_done": "Wszystkie 14 findings P0/P1/P2 z audytu Red Team 2026-05-08 zamknięte; weryfikacja 7 komendami z sekcji 7 raportu audytu."
+    },
+    {
+      "id": "PH4-018",
+      "area": "SECURITY",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-16",
+      "title": "Weekly audit verification CI/cron (PH4-016 feedback loop)",
+      "audit_source": "docs/audits/2026-06-15-LIVE-AUDIT-FLASH.md (G2)",
+      "acceptance": [
+        "scripts/ph4-016-verify.sh generuje markdown report (REPORT_FILE)",
+        "scripts/weekly-audit-check.sh + install-weekly-audit-cron.sh na VPS",
+        "scripts/Invoke-WeeklyAudit.ps1 + npm run verify:prod-audit",
+        ".github/workflows/weekly-audit-verify.yml (schedule weekly)",
+        "docs/jobs/README.md z instrukcją cron + secrets"
+      ],
+      "definition_of_done": "Tygodniowa weryfikacja prod bez ręcznego audytu; raport w /var/log/vcms-audit/reports/ i opcjonalnie docs/audits/latest-verification.md"
     },
     {
       "id": "PH4-017",

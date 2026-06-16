@@ -51,7 +51,7 @@ $requiredRootFiles = @(
     "repos.yaml",
     "flex-vcms-todo.json"
 )
-$requiredDirectories = @("public", "src", "deploy-context")
+$requiredDirectories = @("public", "src", "deploy-context", "scripts")
 
 function Write-Plan {
     param([string]$Line)

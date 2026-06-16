@@ -1,18 +1,24 @@
 ---
-status: "[READY]"
+status: "[DONE — verified 2026-06-16]"
 title: "Sesja A — Ops/Infra: fail2ban + nginx security headers + pm2-logrotate"
 date: "2026-05-11"
+verified: "2026-06-16"
 findings: "F1, F4, F6, F7, F13, F14"
 audit_source: "docs/audits/2026-05-08-vcms-prod-redteam.md"
-deploy_type: "manual SSH (Zasada 11)"
+deploy_type: "manual SSH lub scripts/Invoke-PH4-016-SessionA.ps1"
 estimated_effort: "~20 minut"
 ---
 
 # Sesja A — VPS Ops/Infra
 
-> Wykonujesz **ręcznie na VPS** (`ssh root@185.243.54.115`). Zero deploy przez skrypt — to czysty SSH.
->
-> Kolejność: 1→2→3→4 (każdy krok niezależny, ale wykonaj wszystkie).
+> **Status 2026-06-16:** Sesja A **już wdrożona i zweryfikowana** na VPS.  
+> Szybka weryfikacja: `.\scripts\Invoke-PH4-016-SessionA.ps1 -SshTarget root@185.243.54.115 -VerifyOnly`  
+> Pełny plan zamknięcia: [PH4-016-SESSION-A-PLAN.md](../plans/PH4-016-SESSION-A-PLAN.md)
+
+Wykonujesz **ręcznie na VPS** (`ssh root@185.243.54.115`) **tylko gdy trzeba re-apply** po regresji.
+Alternatywa: `.\scripts\Invoke-PH4-016-SessionA.ps1 -SshTarget root@185.243.54.115` (idempotentny skrypt).
+
+Kolejność: 1→2→3→4 (każdy krok niezależny, ale wykonaj wszystkie).
 
 ---
 

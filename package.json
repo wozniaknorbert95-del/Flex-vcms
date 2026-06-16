@@ -10,7 +10,8 @@
         "docs:dev": "vitepress dev docs",
         "docs:preview": "vitepress preview docs",
         "docs:build": "vitepress build docs",
-        "verify:scan": "node tools/verify-scan-artifacts.js"
+        "verify:scan": "node tools/verify-scan-artifacts.js",
+        "verify:prod-audit": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/Invoke-WeeklyAudit.ps1 -SyncReport"
     },
     "keywords": [],
     "author": "",

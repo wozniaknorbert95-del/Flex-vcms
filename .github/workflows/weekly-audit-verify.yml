@@ -1,0 +1,49 @@
+name: Weekly Prod Audit Verification
+
+on:
+  schedule:
+    # Monday 09:00 UTC — matches VPS cron
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  verify-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify secrets configured
+        id: secrets
+        run: |
+          if [ -z "${{ secrets.VCMS_SSH_KEY }}" ] || [ -z "${{ secrets.VCMS_SSH_HOST }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::VCMS_SSH_KEY and VCMS_SSH_HOST secrets not set — skipping remote audit"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup SSH
+        if: steps.secrets.outputs.configured == 'true'
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VCMS_SSH_KEY }}" > ~/.ssh/vcms_key
+          chmod 600 ~/.ssh/vcms_key
+          ssh-keyscan -H "${{ secrets.VCMS_SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Run audit on VPS
+        if: steps.secrets.outputs.configured == 'true'
+        env:
+          VCMS_REMOTE_PATH: ${{ secrets.VCMS_REMOTE_PATH }}
+        run: |
+          HOST="${{ secrets.VCMS_SSH_HOST }}"
+          REMOTE="${VCMS_REMOTE_PATH:-/var/www/vcms/current}"
+          scp -i ~/.ssh/vcms_key scripts/ph4-016-verify.sh scripts/weekly-audit-check.sh "root@${HOST}:${REMOTE}/scripts/"
+          ssh -i ~/.ssh/vcms_key "root@${HOST}" "chmod +x ${REMOTE}/scripts/*.sh && VCMS_ROOT=${REMOTE} bash ${REMOTE}/scripts/weekly-audit-check.sh"
+
+      - name: Local fallback (secrets missing)
+        if: steps.secrets.outputs.configured == 'false'
+        run: |
+          echo "CI cannot reach VPS without secrets."
+          echo "Run locally: .\scripts\Invoke-WeeklyAudit.ps1 -SyncReport"
+          exit 0
