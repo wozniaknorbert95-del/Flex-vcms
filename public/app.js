@@ -85,17 +85,28 @@
 
     // --- API Calls ---
 
+    const POLL_INTERVAL_MS = 15000;
+    const toastThrottle = new Map();
+
     async function safeFetch(url, options = {}) {
         try {
             const res = await fetch(url, options);
             if (!res.ok) {
                 const data = await res.json().catch(() => ({}));
-                throw new Error(data.error || `Server Error ${res.status}`);
+                const err = new Error(data.error || `Server Error ${res.status}`);
+                err.status = res.status;
+                throw err;
             }
             return await res.json();
         } catch (err) {
             console.error(`[Fetch Error] ${url}:`, err.message);
-            window.showToast(err.message, 'error');
+            const isRateLimited = err.status === 429;
+            const now = Date.now();
+            const lastToast = toastThrottle.get(url) || 0;
+            if (!isRateLimited || now - lastToast >= 60000) {
+                if (isRateLimited) toastThrottle.set(url, now);
+                window.showToast(err.message, 'error');
+            }
             throw err;
         }
     }
@@ -243,8 +254,37 @@
         fetchBacklog();
         fetchHealth();
         fetchEcosystem();
-        setInterval(fetchStats, 5000);
-        setInterval(fetchEcosystem, 120000);
+
+        let statsTimer = null;
+        let ecosystemTimer = null;
+
+        const startPolling = () => {
+            if (statsTimer) return;
+            statsTimer = setInterval(fetchStats, POLL_INTERVAL_MS);
+            ecosystemTimer = setInterval(fetchEcosystem, 120000);
+        };
+
+        const stopPolling = () => {
+            if (statsTimer) {
+                clearInterval(statsTimer);
+                statsTimer = null;
+            }
+            if (ecosystemTimer) {
+                clearInterval(ecosystemTimer);
+                ecosystemTimer = null;
+            }
+        };
+
+        startPolling();
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopPolling();
+            } else {
+                fetchStats();
+                startPolling();
+            }
+        });
     }
 
     // Export minimal set if needed, or just run

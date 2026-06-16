@@ -13,6 +13,24 @@ const vcmsBase = process.env.VCMS_DIR || process.cwd();
 const githubBase = process.env.AGENT_CONTEXT_PATH || path.resolve(process.cwd(), '..');
 
 // --- Rate Limiting ---
+// Tiered limiters (PH4-016 F11 fix): global 200/15m blocked dashboard polling (~180/15m at 5s).
+
+const pollLimiter = rateLimit({
+    windowMs: 60 * 1000,
+    max: 20,
+    message: { error: 'Limit odświeżania dashboardu — poczekaj minutę lub odśwież stronę.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const readLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 60,
+    message: { error: 'Przekroczono limit odczytu API — spróbuj za chwilę.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
 const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 200,
@@ -20,9 +38,6 @@ const apiLimiter = rateLimit({
     standardHeaders: true,
     legacyHeaders: false,
 });
-
-
-
 // Heavy scan endpoint: max 5 per hour to prevent DoS via full ecosystem scan
 const scanLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
@@ -78,9 +93,7 @@ const isWindowsPath = (p) => typeof p === 'string' && (/^[A-Za-z]:[/\\]/.test(p)
 
 // --- Routes ---
 
-router.use(apiLimiter);
-
-router.get('/v1/status', async (req, res) => {
+router.get('/v1/status', pollLimiter, async (req, res) => {
     try {
         const randomTip = uncleTips[Math.floor(Math.random() * uncleTips.length)];
         const contextData = await getContextData(vcmsBase, githubBase);
@@ -143,7 +156,7 @@ router.get('/knowledge', apiLimiter, async (req, res) => {
     }
 });
  
-router.get('/v1/context/health', async (req, res) => {
+router.get('/v1/context/health', readLimiter, async (req, res) => {
     try {
         const fsSync = require('fs');
         const manifestPath = path.join(vcmsBase, 'deploy-context', 'manifest.json');
@@ -194,7 +207,7 @@ router.get('/v1/context/health', async (req, res) => {
 
 let backlogCache = { data: null, expire: 0 };
 
-router.get('/v1/backlog', async (req, res) => {
+router.get('/v1/backlog', readLimiter, async (req, res) => {
     try {
         if (backlogCache.data && Date.now() < backlogCache.expire) {
             return res.json(backlogCache.data);
@@ -220,7 +233,7 @@ router.get('/v1/backlog', async (req, res) => {
     }
 });
 
-router.get('/v1/ecosystem/status', async (req, res) => {
+router.get('/v1/ecosystem/status', readLimiter, async (req, res) => {
     try {
         const reposPath = path.join(vcmsBase, 'repos.yaml');
         const yamlText = await fs.readFile(reposPath, 'utf8');

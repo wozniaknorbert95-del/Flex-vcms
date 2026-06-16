@@ -2,7 +2,7 @@
 status: "[AUDIT]"
 title: "VCMS DoD Scorecard — flex-vcms ↔ services ↔ Definition of Done"
 date: "2026-06-16"
-updated: "2026-06-16-doc-sync"
+updated: "2026-06-16-rate-limit-fix"
 verdict: "CONDITIONAL GO"
 gate_for_prompt: "OPEN — video remains Dowódca task"
 ---
@@ -121,6 +121,7 @@ Deploy `services` na Vercel — **poza tym repo**.
 
 - LLM UI disabled, ecosystem remote-safe, `npm run scan`, Portfolio Truth, prod deploy 2026-06-16
 - Portfolio gate docs: Sales Report, Demo Script, scorecard (ta sesja)
+- **2026-06-16:** F11 fix — tiered rate limits (`pollLimiter` / `readLimiter`); dashboard poll 15s + visibility pause (konflikt globalnego `apiLimiter` 200/15m vs polling 5s)
 
 ---
 
