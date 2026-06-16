@@ -1,46 +1,52 @@
 ---
 date: "2026-06-16"
 task: "P0 portfolio honesty sprint"
-status: "DONE"
+status: "DONE — deployed prod"
+commit: "6c6c4fa"
 ---
 
-# Handoff — P0 Portfolio Honesty Sprint
+# Handoff — P0 Portfolio Honesty Sprint (CLOSED)
 
 ## CO zrobiono
 
-| P0 | Fix |
-|----|-----|
-| P0-1 | LLM chat wyłączony: `public/index.html` (Governance tab), `KodaChat.vue` banner, README bez „Gateway” |
-| P0-2 | README: dashboard `http://localhost:8001/` (nie `dashboard.html`) |
-| P0-3 | `public/app.js`: `status: remote` bez crash na `repo.git` |
-| P0-4 | `docs/VCMS_PORTFOLIO_TRUTH.md` — co jest / czego nie ma |
-| P0-5 | `docs/demo/SCAN-REPORT.md` + `npm run scan` alias |
+| P0 | Fix | Prod |
+|----|-----|------|
+| P0-1 | LLM chat wyłączony — Governance tab, KodaChat banner, README | ✓ |
+| P0-2 | README dashboard URL `/` | ✓ |
+| P0-3 | Ecosystem `status: remote` bez crash | ✓ API + UI |
+| P0-4 | `docs/VCMS_PORTFOLIO_TRUTH.md` | ✓ HTTP 200 |
+| P0-5 | `docs/demo/SCAN-REPORT.md` + `npm run scan` | ✓ |
 
-Dodatkowo: fake LLM metrics → Ecosystem Mode / Repo Count; backlog czyta `before_you_start`.
+Dodatkowo: fake LLM metrics → Ecosystem Mode / Repo Count; backlog `before_you_start`.
 
-## Weryfikacja
+## Deploy (2026-06-16, zgoda Dowódcy)
 
-```powershell
-npm run scan   # Conflicts: 0 ✓
+```
+Deploy-VPS.ps1 -SshTarget root@185.243.54.115
+→ Health Check: PASSED
+→ PM2 vcms-core reload OK
+→ npm audit prod: 0
 ```
 
-## NIE zrobiono (świadomie)
+## Weryfikacja prod
 
-- Deploy na VPS (Zasada 11 — Dowódca)
-- Commit (brak explicit request)
-- PH4-017 mobile test (wymaga telefonu Dowódcy)
-- Przywrócenie `/api/chat` (decyzja: hide, nie restore)
+| Check | Wynik |
+|-------|-------|
+| `/api/v1/ecosystem/status` | `status: remote`, 8 repos, bez `git` |
+| Dashboard HTML | Governance, Ecosystem Mode, Portfolio Truth |
+| `/docs/VCMS_PORTFOLIO_TRUTH.html` | 200 |
+| Weekly audit | 12 PASS, 0 FAIL, 1 WARN (F3 scan localhost) |
 
-## NASTĘPNY KROK
+## Commit
 
-1. **Deploy** `public/` + docs na VPS (`Deploy-VPS.ps1`) — żeby prod dashboard miał fix ecosystem
-2. **PH4-017** — test 4G/5G z nowym hasłem Basic Auth
-3. Opcjonalnie: commit P0 jako osobny focused PR
+`6c6c4fa` — `fix(P0): portfolio honesty — disable dead LLM UI, safe remote ecosystem, truth docs`
 
-## Pliki
+## NASTĘPNY KROK (Dowódca)
 
-- `README.md`, `package.json`
-- `public/app.js`, `public/index.html`
-- `docs/.vitepress/components/KodaChat.vue`
-- `docs/VCMS_PORTFOLIO_TRUTH.md`, `docs/demo/SCAN-REPORT.md`
-- `docs/VCMS_READINESS_AUDIT.md` (update note)
+1. **PH4-017** — test mobile 4G/5G (`docs/handoffs/2026-06-16-ph4-017-mobile-preflight.md`)
+2. Portfolio copy poza repo — używaj `VCMS_PORTFOLIO_TRUTH.md` jako źródła prawdy
+3. Opcjonalnie: push branch + PR
+
+## Werdykt portfolio
+
+**PARTIAL → demo-ready** dla orchestratora (skan, SSoT, ops). Governance Layer (audit log, HITL) nadal w roadmap / agent-os-ui.

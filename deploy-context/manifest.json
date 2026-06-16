@@ -1,5 +1,5 @@
 {
-  "generated_at": 1778494300493,
+  "generated_at": 1781593046666,
   "origin": "DESKTOP-ECTP1JE",
   "modules": [
     {
@@ -30,6 +30,16 @@
     {
       "name": "flexgrafik-meta",
       "brain": "master-plan.md",
+      "todo": "todo.json"
+    },
+    {
+      "name": "agent-os",
+      "brain": null,
+      "todo": "todo.json"
+    },
+    {
+      "name": "agent-os-ui",
+      "brain": null,
       "todo": "todo.json"
     }
   ]

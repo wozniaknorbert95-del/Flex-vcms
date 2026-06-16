@@ -1,9 +1,9 @@
 # Weekly Audit Verification — 2026-06-16
 
-**Generated:** 2026-06-16T06:12Z UTC
+**Generated:** 2026-06-16T07:00Z UTC
 **Host:** vps41619215
 **Verdict:** PASS
-**Summary:** PASS=13 FAIL=0 WARN=0 SKIP=0
+**Summary:** PASS=12 FAIL=0 WARN=1 SKIP=0
 
 | Status | Check |
 |--------|-------|
@@ -17,7 +17,7 @@
 | PASS | F14 port 8010 not listening |
 | PASS | F10 npm audit --omit=dev = 0 |
 | PASS | F2 no path disclosure (localhost API) |
-| PASS | F3 scan rate limit active |
+| WARN | F3 scan endpoint unexpected response |
 | PASS | F5 Permissions-Policy on Express |
 | PASS | F11 apiLimiter configured (global in api.js) |
 

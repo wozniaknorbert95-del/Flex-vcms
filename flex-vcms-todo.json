@@ -2,7 +2,7 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-06-16T05:52:46.248Z",
+    "updated": "2026-06-16T06:57:26.663Z",
     "workstream": "PH4-PROD na TLS (cmd.flexgrafik.nl), Red Team Review wykonany 2026-05-08 → PH4-016 hardening backlog otwarty. PH4-011 mobile chromium=DONE, real-device=PENDING (PH4-017).",
     "plan_now": {
       "primary": "PH4-017: real device mobile test (4G/5G) na cmd.flexgrafik.nl. PH4-018 DONE 2026-06-16.",
@@ -21,7 +21,7 @@
       "rank": 1,
       "task_id": "PH4-017",
       "title": "PH4-011 follow-up: real device mobile test (4G/5G)",
-      "before_you_start": "Wypełnij docs/templates/tmpl-ph4-011-mobile.md → docs/handoffs/YYYY-MM-DD-ph4-011-mobile-real.md. Tylko 4G/5G.",
+      "before_you_start": "Czytaj docs/handoffs/2026-06-16-ph4-017-mobile-preflight.md. Wypełnij tmpl-ph4-011-mobile.md na 4G/5G (bez Wi-Fi).",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
