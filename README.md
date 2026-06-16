@@ -1,43 +1,42 @@
-# 🛠️ VCMS — Local-First Gateway & Orchestrator
+# VCMS — Local-First Orchestrator & Governance Docs
 
-VCMS (Command Center) to serce Twojego ekosystemu. Pełni rolę bezpiecznej bramki LLM (Gateway), rejestru modułów oraz centralnego punktu prawdy (SSoT).
+VCMS (Versioned Content Management & Supervision) to **orchestrator ekosystemu FlexGrafik**: skan repozytoriów, wykrywanie konfliktów SSoT, mapa modułów, handoffy i command center (docs + dashboard).
 
-## 🚀 Szybki Start (Junior Vibecoder)
+> **Uwaga:** Interaktywny LLM gateway (KODA / Control Lab) jest **wyłączony w tej wersji** — AI workflows przez Agent OS. Zobacz `docs/VCMS_PORTFOLIO_TRUTH.md`.
 
-Jeśli właśnie sklonowałeś to repozytorium, wykonaj te 3 kroki:
+## Szybki start
 
-1.  **Zainstaluj zależności**:
-    ```powershell
-    npm install
-    ```
-2.  **Skonfiguruj klucze (Dotenvx)**:
-    Poproś Dowódcę o `DOTENV_PUBLIC_KEY` lub wklej swój klucz do `.env` i uruchom:
-    ```powershell
-    npx dotenvx encrypt
-    ```
-3.  **Sprawdź zdrowie ekosystemu**:
-    ```powershell
-    node tools\vcms-scan.js
-    ```
-    Oczekiwany wynik: `Conflicts: 0`.
+```powershell
+npm install
+node tools\vcms-scan.js    # lub: npm run scan
+```
 
-## 📂 Gdzie jest PRAWDA? (SSoT)
+Oczekiwany wynik: `Conflicts: 0`.
 
-- **Backlog całego ekosystemu**: [flex-vcms-todo.json](flex-vcms-todo.json)
-- **Kontrakt operacyjny Dowódcy**: [brain.md](brain.md)
-- **Mapa modułów**: [docs/ecosystem/map.md](docs/ecosystem/map.md)
-- **Handoffy z sesji**: [docs/handoffs/](docs/handoffs/)
+Opcjonalnie (serwer lokalny + dashboard):
 
-## 🛡️ Zasady Gry (Guardrails)
+```powershell
+npm start
+# Dashboard: http://localhost:8001/
+```
 
-1.  **Zasada 1-1-1**: 1 sesja = 1 moduł = 1 zadanie.
-2.  **Brak sekretów**: Nigdy nie commituj jawnych kluczy w `.env`. Używaj `dotenvx`.
-3.  **Manual Deploy**: Deploy na VPS wykonuje tylko Dowódca (lub za jego wyraźną zgodą).
+## Gdzie jest prawda (SSoT)
 
-## 📊 Monitoring
+- **Backlog:** [flex-vcms-todo.json](flex-vcms-todo.json)
+- **Kontrakt Dowódcy:** [brain.md](brain.md)
+- **Mapa modułów:** [docs/ecosystem/map.md](docs/ecosystem/map.md)
+- **Konflikty:** [docs/ecosystem/conflicts.md](docs/ecosystem/conflicts.md)
+- **Gotowość portfolio:** [docs/VCMS_READINESS_AUDIT.md](docs/VCMS_READINESS_AUDIT.md)
 
-Gateway posiada dashboard dostępny lokalnie:
-`http://localhost:8001/dashboard.html`
+## Zasady
 
----
-*V6.5 Swiss Watch Standard — FlexGrafik V4.0*
+1. **1-1-1** — jedna sesja = jeden moduł.
+2. **Brak sekretów** w repo (`.env` tylko lokalnie / na VPS).
+3. **Deploy manual only** — Zasada 11.
+
+## Monitoring
+
+- **Dashboard:** `http://localhost:8001/` (po `npm start`)
+- **Prod:** `https://cmd.flexgrafik.nl` (Basic Auth + docs)
+- **Weekly audit:** `npm run verify:prod-audit`
+

@@ -12,8 +12,6 @@
         uptime: document.getElementById('val-uptime'),
         requests: document.getElementById('val-requests'),
         knowledge: document.getElementById('val-knowledge'),
-        chatInput: document.getElementById('chat-input'),
-        chatMessages: document.getElementById('chat-messages'),
         contextHealth: document.getElementById('context-health-list'),
         backlogTitle: document.getElementById('next-task-title'),
         backlogDesc: document.getElementById('next-task-desc'),
@@ -98,21 +96,17 @@
         try {
             const data = await safeFetch('/api/v1/status');
             elements.uptime.innerText = data.uptime + 's';
-            elements.latency.innerText = data.llm.last_latency_ms ? data.llm.last_latency_ms + 'ms' : 'Ready';
-            elements.requests.innerText = data.llm.total_requests;
             elements.knowledge.innerText = data.knowledge?.file_count || '0';
             if (data.uncle_tip) elements.tipText.innerText = data.uncle_tip;
 
-            if (data.llm.history) {
-                elements.logContainer.innerHTML = data.llm.history.slice(-5).map(item => `
-                    <div class="log-row">
-                        <span style="color:var(--accent)">${item.time}</span>
-                        <span>ANALYSIS_ENGINE</span>
-                        <span>${item.latency}ms</span>
-                        <span style="color: ${item.status === 'success' ? 'var(--accent)' : 'var(--danger)'}">${item.status.toUpperCase()}</span>
-                    </div>
-                `).join('');
-            }
+            elements.logContainer.innerHTML = `
+                <div class="log-row">
+                    <span style="color:var(--accent)">${new Date().toLocaleTimeString()}</span>
+                    <span>ORCHESTRATOR</span>
+                    <span>—</span>
+                    <span style="color:var(--text-dim)">Scan: npm run scan · Audit: docs/audits/latest-verification.md</span>
+                </div>
+            `;
         } catch (e) {}
     };
 
@@ -120,8 +114,11 @@
         try {
             const data = await safeFetch('/api/v1/backlog');
             if (data.next_task) {
-                elements.backlogTitle.innerText = data.next_task.title;
-                elements.backlogDesc.innerText = data.next_task.description;
+                elements.backlogTitle.innerText = data.next_task.title || data.next_task.task_id || '—';
+                elements.backlogDesc.innerText = data.next_task.before_you_start
+                    || data.next_task.description
+                    || data.next_task.note
+                    || 'Brak opisu w backlogu.';
                 elements.backlogSync.innerText = `Synced: ${new Date(data.last_sync_ms).toLocaleTimeString()}`;
             }
         } catch (e) {}
@@ -141,77 +138,60 @@
         } catch (e) {}
     };
 
+    const renderEcosystemRow = (repo) => {
+        if (!repo.git) {
+            const risk = repo.risk_level ? ` · ${repo.risk_level}` : '';
+            return `
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 1.2rem; font-weight: 600;">${repo.name}</td>
+                    <td style="padding: 1.2rem;"><span class="tag" style="background: rgba(255,255,255,0.05);">${repo.type}${risk}</span></td>
+                    <td style="padding: 1.2rem; font-family: 'JetBrains Mono'; color: var(--text-dim);">—</td>
+                    <td style="padding: 1.2rem;">
+                        <span class="tag" style="background: rgba(234, 179, 8, 0.1); color: #eab308; border: 1px solid rgba(234, 179, 8, 0.2);">REMOTE</span>
+                    </td>
+                    <td style="padding: 1.2rem; font-size: 0.75rem; color: var(--text-dim);">Git scan lokalnie</td>
+                </tr>
+            `;
+        }
+
+        return `
+            <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 1.2rem; font-weight: 600;">${repo.name}</td>
+                <td style="padding: 1.2rem;"><span class="tag" style="background: rgba(255,255,255,0.05);">${repo.type}</span></td>
+                <td style="padding: 1.2rem; font-family: 'JetBrains Mono';">${repo.git.branch || '—'}</td>
+                <td style="padding: 1.2rem;">
+                    <span class="tag ${repo.git.status === 'clean' ? 'tag-success' : ''}" 
+                          style="${repo.git.status === 'dirty' ? 'background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);' : ''}">
+                        ${repo.git.status.toUpperCase()}
+                    </span>
+                </td>
+                <td style="padding: 1.2rem; font-size: 0.75rem; color: var(--text-dim);">${repo.git.last_commit}</td>
+            </tr>
+        `;
+    };
+
     const fetchEcosystem = async () => {
         try {
             const data = await safeFetch('/api/v1/ecosystem/status');
             if (data.repos) {
-                elements.ecosystemTable.innerHTML = data.repos.map(repo => `
-                    <tr style="border-bottom: 1px solid var(--border);">
-                        <td style="padding: 1.2rem; font-weight: 600;">${repo.name}</td>
-                        <td style="padding: 1.2rem;"><span class="tag" style="background: rgba(255,255,255,0.05);">${repo.type}</span></td>
-                        <td style="padding: 1.2rem; font-family: 'JetBrains Mono';">${repo.git.branch || '—'}</td>
-                        <td style="padding: 1.2rem;">
-                            <span class="tag ${repo.git.status === 'clean' ? 'tag-success' : ''}" 
-                                  style="${repo.git.status === 'dirty' ? 'background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2);' : ''}">
-                                ${repo.git.status.toUpperCase()}
-                            </span>
-                        </td>
-                        <td style="padding: 1.2rem; font-size: 0.75rem; color: var(--text-dim);">${repo.git.last_commit}</td>
-                    </tr>
-                `).join('');
+                const noteRow = data.status === 'remote' && data.note
+                    ? `<tr><td colspan="5" style="padding: 1rem 1.2rem; font-size: 0.85rem; color: var(--text-dim); background: rgba(234,179,8,0.05);">${data.note}</td></tr>`
+                    : '';
+                elements.ecosystemTable.innerHTML = noteRow + data.repos.map(renderEcosystemRow).join('');
             }
+            if (elements.latency) elements.latency.innerText = data.status === 'remote' ? 'Remote' : 'Local';
+            if (elements.requests) elements.requests.innerText = String(data.repos?.length || 0);
         } catch (e) {}
     };
 
     window.triggerScan = async () => {
-        window.showToast('Zwalnianie skanera ekosystemu...');
+        window.showToast('Uruchamianie skanu ekosystemu...');
         try {
-            const data = await safeFetch('/api/v1/scan', { method: 'POST' });
-            window.showToast('Skanowanie zakończone pomyślnie.');
+            await safeFetch('/api/v1/scan', { method: 'POST' });
+            window.showToast('Skan zakończony.');
             fetchEcosystem();
-        } catch (e) {}
-    };
-
-    // --- Chat Logic ---
-
-    window.sendMessage = async () => {
-        const text = elements.chatInput.value.trim();
-        if (!text) return;
-
-        // XSS Protection for User Messages
-        const userMsgDiv = document.createElement('div');
-        userMsgDiv.className = 'msg msg-user';
-        userMsgDiv.textContent = text;
-        elements.chatMessages.appendChild(userMsgDiv);
-        elements.chatInput.value = '';
-
-        const typingId = 'typing-' + Date.now();
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'msg msg-ai';
-        typingDiv.id = typingId;
-        typingDiv.innerHTML = `<span class="skeleton-text skeleton" style="width: 100px;"></span> Analyzing...`;
-        elements.chatMessages.appendChild(typingDiv);
-        elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
-
-        try {
-            const data = await safeFetch('/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: [{ role: 'user', parts: [{ text }] }] })
-            });
-
-            document.getElementById(typingId).remove();
-            const aiMsg = data.candidates[0].content.parts[0].text;
-            
-            // XSS Protection for AI Messages (Clean markdown)
-            const aiMsgDiv = document.createElement('div');
-            aiMsgDiv.className = 'msg msg-ai msg-content';
-            aiMsgDiv.innerHTML = DOMPurify.sanitize(marked.parse(aiMsg));
-            elements.chatMessages.appendChild(aiMsgDiv);
-            elements.chatMessages.scrollTop = elements.chatMessages.scrollHeight;
-        } catch (err) {
-            const el = document.getElementById(typingId);
-            if (el) el.remove();
+        } catch (e) {
+            window.showToast('Deep Scan wymaga lokalnej maszyny dev (repos.yaml). Użyj: npm run scan', 'error');
         }
     };
 
@@ -243,14 +223,8 @@
 
         bind('btn-refresh-health', fetchHealth);
         bind('btn-refresh-ecosystem', fetchEcosystem);
+        bind('btn-execute-task', () => window.loadDoc('VCMS_PORTFOLIO_TRUTH.html'));
         bind('btn-deep-scan', window.triggerScan);
-        bind('btn-execute-task', () => window.showTab('lab'));
-        bind('btn-chat-send', window.sendMessage);
-
-        // Chat Enter Key
-        elements.chatInput?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') window.sendMessage();
-        });
 
         fetchStats();
         fetchBacklog();

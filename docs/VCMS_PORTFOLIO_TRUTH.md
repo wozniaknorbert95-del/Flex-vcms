@@ -1,0 +1,47 @@
+---
+status: "[CANONICAL]"
+title: "VCMS — Portfolio Truth (co jest / czego nie ma)"
+date: "2026-06-16"
+---
+
+# VCMS Portfolio Truth
+
+Jedna strona prawdy przed pokazaniem VCMS zawodowcom. Bez marketingu.
+
+## Co VCMS **jest** (PROVEN)
+
+| Capability | Dowód |
+|------------|-------|
+| Skan 8 repozytoriów | `npm run scan` → `data/vcms-index.json` |
+| Wykrywanie konfliktów SSoT | `docs/ecosystem/conflicts.md` |
+| Mapa ekosystemu | `docs/ecosystem/map.md` |
+| Rejestr canonical brain/todo | `repos.yaml` + `docs/ecosystem/repos/` |
+| Handoffy sesji | `docs/handoffs/` |
+| Command center docs | VitePress `/docs` |
+| Ops / security na prod | `docs/audits/latest-verification.md` |
+| Weekly re-audit | PH4-018 cron + `npm run verify:prod-audit` |
+
+## Czego VCMS **nie jest** (jeszcze)
+
+| Obietnica | Status | Gdzie naprawdę |
+|-----------|--------|----------------|
+| LLM Gateway / KODA chat | **Wyłączone** w tej wersji | Plan: Agent OS integration |
+| Governance audit log (kto/co/dlaczego) | **Roadmap** | Handoffy markdown = lightweight |
+| Human approval (HITL) | **Inny produkt** | `agent-os-ui` |
+| Agent cards (UI) | **Roadmap** | `docs/agents/agent-boundaries.md` = prose |
+| Deep Scan z VPS | **Lokalnie only** | `repos.yaml` ma ścieżki Windows |
+| Severity info/warning/blocking | **Roadmap** | Konflikty binarne dziś |
+
+## Jak pokazywać demo (60s)
+
+1. `npm run scan`
+2. Otwórz `docs/ecosystem/conflicts.md` (0 lub wykryte problemy)
+3. Otwórz `docs/ecosystem/map.md`
+4. Opcjonalnie: `npm start` → `http://localhost:8001/` → zakładka Ecosystem
+
+**Nie pokazuj:** Control Lab chat, metryki LLM, Deep Scan na prod VPS.
+
+## Powiązane
+
+- [VCMS Readiness Audit](./VCMS_READINESS_AUDIT.md)
+- [Demo scan report](./demo/SCAN-REPORT.md)

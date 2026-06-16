@@ -32,7 +32,7 @@
                 <i data-lucide="book-open"></i> Baza Wiedzy
             </div>
             <div class="nav-item" data-tab="lab">
-                <i data-lucide="message-square"></i> Control Lab
+                <i data-lucide="info"></i> Governance
             </div>
             <div class="nav-item" data-tab="ecosystem">
                 <i data-lucide="layers"></i> Ekosystem
@@ -51,7 +51,7 @@
             <i data-lucide="book-open"></i><span>Docs</span>
         </a>
         <a href="javascript:void(0)" class="mobile-nav-item" data-tab="lab">
-            <i data-lucide="message-square"></i><span>Lab</span>
+            <i data-lucide="info"></i><span>Info</span>
         </a>
         <a href="javascript:void(0)" class="mobile-nav-item" data-tab="ecosystem">
             <i data-lucide="layers"></i><span>System</span>
@@ -78,11 +78,11 @@
 
             <div class="status-strip">
                 <div class="stat-card">
-                    <div class="label">LLM Latency</div>
-                    <div class="value" id="val-latency">0ms</div>
+                    <div class="label">Ecosystem Mode</div>
+                    <div class="value" id="val-latency">—</div>
                 </div>
                 <div class="stat-card">
-                    <div class="label">Total Queries</div>
+                    <div class="label">Repo Count</div>
                     <div class="value" id="val-requests">0</div>
                 </div>
                 <div class="stat-card">
@@ -116,7 +116,7 @@
                     </div>
                     <h3 id="next-task-title" style="margin: 0.5rem 0; font-size: 1.35rem; font-weight: 600;">Loading...</h3>
                     <p id="next-task-desc" style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">Pobieranie backlogu z SSoT...</p>
-                    <button class="btn" id="btn-execute-task" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;">Execute Task</button>
+                    <button class="btn" id="btn-execute-task" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;">Portfolio Truth</button>
                 </div>
 
                 <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
@@ -141,7 +141,7 @@
             <div class="history-list">
                 <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center;">
                     <h3 style="margin:0">Action Log</h3>
-                    <button id="btn-deep-scan" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Deep Scan</button>
+                    <button id="btn-deep-scan" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Run Scan</button>
                 </div>
                 <div id="log-container">
                     <div class="log-row" style="color:var(--text-dim)">Ładowanie aktywności...</div>
@@ -162,21 +162,28 @@
             </div>
         </div>
 
-        <!-- Tab: Lab -->
+        <!-- Tab: Governance (LLM chat disabled) -->
         <div id="tab-lab" class="tab-content">
             <header>
                 <div class="page-title">
-                    <h2>Control Lab</h2>
-                    <p>Live context analysis & LLM gateway.</p>
+                    <h2>Governance &amp; Scope</h2>
+                    <p>Orchestrator ekosystemu — skan, SSoT, handoffy. LLM przez Agent OS (planowane).</p>
                 </div>
             </header>
-            <div class="chat-container">
-                <div class="chat-messages" id="chat-messages">
-                    <div class="msg msg-ai">System Hardened. Witaj Dowódco.</div>
+            <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 2rem; border-radius: 24px; max-width: 720px;">
+                <div style="padding: 1rem 1.2rem; margin-bottom: 1.5rem; border-radius: 12px; background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.25); color: #eab308; font-size: 0.9rem;">
+                    LLM chat (KODA / Control Lab) jest wyłączony w tej wersji — brak endpointu <code>/api/chat</code>.
                 </div>
-                <div class="chat-input">
-                    <input type="text" id="chat-input" placeholder="Wpisz komendę...">
-                    <button id="btn-chat-send">Wyślij</button>
+                <h3 style="margin-top: 0;">Co działa dziś</h3>
+                <ul style="color: var(--text-dim); line-height: 1.8;">
+                    <li><code>npm run scan</code> — skan 8 repozytoriów + konflikty SSoT</li>
+                    <li><code>docs/ecosystem/map.md</code> — mapa modułów</li>
+                    <li><code>docs/handoffs/</code> — ślad sesji agentów</li>
+                    <li><code>npm run verify:prod-audit</code> — weekly security check</li>
+                </ul>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <button onclick="loadDoc('VCMS_PORTFOLIO_TRUTH.html')" style="background: var(--accent); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer;">Portfolio Truth</button>
+                    <button onclick="loadDoc('VCMS_READINESS_AUDIT.html')" style="background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer;">Readiness Audit</button>
                 </div>
             </div>
         </div>
