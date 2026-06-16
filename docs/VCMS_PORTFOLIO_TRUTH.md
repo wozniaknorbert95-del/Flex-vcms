@@ -27,11 +27,11 @@ Jedna strona prawdy przed pokazaniem VCMS zawodowcom. Bez marketingu.
 | Obietnica | Status | Gdzie naprawdę |
 |-----------|--------|----------------|
 | LLM Gateway / KODA chat | **Aktywne** (RAG read-only) | `POST /api/chat` · wymaga klucza w `.env` |
-| Governance audit log (kto/co/dlaczego) | **Częściowo** | `data/governance-audit.jsonl` + dashboard Action Log |
+| Governance audit log (kto/co/dlaczego) | **DEMO** | `data/governance-audit.jsonl` append po scan + `GET /api/v1/audit-log` |
 | Human approval (HITL) | **Inny produkt** | `agent-os-ui` |
 | Agent cards (UI) | **Roadmap** | `docs/agents/agent-boundaries.md` = prose |
 | Deep Scan z VPS | **Lokalnie only** | `repos.yaml` ma ścieżki Windows |
-| Severity info/warning/blocking | **Roadmap** | Konflikty binarne dziś |
+| Severity info/warning/blocking | **PROVEN** | `scan-rules.json` + tally w `conflicts.md` |
 
 ## Jak pokazywać demo (60s)
 

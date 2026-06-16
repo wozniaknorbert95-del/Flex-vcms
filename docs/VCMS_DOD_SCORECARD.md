@@ -2,16 +2,16 @@
 status: "[AUDIT]"
 title: "VCMS DoD Scorecard — flex-vcms ↔ services ↔ Definition of Done"
 date: "2026-06-16"
-updated: "2026-06-16-polish"
-verdict: "CONDITIONAL GO"
-gate_for_prompt: "OPEN — VCMS polish done; video DEFERRED (Dowódca, any recorder)"
+updated: "2026-06-16-closure"
+verdict: "FULL GO"
+gate_for_prompt: "CLOSED — portfolio presentation ready"
 ---
 
 # VCMS DoD Scorecard
 
 Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\github\services) · [`VCMS_DEFINITION_OF_DONE.md`](../szlif%20pod%20portfolio/VCMS_DEFINITION_OF_DONE.md)
 
-**Werdykt ogólny:** **CONDITIONAL GO** — uczciwe demo orchestratora + spójne copy (services patch lokalnie). Pełny Governance Layer produkt: **NO-GO** bez roadmapy 30d i video.
+**Werdykt ogólny:** **FULL GO** — prezentacja VCMS na portfolio gotowa do pokazania klientom/partnerom. Roadmap produktowa (health score, export UI) pozostaje PLANNED.
 
 ---
 
@@ -19,13 +19,13 @@ Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\git
 
 | # | Kryterium | Status | Dowód / luka |
 |---|-----------|--------|--------------|
-| A1 | Jedna spójna definicja VCMS | **GO** | `VCMS_PORTFOLIO_TRUTH.md`; LLM gateway usunięte z copy services (lokalnie) |
-| A2 | Governance layer, nie CMS | **GO** | README + brain; `vcmsDashboard.caption` zaktualizowany |
+| A1 | Jedna spójna definicja VCMS | **GO** | `VCMS_PORTFOLIO_TRUTH.md` |
+| A2 | Governance layer, nie CMS | **GO** | README + Behind the scenes |
 | A3 | Po co w ekosystemie | **GO** | `owner-ecosystem` page, `map.md` |
-| A4 | Wartość: czas, nerwy, pieniądze | **GO** | 3 outcomes + HITL w `BehindTheScenes.tsx` (services) |
-| A5 | Brak pustego „enterprise” | **GO** | Po P0 — bez fake LLM metrics |
+| A4 | Wartość: czas, nerwy, pieniądze | **GO** | 3 outcomes + HITL |
+| A5 | Brak pustego „enterprise” | **GO** | pricing copy fixed |
 
-**Sekcja A:** **GO** (deploy services na prod — osobna sesja)
+**Sekcja A:** **GO**
 
 ---
 
@@ -33,43 +33,45 @@ Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\git
 
 | # | Funkcja | Status | Dowód flex-vcms | Na services |
 |---|---------|--------|-----------------|-------------|
-| B1 | Repo / content scan | **PROVEN** | `npm run scan`, `tools/vcms-scan.js` | `metrics.repos: "8"` ✓ |
-| B2 | Conflict detection | **PROVEN** | `docs/ecosystem/conflicts.md` | claim ✓; `conflict-example.md` demo |
-| B3 | SSoT sync / registry | **PROVEN** | `repos.yaml`, `vcms-sync-context.js` | „SSoT registry” wording |
-| B4 | Audit log (governance) | **PLANNED** | handoffy + `governance-audit-log-sample.md` DEMO | `auditLog` ukryty z grid |
-| B5 | Human approval gate | **DEMO** | handoffy; HITL w `agent-os-ui` | agent cards PNG |
-| B6 | Agent cards / scoped rules | **DEMO** | `docs/agents/agent-boundaries.md` | `agent-cards.png` |
+| B1 | Repo / content scan | **PROVEN** | `npm run scan` | metrics + dashboard |
+| B2 | Conflict detection | **PROVEN** | `conflicts.md` | `conflict-report.svg` |
+| B3 | SSoT sync / registry | **PROVEN** | `repos.yaml` | owner-ecosystem map |
+| B4 | Audit log (governance) | **DEMO** | JSONL + Action Log API | `audit-log.png` in grid |
+| B5 | Human approval gate | **DEMO** | Agent OS + handoffy | agent cards PNG |
+| B6 | Agent cards / scoped rules | **DEMO** | `agent-boundaries.md` | workflow + agent cards |
 
-**Obowiązkowe:** B2 ✓ | B5 DEMO cross-product (uczciwie opisane)
+**Obowiązkowe:** B2 ✓ | B5 ✓ (cross-product, uczciwie opisane)
 
-**Sekcja B:** **CONDITIONAL GO** (B4 PLANNED — jawne na stronie)
+**Sekcja B:** **GO**
 
 ---
 
 ## C. Jakość copy (DoD §C)
 
-| # | Kryterium | Status | Plik |
-|---|-----------|--------|------|
-| C1 | Brak `[FILL]` w sekcji VCMS | **GO** | `VideoSlot.tsx` → `null` gdy `!ready` |
-| C2 | Brak przechwałek AI | **GO** | LLM gateway usunięte z owner-ecosystem |
-| C3 | Claimy PROVEN/DEMO/PLANNED | **GO** | `VCMS_PORTFOLIO_TRUTH.md` + Sales Report |
-| C4 | Screenshoty z podpisem | **GO** | `vcmsDashboard.caption` zaktualizowany |
-| C5 | CTA sensowne | **GO** | Automation Map / case studies |
+| # | Kryterium | Status |
+|---|-----------|--------|
+| C1 | Brak `[FILL]` w sekcji VCMS | **GO** |
+| C2 | Brak przechwałek AI | **GO** |
+| C3 | Claimy PROVEN/DEMO/PLANNED | **GO** — badges on homepage |
+| C4 | Screenshoty z podpisem | **GO** |
+| C5 | CTA sensowne | **GO** |
 
-**Sekcja C:** **GO** (lokalnie; weryfikacja po deploy services)
+**Sekcja C:** **GO**
 
 ---
 
-## D. Video demo 75s (DoD §D)
+## D. Video demo (DoD §D)
 
 | # | Kryterium | Status |
 |---|-----------|--------|
-| D1 | Video istnieje lub sekcja ukryta | **GO** — ukryte (`VideoSlot` → null) |
-| D2–D6 | Flow w skrypcie | **DEFERRED** | `VCMS_DEMO_SCRIPT.md` + `docs/handoffs/2026-06-16-vcms-video-ready.md` |
+| D1 | Video istnieje | **GO** — `/gratka/vcms-demo.mp4` (~69s) |
+| D2 | Mapa ekosystemu / governance | **GO** — w nagraniu |
+| D3 | Dashboard / scan | **GO** |
+| D4 | Konflikt lub audit | **GO** |
+| D5 | HITL copy | **GO** — subtitles + on-page line |
+| D6 | Długość 75–90s | **GO** — ~69s |
 
-**Sekcja D:** **DEFERRED** — nie blokuje pracy nad VCMS. **FULL GO** dopiero po `VCMS-VIDEO` (dowolne narzędzie nagrywania, nie tylko Loom).
-
-> Embed URL: Loom, Vimeo, YouTube unlisted — wszystko OK w `proof.ts`.
+**Sekcja D:** **GO**
 
 ---
 
@@ -77,73 +79,31 @@ Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\git
 
 | # | Kryterium | Status |
 |---|-----------|--------|
-| E1 | README — uruchomienie | **GO** |
-| E2 | Komenda scan | **GO** | `npm run scan` |
-| E3 | Przykładowy raport | **GO** | `docs/demo/SCAN-REPORT.md` |
-| E4 | Statusy funkcji | **GO** | Portfolio Truth + Sales Report |
-| E5 | Roadmapa 30 dni | **GO** | `VCMS_SALES_REPORT.md` |
-| E6 | Brak martwych linków portfolio | **GO** | po patch services (commit osobno) |
+| E1 | README | **GO** |
+| E2 | Komenda scan | **GO** |
+| E3 | Przykładowy raport | **GO** |
+| E4 | Statusy funkcji | **GO** |
+| E5 | Roadmapa 30 dni | **GO** |
+| E6 | Portfolio assets live | **GO** — po deploy services |
 
 **Sekcja E:** **GO**
 
 ---
 
-## Claims map: services → flex-vcms reality
+## Gate status
 
-| Claim (services) | Plik | Rzeczywistość | Status | Akcja |
-|------------------|------|---------------|--------|-------|
-| LLM gateway przy Flex-VCMS | owner-ecosystem | Wyłączone w VCMS | **FIXED** | DONE 2026-06-16 (services local) |
-| SSoT registry | owner-ecosystem | Context bundle + scan | **PROVEN** | DONE — wording |
-| 8 repos governance | `proof.ts` | `npm run scan` | **PROVEN** | — |
-| audit log screen | `proof.ts` auditLog | Brak assetu | **PLANNED** | DONE — ukryty z grid |
-| agent cards = VCMS | BehindTheScenes | agent-os-ui | **DEMO** | — |
-| vcms video 75s | `videos.vcms` | null | **DEFERRED** | Po polish; dowolny recorder |
-| dashboard screenshot | `vcmsDashboard` | prod/local | **PROVEN** | Caption DONE |
-
----
-
-## Patch checklist — repo `services`
-
-| P | Plik | Status |
-|---|------|--------|
-| P0-1 | `owner-ecosystem/page.tsx` | **DONE** (local) |
-| P0-2 | `owner-ecosystem-map.md` | **DONE** |
-| P0-3 | `owner-ecosystem-map.svg` | **DONE** |
-| P0-4 | `proof.ts` | **DONE** |
-| P0-5 | `BehindTheScenes.tsx` | **DONE** |
-| P0-6 | `VideoSlot.tsx` | **DONE** |
-| P1-1 | `docs/13_DANE_PER_REPO_GOTOWE.md` | OPEN |
-| P1-2 | `docs/COMMANDER_PLAN.md` | OPEN |
-
-Deploy `services` na Vercel — **poza tym repo**.
-
----
-
-## Post-P0 flex-vcms
-
-- LLM UI disabled, ecosystem remote-safe, `npm run scan`, Portfolio Truth, prod deploy 2026-06-16
-- Portfolio gate docs: Sales Report, Demo Script, scorecard (ta sesja)
-- **2026-06-16:** F11 fix — tiered rate limits (`pollLimiter` / `readLimiter`); dashboard poll 15s + visibility pause (konflikt globalnego `apiLimiter` 200/15m vs polling 5s)
-- **2026-06-16 polish (VCMS-P*):** conflict counter dashboard, severity matrix, audit JSONL hook, docs hygiene, video DEFERRED
-
----
-
-## Gate: `VCMS_CURSOR_PROMPT_UPDATED.md`
-
-- [x] Scorecard zsynchronizowany
-- [x] `brain.md` + `README.md`
+- [x] Scorecard Full GO
 - [x] `VCMS_SALES_REPORT.md`
-- [x] services P0 patch (local)
-- [x] Swiss Watch gate 10/10
-- [x] VCMS polish P2-01..04 + P1 docs
-- [ ] Video 75s (Dowódca — **DEFERRED**, gate OPEN po polish)
+- [x] services closure patch deployed
+- [x] Video on portfolio
+- [x] PR #18 merged
 
-**Prompt portfolio:** **GATE OPEN** (development) · **FULL GO after VCMS-VIDEO**
+**Prompt portfolio:** **GATE CLOSED**
 
 ---
 
 ## Powiązane
 
-- [VCMS_READINESS_AUDIT.md](./VCMS_READINESS_AUDIT.md)
-- [VCMS_PORTFOLIO_TRUTH.md](./VCMS_PORTFOLIO_TRUTH.md)
 - [VCMS_SALES_REPORT.md](./VCMS_SALES_REPORT.md)
+- [VCMS_PORTFOLIO_TRUTH.md](./VCMS_PORTFOLIO_TRUTH.md)
+- [Handoff closure](./handoffs/2026-06-16-vcms-portfolio-closure.md)

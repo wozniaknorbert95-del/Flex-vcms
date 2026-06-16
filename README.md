@@ -36,7 +36,7 @@ npm start
 | | |
 |-|-|
 | **Jest** | Skan, konflikty SSoT, mapa, handoffy, ops audit, weekly re-audit |
-| **Nie jest (jeszcze)** | LLM chat, governance JSON audit log, severity matrix, HITL UI |
+| **Nie jest (jeszcze)** | Health score widget, audit export UI, HITL UI w VCMS |
 
 Szczegóły: [VCMS_PORTFOLIO_TRUTH.md](docs/VCMS_PORTFOLIO_TRUTH.md) · [DoD Scorecard](docs/VCMS_DOD_SCORECARD.md)
 
