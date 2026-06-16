@@ -18,6 +18,7 @@ Jedna strona prawdy przed pokazaniem VCMS zawodowcom. Bez marketingu.
 | Rejestr canonical brain/todo | `repos.yaml` + `docs/ecosystem/repos/` |
 | Handoffy sesji | `docs/handoffs/` |
 | Command center docs | VitePress `/docs` |
+| Dashboard visual (governance) | Fiolet `--accent-primary` — nie emerald; `public/tokens.css` |
 | Ops / security na prod | `docs/audits/latest-verification.md` |
 | Weekly re-audit | PH4-018 cron + `npm run verify:prod-audit` |
 

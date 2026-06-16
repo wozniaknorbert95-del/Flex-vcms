@@ -1,16 +1,5 @@
+/* Layout + components — colors from tokens.css (load first) */
 :root {
-    --bg: #050505;
-    --sidebar-bg: #0a0a0a;
-    --card-bg: rgba(255, 255, 255, 0.02);
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.06);
-    --accent: #10b981; /* Emerald / Szmaragdowy */
-    --accent-glow: rgba(16, 185, 129, 0.2);
-    --text-main: #e5e7eb;
-    --text-dim: #9ca3af;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --success: #10b981;
     --sidebar-width: 280px;
 }
 
@@ -89,7 +78,7 @@ nav {
 .nav-item.active {
     background: var(--accent-glow);
     color: var(--accent);
-    border-color: rgba(16, 185, 129, 0.1);
+    border-color: color-mix(in srgb, var(--accent-primary, var(--accent)) 15%, transparent);
     font-weight: 600;
 }
 
@@ -154,9 +143,9 @@ header {
     gap: 1rem;
     align-items: center;
     background: var(--accent-glow);
-    border: 1px solid rgba(16, 185, 129, 0.1);
+    border: 1px solid color-mix(in srgb, var(--accent-primary, var(--accent)) 15%, transparent);
     padding: 1rem 1.5rem;
-    border-radius: 18px;
+    border-radius: 8px;
     max-width: 800px;
     animation: slideIn 0.5s ease-out;
 }
@@ -181,7 +170,7 @@ header {
     background: var(--glass-bg);
     border: 1px solid var(--border);
     padding: 1.8rem;
-    border-radius: 24px;
+    border-radius: 8px;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
@@ -194,7 +183,7 @@ header {
 .history-list {
     background: var(--glass-bg);
     border: 1px solid var(--border);
-    border-radius: 28px;
+    border-radius: 8px;
     padding: 2.2rem;
 }
 
@@ -263,7 +252,7 @@ header {
 iframe { width: 100%; height: 100%; border: none; }
 
 .tag { padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 700; }
-.tag-success { background: var(--accent-glow); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.2); }
+.tag-success { background: var(--accent-glow); color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent-primary, var(--accent)) 25%, transparent); }
 
 .status-pill {
     display: inline-flex;
@@ -278,19 +267,28 @@ iframe { width: 100%; height: 100%; border: none; }
 }
 
 .dot { width: 8px; height: 8px; border-radius: 50%; background: #666; }
-.dot.healthy { background: var(--success); box-shadow: 0 0 8px var(--success); }
-.dot.stale { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
-.dot.missing { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+.dot.healthy { background: var(--fx-money, var(--success)); box-shadow: 0 0 8px var(--fx-money, var(--success)); }
+.dot.stale { background: var(--fx-calm, var(--warning)); box-shadow: 0 0 8px var(--fx-calm, var(--warning)); }
+.dot.missing { background: var(--fx-time, var(--danger)); box-shadow: 0 0 8px var(--fx-time, var(--danger)); }
+
+.status-pill .led { margin-right: 0.1rem; }
 
 .backlog-widget {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
 }
 .backlog-widget::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent); }
+
+.card.panel-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--border);
+    padding: 1.8rem;
+    border-radius: 8px;
+}
 
 .msg-content h1, .msg-content h2 { font-size: 1.1rem; margin: 0.5rem 0; color: var(--accent); }
 .msg-content pre { background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); position: relative; }
@@ -307,7 +305,7 @@ iframe { width: 100%; height: 100%; border: none; }
 
 .copy-btn {
     position: absolute; top: 0.5rem; right: 0.5rem;
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--accent-glow);
     border: 1px solid var(--accent);
     color: var(--accent);
     padding: 0.2rem 0.5rem;

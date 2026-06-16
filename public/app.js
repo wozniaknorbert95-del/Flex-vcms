@@ -128,12 +128,17 @@
         try {
             const data = await safeFetch('/api/v1/context/health');
             if (data.modules) {
-                elements.contextHealth.innerHTML = data.modules.map(mod => `
+                elements.contextHealth.innerHTML = data.modules.map(mod => {
+                    const ledClass = ['healthy', 'stale', 'missing'].includes(mod.status)
+                        ? `led--${mod.status}`
+                        : '';
+                    return `
                     <div class="status-pill">
-                        <div class="dot ${mod.status}"></div>
+                        <span class="led ${ledClass}"></span>
                         ${mod.name}
                     </div>
-                `).join('');
+                `;
+                }).join('');
             }
         } catch (e) {}
     };

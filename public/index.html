@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FlexGrafik VCMS — Senior Level Master Command Center. Hardened v3.0 Script.">
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#4c1d95">
     <title>VCMS Master CMD — System Control</title>
     
     <!-- External Dependencies (SSoT White-listed CDNs) -->
@@ -14,9 +14,10 @@
     <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
     
     <!-- Internal Assets -->
+    <link rel="stylesheet" href="tokens.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-app="flex-vcms">
     <div id="toast-container"></div>
 
     <aside>
@@ -89,39 +90,39 @@
                     <div class="label">System Uptime</div>
                     <div class="value" id="val-uptime">0s</div>
                 </div>
-                <div class="stat-card" style="border-color: var(--accent);">
+                <div class="stat-card" style="border-color: var(--accent-primary);">
                     <div class="label">Knowledge Context</div>
                     <div class="value" id="val-knowledge">0</div>
                 </div>
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
-                <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
+                <div class="card panel-card">
                     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem;">
                         <div style="display: flex; align-items: center; gap: 0.8rem;">
-                            <i data-lucide="database" style="color: var(--accent);"></i>
+                            <i data-lucide="database" class="text-accent"></i>
                             <h3 style="margin:0; font-size: 1.1rem;">Context Health</h3>
                         </div>
                         <i data-lucide="refresh-cw" id="btn-refresh-health" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);"></i>
                     </div>
                     <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-                        <div class="status-pill"><div class="dot"></div> Checking...</div>
+                        <div class="status-pill"><span class="led"></span> Checking...</div>
                     </div>
                 </div>
 
                 <div class="backlog-widget">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                        <span style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; color: var(--accent); font-weight: 800;">Next Priority</span>
+                        <span class="text-accent" style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; font-weight: 800;">Next Priority</span>
                         <span id="backlog-sync-info" style="font-size: 0.7rem; color: var(--text-dim); font-family: 'JetBrains Mono';">...</span>
                     </div>
                     <h3 id="next-task-title" style="margin: 0.5rem 0; font-size: 1.35rem; font-weight: 600;">Loading...</h3>
                     <p id="next-task-desc" style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5;">Pobieranie backlogu z SSoT...</p>
-                    <button class="btn" id="btn-execute-task" style="background: var(--accent); color: white; border: none; padding: 0.7rem 1.4rem; border-radius: 14px; cursor: pointer; font-weight: 600;">Portfolio Truth</button>
+                    <button class="btn-primary" id="btn-execute-task">Portfolio Truth</button>
                 </div>
 
-                <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 1.8rem; border-radius: 24px;">
+                <div class="card panel-card">
                     <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;">
-                        <i data-lucide="file-text" style="color: var(--accent);"></i>
+                        <i data-lucide="file-text" class="text-accent"></i>
                         <h3 style="margin:0; font-size: 1.1rem;">Quick Access</h3>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.6rem;">
@@ -141,7 +142,7 @@
             <div class="history-list">
                 <div style="display:flex; justify-content:space-between; margin-bottom:1.5rem; align-items:center;">
                     <h3 style="margin:0">Action Log</h3>
-                    <button id="btn-deep-scan" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Run Scan</button>
+                    <button id="btn-deep-scan" class="btn-outline">Run Scan</button>
                 </div>
                 <div id="log-container">
                     <div class="log-row" style="color:var(--text-dim)">Ładowanie aktywności...</div>
@@ -170,7 +171,7 @@
                     <p>Orchestrator ekosystemu — skan, SSoT, handoffy. LLM przez Agent OS (planowane).</p>
                 </div>
             </header>
-            <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 2rem; border-radius: 24px; max-width: 720px;">
+            <div class="panel panel--governance" style="padding: 2rem; max-width: 720px;">
                 <div style="padding: 1rem 1.2rem; margin-bottom: 1.5rem; border-radius: 12px; background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.25); color: #eab308; font-size: 0.9rem;">
                     LLM chat (KODA / Control Lab) jest wyłączony w tej wersji — brak endpointu <code>/api/chat</code>.
                 </div>
@@ -182,8 +183,8 @@
                     <li><code>npm run verify:prod-audit</code> — weekly security check</li>
                 </ul>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;">
-                    <button onclick="loadDoc('VCMS_PORTFOLIO_TRUTH.html')" style="background: var(--accent); color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer;">Portfolio Truth</button>
-                    <button onclick="loadDoc('VCMS_READINESS_AUDIT.html')" style="background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 10px; cursor: pointer;">Readiness Audit</button>
+                    <button onclick="loadDoc('VCMS_PORTFOLIO_TRUTH.html')" class="btn-primary">Portfolio Truth</button>
+                    <button onclick="loadDoc('VCMS_READINESS_AUDIT.html')" class="btn-outline">Readiness Audit</button>
                 </div>
             </div>
         </div>
@@ -195,7 +196,7 @@
                     <h2>Ecosystem Command Bridge</h2>
                     <p>Live health and synchronization status for all modules.</p>
                 </div>
-                <button id="btn-refresh-ecosystem" style="background:transparent; border:1px solid var(--accent); color:var(--accent); padding:0.5rem 1rem; border-radius:8px; cursor:pointer;">Refresh Bridge</button>
+                <button id="btn-refresh-ecosystem" class="btn-outline">Refresh Bridge</button>
             </header>
             
             <div class="card" style="background: var(--glass-bg); border: 1px solid var(--border); padding: 0; border-radius: 28px; overflow: hidden;">

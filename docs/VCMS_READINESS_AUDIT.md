@@ -28,7 +28,7 @@ verdict: "PARTIAL"
 
 **Co można pokazać uczciwie:** skan ekosystemu, konflikty, mapa SSoT, raport weryfikacji bezpieczeństwa, workflow handoffów, VitePress jako command center docs.
 
-> **Update 2026-06-16 (P0 sprint):** P0-1–P0-5 wdrożone w kodzie/docs (chat ukryty, README uczciwy, ecosystem remote-safe, `VCMS_PORTFOLIO_TRUTH.md`, `docs/demo/SCAN-REPORT.md`, `npm run scan`). Werdykt portfolio nadal **PARTIAL** — brak governance audit log / HITL w tym repo.
+> **Update 2026-06-16 (Portfolio Gate Plan):** Fazy 1–5 done — scorecard, brain/README, sales report, demo artifacts, services copy patch. **CONDITIONAL GO** — brak tylko video 75s (Dowódca). Handoff: `docs/handoffs/2026-06-16-portfolio-gate-plan-closure.md`.
 
 **Czego nie pokazywać jako „działa produkcyjnie”:** LLM gateway / KODA chat, governance audit log, approval workflow, agent cards w UI, pełny dashboard na prod VPS.
 
@@ -102,60 +102,61 @@ verdict: "PARTIAL"
 ## 5. Co jest zaczęte / atrapa / opisane bez kodu
 
 ### Zaczęte, niedokończone
-- Dashboard (`public/`) — polling, zakładki, ale rozjazd z API (backlog `description`, ecosystem `git`)
+- Dashboard UX — migracja na tokeny fiolet (`public/tokens.css`) — w toku 2026-06-16
 - SQLite `rate_limits` table — schema bez użycia
 - `indexer.search()` — zaimplementowane, niepodpięte
 - PH4-017 mobile test — preflight gotowy, wynik brak
 
-### Atrapy / demo
-- Control Lab + KODA chat — frontend bez backendu
-- LLM metrics na dashboardzie — hardcoded zeros
-- „Action Log” — historia LLM, która nigdy nie rośnie
+### Zamknięte (P0 + portfolio gate, 2026-06-16)
+- ~~Control Lab / KODA~~ → Governance tab, chat wyłączony
+- ~~Fake LLM metrics~~ → Ecosystem Mode / Repo Count
+- ~~Ecosystem tab crash na prod~~ → remote-safe w `app.js`
+- ~~`dashboard.html`~~ → `/` + README
+- ~~Brak `npm run scan`~~ → alias w `package.json`
 
-### Opisane, nie istnieje w tym repo
-- Governance audit log (kto/co/dlaczego dla treści)
-- Approval modal / HITL gate (jest w agent-os-ui)
-- Agent cards jako UI
-- `npm run scan` (jest `node tools/vcms-scan.js`)
-- `dashboard.html` (jest `/` → `index.html`)
+### Opisane, nie istnieje w tym repo (PLANNED)
+- Governance audit log JSON (handoffy + demo fixture tylko)
+- Approval UI (HITL w `agent-os-ui`)
+- Agent cards jako UI w VCMS
+- Conflict severity matrix (binarne 0/N dziś)
 - Automated planner generujący TODO
 
-### Amatorsko wyglądające
-- Rozjechane wersje produktu
-- `ignoreDeadLinks: true` w VitePress — ukrywa zepsute linki
-- Repo pages z `[DRAFT]` i ścieżkami `C:\Users\...`
-- Emoji w README i UI („uncle tips”)
-- `build:prod` = echo + node -v
+### Amatorsko wyglądające (otwarte)
+- Rozjechane wersje produktu (UI v3.0 vs package 1.0)
+- `ignoreDeadLinks: true` w VitePress
+- Repo pages z `[DRAFT]` i ścieżkami Windows
 - Stary `docs/ecosystem/report.md` (2026-04-09, 5 repo)
 
 ---
 
 ## 6. Backlog napraw (P0–P3)
 
-### P0 — blokuje publiczne pokazanie
+### P0 — DONE (2026-06-16)
 
-| ID | Co zrobić | Dlaczego | Pliki | Akceptacja | Demo? |
-|----|-----------|----------|-------|------------|-------|
-| P0-1 | **Usuń lub napraw obietnicę LLM Gateway** — albo przywróć `POST /api/chat`, albo ukryj Control Lab/KODA i popraw README | Klient trafia na martwy endpoint | `src/routes/api.js`, `public/app.js`, `docs/.vitepress/components/KodaChat.vue`, `README.md` | Chat działa LUB UI ukryte + README bez „Gateway” | **Tak** |
-| P0-2 | **Napraw README URL** — `dashboard.html` → `/` lub `index.html` | Pierwszy krok demo fail | `README.md` | Link otwiera dashboard | **Tak** |
-| P0-3 | **Napraw Ecosystem tab na prod** — obsłuż `status: remote` bez `repo.git` | JS error na portfolio demo URL | `public/app.js`, `src/routes/api.js` | Ecosystem tab bez błędów na cmd.flexgrafik.nl | **Tak** |
-| P0-4 | **Uczciwy messaging portfolio** — jedna strona „co VCMS jest / czego nie jest”; rozdziel flex-vcms vs agent-os-ui | Misattribution = utrata zaufania | `docs/VCMS_READINESS_AUDIT.md`, portfolio copy (poza repo) | Brak claimów HITL/audit log bez proof | **Tak** |
-| P0-5 | **Jeden raport demo do pokazania** — wygenerowany `conflicts.md` + krótki „scan summary” (nawet 0 conflicts) | Klient musi dostać artefakt | `tools/vcms-scan.js`, opcjonalnie `docs/demo/scan-report-sample.md` | Plik do pokazania w 60s | **Tak** |
+| ID | Status | Dowód |
+|----|--------|-------|
+| P0-1 | **DONE** | Governance tab, KodaChat banner, README |
+| P0-2 | **DONE** | README → `http://localhost:8001/` |
+| P0-3 | **DONE** | `app.js` remote ecosystem |
+| P0-4 | **DONE** | `VCMS_PORTFOLIO_TRUTH.md` |
+| P0-5 | **DONE** | `docs/demo/SCAN-REPORT.md`, `npm run scan` |
 
 ### P1 — demo wygląda profesjonalnie
 
-| ID | Co zrobić | Dlaczego | Pliki | Akceptacja | Demo? |
-|----|-----------|----------|-------|------------|-------|
-| P1-1 | **Ukryj lub napraw fake LLM metrics** | Zero latency wygląda jak mock | `public/index.html`, `public/app.js`, `api.js` metrics | Albo real data albo sekcja usunięta | Tak |
-| P1-2 | **Backlog widget** — użyj `before_you_start` zamiast `description` | Puste „Next Action” | `public/app.js`, `api.js` | Tekst next task widoczny | Tak |
-| P1-3 | **Severity w konfliktach** — info/warning/blocking w `vcms-scan.js` + `conflicts.md` | Obietnica governance | `tools/vcms-scan.js`, `scan-rules.json` | Tabela z severity w raporcie | Tak |
-| P1-4 | **Minimalny governance audit log** — append-only JSON/MD: scan runs, deploy markers, handoff links | Brak „audit log” w demo | `tools/vcms-audit-log.js`, `data/governance-audit.jsonl` | Po skanie wpis + widoczny w UI lub pliku | Tak |
-| P1-5 | **Odśwież / auto-generuj `ecosystem/report.md`** | Stary report psuje wizerunek | `tools/vcms-scan.js` lub nowy skrypt | Data = dziś, 8 repo | Nie |
-| P1-6 | **Banner na starym audycie FLASH** → link do `latest-verification.md` | Sprzeczne werdykty | `docs/audits/2026-06-15-LIVE-AUDIT-FLASH.md` | Czytelny „superseded” | Nie |
-| P1-7 | **`data/README.md`** — dlaczego gitignore, jak wygenerować index | Fresh clone wygląda pusto | `data/README.md` | Clone + README = jasne kroki | Nie |
-| P1-8 | **Ujednolicenie wersji** — jedna `VCMS_VERSION` w env/config | Profesjonalizm | `package.json`, `public/`, `docs/index.md`, `api.js` | Jedna wersja wszędzie | Nie |
-| P1-9 | **`npm run scan`** alias | DX + demo script | `package.json` | `npm run scan` = scan | Tak |
-| P1-10 | **Przykładowy konflikt demo** — `docs/demo/` z synthetic conflict (opcjonalnie osobny branch) | Pokazanie „wykryto problem” | `docs/demo/conflict-example.md` | Demo pokazuje warning/blocking | Tak |
+| ID | Co zrobić | Status |
+|----|-----------|--------|
+| P1-1 | Fake LLM metrics | **DONE** (P0) |
+| P1-2 | Backlog `before_you_start` | **DONE** |
+| P1-3 | Severity w konfliktach | OPEN |
+| P1-4 | Governance audit log JSONL | OPEN (demo fixture istnieje) |
+| P1-5 | Odśwież `ecosystem/report.md` | OPEN |
+| P1-6 | Banner FLASH audit superseded | OPEN |
+| P1-7 | `data/README.md` | OPEN |
+| P1-8 | Ujednolicenie wersji | OPEN |
+| P1-9 | `npm run scan` | **DONE** |
+| P1-10 | `conflict-example.md` | **DONE** |
+| P1-11 | UI tokens fiolet governance | **W TOKU** — `tokens.css` |
+
 
 ### P2 — wzmacnia produkt, nie blokuje prezentacji
 
@@ -183,29 +184,27 @@ verdict: "PARTIAL"
 
 ## 7. Minimalny zakres demo (must-have)
 
-Żeby pokazać VCMS **bez wstydu**, minimum musi działać **na laptopie** (nie na prod VPS dla skanu):
+| # | Wymaganie | Stan |
+|---|-----------|------|
+| 1 | Uruchomienie skanu | **PROVEN** `npm run scan` |
+| 2 | Wynik skanu | **PROVEN** `conflicts.md`, `map.md` |
+| 3 | Konflikt lub brak konfliktów | **PROVEN** (0 + `conflict-example.md`) |
+| 4 | Severity info/warning/blocking | **PLANNED** (P1-3) |
+| 5 | Fragment audit log | **DEMO** (`governance-audit-log-sample.md`) |
+| 6 | Human approval | **DEMO** (handoffy + Agent OS) |
+| 7 | Raport dla klienta | **PROVEN** `SCAN-REPORT.md` |
 
-| # | Wymaganie | Stan | Priorytet |
-|---|-----------|------|-----------|
-| 1 | Uruchomienie skanu | **PROVEN** `node tools/vcms-scan.js` | — |
-| 2 | Wynik skanu | **PROVEN** `conflicts.md`, `map.md` | — |
-| 3 | Konflikt lub brak konfliktów | **PROVEN** (0 conflicts) | P1-10 jeśli chcesz pokazać detection |
-| 4 | Severity info/warning/blocking | **MISSING** | **P1-3** |
-| 5 | Fragment audit log | **MISSING** (governance) | **P1-4** |
-| 6 | Human approval / review status | **DEMO** (handoff markdown only) | P1-4 lub uczciwie „planned in agent-os” |
-| 7 | Jeden raport dla klienta | **PROVEN** conflicts.md; brak ładnego exportu | **P0-5** |
-
-**Werdykt minimalnego demo:** **4/7 PROVEN**, **2 MISSING**, **1 DEMO** — **wymaga sprintu P0+P1 przed portfolio**.
+**Werdykt minimalnego demo:** **5/7 PROVEN**, **1 PLANNED**, **1 DEMO** — **demo-ready na laptopie**.
 
 ---
 
 ## 8. Co przed aktualizacją strony portfolio
 
-### Zrób najpierw (3–5 dni)
-1. P0-1 do P0-5 (uczciwość + działające demo path)
-2. P1-1, P1-2, P1-3, P1-4 (profesjonalny wygląd)
-3. Jedna wersja produktu (P1-8)
-4. Decyzja strategiczna: **VCMS = orchestrator + scan**; **HITL = agent-os** — wpisać na portfolio wprost
+### Zrób najpierw
+1. ~~P0-1 do P0-5~~ **DONE**
+2. P1-3, P1-4 (severity + audit log w kodzie) — roadmap 30d
+3. Deploy `services` (patch lokalny) + screenshot po UI fiolet
+4. Video 75s (Dowódca)
 
 ### Można już pokazywać (bez ryzyka)
 - Workflow: scan → conflicts 0 → map → handoff
@@ -283,11 +282,10 @@ Raport dla klienta                      ⚠️  markdown only
 
 | Pytanie | Odpowiedź |
 |---------|-----------|
-| Czy pokazywać VCMS jako **Governance Layer** dziś? | **NIE** — bez P0 |
-| Czy pokazywać jako **Orchestrator / SSoT / Ops**? | **TAK** — z uczciwym zakresem |
-| Czy repo jest „śmieciem”? | **NIE** — to dojrzały internal OS |
-| Czy repo jest „gotowym produktem B2B”? | **NIE** — PARTIAL |
-| Pierwszy krok | Sprint P0 (1–2 dni) przed dotknięciem marketingu portfolio |
+| Czy pokazywać VCMS jako **Governance Layer** dziś? | **CONDITIONAL** — uczciwy zakres + disclaimer |
+| Czy pokazywać jako **Orchestrator / SSoT / Ops**? | **TAK** |
+| Czy repo jest „gotowym produktem B2B”? | **PARTIAL** |
+| Pierwszy krok | UI tokens + deploy services + Loom |
 
 ---
 

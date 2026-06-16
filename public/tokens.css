@@ -1,0 +1,154 @@
+/* ==========================================================================
+   FlexGrafik — shared UI tokens (ecosystem base)
+   SSoT for dashboard: public/tokens.css
+   Spec: docs/design/VCMS_UI_TOKENS.md
+   ========================================================================== */
+
+:root {
+  /* Base layout */
+  --bg-base: #050608;
+  --bg-elevated: #0b0d12;
+  --bg-muted: #11141b;
+
+  --border-subtle: #252937;
+  --border-strong: #3a3f55;
+
+  --text-main: #e5e7ef;
+  --text-muted: #9ca3c7;
+  --text-soft: #6b7280;
+  --text-danger: #f97373;
+
+  /* Shared utility colors (legend korzyści) */
+  --fx-time: #ef4444;
+  --fx-money: #22c55e;
+  --fx-order: #4f46e5;
+  --fx-calm: #facc15;
+  --fx-efficiency: #a855f7;
+}
+
+/* General UI */
+body {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+}
+
+code,
+pre,
+.mono {
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+.panel {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.panel-header {
+  font-family: "JetBrains Mono", ui-monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.btn-base {
+  border-radius: 6px;
+  padding: 0.45rem 0.8rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-subtle);
+  background: linear-gradient(to bottom, #11141b, #050608);
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.btn-base:hover {
+  border-color: var(--border-strong);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-family: "JetBrains Mono", ui-monospace;
+}
+
+/* flex-vcms theme — governance / command center */
+body[data-app="flex-vcms"] {
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #4c1d95;
+
+  /* Legacy aliases (styles.css migration) */
+  --accent: var(--accent-primary);
+  --accent-glow: color-mix(in srgb, var(--accent-primary) 25%, transparent);
+  --bg: var(--bg-base);
+  --sidebar-bg: var(--bg-muted);
+  --card-bg: var(--bg-elevated);
+  --glass-bg: var(--bg-elevated);
+  --border: var(--border-subtle);
+  --text-dim: var(--text-muted);
+  --danger: var(--fx-time);
+  --warning: var(--fx-calm);
+  --success: var(--fx-money);
+}
+
+body[data-app="flex-vcms"] .panel--governance {
+  border-color: var(--accent-secondary);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-secondary) 35%, transparent);
+}
+
+body[data-app="flex-vcms"] .panel-header {
+  color: var(--accent-primary);
+}
+
+body[data-app="flex-vcms"] .text-accent {
+  color: var(--accent-primary);
+}
+
+body[data-app="flex-vcms"] .btn-primary {
+  background: var(--accent-primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+body[data-app="flex-vcms"] .btn-outline {
+  background: transparent;
+  border: 1px solid var(--accent-primary);
+  color: var(--accent-primary);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+/* Context Health LEDs */
+body[data-app="flex-vcms"] .led {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #111827;
+  flex-shrink: 0;
+}
+
+body[data-app="flex-vcms"] .led--healthy {
+  background-color: var(--fx-money);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--fx-money) 50%, transparent);
+}
+
+body[data-app="flex-vcms"] .led--stale {
+  background-color: var(--fx-calm);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--fx-calm) 50%, transparent);
+}
+
+body[data-app="flex-vcms"] .led--missing {
+  background-color: var(--fx-time);
+  box-shadow: 0 0 6px color-mix(in srgb, var(--fx-time) 50%, transparent);
+}

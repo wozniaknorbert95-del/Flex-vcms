@@ -20,12 +20,22 @@ export default defineConfig({
           { text: 'Poradnik użytkownika', link: '/PORADNIK_UZYTKOWNIKA' },
           { text: 'Portfolio Truth', link: '/VCMS_PORTFOLIO_TRUTH' },
           { text: 'Readiness Audit', link: '/VCMS_READINESS_AUDIT' },
+          { text: 'DoD Scorecard', link: '/VCMS_DOD_SCORECARD' },
+          { text: 'Sales Report', link: '/VCMS_SALES_REPORT' },
+          { text: 'Demo Script (75s)', link: '/VCMS_DEMO_SCRIPT' },
           { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' },
           { text: 'Jeśli zgubiony', link: '/if-lost' },
           { text: 'Quickstart (Orchestrator)', link: '/core/quickstart' },
           { text: 'Brain Dowódcy (render)', link: '/brain' },
           { text: 'KODA — czat', link: '/koda' },
           { text: 'Ewolucja systemu', link: '/system-evolution' }
+        ]
+      },
+      {
+        text: 'DESIGN',
+        collapsible: true,
+        items: [
+          { text: 'UI Tokens (dashboard)', link: '/design/VCMS_UI_TOKENS' }
         ]
       },
       {
