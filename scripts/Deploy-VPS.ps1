@@ -49,7 +49,8 @@ $requiredRootFiles = @(
     "package-lock.json",
     "ecosystem.config.js",
     "repos.yaml",
-    "flex-vcms-todo.json"
+    "flex-vcms-todo.json",
+    "brain.md"
 )
 $requiredDirectories = @("public", "src", "deploy-context", "scripts")
 

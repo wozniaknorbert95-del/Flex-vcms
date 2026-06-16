@@ -7,7 +7,6 @@ const path = require('path');
 const { execFile } = require('child_process');
 const yaml = require('js-yaml');
 const { getContextData } = require('../logic/context');
-const { callGemini } = require('../providers/gemini');
 
 // --- Configuration ---
 const vcmsBase = process.env.VCMS_DIR || process.cwd();
@@ -22,13 +21,7 @@ const apiLimiter = rateLimit({
     legacyHeaders: false,
 });
 
-const chatLimiter = rateLimit({
-    windowMs: 5 * 60 * 1000,
-    max: 30,
-    message: { error: 'Osiągnięto limit wymiany z LLM. Poczekaj 5 minut.' },
-    standardHeaders: true,
-    legacyHeaders: false,
-});
+
 
 // Heavy scan endpoint: max 5 per hour to prevent DoS via full ecosystem scan
 const scanLimiter = rateLimit({
@@ -152,80 +145,52 @@ router.get('/knowledge', apiLimiter, async (req, res) => {
  
 router.get('/v1/context/health', async (req, res) => {
     try {
-        const db = require('../database/instance');
-        const files = db.prepare(`
-            SELECT repo_id, file_path, file_name, category FROM knowledge_index
-            WHERE repo_id = 'flex-vcms' AND category IN ('BRAIN', 'TODO', 'HANDOFF', 'DOC')
-            ORDER BY category ASC
-        `).all();
+        const fsSync = require('fs');
+        const manifestPath = path.join(vcmsBase, 'deploy-context', 'manifest.json');
+        const staleMs = 24 * 60 * 60 * 1000;
 
-        const health = files.map(f => {
-            const fullPath = path.join(vcmsBase, f.file_path);
-            const exists = require('fs').existsSync(fullPath);
-            return {
-                name: f.file_name,
-                path: f.file_path,
-                status: exists ? 'healthy' : 'missing'
-            };
+        if (!fsSync.existsSync(manifestPath)) {
+            return res.json({
+                modules: [
+                    { name: 'deploy-context', status: 'missing' }
+                ],
+                note: 'Brak paczki SSoT na serwerze — uruchom Deploy-VPS.ps1 po vcms-sync-context.js'
+            });
+        }
+
+        const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf8'));
+        const bundleAge = Date.now() - (manifest.generated_at || 0);
+        const bundleStale = bundleAge > staleMs;
+
+        const modules = (manifest.modules || []).flatMap((mod) => {
+            const ctxDir = path.join(vcmsBase, 'deploy-context', mod.name);
+            const rows = [];
+            if (mod.brain) {
+                const brainPath = path.join(ctxDir, mod.brain);
+                rows.push({
+                    name: `${mod.name} · brain`,
+                    path: `deploy-context/${mod.name}/${mod.brain}`,
+                    status: !fsSync.existsSync(brainPath) ? 'missing' : bundleStale ? 'stale' : 'healthy'
+                });
+            }
+            if (mod.todo) {
+                const todoPath = path.join(ctxDir, mod.todo);
+                rows.push({
+                    name: `${mod.name} · todo`,
+                    path: `deploy-context/${mod.name}/${mod.todo}`,
+                    status: !fsSync.existsSync(todoPath) ? 'missing' : bundleStale ? 'stale' : 'healthy'
+                });
+            }
+            return rows;
         });
 
-        res.json({ modules: health });
+        res.json({ modules, bundle_updated: manifest.generated_at || null });
     } catch (err) {
         res.status(500).json({ error: 'Błąd weryfikacji zdrowia kontekstu.' });
     }
 });
 
-router.post('/chat', chatLimiter, async (req, res) => {
-    try {
-        const schema = Joi.object({
-            messages: Joi.array().items(
-                Joi.object({
-                    role: Joi.string().valid('user', 'model', 'assistant').required(),
-                    parts: Joi.array().items(
-                        Joi.object({
-                            text: Joi.string().required()
-                        })
-                    ).required()
-                })
-            ).min(1).required()
-        });
 
-        const { error, value } = schema.validate(req.body);
-        if (error) {
-            return res.status(400).json({ error: `Błędny format wiadomości: ${error.details[0].message}` });
-        }
-
-        const { messages } = value;
-
-        const apiKey = process.env.GEMINI_API_KEY;
-        if (!apiKey) return res.status(500).json({ error: 'Brak klucza API LLM.' });
-
-        const context = await getContextData(vcmsBase, githubBase);
-        const startTime = Date.now();
-        const result = await callGemini(messages, context, apiKey);
-        
-        metrics.total_requests++;
-        metrics.last_latency = Date.now() - startTime;
-        metrics.last_status = result.ok ? 'success' : `error_${result.status}`;
-        
-        metrics.history.push({
-            time: new Date().toLocaleTimeString('pl-PL'),
-            status: metrics.last_status,
-            latency: metrics.last_latency
-        });
-        if (metrics.history.length > 20) metrics.history.shift();
-
-        if (!result.ok) {
-            return res.status(result.status || 502).json({ error: 'Upstream LLM error.' });
-        }
-
-        res.status(200).json(result.data);
-    } catch (e) {
-        console.error(`[Chat Fatal] ${e.message}`);
-        const status = e.name === 'AbortError' ? 504 : 500;
-        res.status(status).json({ error: 'Wewnętrzny błąd czatu.' });
-    }
-});
 
 let backlogCache = { data: null, expire: 0 };
 

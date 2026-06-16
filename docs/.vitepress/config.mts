@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   ignoreDeadLinks: true,
+  base: '/docs/',
   title: "VCMS",
   description: "Visual Content Management System",
   appearance: 'dark',

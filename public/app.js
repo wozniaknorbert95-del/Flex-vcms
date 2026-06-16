@@ -69,9 +69,17 @@
         }, 2000);
     };
 
-    window.loadDoc = (path) => {
+    window.loadDoc = (docPath) => {
         const iframe = document.getElementById('docs-iframe');
-        iframe.src = '/docs/' + path;
+        if (!iframe) return;
+        const normalized = String(docPath || '')
+            .replace(/^\//, '')
+            .replace(/\.html$/i, '');
+        if (!normalized || normalized === 'index') {
+            iframe.src = '/docs/';
+        } else {
+            iframe.src = `/docs/${normalized}.html`;
+        }
         window.showTab('knowledge');
     };
 
@@ -228,7 +236,7 @@
 
         bind('btn-refresh-health', fetchHealth);
         bind('btn-refresh-ecosystem', fetchEcosystem);
-        bind('btn-execute-task', () => window.loadDoc('VCMS_PORTFOLIO_TRUTH.html'));
+        bind('btn-execute-task', () => window.loadDoc('VCMS_PORTFOLIO_TRUTH'));
         bind('btn-deep-scan', window.triggerScan);
 
         fetchStats();

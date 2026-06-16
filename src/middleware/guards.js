@@ -23,7 +23,7 @@ const setupGuards = (app) => {
                 fontSrc: ["'self'", "https://fonts.gstatic.com"],
                 imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
                 connectSrc: ["'self'", ...allowedOrigins],
-                frameAncestors: ["'none'"],
+                frameAncestors: ["'self'"],
                 objectSrc: ["'none'"],
                 // upgradeInsecureRequests omitted: would break IP-direct HTTP fallback.
                 // TLS enforcement is handled by nginx (HTTP→HTTPS 301).

@@ -105,7 +105,7 @@
                         </div>
                         <i data-lucide="refresh-cw" id="btn-refresh-health" style="width: 14px; height: 14px; cursor: pointer; color: var(--text-dim);"></i>
                     </div>
-                    <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                    <div id="context-health-list" style="display: flex; flex-wrap: wrap; gap: 0.75rem; max-height: 220px; overflow-y: auto;">
                         <div class="status-pill"><span class="led"></span> Checking...</div>
                     </div>
                 </div>
@@ -126,11 +126,11 @@
                         <h3 style="margin:0; font-size: 1.1rem;">Quick Access</h3>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.6rem;">
-                        <a href="javascript:void(0)" onclick="loadDoc('PORADNIK_UZYTKOWNIKA.html')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                        <a href="javascript:void(0)" onclick="loadDoc('PORADNIK_UZYTKOWNIKA')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
                             <i data-lucide="book" style="width:16px;"></i> User Guide
                         </a>
-                        <a href="javascript:void(0)" onclick="loadDoc('index.html')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
-                            <i data-lucide="home" style="width:16px;"></i> Project Index
+                        <a href="javascript:void(0)" onclick="loadDoc('')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
+                            <i data-lucide="home" style="width:16px;"></i> Docs Home
                         </a>
                         <a href="javascript:void(0)" onclick="showTab('ecosystem')" class="nav-item" style="padding: 0.8rem; font-size: 0.9rem;">
                             <i data-lucide="map" style="width:16px;"></i> System Map
@@ -159,7 +159,7 @@
                 </div>
             </header>
             <div class="iframe-container">
-                <iframe src="/docs/" id="docs-iframe"></iframe>
+                <iframe src="/docs/index.html" id="docs-iframe" title="VCMS Documentation"></iframe>
             </div>
         </div>
 
@@ -183,8 +183,8 @@
                     <li><code>npm run verify:prod-audit</code> — weekly security check</li>
                 </ul>
                 <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem;">
-                    <button onclick="loadDoc('VCMS_PORTFOLIO_TRUTH.html')" class="btn-primary">Portfolio Truth</button>
-                    <button onclick="loadDoc('VCMS_READINESS_AUDIT.html')" class="btn-outline">Readiness Audit</button>
+                    <button type="button" onclick="loadDoc('VCMS_PORTFOLIO_TRUTH')" class="btn-primary">Portfolio Truth</button>
+                    <button type="button" onclick="loadDoc('VCMS_READINESS_AUDIT')" class="btn-outline">Readiness Audit</button>
                 </div>
             </div>
         </div>
