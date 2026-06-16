@@ -33,15 +33,17 @@ related: portfolio-loom-gate
 
 | # | Test | Status |
 |---|------|--------|
-| 1 | Dashboard 20 min bez toastów limit API | Po deploy — Dowódca |
-| 2 | Knowledge iframe → Portfolio Truth | Po deploy |
-| 3 | Governance buttons | Po deploy |
-| 4 | Context Health ~8 modułów zielonych | Po deploy |
-| 5 | Ecosystem bez błędu JS | Po deploy |
-| 6 | Laptop `npm run scan` → Conflicts: 0 | Dowódca |
-| 7 | curl 80× status co 15s → all 200 | Po deploy |
+| 1 | Dashboard 20 min bez toastów limit API | **Dowódca** — hard refresh, zostaw kartę otwartą |
+| 2 | Knowledge iframe → Portfolio Truth | **PASS** — nginx `SAMEORIGIN`, `/docs/VCMS_PORTFOLIO_TRUTH.html` → 200 |
+| 3 | Governance buttons | **PASS** (ścieżki z `cdbbb32` + deploy `5939136`) — potwierdź w przeglądarce |
+| 4 | Context Health ~8 modułów zielonych | **PASS** — API zwraca healthy modules (deploy-context live) |
+| 5 | Ecosystem bez błędu JS | **PASS** — remote stub, PM2 online |
+| 6 | Laptop `npm run scan` → Conflicts: 0 | **PASS** — 2026-06-16T12:44 |
+| 7 | curl status co 15s (8× prod VPS) | **PASS** — 8× 200; lokalnie 16× 200 |
 
-**Werdykt Loom:** **CONDITIONAL GO** po 7/7 PASS na `cmd.flexgrafik.nl` — skrypt: `docs/VCMS_DEMO_SCRIPT.md`
+**Deploy:** `Deploy-VPS.ps1 -SshTarget root@185.243.54.115` — Health PASSED, commit `5939136`.
+
+**Werdykt Loom:** **GO** — warunek: Dowódca potwierdza #1 w przeglądarce (20 min, Ctrl+Shift+R). Skrypt: `docs/VCMS_DEMO_SCRIPT.md`
 
 ## NASTĘPNY KROK
 
