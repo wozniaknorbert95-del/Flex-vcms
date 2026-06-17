@@ -22,8 +22,8 @@
   --vp-c-default-2: #9ca3c7;
   --vp-c-default-3: #6b7280;
 
-  --vp-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-  --vp-font-family-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --vp-font-family-base: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --vp-font-family-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 
   --vp-home-hero-name-color: #a855f7;
   --vp-home-hero-name-background: transparent;
@@ -206,3 +206,62 @@
 .status-item.color-green { color: #00FF00; }
 .status-item.color-cyan { color: #00FFFF; }
 .status-item.color-gray { color: var(--vp-c-text-3); }
+
+/* VitePress UI overrides to match Terminal Vibe */
+.VPButton {
+  font-family: var(--vp-font-family-mono) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 3px !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+}
+
+.VPButton.brand {
+  background: color-mix(in srgb, var(--vp-c-brand) 20%, transparent) !important;
+  border: 1px solid var(--vp-c-brand) !important;
+  color: var(--vp-c-brand) !important;
+  padding: 0.45rem 0.9rem !important;
+}
+
+.VPButton.brand:hover {
+  background: color-mix(in srgb, var(--vp-c-brand) 30%, transparent) !important;
+}
+
+.VPButton.alt {
+  background: transparent !important;
+  border: 1px solid var(--vp-c-brand) !important;
+  color: var(--vp-c-brand) !important;
+  padding: 0.45rem 0.9rem !important;
+}
+
+.VPButton.alt:hover {
+  background: rgba(168, 85, 247, 0.1) !important;
+}
+
+.VPHomeHero .name {
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: 0.1em;
+}
+
+.VPHomeHero .text {
+  font-family: var(--vp-font-family-mono);
+}
+
+.VPHomeHero .tagline {
+  font-family: var(--vp-font-family-mono);
+  color: var(--vp-c-text-2);
+}
+
+.VPNavBarMenuLink {
+  font-family: var(--vp-font-family-mono);
+  font-size: 12px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.VPNavBarTitle .title {
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
