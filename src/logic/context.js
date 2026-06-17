@@ -1,6 +1,7 @@
 const fs = require('fs').promises;
 const path = require('path');
 const db = require('../database/instance');
+const { winLogger } = require('../middleware/logger');
 
 const safeExists = async (p) => {
     try {
@@ -47,7 +48,7 @@ const getEssentialKnowledge = async (vcmsBase) => {
             return essential;
         }
     } catch (err) {
-        console.error('[Context DB Error]', err);
+        winLogger.error(`[Context DB Error] ${err.message}`);
     }
 
     // --- Fallback: Manual Disk Scan (e.g. on VPS without indexed DB) ---

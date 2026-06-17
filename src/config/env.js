@@ -1,6 +1,12 @@
 const Joi = require('joi');
 require('dotenv').config();
 
+// Placeholder for logger (will be injected via middleware at app startup)
+// During early startup, we use stderr directly for critical errors
+const logError = (msg) => {
+    process.stderr.write(`[ERROR] ${msg}\n`);
+};
+
 const envSchema = Joi.object({
     NODE_ENV: Joi.string().valid('development', 'production', 'test').default('development'),
     PORT: Joi.number().default(8001),
@@ -12,9 +18,9 @@ const envSchema = Joi.object({
 const { error, value: envVars } = envSchema.validate(process.env);
 
 if (error) {
-    console.error('--- STARTUP FAILURE (Audit 2.0 Guard) ---');
-    console.error(`Config validation error: ${error.message}`);
-    console.error('-----------------------------------------');
+    logError('--- STARTUP FAILURE (Audit 2.0 Guard) ---');
+    logError(`Config validation error: ${error.message}`);
+    logError('-----------------------------------------');
     process.exit(1);
 }
 

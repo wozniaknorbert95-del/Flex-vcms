@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { winLogger } = require('../middleware/logger');
 
 const SEVERITY_ORDER = { blocking: 0, warning: 1, info: 2 };
 
@@ -40,7 +41,7 @@ function parseConflictsReport(filePath) {
             source: path.basename(filePath)
         };
     } catch (err) {
-        console.error(`[Conflicts Parse] ${err.message}`);
+        winLogger.error(`[Conflicts Parse] ${err.message}`);
         return null;
     }
 }
@@ -56,7 +57,7 @@ function getConflictsSummary(vcmsBase) {
             return JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
         }
     } catch (e) {
-        console.error(`[Conflicts Snapshot] ${e.message}`);
+        winLogger.error(`[Conflicts Snapshot] ${e.message}`);
     }
 
     return {

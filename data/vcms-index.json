@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-17T06:08:12.094Z",
+    "generated_at": "2026-06-17T06:46:18.850Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -43,9 +43,9 @@
         {
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
-          "bytes": 40692,
-          "mtime": "2026-06-16T20:38:27.452Z",
-          "sha256": "93c7a73097ad5356bb142acca4b75d000045ac6f3d7d7fe471a2c29abd2ba7d9"
+          "bytes": 42769,
+          "mtime": "2026-06-17T06:35:11.301Z",
+          "sha256": "3625153404151bc5a07f169f1738266c978d008dd3fcb314f392154d70d9d0be"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -396,6 +396,13 @@
           "bytes": 9502,
           "mtime": "2026-06-17T06:01:58.561Z",
           "sha256": "d1f3a51dea4e5dc3decee21b9511e10b09dbff718a3c0ebc731c90a5c9d97bbe"
+        },
+        {
+          "rel": "docs/handoffs/2026-06-17-cleanup-session-1-complete.md",
+          "type": "HANDOFF",
+          "bytes": 6803,
+          "mtime": "2026-06-17T06:09:07.360Z",
+          "sha256": "d8175e7c863c6e5eed7aaace02b1a137d0b05fae10172cdee3d4d58c55760371"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",

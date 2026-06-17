@@ -1,5 +1,6 @@
 const helmet = require('helmet');
 const cors = require('cors');
+const { winLogger } = require('./logger');
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [
     'http://localhost:5173',
@@ -54,7 +55,7 @@ const setupGuards = (app) => {
                 return callback(null, true);
             }
             
-            console.warn(`[SECURITY-ALERT] CORS Blocked for Origin: ${origin}`);
+            winLogger.warn(`[SECURITY-ALERT] CORS Blocked for Origin: ${origin}`);
             return callback(new Error('CORS policy violation'), false);
         },
         methods: ['GET', 'POST', 'OPTIONS'],
@@ -64,7 +65,7 @@ const setupGuards = (app) => {
 
 const handleJsonErrors = (err, req, res, next) => {
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
-        console.error(`[SEC-WATCHDOG] Malformed JSON: ${err.message}`);
+        winLogger.error(`[SEC-WATCHDOG] Malformed JSON: ${err.message}`);
         return res.status(400).json({ error: 'Niefortunny format JSON.' });
     }
     next();

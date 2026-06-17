@@ -10,6 +10,7 @@ const { getContextData } = require('../logic/context');
 const { getConflictsSummary } = require('../logic/conflicts');
 const { runKodaChat } = require('../logic/koda-chat');
 const { readRecentEvents } = require('../../tools/vcms-audit-log');
+const { winLogger } = require('../middleware/logger');
 
 // --- Configuration ---
 const vcmsBase = process.env.VCMS_DIR || process.cwd();
@@ -166,12 +167,13 @@ router.post('/v1/scan', scanLimiter, async (req, res) => {
         return res.status(500).json({ error: 'Failed to read repos.yaml before scan.' });
     }
 
-    console.log('[VCMS] Triggering Ecosystem Scan...');
+    winLogger.info('[VCMS] Triggering Ecosystem Scan...');
     execFile('node', [path.join(vcmsBase, 'tools', 'vcms-scan.js')], (error, stdout) => {
         if (error) {
-            console.error(`[Scan Error] ${error.message}`);
+            winLogger.error(`[Scan Error] ${error.message}`);
             return res.status(500).json({ error: 'Skanowanie nie powiodło się.' });
         }
+        winLogger.info('[VCMS] Scan completed successfully');
         res.json({ message: 'Skanowanie zakończone.', output: stdout });
     });
 });
@@ -181,7 +183,7 @@ router.get('/knowledge', apiLimiter, async (req, res) => {
         const data = await getContextData(vcmsBase, githubBase);
         res.json(data);
     } catch(err) {
-        console.error(`[API Error] /knowledge - ${err.message}`);
+        winLogger.error(`[API Error] /knowledge - ${err.message}`);
         res.status(500).json({ error: 'Nie udało się poprawnie złożyć SSOT' });
     }
 });
@@ -313,7 +315,7 @@ router.get('/v1/ecosystem/status', readLimiter, async (req, res) => {
             repos: ecosystemStatus
         });
     } catch (err) {
-        console.error(`[Ecosystem API Error] ${err.message}`);
+        winLogger.error(`[Ecosystem API Error] ${err.message}`);
         res.status(500).json({ status: 'error', error: 'Błąd skanowania ekosystemu.' });
     }
 });
@@ -340,7 +342,7 @@ router.post('/chat', chatLimiter, apiLimiter, async (req, res) => {
             model: result.model
         });
     } catch (err) {
-        console.error(`[KODA Error] ${err.message}`);
+        winLogger.error(`[KODA Error] ${err.message}`);
         res.status(500).json({ error: 'Błąd przetwarzania chatu KODA.' });
     }
 });
