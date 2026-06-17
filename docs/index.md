@@ -59,7 +59,7 @@ hero:
 </div>
 
 <div class="slash-commands">
-  <h3>&#x26A1; SLASH COMMANDS — SZYBKI DOSTEP</h3>
+  <h3>&#x26A1; SLASH COMMANDS — SZYBKI DOSTEP (Click to copy)</h3>
   <div class="slash-commands-grid">
     <code class="cmd color-green">/vibe-init</code>
     <code class="cmd color-cyan">/blast</code>
@@ -71,6 +71,27 @@ hero:
     <code class="cmd color-gray">/handoff</code>
   </div>
 </div>
+
+<script>
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    document.querySelectorAll('.cmd').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.title = 'Kliknij, aby skopiować komendę';
+      el.addEventListener('click', (e) => {
+        const text = e.target.innerText;
+        if (text === 'Copied!') return;
+        
+        navigator.clipboard.writeText(text).then(() => {
+          const original = text;
+          e.target.innerText = 'Copied!';
+          setTimeout(() => { e.target.innerText = original; }, 1000);
+        });
+      });
+    });
+  }, 500);
+}
+</script>
 
 <div class="status-box">
   <p>STATUS SYSTEMU</p>

@@ -6,7 +6,11 @@ export default defineConfig({
   title: "VCMS",
   description: "Visual Content Management System",
   appearance: 'dark',
+  lastUpdated: true,
   themeConfig: {
+    search: {
+      provider: 'local'
+    },
     nav: [
       { text: '[ OPS ] Start', link: '/PORADNIK_UZYTKOWNIKA' },
       { text: '[ SYS ] Ecosystem', link: '/ecosystem/report' },
@@ -80,14 +84,14 @@ export default defineConfig({
       },
       {
         text: 'HANDOFFS',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Handoffs — indeks', link: '/handoffs/handoffs-index' }
         ]
       },
       {
         text: 'AGENTS',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'KODA (profil docs)', link: '/agents/koda' },
           { text: 'Boot: Senior Agency', link: '/agents/boot-senior-agency' },
@@ -96,7 +100,7 @@ export default defineConfig({
       },
       {
         text: 'PLAYBOOKS',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Feature Loop', link: '/playbooks/feature-loop' },
           { text: 'Patch-Only Surgery', link: '/playbooks/patch-only-surgery' },
@@ -105,7 +109,7 @@ export default defineConfig({
       },
       {
         text: 'CHECKLISTS',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Prep Deploy', link: '/checklists/prep-deploy' },
           { text: 'Pre-Commit', link: '/checklists/pre-commit' },
@@ -118,7 +122,7 @@ export default defineConfig({
       },
       {
         text: 'REFERENCE',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'VPS runbook (Command Center)', link: '/reference/vcms-vps-runbook' },
           { text: 'PH4-011 operator runbook', link: '/reference/ph4-011-operator-runbook' },
@@ -133,7 +137,7 @@ export default defineConfig({
       },
       {
         text: 'TEMPLATES',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Session Brief + Context Packet', link: '/templates/tmpl-session-brief' },
           { text: 'Session Log', link: '/templates/tmpl-session-log' },
@@ -146,21 +150,21 @@ export default defineConfig({
       },
       {
         text: 'JOURNAL',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Logs Index', link: '/journal/logs-index' }
         ]
       },
       {
         text: 'LAB',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Lab Index', link: '/lab/lab-index' }
         ]
       },
       {
         text: 'ARCHIVE',
-        collapsible: true,
+        collapsed: true,
         items: [
           { text: 'Archive Index', link: '/archive/archive-index' }
         ]
