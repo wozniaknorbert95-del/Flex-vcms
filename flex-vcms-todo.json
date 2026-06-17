@@ -876,6 +876,51 @@
       "repo": "flex-vcms",
       "title": "SSoT Health Score widget (roadmap 6.3)",
       "audit_source": "docs/VCMS_SALES_REPORT.md §6.3"
+    },
+    {
+      "id": "CLEANUP-001",
+      "area": "HYGIENE",
+      "status": "DONE",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "done_at": "2026-06-17",
+      "title": "Cleanup Session 1 — Repository Hygiene (Conservative Mode)",
+      "acceptance": [
+        "Removed 6 dead files: 1 unused tool + 5 archived docs (superseded/out-of-scope)",
+        "Verified .env/.env.keys in .gitignore (secure, no history rewrite needed)",
+        "Added /cleanup-mode workflow to vibe-init.md for future sessions",
+        "Scan executed post-cleanup: Conflicts: 0 ✅"
+      ],
+      "definition_of_done": "Repo is cleaner, SSoT is intact, and professional cleanup workflow is documented for reuse.",
+      "commits": [
+        "a158dda: chore(cleanup): remove unused tools/remote-sync-helper.js",
+        "ac5e605: chore(cleanup): remove legacy archived docs",
+        "31875e4: docs(workflow): add /cleanup-mode to vibe-init",
+        "c14562e: chore(scan): update VCMS artifacts post-cleanup"
+      ],
+      "handoff": "docs/handoffs/2026-06-17-cleanup-session-1-complete.md"
+    },
+    {
+      "id": "POLISH-001",
+      "area": "POLISH",
+      "status": "TODO",
+      "priority": "P1",
+      "repo": "flex-vcms",
+      "title": "Polish Session 2 — Code Quality & Documentation",
+      "note": "Planned for next session after cleanup. Scope: format/lint (Prettier), logging consistency, micro-refactors, docs polish (links, TOC), UI tokens verification.",
+      "scope": [
+        "Format & Lint: Prettier + optional ESLint",
+        "Logging: winston levels, rotation, message patterns",
+        "Micro-refactors: naming clarity, technical comments, split large files",
+        "Documentation: link-check, consistent titles, consolidation of playbooks",
+        "UI/UX: verify token alignment in public/tokens.css, LED classes, theme consistency"
+      ],
+      "acceptance": [
+        "0 lint warnings",
+        "0 broken links in docs:build",
+        "Stylistic consistency in changed modules",
+        "npm start smoke test PASS (no startup errors)"
+      ]
     }
   ]
 }
