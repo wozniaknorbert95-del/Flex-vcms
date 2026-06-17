@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-06-17T06:46:18.850Z",
+    "generated_at": "2026-06-17T07:42:40.951Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -43,9 +43,9 @@
         {
           "rel": "flex-vcms-todo.json",
           "type": "TODO",
-          "bytes": 42769,
-          "mtime": "2026-06-17T06:35:11.301Z",
-          "sha256": "3625153404151bc5a07f169f1738266c978d008dd3fcb314f392154d70d9d0be"
+          "bytes": 42872,
+          "mtime": "2026-06-17T07:39:00.359Z",
+          "sha256": "43618424d44bf2557637054b2b4d19893297e738aba5f1c1759f5b4ea353f90c"
         },
         {
           "rel": "docs/handoffs/2026-04-03-deployment.md",
@@ -403,6 +403,27 @@
           "bytes": 6803,
           "mtime": "2026-06-17T06:09:07.360Z",
           "sha256": "d8175e7c863c6e5eed7aaace02b1a137d0b05fae10172cdee3d4d58c55760371"
+        },
+        {
+          "rel": "docs/handoffs/2026-06-17-polish-session-2-complete.md",
+          "type": "HANDOFF",
+          "bytes": 8077,
+          "mtime": "2026-06-17T07:38:33.513Z",
+          "sha256": "de9454b64d73f8a4cbd9879218d7e785b9b67dade524400f5c91677953facf62"
+        },
+        {
+          "rel": "docs/handoffs/2026-06-17-polish-session-2-phase1-discovery.md",
+          "type": "HANDOFF",
+          "bytes": 8167,
+          "mtime": "2026-06-17T07:07:21.281Z",
+          "sha256": "546afe6584e8845394a96abd22ba678deb6bd54573c0a99590b85b9eb3aed793"
+        },
+        {
+          "rel": "docs/handoffs/2026-06-17-verification-session-1-5.md",
+          "type": "HANDOFF",
+          "bytes": 6520,
+          "mtime": "2026-06-17T07:04:28.383Z",
+          "sha256": "3980830c99bb255711cbe4c8ff8a1506d5f75a63a23625681fb01ae70aa97e21"
         },
         {
           "rel": "docs/handoffs/handoffs-index.md",

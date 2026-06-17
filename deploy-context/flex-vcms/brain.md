@@ -109,8 +109,8 @@ Kanoniczny rejestr: `repos.yaml` · mapa: `docs/ecosystem/map.md` · skan: `npm 
 | Handoffy sesji (markdown) | **flex-vcms** `docs/handoffs/` | PROVEN |
 | Human approval gate (UI) | **agent-os-ui** | DEMO/PROVEN |
 | Agent cards (UI) | **agent-os-ui** + portfolio gratka | DEMO |
-| LLM chat / KODA | **wyłączone** w VCMS | PLANNED via Agent OS |
-| Governance audit log (JSON trail) | **roadmap** flex-vcms | PLANNED |
+| LLM chat / KODA (RAG read-only) | **flex-vcms** `POST /api/chat` | PROVEN (wymaga klucza `.env`) |
+| Governance audit log (JSON trail) | **flex-vcms** `data/governance-audit.jsonl` | PROVEN (append po scan) |
 | Strona sprzedażowa Quietforge | **services** repo | osobny moduł |
 
 Portfolio copy musi być zgodne z `docs/VCMS_PORTFOLIO_TRUTH.md` — bez przypisywania HITL do flex-vcms UI.
@@ -232,10 +232,12 @@ Nowoczesne centrum dowodzenia (PH4-014) integruje wiedze z calego ekosystemu.
 2. **Deploy**: Skrypt `Deploy-VPS.ps1` automatycznie uruchamia sync i wysyla paczke wiedzy na serwer (Atomic Swap).
 3. **Na Serwerze**: VCMS Dashboard czyta manifest i wyswietla stan systemu.
 
-### Governance tab (dashboard)
-- Zakładka **Governance** w dashboardzie (`npm start` → `http://localhost:8001/`) — zakres produktu, linki do Portfolio Truth i Readiness Audit.
-- **LLM chat (KODA / Control Lab) jest wyłączony** — brak `/api/chat`. AI workflows: Agent OS.
-- Skan lokalny: `npm run scan` → `docs/ecosystem/conflicts.md` (Deep Scan z UI działa tylko na maszynie dev).
+### KODA tab (dashboard + docs)
+- Zakładka **KODA** w dashboardzie (`npm start` → `http://localhost:8001/`) — asystent RAG read-only (`POST /api/chat`).
+- Kontekst: `docs/` + `deploy-context` (brain/todo modułów). Klucz LLM: `OPENROUTER_API_KEY` lub `GEMINI_API_KEY` w `.env` (nigdy w repo).
+- **VCMS = Nadzór** — KODA tłumaczy, analizuje, nie deployuje ani nie edytuje kodu.
+- **Agent OS UI = Egzekucja** — delegowanie zadań, HITL, zatwierdzanie deployów.
+- Skan lokalny: `npm run scan` → `docs/ecosystem/conflicts.md` + append `data/governance-audit.jsonl`.
 
 ### Widgety i LEDy (Jak czytac Dashboard)
 - **Next Action (Backlog)**: Pobiera dane bezposrednio z `flex-vcms-todo.json`. Zawsze wiesz, co jest priorytetem w skali calego ekosystemu.
@@ -249,7 +251,8 @@ Nowoczesne centrum dowodzenia (PH4-014) integruje wiedze z calego ekosystemu.
 - **SSoT tokenów:** `docs/design/VCMS_UI_TOKENS.md` · plik CSS: `public/tokens.css`
 - **Motyw:** `<body data-app="flex-vcms">` — akcent governance **fiolet** (`--accent-primary`), nie emerald
 - **LEDy Context Health:** `led--healthy` / `led--stale` / `led--missing` → `--fx-money` / `--fx-calm` / `--fx-time`
-- **Governance tab:** klasa `panel panel--governance` na głównym cardzie zakładki
+- **Governance tab:** klasa `panel panel--governance` na głównym cardzie zakładki (legacy) · **KODA tab:** `chat-container--koda`, badge `badge--koda`
+- **Action Log:** `/api/v1/audit-log` → `data/governance-audit.jsonl` (ostatnie wpisy po `npm run scan`)
 
 ---
 
