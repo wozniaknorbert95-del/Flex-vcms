@@ -9,69 +9,71 @@ const SEVERITY_ORDER = { blocking: 0, warning: 1, info: 2 };
  * Returns null when file is missing or unreadable.
  */
 function parseConflictsReport(filePath) {
-    try {
-        if (!fs.existsSync(filePath)) return null;
-        const text = fs.readFileSync(filePath, 'utf8');
+  try {
+    if (!fs.existsSync(filePath)) return null;
+    const text = fs.readFileSync(filePath, 'utf8');
 
-        const countMatch = text.match(/Conflicts found:\s*\*\*(\d+)\*\*/i);
-        const generatedMatch = text.match(/Generated at:\s*`([^`]+)`/i);
-        const reposMatch = text.match(/Repos scanned:\s*\*\*(\d+)\*\*/i);
+    const countMatch = text.match(/Conflicts found:\s*\*\*(\d+)\*\*/i);
+    const generatedMatch = text.match(/Generated at:\s*`([^`]+)`/i);
+    const reposMatch = text.match(/Repos scanned:\s*\*\*(\d+)\*\*/i);
 
-        const severity = { blocking: 0, warning: 0, info: 0 };
-        const sevTable = text.match(/blocking\s*\*\*(\d+)\*\*[\s\S]*?warning\s*\*\*(\d+)\*\*[\s\S]*?info\s*\*\*(\d+)\*\*/i);
-        if (sevTable) {
-            severity.blocking = parseInt(sevTable[1], 10);
-            severity.warning = parseInt(sevTable[2], 10);
-            severity.info = parseInt(sevTable[3], 10);
-        } else {
-            const severityLineRe = /\*\*([A-Z_]+)\*\*\s*\((blocking|warning|info)\)/gi;
-            let m;
-            while ((m = severityLineRe.exec(text)) !== null) {
-                severity[m[2]] = (severity[m[2]] || 0) + 1;
-            }
-        }
-
-        const total = countMatch ? parseInt(countMatch[1], 10) : 0;
-
-        return {
-            count: total,
-            repos_scanned: reposMatch ? parseInt(reposMatch[1], 10) : null,
-            generated_at: generatedMatch ? generatedMatch[1] : null,
-            severity,
-            source: path.basename(filePath)
-        };
-    } catch (err) {
-        winLogger.error(`[Conflicts Parse] ${err.message}`);
-        return null;
+    const severity = { blocking: 0, warning: 0, info: 0 };
+    const sevTable = text.match(
+      /blocking\s*\*\*(\d+)\*\*[\s\S]*?warning\s*\*\*(\d+)\*\*[\s\S]*?info\s*\*\*(\d+)\*\*/i
+    );
+    if (sevTable) {
+      severity.blocking = parseInt(sevTable[1], 10);
+      severity.warning = parseInt(sevTable[2], 10);
+      severity.info = parseInt(sevTable[3], 10);
+    } else {
+      const severityLineRe = /\*\*([A-Z_]+)\*\*\s*\((blocking|warning|info)\)/gi;
+      let m;
+      while ((m = severityLineRe.exec(text)) !== null) {
+        severity[m[2]] = (severity[m[2]] || 0) + 1;
+      }
     }
+
+    const total = countMatch ? parseInt(countMatch[1], 10) : 0;
+
+    return {
+      count: total,
+      repos_scanned: reposMatch ? parseInt(reposMatch[1], 10) : null,
+      generated_at: generatedMatch ? generatedMatch[1] : null,
+      severity,
+      source: path.basename(filePath),
+    };
+  } catch (err) {
+    winLogger.error(`[Conflicts Parse] ${err.message}`);
+    return null;
+  }
 }
 
 function getConflictsSummary(vcmsBase) {
-    const conflictsPath = path.join(vcmsBase, 'docs', 'ecosystem', 'conflicts.md');
-    const parsed = parseConflictsReport(conflictsPath);
-    if (parsed) return parsed;
+  const conflictsPath = path.join(vcmsBase, 'docs', 'ecosystem', 'conflicts.md');
+  const parsed = parseConflictsReport(conflictsPath);
+  if (parsed) return parsed;
 
-    const snapshotPath = path.join(vcmsBase, 'deploy-context', 'conflicts-snapshot.json');
-    try {
-        if (fs.existsSync(snapshotPath)) {
-            return JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
-        }
-    } catch (e) {
-        winLogger.error(`[Conflicts Snapshot] ${e.message}`);
+  const snapshotPath = path.join(vcmsBase, 'deploy-context', 'conflicts-snapshot.json');
+  try {
+    if (fs.existsSync(snapshotPath)) {
+      return JSON.parse(fs.readFileSync(snapshotPath, 'utf8'));
     }
+  } catch (e) {
+    winLogger.error(`[Conflicts Snapshot] ${e.message}`);
+  }
 
-    return {
-        count: null,
-        repos_scanned: null,
-        generated_at: null,
-        severity: { blocking: 0, warning: 0, info: 0 },
-        source: 'unavailable',
-        note: 'Run npm run scan locally or deploy after scan'
-    };
+  return {
+    count: null,
+    repos_scanned: null,
+    generated_at: null,
+    severity: { blocking: 0, warning: 0, info: 0 },
+    source: 'unavailable',
+    note: 'Run npm run scan locally or deploy after scan',
+  };
 }
 
 module.exports = {
-    parseConflictsReport,
-    getConflictsSummary,
-    SEVERITY_ORDER
+  parseConflictsReport,
+  getConflictsSummary,
+  SEVERITY_ORDER,
 };
