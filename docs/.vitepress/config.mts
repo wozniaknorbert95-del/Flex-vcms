@@ -8,11 +8,10 @@ export default defineConfig({
   appearance: 'dark',
   themeConfig: {
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Start (SOP)', link: '/PORADNIK_UZYTKOWNIKA' },
-      { text: 'Manifesto', link: '/core/manifesto' },
-      { text: 'Ecosystem', link: '/ecosystem/report' },
-      { text: 'KODA Chat', link: '/koda' }
+      { text: '[ OPS ] Start', link: '/PORADNIK_UZYTKOWNIKA' },
+      { text: '[ SYS ] Ecosystem', link: '/ecosystem/report' },
+      { text: '[ KNOW ] Manifesto', link: '/core/manifesto' },
+      { text: '[ AI ] KODA', link: '/koda' }
     ],
     sidebar: [
       {

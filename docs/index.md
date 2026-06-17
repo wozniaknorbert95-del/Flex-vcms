@@ -7,18 +7,25 @@ hero:
   tagline: "Twoj osobisty system operacyjny dla vibe codingu z AI."
   actions:
     - theme: brand
-      text: "ZACZNIJ TUTAJ (START)"
+      text: "[ OPS ] START"
       link: /PORADNIK_UZYTKOWNIKA
     - theme: alt
-      text: "Globalne Zasady"
+      text: "[ SYS ] Zasady"
       link: /core/global-rules
     - theme: alt
-      text: "Jesli Zgubiony"
+      text: "[ OPS ] SOS"
       link: /if-lost
     - theme: alt
-      text: "Brain Dowodcy (SSoT)"
+      text: "[ SYS ] Brain"
       link: /brain
 ---
+
+<div class="system-legend">
+  <div class="system-legend-item"><span class="legend-dot dot-ops"></span> OPS (Operacje)</div>
+  <div class="system-legend-item"><span class="legend-dot dot-know"></span> KNOW (Nauka)</div>
+  <div class="system-legend-item"><span class="legend-dot dot-ai"></span> AI (Agenty)</div>
+  <div class="system-legend-item"><span class="legend-dot dot-sys"></span> SYS (System)</div>
+</div>
 
 <div class="dashboard-grid">
   <div class="card">

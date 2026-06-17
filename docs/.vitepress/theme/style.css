@@ -8,7 +8,10 @@
   --vp-c-brand: #a855f7;
   --vp-c-brand-1: #a855f7;
   --vp-c-brand-2: #8b5cf6;
-  --vp-c-brand-3: #4c1d95;
+  --vp-c-brand-ops: #FF00FF;    /* Magenta dla Operacji */
+  --vp-c-brand-know: #00FFFF;   /* Cyan dla Nauki */
+  --vp-c-brand-ai: #FFFF00;     /* Yellow dla Agentów */
+  --vp-c-brand-sys: #00FF00;    /* Green dla Systemu */
   --vp-c-brand-soft: rgba(168, 85, 247, 0.14);
 
   --vp-c-text-1: #e5e7ef;
@@ -74,6 +77,37 @@
 ::-webkit-scrollbar-thumb { background: #252937; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a3f55; }
 
+/* Mini Legend (System Taxonomy) */
+.system-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: -1.5rem;
+  margin-bottom: 3rem;
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.system-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--vp-c-text-2);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot-ops { background: var(--vp-c-brand-ops); box-shadow: 0 0 5px var(--vp-c-brand-ops); }
+.dot-know { background: var(--vp-c-brand-know); box-shadow: 0 0 5px var(--vp-c-brand-know); }
+.dot-ai { background: var(--vp-c-brand-ai); box-shadow: 0 0 5px var(--vp-c-brand-ai); }
+.dot-sys { background: var(--vp-c-brand-sys); box-shadow: 0 0 5px var(--vp-c-brand-sys); }
+
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -85,12 +119,26 @@
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-border);
   padding: 1.5rem;
-  border-radius: 8px;
-  transition: border-color 0.2s;
+  border-radius: 4px; /* terminal style squared */
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
 }
 
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.card:nth-child(1)::before { background: var(--vp-c-brand-ops); }
+.card:nth-child(2)::before { background: var(--vp-c-brand-know); }
+.card:nth-child(3)::before { background: var(--vp-c-brand-ai); }
+
 .card:hover {
-  border-color: var(--vp-c-brand);
+  border-color: var(--vp-c-border);
+  transform: translateY(-2px);
+  background: var(--vp-c-bg-mute);
 }
 
 .card h3 {
@@ -258,6 +306,17 @@
   font-size: 12px !important;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+
+.VPNavBarMenuLink[href*="PORADNIK"] { border-bottom: 2px solid var(--vp-c-brand-ops); }
+.VPNavBarMenuLink[href*="ecosystem"] { border-bottom: 2px solid var(--vp-c-brand-sys); }
+.VPNavBarMenuLink[href*="manifesto"] { border-bottom: 2px solid var(--vp-c-brand-know); }
+.VPNavBarMenuLink[href*="koda"] { border-bottom: 2px solid var(--vp-c-brand-ai); }
+
+.VPNavBarMenuLink:hover {
+  background: var(--vp-c-bg-mute);
+  border-radius: 3px 3px 0 0;
 }
 
 .VPNavBarTitle .title {
