@@ -15,8 +15,11 @@ updated: "2026-07-18"
 | 2 | cmd → handbook → hop Commander | PASS (P1 LIVE) |
 | 3 | Brak pełnego global-rules na cmd | PASS (pointer) |
 | 4 | Learning split vibe ≠ MBA | PASS |
-| 5 | vcms-scan Conflicts: 0 | (post-scan) |
+| 5 | vcms-scan Conflicts: 0 | **PASS** |
 | 6 | PARK nietknięty | PASS |
+
+**Tips:** flex-vcms merge `e300074` (PR#28+#29); jadzia `cd6a0aa` VPS; Deploy final health OK + handbook/study-index 200.  
+**Local-only repos** (no `origin`): vibe-coach, agent-os, agent-os-ui — commits lokalne DONE.
 
 ## Per-repo DoD
 
