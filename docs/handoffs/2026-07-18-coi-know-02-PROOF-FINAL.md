@@ -1,44 +1,103 @@
 ---
 status: "[ACTIVE]"
-title: "COI-KNOW-02 — PROOF FINAL"
+title: "COI-KNOW-02 — PROOF FINAL (honest DoD)"
 gate: "COI-KNOW-02"
 updated: "2026-07-18"
 ---
 
-# COI-KNOW-02 — PROOF FINAL
+# COI-KNOW-02 — PROOF FINAL (uczciwy)
 
-## Program DoD
+**VCMS-VIDEO nie jest meta.next** — uznane za **stale/obsolete** jako domyślny next (2026-07-18).  
+Next: `IDLE-POST-KNOW-02` (wybór Dowódcy).
+
+## LIVE verify (VPS :8001, re-check)
+
+| Check | Result |
+|-------|--------|
+| `/` `/docs/` | 200 |
+| `/study/coi-commander-ops-handbook` | **500** (oczekiwane — poza base; użytkownik nie idzie tu) |
+| `/docs/study/coi-commander-ops-handbook` | 200 |
+| `/docs/study/surfaces-map` | 200 |
+| Home hrefs | `/docs/study/…` only |
+| Nav „COI Commander” | present |
+| `global-rules` | pointer → meta LIVE |
+| study-index `C:\Users` | **0** |
+
+## DoD per repo (honest)
+
+### flex-vcms `VCMS-KB-IA-01`
+
+- [x] LIVE docs + handbook 200
+- [x] Home/nav/sidebar/Quick Access ≤2 klik
+- [x] Zero bare `/study/*` na home; zero `/docs/docs/` w study-index
+- [x] Sidebar OPS
+- [x] PORTFOLIO collapsible
+- [x] surfaces-map LIVE
+- [x] Handbook CTA + „UI ≠ cmd”
+- [x] global-rules pointer
+- [~] `ignoreDeadLinks`: **nie** pełne `false` — whitelist archive + znane legacy (build PASS)
+- [x] Deploy GO + Conflicts: 0
+- [x] gate DONE; brain updated 2026-07-18
+
+### flexgrafik-meta `META-KNOW-02`
+
+- [x] pełne global-rules w meta
+- [x] knowledge + process pointers → jadzia
+- [x] §6 mirrors / VCMS pointer note
+- [x] FIX-014 vibe-coach brain/todo → done
+- [x] brak paste scorecard
+
+### jadzia-core `COI-KNOW-02`
+
+- [x] KNOW index: cmd surfaces + learning split + global-rules rule
+- [x] PROCESS/scorecard bez paste
+- [x] ADR nie w VCMS; OPERATOR-PLAYBOOK pointer
+- [x] todo/AGENTS/session CLOSE
+- [x] MBA ≠ vibe w KNOW index
+
+### vibe-coach `VIBE-KNOW-01`
+
+- [x] brain.md + todo.json
+- [x] study-index refreshed; AG residual cleaned (verify)
+- [x] VCMS study pointer relative; zero `C:\` w study-index
+- [x] brak lekcji T1–T7 w VitePress
+- [~] push remote: **brak origin** (commit lokalny only)
+
+### zzpackage `ZZP-KNOW-01`
+
+- [x] audit-todo kanon; ops/todo DEPRECATED + archive
+- [x] MASTER-BRAIN nota KNOW-02
+- [x] scan Conflicts 0 / cards refreshed
+- [x] zero product-master w VCMS
+
+### app / flexgrafik-nl
+
+- [x] brain+todo już kanoniczne; cmd = pointer only (brak nowych duplikatów)
+
+### agent-os `OS-KNOW-01`
+
+- [x] SESSION-ANCHOR hygiene
+- [x] surfaces-map hop os.flexgrafik.nl
+- [~] push remote: **brak origin**
+
+### agent-os-ui `OSUI-KNOW-01`
+
+- [x] brain.md thin-client
+- [x] repos.yaml canonical_brain → `brain.md` (VERIFY patch)
+- [~] push remote: **brak origin**
+
+## Program FINAL
 
 | # | Check | Status |
 |---|--------|--------|
-| 1 | DoD repo 1–9 (poniżej) | PASS |
-| 2 | cmd → handbook → hop Commander | PASS (P1 LIVE) |
-| 3 | Brak pełnego global-rules na cmd | PASS (pointer) |
-| 4 | Learning split vibe ≠ MBA | PASS |
-| 5 | vcms-scan Conflicts: 0 | **PASS** |
-| 6 | PARK nietknięty | PASS |
+| 1 | DoD 1–9 (z notami ~) | **PASS with notes** |
+| 2 | cmd → handbook → hop Commander | **PASS** |
+| 3 | brak pełnego global-rules na cmd | **PASS** |
+| 4 | learning split | **PASS** |
+| 5 | Conflicts: 0 | **PASS** |
+| 6 | PARK nietknięty | **PASS** |
+| — | meta.next ≠ VCMS-VIDEO | **PASS** (IDLE-POST-KNOW-02) |
 
-**Tips:** flex-vcms merge `e300074` (PR#28+#29); jadzia `cd6a0aa` VPS; Deploy final health OK + handbook/study-index 200.  
-**Local-only repos** (no `origin`): vibe-coach, agent-os, agent-os-ui — commits lokalne DONE.
+## Tips
 
-## Per-repo DoD
-
-| Gate | Repo | Status |
-|------|------|--------|
-| VCMS-KB-IA-01 | flex-vcms | PASS — P1 deploy + pointer + dead-link gate |
-| META-KNOW-02 | flexgrafik-meta | PASS — §6 mirrors + FIX-014 done |
-| COI-KNOW-02 | jadzia-core | PASS — KNOW index + OPERATOR-PLAYBOOK |
-| VIBE-KNOW-01 | vibe-coach | PASS — brain/todo + study refresh |
-| ZZP-KNOW-01 | zzpackage | PASS — ops/todo DEPRECATED |
-| APP-KNOW-01 | app.flexgrafik.nl | PASS — brain/todo already canonical |
-| NL-KNOW-01 | flexgrafik-nl | PASS — brain/todo already canonical |
-| OS-KNOW-01 | agent-os | PASS — SESSION-ANCHOR hygiene |
-| OSUI-KNOW-01 | agent-os-ui | PASS — brain.md thin-client |
-
-## Path Dowódcy (verified P1)
-
-`cmd` → Baza Wiedzy / nav **COI Commander** → handbook → CTA `api.zzpackage…/commander/`
-
-## PARK
-
-Gate D, Mollie, mint/recover, OS↔jadzia merge, PH4-017/VIDEO (human next).
+flex-vcms: post-VERIFY PR; jadzia `cd6a0aa`+; vibe/OS/UI lokalnie.
