@@ -1,7 +1,14 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  ignoreDeadLinks: true,
+  ignoreDeadLinks: [
+    /\/archive\//,
+    /ph4-011-antigravity-execution-plan/,
+    /agents\/gemini-cli/,
+    /repos\/index/,
+    /szlif%20pod%20portfolio/,
+    /^\.\/\.$/,
+  ],
   base: '/docs/',
   title: "VCMS",
   description: "Visual Content Management System",

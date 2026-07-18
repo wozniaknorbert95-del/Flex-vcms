@@ -9,7 +9,7 @@ gate_for_prompt: "CLOSED — portfolio presentation ready"
 
 # VCMS DoD Scorecard
 
-Cross-audit: [`flex-vcms`](.) · [`services`](C:\Users\FlexGrafik\FlexGrafik\github\services) · [`VCMS_DEFINITION_OF_DONE.md`](../szlif%20pod%20portfolio/VCMS_DEFINITION_OF_DONE.md)
+Cross-audit: flex-vcms (this repo) · services (sibling workspace) · portfolio DoD (local szlif folder, not in VitePress)
 
 **Werdykt ogólny:** **FULL GO** — prezentacja VCMS na portfolio gotowa do pokazania klientom/partnerom. Roadmap produktowa (health score, export UI) pozostaje PLANNED.
 

@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: agent-os"
-updated: "2026-06-16T19:07:41.283Z"
+updated: "2026-07-18T17:19:59.406Z"
 repo_name: "agent-os"
 repo_slug: "agent-os"
 repo_type: "agent-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "SESSION-ANCHOR.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/task-d42b9d90.md"
-last_handoff_mtime: "2026-05-29T10:44:30.574Z"
+last_handoff_rel: "docs/handoffs/2026-06-23-repair-plan-closure.md"
+last_handoff_mtime: "2026-07-08T13:53:27.320Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: []
-links_recent_handoffs: ["docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574Z)", "docs/handoffs/2026-05-29-session-summary.md (2026-05-29T10:00:14.675Z)", "docs/handoffs/2026-05-29-session-closure.md (2026-05-29T09:50:06.842Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-06-23-repair-plan-closure.md (2026-07-08T13:53:27.320Z)", "docs/handoffs/2026-06-23-dod-smoke-closure.md (2026-07-08T13:53:27.311Z)", "docs/handoffs/2026-06-17-stage-1-n3-infra-prep.md (2026-06-30T16:25:33.981Z)"]
 ---
 
 ## agent-os
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/task-d42b9d90.md` (2026-05-29T10:44:30.574Z)
+- **Last handoff**: `docs/handoffs/2026-06-23-repair-plan-closure.md` (2026-07-08T13:53:27.320Z)
 
 ## Quick links (by file type)
 
@@ -43,9 +43,9 @@ links_recent_handoffs: ["docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574
 - **Cursor rules**:
   - —
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/task-d42b9d90.md (2026-05-29T10:44:30.574Z)`
-  - `docs/handoffs/2026-05-29-session-summary.md (2026-05-29T10:00:14.675Z)`
-  - `docs/handoffs/2026-05-29-session-closure.md (2026-05-29T09:50:06.842Z)`
+  - `docs/handoffs/2026-06-23-repair-plan-closure.md (2026-07-08T13:53:27.320Z)`
+  - `docs/handoffs/2026-06-23-dod-smoke-closure.md (2026-07-08T13:53:27.311Z)`
+  - `docs/handoffs/2026-06-17-stage-1-n3-infra-prep.md (2026-06-30T16:25:33.981Z)`
 
 ## Back
 
