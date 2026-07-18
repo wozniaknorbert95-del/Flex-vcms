@@ -3,12 +3,12 @@
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
     "updated": "2026-07-18T17:14:02.356Z",
-    "workstream": "VCMS portfolio polish — video DEFERRED (DoD §D na koniec)",
+    "workstream": "COI-KNOW-02 CLOSE — honest DoD; VCMS-VIDEO OBSOLETE as next",
     "plan_now": {
-      "primary": "VCMS-VIDEO / polish residual (human); COI-KNOW-02 DONE",
+      "primary": "Idle after KNOW-02 VERIFY; next feature = Dowódca picks (not VIDEO)",
       "plan_anchor": "docs/handoffs/2026-07-18-coi-know-02-PROOF-FINAL.md",
-      "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca)",
-      "video_gate": "VCMS-VIDEO — po polish; narzędzie dowolne (Loom/OBS/Chrome DevTools)",
+      "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca) — optional human",
+      "video_gate": "VCMS-VIDEO — OBSOLETE / stale as meta.next (2026-07-18)",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
     },
     "session_anchor": {
@@ -21,16 +21,16 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "VCMS-VIDEO",
-      "title": "Nagranie demo 75s (Dowódca) — po polish",
-      "before_you_start": "docs/VCMS_DEMO_SCRIPT.md + docs/handoffs/2026-06-16-vcms-video-ready.md. Dowolne narzędzie nagrywania.",
+      "task_id": "IDLE-POST-KNOW-02",
+      "title": "Po COI-KNOW-02 — wybór Dowódcy (nie VIDEO)",
+      "before_you_start": "PROOF-FINAL + surfaces-map. VCMS-VIDEO = stale/obsolete as default next.",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
       "rank": 2,
       "task_id": "PH4-017",
       "title": "PH4-011 follow-up: real device mobile test (Dowódca)",
-      "note": "Wypełnić docs/templates/tmpl-ph4-011-mobile.md → docs/handoffs/2026-05-08-ph4-011-mobile-real.md. Wymóg: 4G/5G (nie Wi-Fi z hosts-file workaround). Nie blokuje PH4-016."
+      "note": "Optional human. 4G/5G only. Nie default next po KNOW-02."
     },
     "ph4_prod_export": "docs/plans/ph4-prod-workstream.json",
     "version": "1.0",
@@ -848,11 +848,11 @@
     {
       "id": "VCMS-VIDEO",
       "area": "PORTFOLIO",
-      "status": "TODO",
-      "priority": "P1",
+      "status": "DEFERRED",
+      "priority": "P3",
       "repo": "services",
       "title": "Nagranie demo 75s + videos.vcms.url (Dowódca)",
-      "note": "DEFERRED do końca polish. Dowolne narzędzie (Loom/Vimeo/OBS). Handoff: docs/handoffs/2026-06-16-vcms-video-ready.md",
+      "note": "OBSOLETE as meta.next (2026-07-18 KNOW-02 VERIFY). Not default next. Revisit only if Dowódca explicitly reopens portfolio video gate.",
       "acceptance": [
         "Nagranie wg VCMS_DEMO_SCRIPT.md",
         "services proof.ts videos.vcms.url + ready: true",

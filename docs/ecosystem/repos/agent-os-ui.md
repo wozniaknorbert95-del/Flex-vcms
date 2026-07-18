@@ -1,13 +1,13 @@
 ---
 status: "[DRAFT]"
 title: "Repo: agent-os-ui"
-updated: "2026-07-18T17:19:59.406Z"
+updated: "2026-07-18T17:29:26.618Z"
 repo_name: "agent-os-ui"
 repo_slug: "agent-os-ui"
 repo_type: "agent-ui"
 repo_path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\agent-os-ui"
 repo_exists: true
-canonical_brain: "README.md"
+canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
@@ -27,7 +27,7 @@ links_recent_handoffs: ["docs/handoffs/2026-05-29-queue-ui-mvp.md (2026-05-29T08
 
 ## Canonical pointers (truth)
 
-- **Canonical brain**: `README.md`
+- **Canonical brain**: `brain.md`
 - **Canonical todo**: `todo.json`
 
 ## Status

@@ -69,7 +69,7 @@ Plik `.env` trzymasz tylko na VPS (uprawnienia `600`). Szablon nazw możesz trzy
 
 ## Weryfikacja mobile (PH4-011) {#weryfikacja-mobile-ph4-011}
 
-Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` (operacyjnie), a naukę/skill map w **Vibe Coach**: `C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md` (data, urządzenie, PASS/FAIL, NEXT). Szablon: [tmpl-ph4-011-mobile](/templates/tmpl-ph4-011-mobile).
+Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, sprawdź czytelność dokumentacji i flow KODY. Wynik zapisz w `docs/handoffs/` (operacyjnie). Skill map (nauka) = **vibe-coach** `../../vibe-coach/docs/study-index.md` (workspace-relative; nie `C:\…`). Szablon: [tmpl-ph4-011-mobile](/templates/tmpl-ph4-011-mobile).
 
 ## Deploy z Windows
 

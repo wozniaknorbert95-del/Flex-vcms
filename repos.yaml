@@ -125,8 +125,8 @@ repos:
     risk_level: "LOW"
     path: "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\agent-os-ui"
     canonical_brain:
-      path: "README.md"
-      note: "Next.js Mission Control; proxies to agent-os :8080"
+      path: "brain.md"
+      note: "Thin-client brain (COI-KNOW-02); proxies to agent-os :8080; SoT state = agent-os SESSION-ANCHOR"
     canonical_todo:
       path: "todo.json"
       note: "UI backlog; cross-ref agent-os handoffs for graph tasks"
