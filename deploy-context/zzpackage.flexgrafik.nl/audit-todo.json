@@ -20,10 +20,10 @@
         "language_ui": "NL",
         "language_code": "EN",
         "language_internal": "PL",
-        "last_updated": "2026-06-03",
+        "last_updated": "2026-07-18",
         "wizard_vca_todo": "docs/materiały do modernizacji ux ui/WIZ-VCA-todo.json",
         "wizard_vca_plan": "docs/materiały do modernizacji ux ui/PLAN-WIZARD-VCA-EXECUTION.md",
-        "session_note": "2026-06-11 HANDOFF: CO-VCA FINAL. POLISH-MOBILE MF01 DONE on feat/polish-mobile-figma. NEXT: MF02 — docs/handoffs/2026-06-11-polish-mobile-figma-handoff.md",
+        "session_note": "2026-06-30 Plan A executed: E2E 8/8 revenue gate, HDR logo SVG, VIZ-10 verified, CRO 6/10",
         "scores_note": "Baseline scores from WIZ-AUDIT-2026-04-08. Re-scoring deferred until a dedicated measurement sprint (CRO/UX metrics)."
     },
     "scores": {
@@ -38,9 +38,9 @@
             "verdict": "Cart blokkeert navigatie, progress bar onleesbaar op 375px"
         },
         "conversion_cro": {
-            "value": 4,
+            "value": 6,
             "max": 10,
-            "verdict": "Geen AOV-upsell stap 1-4, geen stap-validatie"
+            "verdict": "E2E funnel 8/8 PASS; automated revenue gate; manual Mollie screenshots optional"
         },
         "accessibility": {
             "value": 3,
@@ -138,6 +138,9 @@
                 "P2-01",
                 "P2-08",
                 "P2-09",
+                "P2-10",
+                "P2-11",
+                "HOME-TRUST-01",
                 "P2-02",
                 "P2-03",
                 "P2-04",
@@ -231,7 +234,9 @@
                 "WIZ-VCA-17",
                 "WIZ-VCA-18",
                 "WIZ-VCA-19",
-                "WIZ-VCA-20"
+                "WIZ-VCA-20",
+                "WIZ-VCA-21",
+                "WIZ-INTRO-HERO-02"
             ]
         },
         {
@@ -284,9 +289,1285 @@
                 "MF04",
                 "MF05"
             ]
+        },
+        {
+            "id": "SPRINT-BRIEF-P2",
+            "name": "Brief Form P2 — audit close",
+            "goal": "Domknąć luki audytu brief-sku-matrix: NSP-006, F-001 addony, kleding validation, double-submit UX, deploy",
+            "priority": "P0",
+            "estimated_days": 1,
+            "branch_prefix": "feat/brief-p2-",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md",
+            "items": [
+                "BRIEF-P2-01",
+                "BRIEF-P2-02",
+                "BRIEF-P2-03",
+                "BRIEF-P2-04",
+                "BRIEF-P2-05"
+            ]
+        },
+        {
+            "id": "SPRINT-BRIEF-FORM-AUDIT",
+            "name": "Brief Form Deep Audit — per SKU",
+            "goal": "Macierz kontraktu ALL SKUs, drift JS↔Python, PHP gap map, Playwright 18 koszyków, WC HITL P0+P1, raport seller A–F",
+            "priority": "P0",
+            "estimated_days": 2,
+            "branch_prefix": "feat/brief-form-audit-",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md",
+            "items": [
+                "BRIEF-FORM-AUDIT-01",
+                "BRIEF-FORM-AUDIT-02",
+                "BRIEF-FORM-AUDIT-03",
+                "BRIEF-FORM-AUDIT-04",
+                "BRIEF-FORM-AUDIT-FINAL"
+            ]
+        },
+        {
+            "id": "SPRINT-RECORDING-GATE",
+            "name": "Recording gate — full purchase path",
+            "goal": "Wizard custom → /afrekenen/ → Mollie → /bedankt/ brief 10 sekcji — prod 100% przed nagraniem",
+            "priority": "P0",
+            "estimated_days": 1,
+            "branch_prefix": "feat/co-vca-checkout-",
+            "reference": "docs/handoffs/2026-06-25-co-vca-checkout-plan.md",
+            "items": [
+                "CO-VCA-CHECKOUT-01"
+            ]
+        },
+        {
+            "id": "SPRINT-WERKKLEDING-HOTFIX",
+            "name": "Werkkleding copy/assets repair",
+            "goal": "Domknąć post-PR46 luki: Regatta/Valento/Raglan/Lightweight copy, OC-005 asset mismatch, /materialen tech-card sync",
+            "priority": "P1",
+            "estimated_days": 1,
+            "branch_prefix": "feat/werkkleding-",
+            "reference": "docs/handoffs/2026-07-02-werkkleding-copy-assets-fix.md",
+            "items": [
+                "WERK-COPY-ASSETS-01",
+                "HTV-PRODUCT-CARDS-01"
+            ]
+        },
+        {
+            "id": "SPRINT-HTV-CARDS",
+            "name": "HTV product cards refresh",
+            "goal": "Logo-bedrukking (HTV) cards: table copy/prices + HT-003/HT-102 images",
+            "priority": "P1",
+            "estimated_days": 1,
+            "branch_prefix": "feat/htv-",
+            "reference": "docs/handoffs/2026-07-02-htv-product-cards-refresh.md",
+            "items": [
+                "HTV-PRODUCT-CARDS-01",
+                "WERKKLEDING-COPY-UX-01",
+                "HTV-ASSETS-02"
+            ]
+        },
+        {
+            "id": "SPRINT-WERKKLEDING-COPY-UX",
+            "name": "Werkkleding copy UX cleanup",
+            "goal": "Separate usage_hint / drie_kenmerken / vraagteken_info roles for 21 Step 3 cards",
+            "priority": "P1",
+            "estimated_days": 1,
+            "branch_prefix": "feat/werkkleding-copy-",
+            "reference": "docs/handoffs/2026-07-03-werkkleding-copy-ux-01.md",
+            "items": [
+                "WERKKLEDING-COPY-UX-01",
+                "WERKKLEDING-COPY-GRAPHICS-02",
+                "HTV-GRAPHICS-P2",
+                "HTV-ASSETS-02",
+                "WERKKLEDING-COPY-TRUTH-01"
+            ]
+        },
+        {
+            "id": "SPRINT-CARD-COPY-CONTRACT",
+            "name": "Premium product card copy contract",
+            "goal": "Four-layer card copy (title/hint/features/tooltip) for all active wizard SKUs with CI gate",
+            "priority": "P1",
+            "estimated_days": 2,
+            "branch_prefix": "feat/card-copy-contract-",
+            "reference": "docs/handoffs/2026-07-03-premium-product-card-copy-contract.md",
+            "items": [
+                "CARD-COPY-CONTRACT-01"
+            ]
+        },
+        {
+            "id": "SPRINT-EERSTE-INDRUK-KAT5",
+            "name": "Eerste Indruk kat5 supplier table",
+            "goal": "12 Stap 4 visitekaart SKUs from kat5 table — 1z/2z paper + sticker zonder/mét",
+            "priority": "P1",
+            "estimated_days": 1,
+            "branch_prefix": "feat/eerste-indruk-kat5-",
+            "reference": "docs/handoffs/2026-07-03-eerste-indruk-kat5-import.md",
+            "items": [
+                "EERSTE-INDRUK-KAT5-01",
+                "STICKER-VK-FIX-01"
+            ]
+        },
+        {
+            "id": "SPRINT-WP-SEO-01",
+            "name": "WP SEO organic + hygiene (wizard-only indexing)",
+            "goal": "Yoast SSoT; clean sitemap; deindex WC shop/products; single OG layer; FAQ schema; WP debug hygiene",
+            "priority": "P0",
+            "estimated_days": 2,
+            "branch_prefix": "feat/wp-seo-01-",
+            "reference": "docs/handoffs/2026-07-18-wp-seo-01-PLAN.md",
+            "items": [
+                "SEO-SITEMAP-WIZARD-ONLY-01",
+                "SEO-SHOP-DEINDEX-01",
+                "SEO-META-LAYER-01",
+                "SEO-SCHEMA-LANDING-01",
+                "WP-HYGIENE-01"
+            ]
+        },
+        {
+            "id": "SPRINT-WP-ENTERPRISE-01",
+            "name": "WP enterprise takeover (plugins SEO analytics Woo hygiene)",
+            "goal": "Clean plugin set; Yoast brand; theme analytics SSoT; Woo settings; hygiene; FINAL smoke",
+            "priority": "P0",
+            "estimated_days": 1,
+            "branch_prefix": "feat/wp-enterprise-01-",
+            "reference": "docs/handoffs/2026-07-18-wp-enterprise-01-FINAL.md",
+            "items": [
+                "WP-ENTERPRISE-01",
+                "META-PIXEL-PURCHASE-GATE-01",
+                "CHECKOUT-TRUST-02",
+                "WP-DEBUG-PROD-01",
+                "COD-BACKLOG-TRIAGE-01"
+            ]
         }
     ],
     "items": [
+        {
+            "id": "SEO-SITEMAP-WIZARD-ONLY-01",
+            "sprint": "SPRINT-WP-SEO-01",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Yoast sitemap wizard-only — exclude ops/DA/products",
+            "type": "ops",
+            "effort": "S",
+            "branch": "feat/wp-seo-01-indexing",
+            "commit_prefix": "fix(seo):",
+            "summary": "Exclude cart/checkout/bedankt/account/producten/DA/dtp-proces from page sitemap; disable product+product_cat sitemaps; noindex /bedankt/.",
+            "acceptance_criteria": [
+                "page-sitemap only SEO landings",
+                "product-sitemap off or empty",
+                "/bedankt/ robots noindex"
+            ],
+            "qa_test": "DevTools fetch page-sitemap.xml + bedankt robots meta",
+            "risk": "LOW — Yoast filters + theme wpseo_*",
+            "reference": "docs/handoffs/2026-07-18-wp-plugins-PROFESSIONAL-PASS.md",
+            "note": "DONE 2026-07-18: page-sitemap 5 URLs clean after ce87399 (official Yoast exclude filters); product-sitemap 404; bedankt noindex. Deploy 29634388628."
+        },
+        {
+            "id": "SEO-SHOP-DEINDEX-01",
+            "sprint": "SPRINT-WP-SEO-01",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Deindex WC shop + products; 301 /producten/ → /wizard/",
+            "type": "feature",
+            "effort": "S",
+            "branch": "feat/wp-seo-01-indexing",
+            "commit_prefix": "fix(seo):",
+            "summary": "Wizard-only: noindex all products and shop archive; 301 /producten/ to /wizard/; catalog stays for cart.",
+            "acceptance_criteria": [
+                "Sample product URL noindex",
+                "/producten/ 301 to /wizard/",
+                "Woo add-to-cart still works"
+            ],
+            "qa_test": "DevTools fetch producten + 3 product URLs robots; redirect check",
+            "risk": "LOW — robots + redirect only",
+            "reference": "docs/handoffs/2026-07-18-wp-plugins-PROFESSIONAL-PASS.md",
+            "note": "DONE 2026-07-18: /producten/ → Wizard; product noindex; product-sitemap 404."
+        },
+        {
+            "id": "SEO-META-LAYER-01",
+            "sprint": "SPRINT-WP-SEO-01",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Single meta/OG layer — Yoast SSoT when active",
+            "type": "feature",
+            "effort": "S",
+            "branch": "feat/wp-seo-01-indexing",
+            "commit_prefix": "fix(seo):",
+            "summary": "Skip theme fg_open_graph_tags and duplicate page OG when Yoast active; one GSC verification; Organization schema ZZPackage or Yoast-only.",
+            "acceptance_criteria": [
+                "Home and /wizard/ emit exactly one og:title",
+                "Exactly one google-site-verification meta",
+                "No FlexGrafik.nl Organization conflicting with Yoast graph"
+            ],
+            "qa_test": "DevTools evaluate_script on / and /wizard/",
+            "risk": "LOW",
+            "reference": "docs/handoffs/2026-07-18-wp-plugins-PROFESSIONAL-PASS.md",
+            "note": "DONE 2026-07-18: home+wizard og:title=1; GSC=1; theme Org skipped when Yoast."
+        },
+        {
+            "id": "SEO-SCHEMA-LANDING-01",
+            "sprint": "SPRINT-WP-SEO-01",
+            "priority": "P2",
+            "status": "DONE",
+            "title": "FAQPage schema + close P3-04 OG layer",
+            "type": "feature",
+            "effort": "S",
+            "branch": "feat/wp-seo-01-indexing",
+            "commit_prefix": "feat(seo):",
+            "summary": "FAQPage JSON-LD on page-faq.php; mark P3-04 DONE after single OG layer; Site Icon/OG default remains Yoast ops HITL.",
+            "acceptance_criteria": [
+                "FAQ page has FAQPage JSON-LD",
+                "P3-04 status DONE after meta-layer gate"
+            ],
+            "qa_test": "DevTools /faq/ JSON-LD type FAQPage",
+            "risk": "LOW",
+            "reference": "docs/handoffs/2026-07-18-wp-plugins-PROFESSIONAL-PASS.md",
+            "note": "DONE 2026-07-18: FAQPage present on /faq/; Site Icon still Yoast HITL."
+        },
+        {
+            "id": "WP-HYGIENE-01",
+            "sprint": "SPRINT-WP-SEO-01",
+            "priority": "P1",
+            "status": "DONE_IN_CODE",
+            "title": "WP prod hygiene — debug off, staged updates, COD backlog",
+            "type": "ops",
+            "effort": "S",
+            "branch": "feat/wp-seo-01-indexing",
+            "commit_prefix": "docs(ops):",
+            "summary": "Runbook: WP_DEBUG=false; rotate debug.log; Yoast then WC minor update window; HITL triage stale COD processing; optional xmlrpc block.",
+            "acceptance_criteria": [
+                "Handoff runbook with exact WP-CLI/ops steps",
+                "No bulk plugin update in Gate D window"
+            ],
+            "qa_test": "Dowódca executes checklist; confirm WP_DEBUG false on prod",
+            "risk": "MEDIUM — prod config",
+            "reference": "docs/handoffs/2026-07-18-wp-plugins-PROFESSIONAL-PASS.md",
+            "note": "Superseded by WP-ENTERPRISE-01 2026-07-18: plugins deleted+updated; WP_DEBUG still HITL SSH (WP-DEBUG-PROD-01)."
+        },
+        {
+            "id": "WP-ENTERPRISE-01",
+            "sprint": "SPRINT-WP-ENTERPRISE-01",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Full WP enterprise takeover — plugins SEO analytics Woo hygiene",
+            "type": "ops",
+            "effort": "M",
+            "branch": "main",
+            "commit_prefix": "docs(ops):",
+            "summary": "Delete tracking/Merchant dupes; staged KEEP updates; Yoast ZZPackage; Woo audit+terms fix; LSC purge; FINAL smoke. Mollie TEST leave; no WP 7.0.2.",
+            "acceptance_criteria": [
+                "≤9 active plugins; zero tracking/Merchant dupes",
+                "Yoast brand ZZPackage + SEO-01 regress green",
+                "Analytics 1 GA4 + 1 Pixel; Purchase gated on prod",
+                "Woo guest ON; COD OFF; paths/HPOS OK",
+                "FINAL handoff with DevTools proof"
+            ],
+            "qa_test": "docs/handoffs/2026-07-18-wp-enterprise-01-FINAL.md smoke matrix",
+            "risk": "MEDIUM — prod WP-Admin",
+            "reference": "docs/handoffs/2026-07-18-wp-enterprise-01-FINAL.md",
+            "note": "DONE 2026-07-18: 8 KEEP plugins; Yoast name+org ZZPackage; terms→Algemene Voorwaarden 2828; Meta gate 027202b deployed. HITL remaining: xmlrpc WAF, Gate D."
+        },
+        {
+            "id": "META-PIXEL-PURCHASE-GATE-01",
+            "sprint": "SPRINT-WP-ENTERPRISE-01",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate Meta Pixel Purchase like GA4 (paid + real order)",
+            "type": "feature",
+            "effort": "S",
+            "branch": "main",
+            "commit_prefix": "fix(analytics):",
+            "summary": "page-bedankt.php: fbq Purchase only when paymentStatus===paid && isRealOrder.",
+            "acceptance_criteria": [
+                "Purchase gated same as GA4 purchase rules",
+                "Deployed to prod"
+            ],
+            "qa_test": "View-source /bedankt/ contains paid && isRealOrder before fbq Purchase",
+            "risk": "LOW",
+            "reference": "docs/handoffs/2026-07-18-wp-enterprise-01-FINAL.md",
+            "note": "DONE 2026-07-18: commit 027202b; GHA deploy PASS; prod gate present."
+        },
+        {
+            "id": "CHECKOUT-TRUST-02",
+            "sprint": "SPRINT-WP-ENTERPRISE-01",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Checkout trust — PostNL + reviews near place_order",
+            "type": "feature",
+            "effort": "S",
+            "branch": "main",
+            "commit_prefix": "feat(checkout):",
+            "summary": "#fg-checkout-trust: PostNL + Google rating + iDEAL + KvK (replaced levering/geen-abonnement lines).",
+            "acceptance_criteria": [
+                "PostNL signal visible near checkout CTA",
+                "Reviews or rating signal near place_order",
+                "No layout break mobile checkout"
+            ],
+            "qa_test": "Cart with item → /afrekenen/ screenshot trust + place_order",
+            "risk": "LOW",
+            "reference": "docs/handoffs/2026-07-18-wp-enterprise-01-FINAL.md",
+            "note": "DONE 2026-07-18: commit 678d160; deploy GHA 29635591292 PASS; smoke OK; checkout HTML PostNL+Google Reviews+fg-checkout-trust verified with product 3164 in cart."
+        },
+        {
+            "id": "WP-DEBUG-PROD-01",
+            "sprint": "SPRINT-WP-ENTERPRISE-01",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Prod WP_DEBUG=false + rotate debug.log (SSH HITL)",
+            "type": "ops",
+            "effort": "S",
+            "branch": "n/a",
+            "commit_prefix": "docs(ops):",
+            "summary": "Cannot set via DevTools; Dowódca SSH/file manager per hygiene runbook.",
+            "acceptance_criteria": [
+                "WP_DEBUG false on prod",
+                "debug.log rotated/not growing"
+            ],
+            "qa_test": "wp config get WP_DEBUG → false",
+            "risk": "MEDIUM — prod config",
+            "reference": "docs/handoffs/2026-07-18-wp-debug-prod-01-FINAL.md",
+            "note": "DONE 2026-07-18: SSH s34:222 WP-CLI wp config set WP_DEBUG/WP_DEBUG_LOG/WP_DEBUG_DISPLAY false; debug.log rotated to debug.log.20260718-092648.bak (11 MB); runtime probe false; no new debug.log after traffic; wizard 200 / afrekenen 302 smoke OK. Mollie LIVE / WP 7.0.2 untouched."
+        },
+        {
+            "id": "COD-BACKLOG-TRIAGE-01",
+            "sprint": "SPRINT-WP-ENTERPRISE-01",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "COD processing backlog HITL triage — cancel stale unpaid",
+            "type": "ops",
+            "effort": "S",
+            "branch": "n/a",
+            "commit_prefix": "docs(ops):",
+            "summary": "After COD OFF: cancel 29 unpaid COD + 1 INT002 test iDEAL in processing; keep Gate C #3209.",
+            "acceptance_criteria": [
+                "processing count = 1 (Gate C #3209 only)",
+                "29 COD orders cancelled not deleted",
+                "3149 test iDEAL cancelled",
+                "COD gateway remains disabled"
+            ],
+            "qa_test": "wp wc shop_order list --status=processing → 1 row #3209",
+            "risk": "MEDIUM — prod order status",
+            "reference": "docs/handoffs/2026-07-18-cod-backlog-triage-01-FINAL.md",
+            "note": "DONE 2026-07-18: SSH WP-CLI cancelled 3137,3148,3167-3194 (COD) + 3149 (iDEAL €0 test); processing=1 #3209 Gate C; cancelled=32; COD enabled=no; wizard/afrekenen smoke OK."
+        },
+        {
+            "id": "WIZ-INTRO-HERO-02",
+            "sprint": "SPRINT-WIZ-VCA",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Intro hero — vakman trust signal (IA + 2-col + worker asset)",
+            "type": "feature",
+            "effort": "M",
+            "branch": "feat/wiz-intro-hero-02",
+            "commit_prefix": "fix(wizard):",
+            "summary": "Recover smiling vakman OK gesture on wizard intro: F0 move Zo werkt het to content panel; F1 2-col layout; F2 scene/worker asset split from Figma cutout; F3 copy-only scrim + reduced-motion. CRO override of POLISH-D1R.",
+            "acceptance_criteria": [
+                "Stage = badge + H2 only; Zo werkt het in content panel",
+                "Desktop 2-col copy|figure; worker head+gesture in safe zone",
+                "hero-worker webp + scene without URL watermark",
+                "Scrim only under copy; prefers-reduced-motion respected",
+                "Playwright wizard-smoke PASS; evidence 375/768/1280/1920"
+            ],
+            "qa_test": "docs/handoffs/2026-07-18-wiz-intro-hero-02-FINAL.md + tests/e2e/wizard-smoke.spec.ts",
+            "risk": "LOW — intro UI only",
+            "reference": "docs/handoffs/2026-07-18-wiz-intro-hero-02-FINAL.md",
+            "note": "DONE 2026-07-18: F0–F3 on main; local gate 4/4; prod smoke 9/9; assets via SCP + GHA FORCE 29637038035. 5-sec HITL Dowódca after LiteSpeed purge."
+        },
+        {
+            "id": "CARD-COPY-CONTRACT-01",
+            "sprint": "SPRINT-CARD-COPY-CONTRACT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Premium product card copy contract — all active wizard cards",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "HIGH",
+            "effort": "L",
+            "branch": "feat/card-copy-contract-01",
+            "commit_prefix": "feat:",
+            "summary": "Four-layer sales copy contract (naam, usage_hint, drie_kenmerken, vraagteken_info) for 160 active SKUs; validator CI; renderer hardening.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "lines": "all active non-legacy",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "system/audit/validate_product_copy.py",
+                    "lines": "copy contract validator",
+                    "change_type": "CREATE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+                    "lines": "remove copy fallbacks",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "solution": {
+                "plan": "docs/product-card-copy-rules.md",
+                "scorecard": "docs/ops/card-copy-scorecard-2026-07-03.json"
+            },
+            "acceptance_criteria": [
+                "160 active SKUs PASS validate_product_copy.py",
+                "CI validate-ssot runs copy validator",
+                "No tooltip-as-desc fallback in wizard JS",
+                "Deploy + Woo sync + browser proof"
+            ],
+            "qa_test": "python system/audit/validate_product_copy.py; Playwright stap 3 sample",
+            "risk": "MEDIUM — large SSoT diff; Woo title overlay",
+            "note": "DONE 2026-07-03: PR #52 merged; deploy GHA 28639802517 + 28640269176; 160/160 scorecard PASS; prod verify 7/7"
+        },
+        {
+            "id": "FUND-COPY-01",
+            "sprint": "SPRINT-CARD-COPY-CONTRACT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Fundament Krok 1 — sales copy remediation (6 SKU)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "aov_impact": "HIGH",
+            "effort": "S",
+            "branch": "feat/fund-copy-01",
+            "commit_prefix": "copy:",
+            "summary": "Upgrade usage_hint, drie_kenmerken, vraagteken_info for F-001, F-001-SOC, DF-004–007 per commercial audit; DF-007 focus_badge Aanbevolen.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "solution": {
+                "plan": "docs/handoffs/2026-07-06-fundament-copy-remediation-plan.md"
+            },
+            "acceptance_criteria": [
+                "6 Foundation SKUs updated in SSoT",
+                "validate_product_copy.py PASS",
+                "Woo sync + prod Playwright stap 1 verify",
+                "DF-007 shows Aanbevolen badge"
+            ],
+            "qa_test": "python system/audit/validate_product_copy.py; playwright-card-copy-contract-verify.mjs",
+            "risk": "LOW — copy-only SSoT diff",
+            "note": "DONE 2026-07-06: PR #65 + badge fix 404c23c; deploy GHA 28766985585/28767081267; 166/166 scorecard; DF-007 Aanbevolen verified prod."
+        },
+        {
+            "id": "DF-007-WERKKLEDING-01",
+            "sprint": "SPRINT-CARD-COPY-CONTRACT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "DF-007 reposition — werkkleding huisstijl ontwerp (stap 1)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "aov_impact": "MEDIUM",
+            "effort": "S",
+            "branch": "feat/df-007-werkkleding-copy",
+            "commit_prefix": "feat:",
+            "summary": "Reposition DF-007 copy from Complete merkidentiteit to werkkleding huisstijl ontwerp; variant A; grafika unchanged; €99.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "acceptance_criteria": [
+                "DF-007 4-layer copy updated in SSoT",
+                "validate_product_copy.py PASS",
+                "Deploy + woo-sync + prod Playwright stap 1 verify"
+            ],
+            "qa_test": "python system/audit/validate_product_copy.py; scripts/playwright-fund-copy-verify-all.mjs",
+            "risk": "LOW — copy-only SSoT diff",
+            "note": "DONE 2026-07-06: main cad9c1f; deploy GHA 28768467946; woo-sync DF-007 [UPD]; prod 12/12 PASS."
+        },
+        {
+            "id": "WERKKLEDING-COPY-GRAPHICS-02",
+            "sprint": "SPRINT-WERKKLEDING-COPY-UX",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Werkkleding — copy + graphics audit remediation (21 SKU)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "aov_impact": "MEDIUM",
+            "effort": "M",
+            "branch": "feat/werkkleding-copy-graphics-02",
+            "commit_prefix": "fix:",
+            "summary": "Semantic copy fixes OC-009/009-P/HT-103; sweater rename OC-004/006; HTV heroes HT-002/003; low-res upscale batch; image brief P2-09.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "maintenance/apply-werkkleding-copy-ux.py",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "solution": {
+                "plan": "docs/handoffs/2026-07-06-werkkleding-copy-graphics-audit-plan.md"
+            },
+            "acceptance_criteria": [
+                "0 semantic copy conflicts (HTV/broek/sweater)",
+                "HT-002 grafik_bestand != OC-001.png",
+                "All heroes >= 800px short side",
+                "validate_product_copy.py PASS",
+                "Prod Playwright stap 3 21x2 PASS"
+            ],
+            "qa_test": "python maintenance/werkkleding-graphics-refresh.py; scripts/playwright-werkkleding-copy-graphics-verify.mjs",
+            "risk": "MEDIUM — asset upscales interim until GEM finals",
+            "note": "DONE 2026-07-06: category CLOSED via HTV-GRAPHICS-P2; FINAL docs/handoffs/2026-07-06-werkkleding-htv-graphics-P2-FINAL.md"
+        },
+        {
+            "id": "HTV-GRAPHICS-P2",
+            "sprint": "SPRINT-WERKKLEDING-COPY-UX",
+            "priority": "P2",
+            "status": "DONE",
+            "title": "HTV studio heroes — distinct placement graphics",
+            "type": "assets",
+            "agent": "FRONTEND_ENGINEER",
+            "aov_impact": "MEDIUM",
+            "effort": "S",
+            "branch": "feat/werkkleding-htv-graphics-p2",
+            "commit_prefix": "fix:",
+            "summary": "Studio HTV PNGs HT-001/002/003/103; HT-102 upscale; OC-008 Mimaki jacket accepted.",
+            "affected_files": [
+                { "path": "maintenance/generate-htv-card-heroes.py", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/assets/images/HT-001.png", "change_type": "REPLACE" },
+                { "path": "flexgrafik-wizard-theme/assets/images/HT-002.png", "change_type": "REPLACE" },
+                { "path": "flexgrafik-wizard-theme/assets/images/HT-003.png", "change_type": "REPLACE" },
+                { "path": "flexgrafik-wizard-theme/assets/images/HT-103.png", "change_type": "REPLACE" }
+            ],
+            "solution": { "plan": "docs/handoffs/2026-07-06-werkkleding-htv-graphics-p2-plan.md" },
+            "acceptance_criteria": [
+                "HT-001/002/003/103 distinct from HT-102",
+                "HT-002 not OC-001",
+                "OC-008 unchanged",
+                "Prod deep audit 21/21"
+            ],
+            "qa_test": "python maintenance/generate-htv-card-heroes.py; scripts/playwright-werkkleding-deep-audit.mjs",
+            "risk": "LOW",
+            "note": "DONE 2026-07-06: GEM heroes HTV-GEM-HEROES-03 main 2076377; 5/5 byte gate; FINAL docs/handoffs/2026-07-06-htv-gem-heroes-03-FINAL.md"
+        },
+        {
+            "id": "EERSTE-INDRUK-KAT5-01",
+            "sprint": "SPRINT-EERSTE-INDRUK-KAT5",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Eerste Indruk — kat5 visitekaart matrix (12 SKU)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "HIGH",
+            "effort": "M",
+            "branch": "feat/eerste-indruk-kat5-01",
+            "commit_prefix": "feat:",
+            "summary": "Import 12-row kat5 supplier table into Stap 4: paper 1z/2z and sticker zonder/mét × 150/300/500; legacy VK-001..003 and NW-001..003.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "maintenance/apply-kat5-eerste-indruk-table.py",
+                    "change_type": "CREATE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "docs/audit/brief-sku-matrix.json",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "acceptance_criteria": [
+                "12 active Stap 4 SKUs VK-101..106 NW-101..106 with supplier copy and prices",
+                "VK-001..003 NW-001..003 legacy inactive",
+                "validate_product_master.py and validate_product_copy.py PASS",
+                "Stap 4 wizard shows 4 section headers",
+                "Woo sync + deploy + browser verify with screenshots"
+            ],
+            "qa_test": "Wizard Stap 4: 4 sections, 12 cards, sample prices VK-102 €35 NW-105 €45",
+            "risk": "LOW — catalog restructure; Woo overlay requires sync",
+            "note": "DONE 2026-07-03: PR #53 merged; deploy GHA 28641633317; Woo sync 175 SKUs; prod verify PASS docs/ops/kat5-stap4-prod-verify-2026-07-03.json. Polish PR #54/#55 merged. Final pass: removed broken nav chips; 6 unique VK-101..106 hero PNGs (150/300/500 PCS, 1z/2z); NW stickers unchanged."
+        },
+        {
+            "id": "STICKER-VK-FIX-01",
+            "sprint": "SPRINT-EERSTE-INDRUK-KAT5",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Sticker-visitekaartjes — price ladder, 85×55 format, copy polish",
+            "type": "fix",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "HIGH",
+            "effort": "M",
+            "branch": "main",
+            "commit_prefix": "fix:",
+            "summary": "NW-101..103 −€5 vs mét; 85×55 mm visible on cards; unique NL copy; section labels in wizard-4-7.",
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "maintenance/apply-sticker-visitekaart-fix.py", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/assets/js/wizard-4-7.js", "change_type": "MODIFY" }
+            ],
+            "solution": { "plan": "docs/handoffs/2026-07-06-sticker-visitekaart-fix-plan.md" },
+            "acceptance_criteria": [
+                "zonder laminaat €5 cheaper than mét per qty",
+                "85×55 mm on all 6 NW cards",
+                "unique tooltips per group",
+                "validate_product_copy.py PASS",
+                "Prod playwright 6/6"
+            ],
+            "qa_test": "python maintenance/audit-sticker-visitekaart-pricing.py; node scripts/playwright-stap4-nw-verify.mjs",
+            "risk": "MEDIUM — price change affects checkout; Woo sync required",
+            "note": "DONE 2026-07-06: main e08e1eb; deploy GHA 28775337786; woo sync; prod 6/6 docs/ops/sticker-visitekaart-prod-verify-2026-07-06.json; FINAL docs/handoffs/2026-07-06-sticker-visitekaart-fix-FINAL.md"
+        },
+        {
+            "id": "GER-BAT-VAR-01",
+            "sprint": "SPRINT-GEREEDSCHAP-VAR",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Gereedschap — batterij stickers 4×8 cm (20/40/60)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "MEDIUM",
+            "effort": "M",
+            "branch": "feat/ger-bat-var-01",
+            "commit_prefix": "fix:",
+            "summary": "Unify NS-006 + NSP-001/002 as batterij sticker line 4×8 cm; qty 20/40/60; prices €10/€20/€30; canvas + brief BATTERIJ_HELM alignment.",
+            "solution": { "plan": "docs/handoffs/2026-07-06-gereedschap-variant-fix-plan.md" },
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "maintenance/gereedschap_batterij_var_patch.py", "change_type": "CREATE" },
+                { "path": "maintenance/apply-gereedschap-batterij-var.py", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/assets/js/zzp-brief-form.js", "change_type": "MODIFY" }
+            ],
+            "acceptance_criteria": [
+                "3 SKU naam contains 4×8 cm and qty 20/40/60",
+                "canvas 4×8 + sticker_rect on NS-006 NSP-001 NSP-002",
+                "prices 10/20/30",
+                "validate_product_copy.py and validate_product_master.py PASS",
+                "audit-gereedschap-copy.py 12/12 PASS"
+            ],
+            "qa_test": "python maintenance/audit-gereedschap-batterij-pricing.py; python scripts/audit-gereedschap-copy.py",
+            "risk": "MEDIUM — NS-006 repurposed from hand tool M; Woo sync required",
+            "note": "DONE 2026-07-06: main 9d77e42; deploy GHA 28777448156; prod verify docs/ops/gereedschap-var-prod-verify-2026-07-06.json; FINAL docs/handoffs/2026-07-06-gereedschap-batterij-var-FINAL.md. Prices superseded by GER-PRICE-01: 10/17/22 (was 10/20/30)."
+        },
+        {
+            "id": "GER-HELM-VAR-01",
+            "sprint": "SPRINT-GEREEDSCHAP-VAR",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Gereedschap — helm stickers 6×10 cm (10/20)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "MEDIUM",
+            "effort": "M",
+            "branch": "feat/ger-helm-var-01",
+            "commit_prefix": "fix:",
+            "summary": "NSP-003/004 helm SET/TEAM qty 10/20; size 6×10 cm visible; prices €20/€34; fix drie_kenmerken qty bug on NSP-004.",
+            "solution": { "plan": "docs/handoffs/2026-07-06-gereedschap-variant-fix-plan.md" },
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "maintenance/gereedschap_helm_var_patch.py", "change_type": "CREATE" },
+                { "path": "maintenance/apply-gereedschap-helm-var.py", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "NSP-003/004 naam and features show 6×10 cm and qty 10/20",
+                "canvas 6×10 on both",
+                "prices 20/34 team cheaper per stuk",
+                "validate_product_copy.py PASS"
+            ],
+            "qa_test": "python scripts/audit-gereedschap-copy.py; Stap 6 visual QA",
+            "risk": "MEDIUM — hero PNG may need regen for qty visual",
+            "depends_on": "GER-BAT-VAR-01",
+            "note": "DONE 2026-07-06: main 0eaef02; deploy GHA 28777448156; prod verify docs/ops/gereedschap-var-prod-verify-2026-07-06.json; FINAL docs/handoffs/2026-07-06-gereedschap-helm-var-FINAL.md. Prices superseded by GER-PRICE-01: 18/30 (was 20/34)."
+        },
+        {
+            "id": "GER-NS005-TRUTH-01",
+            "sprint": "SPRINT-GEREEDSCHAP-VAR",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "NS-005 Wij werken hier bord — €7, remove false 10 stuks",
+            "type": "fix",
+            "agent": "SSOT_ENGINEER",
+            "effort": "S",
+            "branch": "feat/ger-ns005-truth-01",
+            "commit_prefix": "fix:",
+            "summary": "Single A5 bord: price 3→7, drie_kenmerken 10 stuks→A5 formaat.",
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "maintenance/gereedschap_ns005_truth_patch.py", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "NS-005 price_suggested=7",
+                "No 10 stuks in drie_kenmerken",
+                "Prod Stap 6 shows €7,00"
+            ],
+            "qa_test": "python maintenance/audit-gereedschap-ns005-pricing.py; node scripts/playwright-gereedschap-ns005-prod-verify.mjs",
+            "note": "DONE 2026-07-06: main e90e4f4; deploy GHA 28780014773; woo sync; FINAL docs/handoffs/2026-07-06-gereedschap-ns005-truth-FINAL.md. Superseded price €7→€4 by GER-PRICE-01."
+        },
+        {
+            "id": "GER-PRICE-01",
+            "sprint": "SPRINT-GEREEDSCHAP-VAR",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Gereedschap Stap 6 — price ladder 12 SKU",
+            "type": "fix",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "effort": "M",
+            "branch": "feat/ger-price-01",
+            "commit_prefix": "fix:",
+            "summary": "Update price_suggested for 6 SKUs (NS-005 €4, NSP-001/002 batterij, NSP-003/004 helm); unified stap6 pricing guard.",
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "maintenance/gereedschap_stap6_price_patch.py", "change_type": "CREATE" },
+                { "path": "maintenance/apply-gereedschap-stap6-prices.py", "change_type": "CREATE" },
+                { "path": "maintenance/audit-gereedschap-stap6-pricing.py", "change_type": "CREATE" },
+                { "path": "scripts/playwright-gereedschap-stap6-prices-prod-verify.mjs", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "12 SKU price_suggested = Commander table",
+                "audit-gereedschap-stap6-pricing.py PASS",
+                "Deploy GHA PASS + woo-sync",
+                "Playwright prod 12/12 prices Stap 6",
+                "NS-005 = €4,00 on prod"
+            ],
+            "qa_test": "python maintenance/audit-gereedschap-stap6-pricing.py; node scripts/playwright-gereedschap-stap6-prices-prod-verify.mjs",
+            "risk": "MEDIUM — checkout prices; Woo sync required",
+            "depends_on": "GER-NS005-TRUTH-01",
+            "note": "DONE 2026-07-06: main 583471a; deploy GHA 28780856922; woo sync; prod 12/12 docs/ops/gereedschap-stap6-prices-prod-verify-2026-07-06.json; FINAL docs/handoffs/2026-07-06-gereedschap-stap6-prices-FINAL.md"
+        },
+        {
+            "id": "HOME-DELIVERY-10D-03",
+            "sprint": "SPRINT-HOME-UX-OPT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage — global 10 werkdagen copy",
+            "type": "fix",
+            "agent": "CRO_SPECIALIST",
+            "effort": "S",
+            "branch": "feat/home-ux-opt",
+            "summary": "Replace all 7 dagen on front-page with 10 werkdagen / 10 Dagen (Status Inspectie arrow).",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/front-page.php", "change_type": "MODIFY" },
+                { "path": "scripts/playwright-home-delivery-copy-smoke.mjs", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "Zero 7 dagen on homepage",
+                "Status Inspectie arrow 10 Dagen",
+                "playwright-home-delivery-copy-smoke PASS"
+            ],
+            "qa_test": "node scripts/playwright-home-delivery-copy-smoke.mjs",
+            "note": "DONE 2026-07-06: main 4d2755c; deploy GHA 28782143765; prod smoke docs/ops/home-delivery-copy-smoke-2026-07-06.json"
+        },
+        {
+            "id": "HOME-ROI-COMPACT-01",
+            "sprint": "SPRINT-HOME-UX-OPT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage ROI — compact data panels",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "S",
+            "branch": "feat/home-ux-opt",
+            "depends_on": "HOME-DELIVERY-10D-03",
+            "summary": "Scoped #roi compact .data-panel — smaller padding, stats, icons; no regress on Certificering/Intel Hub.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css", "change_type": "MODIFY" }
+            ],
+            "acceptance_criteria": [
+                "ROI section ~25% shorter on desktop",
+                "Certificering data-panel unchanged",
+                "Responsive 375/768/1280 PASS"
+            ],
+            "note": "DONE 2026-07-06: scoped #roi compact CSS in zzp-home-vca.css"
+        },
+        {
+            "id": "HOME-HARDWARE-7CAT-02",
+            "sprint": "SPRINT-HOME-UX-OPT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage Hardware — 7 wizard category tiles",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "M",
+            "branch": "feat/home-ux-opt",
+            "depends_on": "HOME-ROI-COMPACT-01",
+            "summary": "7 tiles with wizard step icons + SSoT product hero PNGs; correct ?step=1..7 URLs; Vanaf from min price per stap.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/front-page.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/inc/home-hardware-modules.php", "change_type": "CREATE" },
+                { "path": "maintenance/audit-home-hardware-modules.py", "change_type": "CREATE" },
+                { "path": "scripts/playwright-home-hardware-prod-verify.mjs", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "7 module cards steps 1-7",
+                "Wizard icons + product heroes load",
+                "audit-home-hardware-modules.py PASS",
+                "playwright-home-hardware-prod-verify 7/7 PASS"
+            ],
+            "note": "DONE 2026-07-06: 7/7 prod docs/ops/home-hardware-prod-verify-2026-07-06.json; FINAL docs/handoffs/2026-07-06-home-ux-opt-FINAL.md"
+        },
+        {
+            "id": "HOME-INTELHUB-QF-04",
+            "sprint": "SPRINT-HOME-INTELHUB-QF",
+            "priority": "P1",
+            "status": "NEEDS_REWORK",
+            "title": "Intel Hub → QuietForge blog funnel (no QF URL until post 10)",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "M",
+            "branch": "feat/home-intelhub-qf-04",
+            "depends_on": "HOME-MOBILE-TILE-CAROUSEL-01",
+            "summary": "Replace Intel Hub (newsletter + zzpackage blog teaser) with QuietForge AI/automation blog promo. Outbound link to quietforge.flexgrafik.nl/blog gated until ≥10 published posts (currently 3 in services repo).",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/front-page.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/inc/home-quietforge-hub.php", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css", "change_type": "MODIFY" },
+                { "path": "maintenance/audit-home-intelhub-quietforge.py", "change_type": "CREATE" },
+                { "path": "scripts/playwright-home-intelhub-qf-verify.mjs", "change_type": "CREATE" },
+                { "path": "docs/handoffs/2026-07-06-home-intelhub-qf-plan.md", "change_type": "ADD" }
+            ],
+            "acceptance_criteria": [
+                "Section eyebrow/copy reflect QuietForge AI/automation blog (NL), not legacy Intel Hub newsletter",
+                "Featured post card shows latest QF post title + excerpt from PHP config (synced from services/src/app/blog/page.tsx POSTS)",
+                "When QF post count < 10: zero href to quietforge.flexgrafik.nl on homepage (audit + Playwright)",
+                "When QF post count >= 10: primary CTA may link to https://quietforge.flexgrafik.nl/blog/ (feature flag FG_QF_BLOG_PUBLIC in inc)",
+                "Remove or repurpose mailto newsletter CTA — no false 'Schrijf je nu in' without list backend",
+                "Certificering + sections above unchanged; mobile 375 layout readable",
+                "playwright-home-intelhub-qf-verify.mjs PASS on prod after deploy"
+            ],
+            "qa_test": "python maintenance/audit-home-intelhub-quietforge.py; node scripts/playwright-home-intelhub-qf-verify.mjs",
+            "risk": "MEDIUM — copy/URL gate must match Commander traction rule (no premature QF domain promo); manual post count sync until cross-repo automation",
+            "reference": "docs/handoffs/2026-07-06-home-intelhub-qf-plan.md",
+            "blockers": [
+                "COMMANDER: approve NL headline + body copy (draft in handoff plan)",
+                "COMMANDER: pre-gate CTA behaviour — teaser only vs flexgrafik.nl fallback",
+                "Post count SSoT: services repo POSTS array (3/10 as of 2026-07-06)"
+            ],
+            "note": "NEEDS_REWORK 2026-07-06: product fail — superseded by HOME-ZZP-SYSTEMS-HUB-REWORK-01; was PR #67 technical PASS only"
+        },
+        {
+            "id": "HOME-ZZP-SYSTEMS-HUB-REWORK-01",
+            "sprint": "SPRINT-HOME-ZZP-HUB",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage ZZP systems hub + WP blog (2 articles, clickable)",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "L",
+            "branch": "feat/home-zzp-systems-hub-rework",
+            "depends_on": "HOME-MOBILE-TILE-CAROUSEL-01",
+            "summary": "Replace QuietForge section: left panel Systemen voor ZZP (info only); right panel WP zzp-tips posts with working /blog/ links; 2 NL articles seeded on prod.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/inc/home-zzp-systems-hub.php", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/single.php", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/home.php", "change_type": "CREATE" },
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-blog-vca.css", "change_type": "CREATE" },
+                { "path": "docs/content/blog/", "change_type": "CREATE" },
+                { "path": "maintenance/seed-zzp-blog-posts.php", "change_type": "CREATE" },
+                { "path": "maintenance/audit-home-zzp-systems-hub.py", "change_type": "CREATE" },
+                { "path": "scripts/playwright-home-zzp-systems-hub-verify.mjs", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "Left panel: Systemen voor ZZP, no links, no QuietForge",
+                "Right panel: featured post href HTTP 200, min 2 zzp-tips posts",
+                "Blog readable at /blog/ and single post templates",
+                "playwright-home-zzp-systems-hub-verify PASS on prod",
+                "Hardware + protocol regression PASS"
+            ],
+            "qa_test": "python maintenance/audit-home-zzp-systems-hub.py; node scripts/playwright-home-zzp-systems-hub-verify.mjs",
+            "reference": "docs/handoffs/2026-07-06-home-zzp-systems-hub-REWORK-FINAL.md",
+            "note": "DONE 2026-07-06 — PR #68, deploy 28786929040+28787077645, seed+rewrite flush prod, Playwright PASS"
+        },
+        {
+            "id": "HOME-ZZP-HUB-V2-02",
+            "sprint": "SPRINT-HOME-ZZP-HUB",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "ZZP hub V2 — two blog tracks (Branding magenta + Slimmer werken cyan)",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "L",
+            "branch": "feat/home-zzp-hub-v2-tracks",
+            "depends_on": "HOME-ZZP-SYSTEMS-HUB-REWORK-01",
+            "summary": "Extend hub: left partner copy; right 2 track tiles (zzp-branding / zzp-automatisering); blog archive sections; track-colored UI.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/inc/home-zzp-systems-hub.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/home.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/single.php", "change_type": "MODIFY" },
+                { "path": "maintenance/seed-zzp-blog-posts.php", "change_type": "MODIFY" },
+                { "path": "maintenance/audit-home-zzp-hub-v2.py", "change_type": "CREATE" },
+                { "path": "scripts/playwright-home-zzp-hub-v2-verify.mjs", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "Left panel Kennis voor ZZP'ers, no links, no AI jargon in hero",
+                "Right panel 2 track tiles branding + automatisering with Lees artikel HTTP 200",
+                "Blog /blog/ two sections; single post track colors",
+                "playwright-home-zzp-hub-v2-verify PASS on prod",
+                "Hardware + protocol regression PASS"
+            ],
+            "qa_test": "python maintenance/audit-home-zzp-hub-v2.py; node scripts/playwright-home-zzp-hub-v2-verify.mjs",
+            "reference": "docs/handoffs/2026-07-06-home-zzp-hub-v2-FINAL.md",
+            "note": "DONE 2026-07-06 — PR #69, deploy 28794509987, prod seed V2 tracks, Playwright V2 PASS"
+        },
+        {
+            "id": "BLOG-TRUTH-POLISH-03",
+            "sprint": "SPRINT-HOME-ZZP-HUB",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Blog truth polish — authentic NL ZZP content + UX min fixes",
+            "type": "content",
+            "agent": "CRO_SPECIALIST",
+            "effort": "M",
+            "branch": "feat/blog-truth-polish-03",
+            "depends_on": "HOME-ZZP-HUB-V2-02",
+            "summary": "Rewrite 2 blog articles: 750+ words, official sources, no fiction; back link on single; truth audit gate.",
+            "affected_files": [
+                { "path": "docs/content/blog/", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/single.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-blog-vca.css", "change_type": "MODIFY" },
+                { "path": "maintenance/audit-blog-content-truth.py", "change_type": "CREATE" }
+            ],
+            "acceptance_criteria": [
+                "Both articles >=750 words NL, source_1/2_url in frontmatter, Handige links section",
+                "No Stel:/Praktijkvoorbeeld/fictional personas",
+                "single.php back link Alle artikelen; CSS parity automatisering hover + branding table th",
+                "audit-blog-content-truth.py PASS; prod verify finding_count 0",
+                "Commander HITL truth manifest sign-off in FINAL handoff"
+            ],
+            "qa_test": "python maintenance/audit-blog-content-truth.py; node scripts/audit-blog-content-prod.mjs",
+            "reference": "docs/handoffs/2026-07-06-blog-truth-polish-FINAL.md",
+            "note": "DONE 2026-07-06 — deploy 28799470500, seed prod, prod verify finding_count 0; commander_hitl manifest PENDING"
+        },
+        {
+            "id": "BRIEF-HTV-COPY-01",
+            "sprint": "SPRINT-WERKKLEDING",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Brief form HTV section — LOGO-BEDRUKKING fields per SKU",
+            "type": "fix",
+            "agent": "CRO_SPECIALIST",
+            "effort": "M",
+            "branch": "feat/brief-htv-copy-01",
+            "depends_on": "WERKKLEDING-COPY-TRUTH-01",
+            "summary": "Move HT-* from Premium stub to dedicated HTV brief section with branche/placement/team fields; PHP validation.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/assets/js/zzp-brief-form.js", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/functions.php", "change_type": "MODIFY" },
+                { "path": "maintenance/audit-brief-htv-copy.py", "change_type": "CREATE" },
+                { "path": "system/audit/audit_brief_sku_coverage.py", "change_type": "MODIFY" }
+            ],
+            "acceptance_criteria": [
+                "HT-* renders LOGO-BEDRUKKING (HTV) not Premium stub",
+                "HT-102 requires branche select; HT-001/002/003 placement or confirm with OC",
+                "fg_brief_validate_htv server gate; audit-brief-htv-copy.py PASS",
+                "playwright-brief-form-category-audit cat-htv PASS; prefix sweep 0 drift"
+            ],
+            "qa_test": "python maintenance/audit-brief-htv-copy.py; node scripts/playwright-brief-form-category-audit.mjs",
+            "reference": "docs/handoffs/2026-07-06-brief-htv-copy-FINAL.md",
+            "note": "DONE 2026-07-06 — PR #72, deploy 28800774644, prod JS verified"
+        },
+        {
+            "id": "HOME-HW-STEPPER-ICONS",
+            "sprint": "SPRINT-HOME-MOBILE-POLISH",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage Hardware — wizard stepper inline SVG icons, remove SELECT",
+            "type": "fix",
+            "agent": "CRO_SPECIALIST",
+            "effort": "S",
+            "branch": "feat/home-mobile-polish",
+            "depends_on": "HOME-HARDWARE-7CAT-02",
+            "summary": "Replace step-*.svg img badges with inline SVG paths 1:1 wizard-1-3.js _wizStepIconPaths[1..7]; disable SELECT hover on catalog tiles.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/inc/home-hardware-modules.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/front-page.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css", "change_type": "MODIFY" },
+                { "path": "maintenance/audit-home-wizard-icon-parity.py", "change_type": "CREATE" },
+                { "path": "maintenance/audit-home-hardware-modules.py", "change_type": "MODIFY" },
+                { "path": "scripts/playwright-home-hardware-prod-verify.mjs", "change_type": "MODIFY" }
+            ],
+            "acceptance_criteria": [
+                "Inline SVG category icon per hardware tile matching wizard progress bar",
+                "No SELECT bar on .module-card--catalog hover",
+                "audit-home-wizard-icon-parity.py PASS",
+                "playwright-home-hardware-prod-verify 7/7 PASS on prod"
+            ],
+            "qa_test": "python maintenance/audit-home-hardware-modules.py; node scripts/playwright-home-hardware-prod-verify.mjs",
+            "note": "DONE 2026-07-06: main 88cb0b1; deploy GHA 28784596193; prod 7/7 docs/ops/home-hardware-prod-verify-2026-07-06.json"
+        },
+        {
+            "id": "HOME-MOBILE-TILE-CAROUSEL-01",
+            "sprint": "SPRINT-HOME-MOBILE-POLISH",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Homepage mobile — horizontal swipe carousels for Protocol + Hardware tiles",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "effort": "M",
+            "branch": "feat/home-mobile-polish",
+            "depends_on": "HOME-HW-STEPPER-ICONS",
+            "summary": "At max-width 767px: Protocol 5-step and Hardware 7-tile sections become native CSS horizontal scroll-snap carousels; desktop grid unchanged.",
+            "affected_files": [
+                { "path": "flexgrafik-wizard-theme/front-page.php", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css", "change_type": "MODIFY" },
+                { "path": "scripts/playwright-home-mobile-carousel-verify.mjs", "change_type": "CREATE" },
+                { "path": "scripts/playwright-home-protocol-smoke.mjs", "change_type": "MODIFY" }
+            ],
+            "acceptance_criteria": [
+                "Mobile 375px: Protocol track scrollWidth > clientWidth, overflow-x auto",
+                "Mobile 375px: Hardware 7 tiles horizontally scrollable",
+                "Desktop 1280px: no horizontal carousel regression",
+                "playwright-home-mobile-carousel-verify PASS on prod"
+            ],
+            "qa_test": "node scripts/playwright-home-mobile-carousel-verify.mjs; node scripts/playwright-home-protocol-smoke.mjs",
+            "note": "DONE 2026-07-06: deploy GHA 28784596193; prod PASS docs/ops/home-mobile-carousel-prod-verify-2026-07-06.json; protocol smoke PASS"
+        },
+        {
+            "id": "WERKKLEDING-COPY-UX-01",
+            "sprint": "SPRINT-WERKKLEDING-COPY-UX",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Werkkleding — copy UX cleanup (short desc / features / tooltip roles)",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "MEDIUM",
+            "effort": "S",
+            "branch": "feat/werkkleding-copy-ux-01",
+            "commit_prefix": "fix:",
+            "summary": "Rewrite 21 Step 3 Werkkleding cards so usage_hint = decision, drie_kenmerken = specs, vraagteken_info = extra detail without duplication.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "lines": "OC-001..OC-010, OA-001..004, HT-001..103",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "maintenance/apply-werkkleding-copy-ux.py",
+                    "lines": "copy patch script",
+                    "change_type": "CREATE"
+                }
+            ],
+            "solution": {
+                "plan": "docs/handoffs/2026-07-03-werkkleding-copy-ux-01.md",
+                "do_not_change": ["prices", "grafik_bestand", "wizard step split"]
+            },
+            "acceptance_criteria": [
+                "21 Werkkleding SKUs have distinct usage_hint vs vraagteken_info",
+                "drie_kenmerken are concrete specs not marketing slogans",
+                "validate_product_master.py PASS",
+                "Woo sync + deploy + browser verify Stap 4 Werkkleding"
+            ],
+            "qa_test": "No identical usage_hint/vraagteken_info pairs; wizard card scan OC/OA/HT sections.",
+            "risk": "LOW — copy only in SSoT",
+            "note": "DONE 2026-07-03: PR #51 merged; deploy GHA 28638324400; 21 SKUs distinct hint/tooltip; screenshots docs/ops/screenshots/werkkleding-copy-ux-2026-07-03-*.png"
+        },
+        {
+            "id": "WERKKLEDING-COPY-TRUTH-01",
+            "sprint": "SPRINT-WERKKLEDING-COPY-UX",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Werkkleding — copy truth (kleding inclusief logo, HTV = formaat)",
+            "type": "fix",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "HIGH",
+            "effort": "M",
+            "branch": "main",
+            "commit_prefix": "fix:",
+            "summary": "Fix 21 Stap 3 SKUs + wizard UI: remove zonder logo / HTV apart / tel je los toe; kleding delivered with heat-pressed logo; HTV = format choice.",
+            "affected_files": [
+                { "path": "system/data/product-master-table.json", "change_type": "MODIFY" },
+                { "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js", "change_type": "MODIFY" },
+                { "path": "maintenance/apply-werkkleding-copy-truth.py", "change_type": "CREATE" },
+                { "path": "maintenance/audit-werkkleding-copy-truth.py", "change_type": "CREATE" }
+            ],
+            "solution": { "plan": "docs/handoffs/2026-07-06-werkkleding-copy-truth-plan.md" },
+            "acceptance_criteria": [
+                "0 forbidden phrases on 21 SKUs",
+                "validate_product_copy.py PASS",
+                "audit-werkkleding-copy-truth.py PASS",
+                "Wizard UI step 3 help + HTV banner aligned",
+                "Prod deep audit 21/21 post-deploy"
+            ],
+            "qa_test": "python maintenance/audit-werkkleding-copy-truth.py; node scripts/playwright-werkkleding-deep-audit.mjs",
+            "risk": "MEDIUM — copy changes customer expectation; must match actual fulfilment",
+            "note": "DONE 2026-07-06: main 00ac6fc; deploy GHA 28774575042; woo sync 175; prod 21/21 docs/ops/werkkleding-deep-audit-prod-2026-07-06.json; FINAL docs/handoffs/2026-07-06-werkkleding-copy-truth-FINAL.md"
+        },
+        {
+            "id": "HTV-PRODUCT-CARDS-01",
+            "sprint": "SPRINT-HTV-CARDS",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "HTV — product cards copy, prices and hero images from supplier table",
+            "type": "feature",
+            "agent": "SSOT_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "HIGH",
+            "effort": "S",
+            "branch": "feat/htv-product-cards-refresh",
+            "commit_prefix": "feat:",
+            "summary": "Implement Logo-bedrukking (HTV) card data from Desktop htv transfer table into SSoT for HT-001/002/003/102/103; replace HT-003 and HT-102 hero PNGs.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "lines": "HT-001, HT-002, HT-003, HT-102, HT-103",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/data/product-master-table.json",
+                    "lines": "generated mirror",
+                    "change_type": "GENERATE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/HT-003.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/HT-102.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                }
+            ],
+            "problem": "HTV cards still show legacy placement names (RUG/BORST/CAP), flat €10 pricing, and naam/set copy that does not match the professional supplier table.",
+            "solution": {
+                "plan": "docs/handoffs/2026-07-02-htv-product-cards-refresh.md",
+                "do_not_change": [
+                    "wizard step split logic",
+                    "SKU identifiers",
+                    "HT-001, HT-002, HT-103 images until new assets delivered"
+                ]
+            },
+            "acceptance_criteria": [
+                "HT-001 naam Groot HTV-logo (50 × 25 cm) price €16.90",
+                "HT-002 naam Middelgroot HTV-logo (15 × 6 cm) price €9.90",
+                "HT-003 naam Klein HTV-logo (8 × 3 cm) price €6.90",
+                "HT-102 naam HTV branchegrafiek (1 stuk) price €11.90",
+                "HT-103 naam HTV-logo pakket price €149.00 with 35-logo bundle copy",
+                "HT-003.png and HT-102.png replaced from user-supplied assets",
+                "maintenance/mirror-ssot.ps1 executed",
+                "python system/audit/validate_product_master.py PASS",
+                "Woo sync + deploy + browser verify Step 3 HTV section"
+            ],
+            "qa_test": "Wizard Stap 3 Logo-bedrukking (HTV): 5 cards, new titles/prices, HT-003/HT-102 image bytes match repo.",
+            "risk": "LOW — SSoT copy/prices/assets only; Woo overlay requires sync after SSoT change",
+            "note": "DONE 2026-07-02: PR #49 merged, deploy 28609149609 PASS, Woo sync 200, prod wizard HTV 5 cards verified, screenshot docs/ops/screenshots/htv-product-cards-refresh-2026-07-02.png"
+        },
+        {
+            "id": "HTV-ASSETS-02",
+            "sprint": "SPRINT-HTV-CARDS",
+            "priority": "P2",
+            "status": "DONE",
+            "title": "HTV — hero PNGs for HT-001, HT-002, HT-103",
+            "type": "assets",
+            "agent": "FRONTEND_ENGINEER",
+            "secondary_agent": null,
+            "aov_impact": "LOW",
+            "effort": "XS",
+            "branch": "feat/htv-hero-assets-02",
+            "commit_prefix": "fix:",
+            "summary": "Replace placeholder/fallback hero images for HT-001, HT-002, HT-103 when Dowódca delivers final PNGs. Copy/prices already in SSoT from HTV-PRODUCT-CARDS-01.",
+            "affected_files": [
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/HT-001.png",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/HT-002.png",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/HT-103.png",
+                    "change_type": "REPLACE"
+                }
+            ],
+            "acceptance_criteria": [
+                "HT-001/002/103 PNG bytes match delivered assets",
+                "Wizard Stap 3 HTV grid shows correct heroes after deploy",
+                "No SSoT copy/price changes unless paired with new asset brief"
+            ],
+            "qa_test": "Browser verify Stap 3 HTV — HT-002 no longer reuses OC-001.png fallback",
+            "risk": "LOW — assets only; blocked until Dowódca supplies PNGs",
+            "note": "DONE 2026-07-06: studio heroes HTV-GRAPHICS-P2; distinct HT-001/002/003/103; FINAL docs/handoffs/2026-07-06-werkkleding-htv-graphics-P2-FINAL.md"
+        },
+        {
+            "id": "WERK-COPY-ASSETS-01",
+            "sprint": "SPRINT-WERKKLEDING-HOTFIX",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Werkkleding — sync copy and corrected assets after PR46",
+            "type": "bugfix",
+            "agent": "FRONTEND_ENGINEER",
+            "secondary_agent": "QA_RED_TEAM",
+            "aov_impact": "MEDIUM",
+            "effort": "XS",
+            "branch": "feat/werkkleding-copy-assets-fix",
+            "commit_prefix": "fix:",
+            "summary": "Po wdrożeniu cen/linków część aktywnego copy nadal pokazuje stare marki Regatta/Valento oraz stare suffixy Raglan/Lightweight; OC-005 asset nie odpowiada najnowszej PNG z docs/image-generation.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "lines": "OC-004, OC-005, OC-008, OC-010",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/data/product-master-table.json",
+                    "lines": "generated mirror",
+                    "change_type": "GENERATE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/page-materials.php",
+                    "lines": "softshell and hi-vis tech-cards",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/OC-004.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/OC-005.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/OC-008.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/OC-010.png",
+                    "lines": "binary",
+                    "change_type": "REPLACE"
+                }
+            ],
+            "problem": "Wizard en /materialen zijn niet volledig in sync met het nieuwe leveranciersbestand: OC-008 moet Cobres/Cratex zijn, OC-010 Korntex, OC-004/005 clean labels, en OC-005 moet de nieuwste PNG gebruiken.",
+            "solution": {
+                "plan": "docs/handoffs/2026-07-02-werkkleding-copy-assets-fix.md",
+                "do_not_change": [
+                    "prijzen",
+                    "Maattabel supplier links"
+                ]
+            },
+            "acceptance_criteria": [
+                "OC-008 actieve SSoT/mirror naam bevat geen Regatta",
+                "OC-010 actieve SSoT/mirror naam bevat geen Valento",
+                "OC-004 en OC-005 namen matchen Desktop bronlabels",
+                "OC-005.png is vervangen vanuit docs/image-generation/OC-005 Hoodie Standard met kap.png",
+                "/materialen softshell tech-card verwijst naar Van Cranenbroek/Cobres, niet Regatta/RGF582",
+                "/materialen hi-vis tech-card verwijst naar Korntex KX218, niet Beechfield/Valento",
+                "maintenance/mirror-ssot.ps1 uitgevoerd na SSoT wijziging",
+                "python system/audit/validate_product_master.py PASS",
+                "Browser verify prod Wizard Stap 3 + /materialen met screenshot proof"
+            ],
+            "qa_test": "Wizard Stap 3 + /materialen browser verify na deploy; rg stale-copy check op actieve SSoT/mirror/PHP files.",
+            "risk": "LOW — copy/assets only; prijs- en linkwijzigingen expliciet out of scope",
+            "note": "DONE 2026-07-03: PR #47 merged; deploy PASS; prod Wizard Stap 3 + /materialen verified; screenshot docs/ops/screenshots/werkkleding-copy-fix-2026-07-02.png; closeout docs/handoffs/2026-07-03-werkkleding-htv-closeout.md"
+        },
         {
             "id": "P0-01",
             "sprint": "SPRINT-1",
@@ -1060,7 +2341,162 @@
             ],
             "qa_test": "Playwright Krok 2: bus_l × DIY/Sets/Wrap/Magneten; 375px tooltip tap; audit script issue_summary leeg na copy pass",
             "risk": "MEDIUM — 103 SKU copy volume; segmented S/M/L in new card layout",
-            "note": "2026-05-23 Phase 0: audit bus_l 25 SKU / 13 groups — 23× HINT_EQ_TOOLTIP, 8× FORMAL_UW. Matrix: docs/ops/P2-09-voertuig-copy-matrix.md. BLAST: docs/handoffs/2026-05-23-p2-09-voertuig-blast.md"
+            "note": "2026-05-23 Phase 0: audit bus_l 25 SKU / 13 groups — 23× HINT_EQ_TOOLTIP, 8× FORMAL_UW. Matrix: docs/ops/P2-09-voertuig-copy-matrix.md. BLAST: docs/handoffs/2026-05-23-p2-09-voertuig-blast.md. 2026-07-04 FINAL: Instapklare Sets copy upgrade PR #58 + card parity PR #59; deploy GHA 28709904514 SUCCESS; prod Playwright PASS; handoff docs/handoffs/2026-07-04-instapklare-sets-copy.md DONE. 2026-07-04 PRICING: Step 2 balanced DIY+Sets repricing PR #60; deploy GHA 28710422572; handoff docs/handoffs/2026-07-04-step2-pricing-repair.md DONE."
+        },
+        {
+            "id": "P2-10",
+            "sprint": "SPRINT-3",
+            "priority": "P2",
+            "status": "DONE",
+            "updated_at": "2026-07-04T21:06:00+02:00",
+            "completed_at": "2026-07-04T21:06:00+02:00",
+            "title": "Stap 1 Fundament — DF-004 voertuigontwerp + drukbestand",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "secondary_agent": "SSOT_ENGINEER",
+            "aov_impact": "HIGH",
+            "effort": "XS",
+            "branch": "feat/p2-10-foundation-vehicle-design-file",
+            "commit_prefix": "feat:",
+            "summary": "Vervang DF-004 'Logo ontwerp (vanaf nul)' door een productized DTP-service: professioneel voertuigontwerp + mock-up + printklare bestanden op basis van klantidee, AI-mock-up of droombrand.",
+            "affected_files": [
+                {
+                    "path": "system/data/product-master-table.json",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/data/product-master-table.json",
+                    "change_type": "SYNC_ONLY"
+                },
+                {
+                    "path": "docs/handoffs/2026-07-04-foundation-vehicle-design-file-plan.md",
+                    "change_type": "ADD"
+                }
+            ],
+            "acceptance_criteria": [
+                "DF-004 naam, usage_hint, drie_kenmerken en vraagteken_info positioneren het product als voertuigontwerp + drukbestand, niet als logo-ontwerp",
+                "Copy is NL, zonder emoji, en voldoet aan docs/product-card-copy-rules.md",
+                "Tooltip maakt expliciet dat druk en montage niet inbegrepen zijn en later via Voertuig gekozen worden",
+                "Prijsstrategie is vastgelegd vóór implementatie en respecteert minimum checkout/AOV-logica",
+                "validate_product_master.py en validate_product_copy.py PASS na implementatie"
+            ],
+            "qa_test": "Stap 1 Fundament: DF-004 kaart toont nieuwe propositie; tooltip voorkomt verwarring met print/montage; validators PASS.",
+            "risk": "MEDIUM — aanbod verschuift van logo-creatie naar vehicle DTP; verkeerde copy kan verwachting scheppen dat druk/montage inbegrepen is.",
+            "reference": "docs/handoffs/2026-07-04-foundation-vehicle-design-file-plan.md",
+            "note": "2026-07-04 FINAL: PR #61 merged; deploy GHA 28716536509; woo-sync DF-004; prod gate docs/ops/p2-10-prod-verify-2026-07-04.json PASS 5/5; /voertuigreclame-ontwerp/ live."
+        },
+        {
+            "id": "P2-11",
+            "sprint": "SPRINT-3",
+            "priority": "P2",
+            "status": "DONE",
+            "updated_at": "2026-07-04T22:25:00+02:00",
+            "completed_at": "2026-07-04T22:25:00+02:00",
+            "title": "Design Agent CTA — homepage zzpackage + flexgrafik.nl",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "aov_impact": "HIGH",
+            "effort": "XS",
+            "branch": "feat/p2-11-design-agent-homepage-cta",
+            "commit_prefix": "feat:",
+            "summary": "Expose free Design Agent (/voertuigreclame-ontwerp/) on zzpackage homepage + header and flexgrafik.nl homepage + header + ecosystem pills with consistent NL CTA 'Ontwerp je bus — gratis' and Nieuw badge.",
+            "affected_files": [
+                {
+                    "path": "flexgrafik-wizard-theme/functions.php",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/header.php",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/front-page.php",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/style.css",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "docs/handoffs/2026-07-04-design-agent-homepage-cta-plan.md",
+                    "change_type": "ADD"
+                }
+            ],
+            "acceptance_criteria": [
+                "zzpackage homepage hero + promo band link to /voertuigreclame-ontwerp/ with label Ontwerp je bus — gratis",
+                "zzpackage header desktop shows Design Agent CTA with Nieuw badge",
+                "flexgrafik.nl homepage hero + promo + voertuig service card link to zzpackage Design Agent",
+                "flexgrafik.nl header desktop + mobile menu show same CTA",
+                "Ecosystem pills on flexgrafik.nl include Design Agent entry",
+                "Deploy both sites; smoke click CTA → chat vehicle picker visible"
+            ],
+            "qa_test": "Browser: zzpackage / and flexgrafik.nl / → click Ontwerp je bus — gratis → /voertuigreclame-ontwerp/ chat loads.",
+            "risk": "LOW — additive CTAs; Wizard remains primary purchase path.",
+            "reference": "docs/handoffs/2026-07-04-design-agent-homepage-cta-plan.md",
+            "note": "2026-07-04 DONE: commits 3c2a21b (plan) + 6d7613f (theme); deploy GHA 28718558362; flexgrafik mirror 621d4f9 deploy 28718583340; prod homepage CTAs verified both domains."
+        },
+        {
+            "id": "HOME-TRUST-01",
+            "sprint": "SPRINT-3",
+            "priority": "P2",
+            "status": "DONE",
+            "updated_at": "2026-07-04T22:50:00+02:00",
+            "completed_at": "2026-07-04T22:50:00+02:00",
+            "title": "Homepage trust & copy polish — 33+, reviews, ErKa, game img",
+            "type": "feature",
+            "agent": "CRO_SPECIALIST",
+            "aov_impact": "MEDIUM",
+            "effort": "S",
+            "branch": "feat/home-trust-01-homepage-polish",
+            "commit_prefix": "fix:",
+            "summary": "Remove false trust on zzpackage homepage: drop Bekijk ROI hero CTA, align 33+ with wizard intro, mirror Google reviews carousel from flexgrafik JSON, update ErKa Heesch montage tile, fix game promo image case 404 on Linux prod.",
+            "affected_files": [
+                {
+                    "path": "flexgrafik-wizard-theme/front-page.php",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/functions.php",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/data/google-reviews-nl.json",
+                    "change_type": "ADD"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/css/zzp-home-vca.css",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/images/homepage/img-game-promo.png",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "docs/superpowers/specs/2026-07-04-home-trust-01-design.md",
+                    "change_type": "ADD"
+                },
+                {
+                    "path": "docs/handoffs/2026-07-04-home-trust-01-plan.md",
+                    "change_type": "ADD"
+                }
+            ],
+            "acceptance_criteria": [
+                "Hero has no Bekijk ROI; roi section still scrollable",
+                "Badge and spec-bar show 33+; no 500+ on homepage",
+                "Spec-bar Google rating from JSON aggregate_rating 5,0",
+                "Six Google reviews carousel; no Sander V placeholder",
+                "Garantie middle tile ErKa Heesch + PostNL parcel copy",
+                "Game promo image returns HTTP 200 on prod",
+                "Deploy zzpackage; prod verification checklist pass"
+            ],
+            "qa_test": "Browser / + curl game img; compare review texts with flexgrafik.nl JSON.",
+            "risk": "LOW — copy and static JSON; Gate 3 largest CSS diff.",
+            "reference": "docs/handoffs/2026-07-04-home-trust-01-plan.md",
+            "note": "2026-07-04 DONE: gates ad271bc–212d4a4; deploy GHA 28719071001 + 28719126823 FORCE images; prod verify PASS; close handoff 2026-07-04-home-trust-01-close.md."
         },
         {
             "id": "P3-FOUNDATION-6PROJ-01",
@@ -1493,8 +2929,8 @@
             ],
             "qa_test": "Inspect wizard pagina HTML source — meta description en OG tags aanwezig.",
             "risk": "LOW — additieve meta tags",
-            "completed_at": "2026-04-09T12:00:00+02:00",
-            "note": "fg_wizard_seo_meta on page-wizard.php"
+            "completed_at": "2026-07-18T08:15:00+02:00",
+            "note": "DONE_IN_CODE via SEO-META-LAYER-01 (Yoast SSoT). Promote to DONE after deploy + FB Sharing Debugger HITL."
         },
         {
             "id": "P3-05",
@@ -2381,7 +3817,8 @@
             "id": "VIZ-10",
             "sprint": "SPRINT-5",
             "priority": "P0",
-            "status": "DONE_IN_CODE",
+            "status": "DONE",
+            "verified_at": "2026-06-30",
             "title": "Mobile CTA bar z-index:120 zakrywany przez sticky cart (z-index:9999)",
             "type": "layout",
             "agent": "FRONTEND_ENGINEER",
@@ -3061,13 +4498,1007 @@
             "notes": "deploy+gate pending M1-E"
         },
         {
+            "id": "BRIEF-P2-01",
+            "sprint": "SPRINT-BRIEF-P2",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "NSP-006 — sekcja BEDANKT STICKERS + audit 0 HIGH",
+            "type": "feature",
+            "effort": "S",
+            "summary": "zzp-brief-form.js isBedankt section; audit_brief_sku_coverage.py BEDANKT_STICKERS",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md#brief-p2-01"
+        },
+        {
+            "id": "BRIEF-P2-02",
+            "sprint": "SPRINT-BRIEF-P2",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "F-001-SOC / F-001-ADD — ścieżki logo-design",
+            "type": "feature",
+            "effort": "M",
+            "summary": "ONLINE AANWEZIGHEID section; logo addon variants; functions.php allowed_fields",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md#brief-p2-02"
+        },
+        {
+            "id": "BRIEF-P2-03",
+            "sprint": "SPRINT-BRIEF-P2",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Walidacja matrycy kleding — suma = qty",
+            "type": "bugfix",
+            "effort": "S",
+            "summary": "JS pre-submit + PHP fg_submit_brief_form size_* validation",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md#brief-p2-03"
+        },
+        {
+            "id": "BRIEF-P2-04",
+            "sprint": "SPRINT-BRIEF-P2",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Double-submit UX — brief_submitted success state",
+            "type": "ux",
+            "effort": "S",
+            "summary": "fg_get_order_details brief_submitted flag; renderBriefSuccess on reload",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md#brief-p2-04"
+        },
+        {
+            "id": "BRIEF-P2-05",
+            "sprint": "SPRINT-BRIEF-P2",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "E2E + audyt regen + deploy + handoff FINAL",
+            "type": "deploy",
+            "effort": "M",
+            "summary": "brief-mock-order NSP-006; playwright bedankt form 4/4; GHA 28172214856; p2-final handoff",
+            "reference": ".agents/plan-mini/BRIEF-FORM-P2-PLAN.md#brief-p2-05",
+            "notes": "PR #43 merged a0d390b; Mollie gate Dowodca"
+        },
+        {
+            "id": "BRIEF-FORM-AUDIT-01",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate 0 — deep audit plan + audit-todo sprint",
+            "type": "plan",
+            "effort": "S",
+            "summary": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md; sprint SPRINT-BRIEF-FORM-AUDIT; no production code",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md"
+        },
+        {
+            "id": "BRIEF-FORM-AUDIT-02",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate 1 — audit_brief_form_contract.py + matrix ALL SKUs + PHP gap report",
+            "type": "audit",
+            "effort": "M",
+            "summary": "brief-form-contract-matrix.json; drift JS↔Python; regenerate brief-sku-matrix",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md#gate-1"
+        },
+        {
+            "id": "BRIEF-FORM-AUDIT-03",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate 2 — Playwright 18 koszyków + prefix sweep per SKU",
+            "type": "qa",
+            "effort": "M",
+            "summary": "playwright-brief-form-category-audit.mjs; mega €224; mobile 390px",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md#gate-2"
+        },
+        {
+            "id": "BRIEF-FORM-AUDIT-04",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate 3 — WC HITL P0+P1 (13 koszyków) + dowody",
+            "type": "qa",
+            "effort": "L",
+            "summary": "13/13 PASS playwright-brief-form-hitl-run.mjs; orders #3172–#3194; hitl-results.json PASS",
+            "reference": "docs/handoffs/2026-07-05-brief-form-audit-gate3-hitl-runbook.md"
+        },
+        {
+            "id": "BRIEF-FORM-AUDIT-FINAL",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Gate 4 — FINAL handoff + seller report A–F + backlog tickets",
+            "type": "docs",
+            "effort": "S",
+            "summary": "brief-form-deep-audit-FINAL.md; A- portfolio; 13/13 HITL; follow-up BRIEF-VIZ-02/04, BRIEF-FORM-PHP-01",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md"
+        },
+        {
+            "id": "DESIGN-AGENT-BRAIN-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Design Agent BRAIN — ecosystem canon + truth snapshot",
+            "type": "docs",
+            "effort": "S",
+            "summary": "brain-design-agent/ §0-§9; INDEX; TRUTH-SNAPSHOT; validator; verdict-v2",
+            "reference": "brain-design-agent/brain-design-agent.md",
+            "note": "2026-07-07: superseded by DA-INSPIRE v2 pivot"
+        },
+        {
+            "id": "DA-INSPIRE-00",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Product vision spec — advisor chat + tier B/A mockups",
+            "type": "docs",
+            "effort": "M",
+            "summary": "Full vision: discovery, brief schema, voertuig tier matrix, fal full-frame",
+            "reference": "docs/superpowers/specs/2026-07-08-design-agent-inspire-product-vision.md",
+            "note": "Approved Dowódca §12 2026-07-08; BRAIN v2.1 + tier-matrix.json synced"
+        },
+        {
+            "id": "DA-INSPIRE-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Inspire engine — fal full-frame (LEGACY strak/opvallend — needs 01b)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "prompt_builder + fal kontext; superseded by tier B/A in DA-INSPIRE-01b",
+            "reference": "docs/superpowers/specs/2026-07-08-design-agent-inspire-product-vision.md"
+        },
+        {
+            "id": "DA-INSPIRE-01a",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "API contract v2 — tier_b/a response + brief_confirmed gate",
+            "type": "feature",
+            "effort": "S",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "OpenAPI + Pydantic v2; no fal; blocks 01b and 02a",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-01a--api-contract-v2"
+        },
+        {
+            "id": "DA-INSPIRE-01b",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Inspire engine — tier_resolver + B/A prompts + reco",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "tier_resolver.py; VARIANTS tier_b/tier_a; 10 pytest PASS; smoke dry-run tier labels",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-01b--engine-tier-ba"
+        },
+        {
+            "id": "DA-INSPIRE-01c",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Fixtures v2 + validate-tier-matrix-ssot.py",
+            "type": "chore",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "inspire-v2/briefs ×3; validate-tier-matrix-ssot.py; README; smoke default v2 brief",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-01c--fixtures--ssot-cross-validate"
+        },
+        {
+            "id": "DA-INSPIRE-01d",
+            "sprint": "SPRINT-3",
+            "priority": "P1",
+            "status": "DONE",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "Manual only; refresh G-INSPIRE-1 smoke-report.json",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-01d--live-fal-smoke-optional-paid-gate"
+        },
+        {
+            "id": "DA-INSPIRE-02",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "GPT advisor epic (split 02a/02b/02c)",
+            "type": "epic",
+            "effort": "L",
+            "summary": "02a chat API jadzia; 02b FE chat; 02c results UX",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md",
+            "note": "Parent ticket — implement 02a → 02b → 02c in order"
+        },
+        {
+            "id": "DA-INSPIRE-02a",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "GPT chat API — /design-agent/chat + 8 phases",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "OpenRouter; session TTL; brief_confirmed gate; mocked unit tests",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-02a--gpt-chat-api-jadzia"
+        },
+        {
+            "id": "DA-INSPIRE-02b",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "type": "feature",
+            "effort": "M",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "Chat loop; confirm card; generate only after brief_confirmed",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-02b--fe-chat-ui"
+        },
+        {
+            "id": "DA-INSPIRE-02c",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "type": "feature",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "Remove strak/opvallend labels; screenshot gate G-02c",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-implementation.md#ticket-da-inspire-02c--fe-results-ux-tier-labels"
+        },
+        {
+            "id": "DA-INSPIRE-05",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Enterprise quality contract + brain v2.2",
+            "type": "docs",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "Quality contract spec; brain Three-Brain pipeline",
+            "reference": "docs/superpowers/specs/2026-07-09-da-mockup-quality-contract-enterprise.md"
+        },
+        {
+            "id": "DA-INSPIRE-05b",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "NL ZZP marketing playbook",
+            "type": "feature",
+            "effort": "M",
+            "repo": "zzpackage",
+            "summary": "marketing-playbook-nl-zzp.json + validator",
+            "reference": "brain-design-agent/marketing-playbook-nl-zzp.json"
+        },
+        {
+            "id": "DA-INSPIRE-06a",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Brand Strategist Brain2",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "summary": "brand_strategist.py + pytest",
+            "reference": "agent/inspire/brand_strategist.py"
+        },
+        {
+            "id": "DA-INSPIRE-06b",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Creative Director Brain3",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "summary": "creative_director.py + LayoutSpec pytest",
+            "reference": "agent/inspire/creative_director.py"
+        },
+        {
+            "id": "DA-INSPIRE-07",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Vehicle panel-map SSoT",
+            "type": "feature",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "panel-map.json vision check PASS",
+            "reference": "brain-design-agent/panel-map.json"
+        },
+        {
+            "id": "DA-INSPIRE-08",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Hybrid overlay render",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "summary": "overlay_renderer + marketing_compliance",
+            "reference": "agent/inspire/overlay_renderer.py"
+        },
+        {
+            "id": "DA-INSPIRE-09",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Engine enterprise wire",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "summary": "INSPIRE_ENTERPRISE=1; legacy fallback",
+            "reference": "agent/inspire/engine.py"
+        },
+        {
+            "id": "DA-INSPIRE-10",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Agent gates G-INSPIRE-2b + G-COMP-BENCH (Dowódca final pre-deploy)",
+            "type": "qa",
+            "effort": "M",
+            "repo": "zzpackage",
+            "summary": "Agent PASS: hitl-g2b + competitive-bench; Dowódca final eyeball before DA-INSPIRE-11",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-14"
+        },
+        {
+            "id": "DA-INSPIRE-11",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "BLOCKED",
+            "title": "Deploy moved to flexgrafik-inspire (post Dowódca G-SALES-VISUAL)",
+            "type": "ops",
+            "effort": "S",
+            "summary": "Use flexgrafik-inspire/scripts/deploy-jadzia.ps1; INSPIRE_RENDER_MODE=oneshot; Dowódca visual PASS required",
+            "reference": "docs/handoffs/2026-07-10-inspire-split-oneshot-FINAL.md",
+            "depends_on": "INSPIRE-GATE-05"
+        },
+        {
+            "id": "INSPIRE-RESET-00",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Split flexgrafik-inspire + revoke agent false PASS",
+            "type": "ops",
+            "effort": "M",
+            "repo": "flexgrafik-inspire",
+            "summary": "QUALITY-CANON, oneshot v3 engine, Mimaki benchmark PENDING_DOWODCA",
+            "reference": "flexgrafik-inspire/docs/QUALITY-CANON.md"
+        },
+        {
+            "id": "INSPIRE-CLEAN-01",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "zzpackage wizard-shell cleanup (remove inspire ops bulk)",
+            "type": "ops",
+            "effort": "M",
+            "repo": "zzpackage",
+            "summary": "Removed docs/ops/inspire-v2 bulk, spike-01, inspire scripts, brain JSON dupes; MOVED stubs; handoffs/specs archived",
+            "reference": "docs/handoffs/2026-07-10-zzpackage-inspire-cleanup-FINAL.md",
+            "depends_on": "INSPIRE-RESET-00"
+        },
+        {
+            "id": "DA-INSPIRE-12a",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Commit v2.2 baseline + pre-excellence audit PNGs",
+            "type": "ops",
+            "effort": "S",
+            "repo": "zzpackage+jadzia",
+            "summary": "feat/da-insire-enterprise both repos; baseline-v22-pre-excellence.json",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-09"
+        },
+        {
+            "id": "DA-INSPIRE-12b",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "GPT Creative Director (Brain3 LLM + rule fallback)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia",
+            "summary": "produce_layout_specs_llm OpenRouter; Pydantic LayoutSpec; pytest",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-12a"
+        },
+        {
+            "id": "DA-INSPIRE-13",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Layout-aware fal coupling (compose_ref v3 + vinyl zones)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia",
+            "summary": "VinylZoneMap in LayoutSpec; fal blocks align with overlay zones; Q4 local ≥3",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-12b"
+        },
+        {
+            "id": "DA-INSPIRE-14",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Vinyl overlay typography (contrast bars + pro fonts)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia",
+            "summary": "overlay_renderer v2; strip+fit+phone norm; overlay-v23 audit PNGs",
+            "reference": "docs/ops/inspire-v2/audit/overlay-v23-audit.json",
+            "depends_on": "DA-INSPIRE-13"
+        },
+        {
+            "id": "DA-INSPIRE-15",
+            "sprint": "SPRINT-4",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Panel map vision calibration (4 vehicles)",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "panel-map.json bboxes verified on voertuig templates; vision-check JSON",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-12a"
+        },
+        {
+            "id": "DA-INSPIRE-16",
+            "sprint": "SPRINT-4",
+            "priority": "P2",
+            "status": "TODO",
+            "title": "Strategist LLM polish (conditional on bench FAIL)",
+            "type": "feature",
+            "effort": "S",
+            "repo": "jadzia",
+            "summary": "Optional sales_angle_nl LLM refine; only if G-COMP-BENCH still FAIL after Q-3",
+            "reference": "docs/superpowers/plans/2026-07-09-da-inspire-quality-excellence-top-level.md",
+            "depends_on": "DA-INSPIRE-14"
+        },
+        {
+            "id": "DA-INSPIRE-03",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "G-INSPIRE-2 — Dowódca Q3 sales blind (3 briefs)",
+            "type": "qa",
+            "effort": "S",
+            "summary": "Would buy on sight ≥4/5; not pixel/Constraint B",
+            "reference": "docs/ops/design-agent-hitl-protocol.md"
+        },
+        {
+            "id": "DA-INSPIRE-AUDIT-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Graphics War Room — 6 blind mockups sztab review",
+            "type": "qa",
+            "effort": "M",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "Master Graphics Architect + tier/UX lenses; blocks POLISH",
+            "reference": "docs/ops/inspire-v2/audit/GRAPHICS-WAR-ROOM.md"
+        },
+        {
+            "id": "DA-INSPIRE-AUDIT-02",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Graphics audit synthesis — graphics-audit JSON + findings",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "G-AUDIT-GRAPHICS gate; merge subagent outputs",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-graphics-audit.md"
+        },
+        {
+            "id": "DA-INSPIRE-AUDIT-03",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "P0 validate — caddy re-fal after compose_ref logo-only",
+            "type": "qa",
+            "effort": "XS",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "G-P0-VALIDATE; €0.22; blocks AUDIT-04",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-graphics-audit-phase2.md"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-OCR",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Post-fal OCR + NL safety gate (max 1 retry)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "Block gibberish/offensive text; session cap €0.33",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-graphics-audit-phase2.md"
+        },
+        {
+            "id": "DA-INSPIRE-AUDIT-04",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Re-fal 3 briefs + G-AUDIT-GRAPHICS-2 merge",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "After AUDIT-03 PASS; rebuild blind; graphics-audit v2",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-graphics-audit-phase2.md"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "HITL Q3 scoring — Dowódca blind-score.html",
+            "type": "qa",
+            "effort": "XS",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "blind-score.html → hitl-g2.json PASS; blocks apiEnabled",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-01--hitl-q3-scoring-p0-dowódca"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-02",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "smoke-design-agent-inspire.ps1 v2 contract",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "brief_confirmed + tier_b/a + label_nl gate",
+            "reference": "scripts/smoke-design-agent-inspire.ps1"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-03",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Chat UX hardening pre-deploy",
+            "type": "feature",
+            "effort": "M",
+            "repo": "zzpackage",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "offline truth, logo gate, mobile composer, session recovery",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-03--chat-ux-hardening-p0-zzpackage"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-04",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "HTTPS mockup URLs on prod generate",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "DESIGN_AGENT_MOCKUP_PUBLIC_BASE; no data: URLs in API",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-04--results-cdn-urls-p0-jadzia"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-05",
+            "sprint": "SPRINT-3",
+            "priority": "P1",
+            "status": "DONE_IN_CODE",
+            "title": "NL copy truth sweep Design Agent page",
+            "type": "copy",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "No print-ready AI promise; DF-004 wording",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-05--nl-copy-truth-sweep-p1-zzpackage"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-06",
+            "sprint": "SPRINT-3",
+            "priority": "P1",
+            "status": "TODO",
+            "title": "Wizard highlight deeplink E2E",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "voertuig + highlight SKU opens correct card",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-06--wizard-deeplink-e2e-p1-zzpackage"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-07",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "OpenRouter prod config jadzia VPS",
+            "type": "ops",
+            "effort": "XS",
+            "repo": "jadzia-core",
+            "summary": "OPENROUTER_API_KEY; chat advisor live",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-07--openrouter-prod-config-p0-jadzia-ops"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-09",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Strict Playwright post-deploy gate",
+            "type": "qa",
+            "effort": "S",
+            "repo": "zzpackage",
+            "summary": "p0=0 strict UI + smoke API PASS; full chat E2E deferred",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#da-inspire-polish-09--strict-playwright-post-deploy-p0"
+        },
+        {
+            "id": "DA-INSPIRE-POLISH-PROMPT",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "fal prompt — logo+colors only, no contact text on vehicle",
+            "type": "feature",
+            "effort": "S",
+            "repo": "jadzia-core",
+            "branch": "feat/design-agent-inspire-v2",
+            "summary": "From G-AUDIT-GRAPHICS P0-TEXT-HALLUCINATION; re-fal pending",
+            "reference": "docs/ops/inspire-v2/audit/graphics-audit-2026-07-08.json"
+        },
+        {
+            "id": "DA-HIDE-PUBLIC-01",
+            "sprint": "SPRINT-3",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Hide Design Agent public CTAs (page stays, noindex)",
+            "type": "feature",
+            "effort": "S",
+            "repo": "zzpackage + flexgrafik-nl",
+            "branch": "feat/da-hide-public-cta",
+            "summary": "FG_DESIGN_AGENT_PUBLIC flag; wrap P2-11 CTAs; noindex on /voertuigreclame-ontwerp/ when hidden",
+            "reference": "docs/handoffs/2026-07-08-da-hide-public-cta-handoff.md"
+        },
+        {
+            "id": "DA-INSPIRE-DEPLOY-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "INSPIRE v2 deploy sequence (manual Zasada 11)",
+            "type": "ops",
+            "effort": "S",
+            "summary": "jadzia merge → VPS → WP deploy → apiEnabled last",
+            "reference": "docs/superpowers/plans/2026-07-08-da-inspire-pre-deploy-polish.md#deploy-checklist-operator"
+        },
+        {
+            "id": "DESIGN-AGENT-AUDIT-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Design Agent prod + code audit /voertuigreclame-ontwerp/",
+            "type": "docs",
+            "effort": "M",
+            "summary": "Playwright full chat; 12 P0 truth gaps; plan v2 VGE+jadzia",
+            "reference": "docs/handoffs/2026-07-06-design-agent-audit-01-handoff.md",
+            "note": "2026-07-06: docs/ops/design-agent-audit-2026-07-06.json"
+        },
+        {
+            "id": "DESIGN-AGENT-P0-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "Design Agent P0 truth — apiEnabled gate + hero honesty",
+            "type": "feature",
+            "effort": "XS",
+            "branch": "feat/design-agent-ai-v2",
+            "summary": "Stop fake progress without API; daConfig.apiEnabled; hero copy when offline",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md",
+            "note": "G0 PASS 2026-07-07 deploy 28844716760; docs/ops/design-agent-g0-truth.json p0Count=0"
+        },
+        {
+            "id": "VGE-DA-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "VGE LogoDecalBuilder + DesignAgentService",
+            "type": "feature",
+            "effort": "M",
+            "repo": "image generator",
+            "summary": "brand_decal.py logo+tekst→RGBA; 2 variants strak/opvallend; OpenCV compositor",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "VGE-DA-02",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE",
+            "title": "jadzia POST /api/v1/design-agent/generate",
+            "type": "feature",
+            "effort": "M",
+            "repo": "jadzia-core",
+            "summary": "FastAPI multipart route; VGE subprocess/import; RECO SSoT; rate limit",
+            "reference": "docs/handoffs/2026-07-07-design-agent-v31-plan-tracker.md",
+            "note": "G2 PASS 2026-07-07 re-verify: SSoT on VPS, RECO DF-004/MA-005, FG_DESIGN_AGENT_KEY 401 gate; docs/ops/design-agent-g2-smoke.json"
+        },
+        {
+            "id": "VGE-DA-04",
+            "sprint": "SPRINT-3",
+            "priority": "P1",
+            "status": "TODO",
+            "title": "VGE wizard vehicle map bus_l/xl/passenger clean bases",
+            "type": "feature",
+            "effort": "L",
+            "repo": "image generator",
+            "summary": "wizard_* entries use caddy clone bases — strip_wizard_overlay + real quads pending",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "DESIGN-AGENT-FE-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Design Agent FE → jadzia API + wizard da_skus bridge",
+            "type": "feature",
+            "effort": "M",
+            "branch": "feat/design-agent-ai-v2",
+            "summary": "step6_generate fetch API; RECO from response; sessionStorage brief; wizard-presets da_skus",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "DESIGN-AGENT-SPIKE-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "Feasibility spike — 9 PNG blind (OpenCV / path A / protected B)",
+            "type": "docs",
+            "effort": "S",
+            "summary": "3 briefs × 3 paths; fal OK; G0.5 GO/NO-GO; blocks SWARM-01",
+            "reference": "docs/superpowers/specs/2026-07-07-design-agent-v31-protected-decal-design.md",
+            "note": "ARCHIVED v3.1 — superseded DA-INSPIRE v2"
+        },
+        {
+            "id": "DESIGN-AGENT-SPIKE-01-V3",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "SPIKE v3 — clean base v2 + fal path B photoreal mockups",
+            "type": "docs",
+            "effort": "S",
+            "summary": "opencv-v3 G1b PASS; path-b-v3 3/3 Constraint B 0px; export-v3; Dowódca Q3/Q4 pending",
+            "reference": "docs/ops/spike-01/verdict-v3.md",
+            "note": "ARCHIVED track — prod = INSPIRE full-frame; evidence in export-v3/"
+        },
+        {
+            "id": "VGE-DA-BASE-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "DONE_IN_CODE",
+            "title": "Clean caddy_deur.png base — derive_clean_panel_base (interim Gem)",
+            "type": "feature",
+            "effort": "S",
+            "repo": "image generator",
+            "branch": "feat/design-agent-v31-core",
+            "summary": "strip_wizard + derive_clean_panel_base; panel_roi 12.89%→0.06%; Gem prompts 09-11 pending",
+            "reference": "brain-design-agent/brain-design-agent.md#§4"
+        },
+        {
+            "id": "DESIGN-AGENT-MASK-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "Mask export — vehicle/panel/decal/paint/edge_ring contract",
+            "type": "feature",
+            "effort": "S",
+            "repo": "image generator",
+            "summary": "mask_export.py; paint_mask = vehicle AND NOT decal; pytest",
+            "reference": "docs/superpowers/specs/2026-07-07-design-agent-v31-protected-decal-design.md"
+        },
+        {
+            "id": "DESIGN-AGENT-RECOMPOSITE-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "Alpha recomposite — bit-identical decal restore after FLUX",
+            "type": "feature",
+            "effort": "S",
+            "repo": "image generator",
+            "summary": "recomposite.py; G1c golden; constraint B core",
+            "reference": "docs/superpowers/specs/2026-07-07-design-agent-v31-protected-decal-design.md"
+        },
+        {
+            "id": "DESIGN-AGENT-QA-AUTO-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "Auto QA gate — OCR + pHash + edge IoU before upload",
+            "type": "feature",
+            "effort": "M",
+            "repo": "image generator",
+            "summary": "qa_auto.py wired in design_agent.py; degraded fallback; 18 pytest PASS",
+            "reference": "docs/superpowers/specs/2026-07-07-design-agent-v31-protected-decal-design.md"
+        },
+        {
+            "id": "DESIGN-AGENT-SWARM-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "SwarmUI ops layer — install, API client, workflow mgmt",
+            "type": "feature",
+            "effort": "L",
+            "repo": "image generator + infra",
+            "summary": "GPU host SwarmUI; swarmui_client.py; design-agent-flux-paint-v1 workflow; smoke",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md",
+            "note": "swarmui_client scaffold DONE_IN_CODE; GPU install BLOCKED — G0.5 NO-GO 2026-07-07 (compositing fix required first)"
+        },
+        {
+            "id": "DESIGN-AGENT-FLUX-KONTEXT-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "FLUX Kontext paint_mask inpaint (realism layer)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "image generator",
+            "summary": "Inpaint paint_mask on clean_base; composited as ref; not full-frame edit",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "DESIGN-AGENT-CONTROLNET-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "ControlNet Depth + Canny from clean base",
+            "type": "feature",
+            "effort": "M",
+            "repo": "image generator",
+            "summary": "controlnet_maps.py; edge IoU > 0.90 gate; kontext-controlnet-fix",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "DESIGN-AGENT-OPENCV-DECAL-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "CANCELLED",
+            "title": "OpenCV truth — decal_rgba immutable + composited baseline",
+            "type": "feature",
+            "effort": "S",
+            "repo": "image generator",
+            "summary": "Harden brand_decal; decal_rgba artifact; G1b logo readable",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md",
+            "note": "G1b v2 PASS 2026-07-07: brand_decal 1200x675, clean base derive, logos/ manifest. g1b-v2-pass.json. Her-spike fal pending."
+        },
+        {
+            "id": "DESIGN-AGENT-HITL-01",
+            "sprint": "SPRINT-3",
+            "priority": "P0",
+            "status": "TODO",
+            "title": "HITL G5 — Dowódca Q3/Q4 (Q1/Q2 auto via QA-AUTO)",
+            "type": "docs",
+            "effort": "S",
+            "summary": "design-agent-hitl-protocol.md; 3 mockups; blocks ENABLE_PHOTOREAL",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "VGE-DA-05",
+            "sprint": "SPRINT-4",
+            "priority": "P2",
+            "status": "CANCELLED",
+            "title": "ComfyUI IC-Light photoreal (LEGACY — superseded by v3 Swarm+FLUX)",
+            "type": "feature",
+            "effort": "L",
+            "repo": "image generator",
+            "summary": "Optional experiment only; not MVP path per plan v3.1",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "VGE-DA-05-LEGACY",
+            "sprint": "SPRINT-4",
+            "priority": "P3",
+            "status": "TODO",
+            "title": "Comfy IC-Light legacy experiment (non-prod)",
+            "type": "feature",
+            "effort": "M",
+            "repo": "image generator",
+            "summary": "SDXL IC-Light via SwarmUI optional; compare vs protected decal path",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "DESIGN-AGENT-AI-02",
+            "sprint": "SPRINT-4",
+            "priority": "P2",
+            "status": "TODO",
+            "title": "Design Agent GPT conversational chat (Phase 2)",
+            "type": "feature",
+            "effort": "L",
+            "summary": "Replace scripted 5-step with GPT-4o-mini NL",
+            "reference": "docs/superpowers/specs/2026-07-04-dtp-process-page-design.md"
+        },
+        {
+            "id": "DESIGN-AGENT-VIEWS-01",
+            "sprint": "SPRINT-4",
+            "priority": "P2",
+            "status": "TODO",
+            "title": "Design Agent 3-panel carousel deur/zij/achter",
+            "type": "feature",
+            "effort": "M",
+            "summary": "6 images per session; no front view until Gem assets",
+            "reference": "docs/handoffs/2026-07-07-design-agent-ai-plan-v31-protected-decal.md"
+        },
+        {
+            "id": "BRIEF-VIZ-02",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P1",
+            "status": "TODO",
+            "title": "FlexGrafik +€29 — 2 mock-upy (Design Agent bridge) voertuig + flat",
+            "type": "feature",
+            "effort": "L",
+            "summary": "Brief form flex path like dtp-design-agent.js — twee ontwerpen per SKU; after audit FINAL",
+            "reference": "docs/brief-viz-visualizer.md"
+        },
+        {
+            "id": "BRIEF-VIZ-04",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "6 viscards VK/NW entry — add svg_template to SSoT",
+            "type": "feature",
+            "effort": "S",
+            "summary": "VK-001–003, NW-001–003 svg_template visitekaartje; contract audit 0 HIGH",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md"
+        },
+        {
+            "id": "BRIEF-FORM-PHP-01",
+            "sprint": "SPRINT-BRIEF-FORM-AUDIT",
+            "priority": "P1",
+            "status": "DONE",
+            "title": "Server-side validate file upload, flex brief, text stickers",
+            "type": "bugfix",
+            "effort": "M",
+            "summary": "fg_brief_validate_design_methods in functions.php; wrap 4 photos gate",
+            "reference": "docs/handoffs/2026-07-05-brief-form-deep-audit-plan.md"
+        },
+        {
+            "id": "CO-VCA-CHECKOUT-01",
+            "sprint": "SPRINT-RECORDING-GATE",
+            "priority": "P0",
+            "status": "DONE",
+            "completed_at": "2026-06-30",
+            "title": "Wizard lazy chunk → /afrekenen/ — fix processCheckout + E2E un-fixme",
+            "type": "bugfix",
+            "effort": "M",
+            "branch": "feat/co-vca-checkout-01",
+            "commit_prefix": "fix:",
+            "summary": "waitForCheckoutChunk w wizard-1-3.js; jumpToCheckoutFromIntro hard wait; E2E bez routeLocalWizard47; test.fixme → PASS na prod",
+            "reference": "docs/handoffs/2026-06-25-co-vca-checkout-plan.md",
+            "affected_files": [
+                {
+                    "path": "flexgrafik-wizard-theme/assets/js/wizard-1-3.js",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "flexgrafik-wizard-theme/assets/js/wizard-presets.js",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "tests/e2e/helpers/wizard-checkout.ts",
+                    "change_type": "MODIFY"
+                },
+                {
+                    "path": "tests/e2e/checkout-page.spec.ts",
+                    "change_type": "MODIFY"
+                }
+            ],
+            "notes": "PR #44 merged; E2E 8/8 PASS 2026-06-30 (checkout-page + wizard-checkout-preset); scripts/run-phase-0-revenue-gate.mjs"
+        },
+        {
             "id": "HDR-01",
             "title": "Logo: replace 1050x600 PNG with horizontal SVG or min 450x120px PNG — render min 120x36px desktop",
             "area": "HEADER/LOGO",
             "impact": "CRITICAL",
             "effort": "S",
-            "status": "TODO",
-            "notes": "Current render is 35x20px (unreadable pixel-art). File: assets/images/homepage/zzpackage-sublogo-vca.png. HTML width=140 height=48 is wrong aspect ratio."
+            "status": "DONE",
+            "completed_at": "2026-06-30",
+            "notes": "header.php + footer.php → logo-flexgrafik.svg 180×44; style.css HDR-A1 breakpoints live"
         },
         {
             "id": "HDR-02",
@@ -3075,8 +5506,9 @@
             "area": "HEADER/RESPONSIVE",
             "impact": "HIGH",
             "effort": "S",
-            "status": "TODO",
-            "notes": "No @media overrides for header exist. On mobile header is 64px (8.5% viewport). Target: <50px. Logo max-height 32px, CTA padding 0.4rem 1rem, font-size 0.8rem."
+            "status": "DONE",
+            "completed_at": "2026-06-30",
+            "notes": "style.css @media max-width 767/480/375 — HDR-A1 2026-06-03 verified"
         },
         {
             "id": "HDR-03",
@@ -3084,8 +5516,9 @@
             "area": "HEADER/CLEANUP",
             "impact": "MED",
             "effort": "XS",
-            "status": "TODO",
-            "notes": "header-cta has inline style='padding: 10px 20px; font-size: 0.85rem' that conflicts with CSS. Remove inline, add to stylesheet with @media (max-width: 375px) font-size: 0.75rem override."
+            "status": "DONE",
+            "completed_at": "2026-06-30",
+            "notes": "No inline style on .header-cta in header.php; rules in style.css only"
         },
         {
             "id": "HDR-04",
@@ -3093,8 +5526,9 @@
             "area": "HEADER/CONSISTENCY",
             "impact": "MED",
             "effort": "S",
-            "status": "TODO",
-            "notes": "Home: yellow 6px. Subpages: cyan 4px (inline div). Privacybeleid: missing. Fix: all pages get yellow 4px via header.php, remove inline stripes from page.php, page-faq.php, page-materials.php, page-algemene-voorwaarden.php."
+            "status": "DONE",
+            "completed_at": "2026-07-01",
+            "notes": "DONE 2026-07-01. style.css: yellow 6px home / 4px subpages via body:not(.home); header.php global stripe. Prod verified on /wizard/. Reconcile CRO close-loop."
         },
         {
             "id": "HDR-05",
@@ -3102,8 +5536,9 @@
             "area": "HEADER/A11Y",
             "impact": "MED",
             "effort": "XS",
-            "status": "TODO",
-            "notes": "WCAG 2.1 AA. Add :focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; } to .header-logo, .header-cta."
+            "status": "DONE",
+            "completed_at": "2026-07-01",
+            "notes": "DONE 2026-07-01. style.css L427 header-logo/header-cta :focus-visible. Prod CSS verified."
         },
         {
             "id": "HDR-06",
@@ -3111,8 +5546,9 @@
             "area": "HEADER/A11Y",
             "impact": "MED",
             "effort": "XS",
-            "status": "TODO",
-            "notes": "WCAG 2.1 AA. Add <a href=#primary class=skip-link>Skip to main content</a> before #masthead. Style: sr-only, on focus: visible positioned top-left."
+            "status": "DONE",
+            "completed_at": "2026-07-01",
+            "notes": "DONE 2026-07-01. header.php skip-link + style.css .skip-link. Prod HTML verified on /wizard/."
         },
         {
             "id": "MF01",
@@ -3517,6 +5953,31 @@
                 "effort": "S",
                 "status": "DONE",
                 "notes": "wiz-intro-stage with wizard-background.webp; Welkom eyebrow; 3-col how at 640px+; shortened NL step copy; preset/game cards outside stage."
+            },
+            {
+                "id": "WIZ-VCA-21",
+                "title": "Homepage Protocol 5-step — Zo werkt het cards + mockups",
+                "area": "HOME/VCA",
+                "impact": "HIGH",
+                "effort": "M",
+                "status": "DONE",
+                "branch": "feat/wiz-vca-21-graphics-fix",
+                "notes": "Graphics fix 2026-07-06: PR #64, SCP 5 WebP (Dowódca 1-3 + gen 4-5). Smoke 22/22 PASS prod. Handoff docs/handoffs/2026-07-06-home-protocol-graphics-fix-FINAL.md"
+            }
+        ]
+    },
+    "revenue_war_room": {
+        "status": "ACTIVE",
+        "contract": "../jadzia-core/docs/contracts/REVENUE-EVENT-CONTRACT-v1.md",
+        "tasks": [
+            {
+                "id": "REV-R0-02B",
+                "title": "Canonical GA4 order identity and INT-002 v2 evidence",
+                "area": "WIZARD/REVENUE",
+                "priority": "P0",
+                "status": "DONE_IN_CODE",
+                "completed_at": "2026-07-17",
+                "notes": "Bare WooCommerce order_id in GA4; additive payment/test/attribution evidence and durable checkout metadata. Tests only, no deploy."
             }
         ]
     },

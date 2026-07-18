@@ -1,65 +1,107 @@
 {
-  "updated": "2026-05-29",
+  "updated": "2026-06-24",
   "items": [
     {
-      "id": "queue-background-cancel",
+      "id": "p1-multi-repo",
       "status": "done",
       "priority": "high",
-      "title": "Background execution with queue, MAX_CONCURRENT=2 and robust cancel"
+      "title": "local_runner resolve_repo_path(module) per task — multi-repo fix + live smoke"
     },
     {
-      "id": "metrics-endpoint-ui-meters",
+      "id": "p2-executor-guard",
       "status": "done",
       "priority": "high",
-      "title": "GET /metrics and UI Worker/Queue meters wired"
+      "title": "Executor auto default, mock WARNING, opencode→real fallback, executor in handoff"
     },
     {
-      "id": "ui-pl-statuses-handoff-history",
+      "id": "p3-runner-daemon",
+      "status": "done",
+      "priority": "high",
+      "title": "Runner Windows Task Scheduler + run-runner.ps1 + heartbeat verified"
+    },
+    {
+      "id": "p4-vps-deploy",
+      "status": "done",
+      "priority": "high",
+      "title": "VPS full sync deploy + post-deploy smoke — audit recorded"
+    },
+    {
+      "id": "p5-login-env",
       "status": "done",
       "priority": "medium",
-      "title": "UI Polish: PL copy, translated status chips, clickable handoff, history totals"
+      "title": "show_ui_creds.py + runbook login sync section"
     },
     {
-      "id": "docs-readme-user-guide",
+      "id": "p6-adr-runner",
       "status": "done",
       "priority": "medium",
-      "title": "Docs: README (backend/UI) and USER_GUIDE_PL"
+      "title": "ADR-003 PC-on + UI RUNNER ON/NO RUNNER badge"
     },
     {
-      "id": "infra-prod-compose-plan",
-      "status": "open",
-      "priority": "high",
-      "title": "Production compose with Traefik (plan prepared; deploy next session)"
-    },
-    {
-      "id": "prod-deploy-steps",
-      "status": "open",
-      "priority": "high",
-      "title": "VPS deploy: DNS + start stack + verify HTTPS (manual)"
-    },
-    {
-      "id": "prod-cors-hardening",
-      "status": "open",
+      "id": "o1-queue-age",
+      "status": "done",
       "priority": "medium",
-      "title": "Restrict backend CORS to UI domain"
+      "title": "created_at in task_store + queue age in UI"
     },
     {
-      "id": "prod-systemd-autostart",
-      "status": "open",
+      "id": "o2-mobile-drawer",
+      "status": "done",
       "priority": "low",
-      "title": "Systemd unit for compose auto-start (optional)"
+      "title": "Mobile sidebar drawer < lg + ux:audit PASS"
     },
     {
-      "id": "history-aggregate-endpoint",
-      "status": "open",
+      "id": "portfolio-pack",
+      "status": "done",
+      "priority": "high",
+      "title": "Portfolio pack YAML + TRUTH + COPY script; services S7 case study sync"
+    },
+    {
+      "id": "figma-capture",
+      "status": "cancelled",
       "priority": "low",
-      "title": "Backend: aggregate history endpoint (totals) to avoid N+1 in UI"
+      "title": "Skipped — code-first design; UX audit JSON evidence sufficient"
     },
     {
-      "id": "coder-target-validation",
+      "id": "demo-video-obs",
+      "status": "cancelled",
+      "priority": "low",
+      "title": "Skipped — automated MP4 + smoke JSON sufficient for portfolio"
+    },
+    {
+      "id": "ship-dod-fixes",
+      "status": "open",
+      "priority": "high",
+      "title": "/ship — commit portfolio pack + render_demo_video fix + uncommitted DoD fixes"
+    },
+    {
+      "id": "services-portfolio-push",
+      "status": "open",
+      "priority": "high",
+      "title": "Push services → Vercel; verify /results/agent-orchestrator/ live"
+    },
+    {
+      "id": "deploy-ui-a11y",
       "status": "open",
       "priority": "medium",
-      "title": "Validate Coder output against plan target_file"
+      "title": "Deploy agent-os-ui tabIndex scroll fix to VPS"
+    },
+    {
+      "id": "runner-reboot-test",
+      "status": "open",
+      "priority": "medium",
+      "title": "Reboot PC → verify AgentOS-LocalRunner auto-start + runner_online"
+    },
+    {
+      "id": "vps-ui-password-sync",
+      "status": "open",
+      "priority": "medium",
+      "title": "Provision AGENT_OS_UI_PASSWORD on VPS for sync_env_from_vps.py"
+    },
+    {
+      "id": "zzpackage-live-e2e",
+      "status": "open",
+      "priority": "high",
+      "title": "First real business task on zzpackage.flexgrafik.nl via hybrid pipeline"
     }
   ]
 }
