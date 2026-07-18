@@ -43,6 +43,7 @@ hero:
     <p>Baza wiedzy i rozwoj.</p>
     <ul>
       <li><a href="/study/study-index">Dziennik Studiow</a></li>
+      <li><a href="/ecosystem/ai-os-knowledge">AI OS Knowledge (SoT)</a></li>
       <li><a href="/reference/glossary">Slownik Pojec</a></li>
       <li><a href="/reference/prompt-formulas">Zlote Prompty</a></li>
     </ul>

@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: jadzia-core"
-updated: "2026-06-17T07:39:00.359Z"
+updated: "2026-06-25T13:50:37.269Z"
 repo_name: "jadzia-core"
 repo_slug: "jadzia-core"
 repo_type: "ai-core"
@@ -29,6 +29,7 @@ links_recent_handoffs: ["docs/handoffs/2026-06-02-c1-04-api-integration-tests.md
 
 - **Canonical brain**: `brain.md`
 - **Canonical todo**: `todo.json`
+- **AI OS knowledge (SoT)**: [../ai-os-knowledge.md](../ai-os-knowledge.md) → jadzia `docs/ops/KNOWLEDGE-SYSTEM-INDEX.md` + scorecard (COI-KNOW-01)
 
 ## Status
 
