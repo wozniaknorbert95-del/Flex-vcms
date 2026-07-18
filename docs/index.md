@@ -37,6 +37,7 @@ hero:
     <ul style="list-style: none; padding: 0;">
       <li><a href="/study/study-index">Dziennik Studiow</a></li>
       <li><a href="/docs/ecosystem/ai-os-knowledge">AI OS Knowledge (SoT)</a></li>
+      <li><a href="/docs/ecosystem/ai-os-processes">AI OS Processes (SoT)</a></li>
       <li><a href="/reference/glossary">Slownik Pojec</a></li>
       <li><a href="/reference/prompt-formulas">Zlote Prompty</a></li>
     </ul>
