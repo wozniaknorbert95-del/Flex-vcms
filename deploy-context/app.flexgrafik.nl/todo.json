@@ -2,17 +2,17 @@
   "_meta": {
     "project": "Bouwplaats Chaos — ZZP Advergame",
     "url": "https://app.flexgrafik.nl",
-    "last_updated": "2026-06-12 16:45 UTC — P1 deployed, operational phase started, Q3 planning initiated",
-    "current_phase": "OPERATIONAL (Post-P1 Deployment)",
-    "branch_live": "main @d8802af (session closure committed)",
-    "branch_dev": "main @d8802af",
-    "production_status": "✅ LIVE (HTTP 200, HTTP/1.1)",
-    "tests_status": "✅ 209/209 PASS",
+    "last_updated": "2026-07-06 — reward display consistency audit & deploy (main @6632d02)",
+    "current_phase": "OPS-W1 — STABILIZATION & MONITORING",
+    "branch_live": "main @6632d02",
+    "branch_dev": "main",
+    "production_status": "✅ LIVE — reward display consistency P0-P4 + git cleanup (6632d02)",
+    "tests_status": "✅ 225/225 vitest + 8/8 e2e prod-smoke",
     "typescript_status": "✅ 0 ERRORS (strict mode)",
     "security_status": "✅ 0 CVEs (npm audit clean)",
-    "bundle_status": "✅ 456 KB JS, 140 KB gzip (within budget)",
-    "deployment_latest": "2026-06-12 15:42 UTC — GHA #27404099820 SUCCESS",
-    "session_summary": "docs/handoffs/2026-06-12-FINAL-SESSION-SUMMARY.md"
+    "bundle_status": "✅ ~471 KB JS, ~141 KB gzip main chunks (within budget)",
+    "deployment_latest": "2026-07-06 — deploy_all.ps1 SUCCESS (reward consistency fixes, main @6632d02)",
+    "session_summary": "docs/handoffs/2026-07-06-reward-display-consistency.md"
   },
 
   "operational_roadmap": [

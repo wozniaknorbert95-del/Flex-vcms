@@ -2,13 +2,28 @@
   "project": "flexgrafik-nl",
 
   "status": "ACTIVE",
-  "last_updated": "2026-05-18",
+  "last_updated": "2026-07-06",
   "current_sprint": {
-    "id": "S7",
-    "title": "Portal modernization deployed (diensten, over-ons, contact); FX-PERF-IMG-01 open.",
-    "started": "2026-05-18",
-    "first_task_id": "FX-PERF-IMG-01",
-    "plan_handoff": "docs/handoffs/2026-05-18-portal-modernization-deploys.md"
+    "id": "S13",
+    "title": "Portal sales polish (post-audit)",
+    "started": "2026-07-05",
+    "status": "IN_PROGRESS",
+    "first_task_id": "FX-S15-PORTFOLIO-01",
+    "plan_handoff": "docs/handoffs/2026-07-06-chat-ux-humanize-refactor.md",
+    "audit_report": "docs/audits/2026-07-05-portal-sales-audit.md",
+    "supersedes": "S12 (home conversion polish closed)"
+  },
+  "launch_readiness": {
+    "reconciliation": "docs/reconciliation/2026-06-25-portal-truth.md",
+    "launch_gate": "PASS",
+    "launch_p0": [],
+    "launch_p1": [],
+    "post_launch": [],
+    "blocked_content": [
+      "FX-OPT-S2-002",
+      "FX-OPT-S2-003",
+      "FX-SOCIAL-PROOF-01"
+    ]
   },
   "stage_plan": [
     {
@@ -47,6 +62,228 @@
     }
   ],
   "tasks": [
+    {
+      "id": "FX-LAUNCH-SMOKE-01",
+      "stage": "S8",
+      "title": "Rozszerz deploy smoke o /nl/diensten/ i /nl/over-ons/",
+      "area": "DEVX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "scripts/deploy.ps1"
+      ],
+      "depends_on": [],
+      "notes": "Done 2026-06-25. Smoke paths + TimeoutSec 60 (homepage LCP). Verified -SmokeOnly PASS."
+    },
+    {
+      "id": "INT-012-QUAL-B2",
+      "stage": "INT-012",
+      "title": "Portal qualification: jadzia state machine + /portal/qualify",
+      "area": "AI",
+      "impact": "HIGH",
+      "effort": "L",
+      "status": "DONE",
+      "files": [
+        "../jadzia-core/agent/portal_qualification/",
+        "../jadzia-core/api/routes/portal_qualify.py"
+      ],
+      "depends_on": [],
+      "notes": "Done 2026-06-25. 18 pytest PASS. Deploy jadzia manual. Widget not switched."
+    },
+    {
+      "id": "INT-012-QUAL-B3",
+      "stage": "INT-012",
+      "title": "zzpackage: fix ?preset= deep link (hadSavedState blocker)",
+      "area": "WIZARD",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "../zzpackage.flexgrafik.nl/flexgrafik-wizard-theme/assets/js/wizard-presets.js"
+      ],
+      "depends_on": ["INT-012-QUAL-B2"],
+      "notes": "Done 2026-06-25. utm_source=portal_qual always applies url preset; resets state."
+    },
+    {
+      "id": "INT-012-QUAL-C",
+      "stage": "INT-012",
+      "title": "chat-widget.js v2: chips, CTA, consent, /portal/qualify",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/assets/js/chat-widget.js",
+        "flexgrafik-child/assets/css/chat-widget.css",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": ["INT-012-QUAL-B3", "INT-012-QUAL-DEPLOY"],
+      "notes": "Done 2026-06-25. qual flag OFF until deploy; legacy fallback; home+contact enqueue."
+    },
+    {
+      "id": "INT-012-QUAL-B5",
+      "stage": "INT-012",
+      "title": "portal_qual_leads table + lead_store + Telegram hot alert",
+      "area": "AI",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "../jadzia-core/agent/portal_qualification/lead_store.py",
+        "../jadzia-core/agent/db.py"
+      ],
+      "depends_on": ["INT-012-QUAL-B2"],
+      "notes": "Done 2026-06-25. GDPR consent gate; 24m retention."
+    },
+    {
+      "id": "INT-012-QUAL-B4",
+      "stage": "INT-012",
+      "title": "Haiku slot extractor fallback (PORTAL_QUAL_LLM_SLOTS)",
+      "area": "AI",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "../jadzia-core/agent/portal_qualification/slot_extractor_llm.py"
+      ],
+      "depends_on": ["INT-012-QUAL-B2"],
+      "notes": "Done 2026-06-25. Golden set eval TODO post-rollout."
+    },
+    {
+      "id": "INT-012-QUAL-DEPLOY",
+      "stage": "INT-012",
+      "title": "Deploy jadzia-core with /portal/qualify endpoint",
+      "area": "OPS",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "../jadzia-core/",
+        "flexgrafik-child/assets/js/chat-widget.js",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": ["INT-012-QUAL-B2"],
+      "notes": "Done 2026-06-25. Phases 1-4 LIVE; mu-plugin qual ON; hotfix 6d658fc v2.0.2; handoff docs/handoffs/2026-06-25-int012-deploy-complete.md"
+    },
+    {
+      "id": "FX-HOME-P0-01",
+      "stage": "S8",
+      "title": "Home: napraw 404 /hoe-scoor-jij-je-branding/ (game CTA)",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/footer.php"
+      ],
+      "depends_on": [],
+      "notes": "Done 2026-06-25. Links → app.flexgrafik.nl; GHA 28192753348; LiteSpeed purge OK."
+    },
+    {
+      "id": "FX-HOME-P0-02",
+      "stage": "S8",
+      "title": "Home: zastąp placeholder Google Reviews link (g.page CXXx)",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/assets/data/google-reviews-nl.json"
+      ],
+      "depends_on": [],
+      "notes": "Done 2026-06-25. 6 echte recensies (anoniem, NL), swipe carousel, share.google link."
+    },
+    {
+      "id": "FX-HOME-P1-01",
+      "stage": "S8",
+      "title": "Home: usuń/zmień przeterminowany launch banner (1 juni)",
+      "area": "COPY",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/header.php"
+      ],
+      "depends_on": [],
+      "notes": "LIVE 2026-06-25: evergreen copy deployed then strip removed per Dowódca — header.php bez fg-launch-banner."
+    },
+    {
+      "id": "FX-LAUNCH-NAV-01",
+      "stage": "S8",
+      "title": "Desktop nav: link Over ons (obecnie tylko mobile + footer)",
+      "area": "UX",
+      "impact": "LOW",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/header.php"
+      ],
+      "depends_on": [],
+      "notes": "P1 po launch; nie blokuje klientow."
+    },
+    {
+      "id": "FX-CHAT-UI-01",
+      "stage": "S8",
+      "title": "Chat widget: consent readable + brand token alignment",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/assets/css/chat-widget.css",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": [],
+      "notes": "Fix Astra label override on consent; map cyan/magenta to brand-colors.css tokens; v2.0.3."
+    },
+    {
+      "id": "FX-CHAT-HUMANIZE-01",
+      "stage": "S13",
+      "title": "Chat widget: warmer, shorter, more human-like UX",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/assets/js/chat-widget.js",
+        "flexgrafik-child/assets/css/chat-widget.css",
+        "flexgrafik-child/functions.php"
+      ],
+      "depends_on": ["FX-CHAT-UI-01"],
+      "notes": "2026-07-06. Rebrand header, shorten consent/copy, add WhatsApp fallback chip, chunk long AI replies, message animations. Theme v2.0.4 cache bust. Deploy verified; Lighthouse a11y 100."
+    },
+    {
+      "id": "FX-LAUNCH-DEPREC-01",
+      "stage": "S8",
+      "title": "Oznacz page-services.php jako deprecated w naglowku template",
+      "area": "DEVX",
+      "impact": "LOW",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-services.php"
+      ],
+      "depends_on": [],
+      "notes": "Done 2026-07-01. @deprecated header; kanon = page-diensten.php + /nl/diensten/. Closes S8 launch_p1."
+    },
+    {
+      "id": "FX-LAUNCH-ASSETS-01",
+      "stage": "S8",
+      "title": "Commit home-composite-src/ dla reprodukowalnosci assetow",
+      "area": "PERF",
+      "impact": "LOW",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/assets/images/home-composite-src/"
+      ],
+      "depends_on": [],
+      "notes": "Untracked w reconciliation; prod uzywa skompilowanych WebP."
+    },
     {
       "id": "FX-OPT-S1-001",
       "stage": "S1",
@@ -470,8 +707,45 @@
       "area": "PERF",
       "impact": "HIGH",
       "effort": "M",
-      "status": "TODO",
-      "notes": "placeholder-pakket-*.webp en dienst-afbeeldingen zijn donkere placeholders. Echte before/after foto's van klanten (bus wraps, werkkleding) hier plaatsen — maximale social proof."
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/assets/images/home-packages/",
+        "flexgrafik-child/assets/images/home-services/",
+        "docs/home-asset-map.json",
+        "scripts/sync-home-assets-from-zzpackage.py"
+      ],
+      "notes": "2026-05-19: Product heroes van zzpackage SSoT (wrap_basic, wrap_pro, MA-L-SET, OC-001, TB-001, F-001) → WebP in home-packages/ en home-services/. Sync-script herbruikbaar."
+    },
+    {
+      "id": "FX-HOME-GROEIPAD-01",
+      "title": "Homepage #pakketten aligned met wizard groeipaden + live CTA",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "SUPERSEDED",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Revoked 2026-07-05 FX-WIZARD-ONLY-01. #pakketten removed; wizard-only funnel."
+    },
+    {
+      "id": "FX-HOME-COMPOSITE-01",
+      "title": "Groeipad package hero composites (multi-product knolling)",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "SUPERSEDED",
+      "files": [
+        "docs/home-composite-recipes.json",
+        "scripts/compose-package-heroes.py",
+        "flexgrafik-child/assets/images/home-packages/",
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/brand-colors.css",
+        "docs/home-asset-map.json"
+      ],
+      "notes": "Revoked 2026-07-05 FX-WIZARD-ONLY-01. home-packages/ and compositor removed."
     },
     {
       "id": "FX-HOME-PORTFOLIO-01",
@@ -480,7 +754,20 @@
       "impact": "HIGH",
       "effort": "M",
       "status": "DONE",
-      "notes": "Geïmplementeerd als statische sectie #portfolio-proof na Waarom FlexGrafik, vóór reviews. CTA naar /ons-werk/ (i.p.v. /portfolio-diensten/). Zie FX-OPT-S1-002."
+      "notes": "Geïmplementeerd als statische sectie #portfolio-proof na Waarom FlexGrafik, vóór reviews. Dual CTA: primary /portfolio-diensten/, secondary /ons-werk/ (FX-HOME-PORTFOLIO-LINK-01). Zie FX-OPT-S1-002."
+    },
+    {
+      "id": "FX-HOME-PORTFOLIO-LINK-01",
+      "title": "Home #portfolio-proof: dual CTA naar /portfolio-diensten/ + /ons-werk/",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "depends_on": ["FX-PORTFOLIO-PAGE-01"],
+      "notes": "Completes portfolio funnel after FX-PORTFOLIO-PAGE-01. Handoff: docs/handoffs/2026-07-01-fx-home-portfolio-link.md"
     },
     {
       "id": "FX-HERO-PRICE-01",
@@ -500,8 +787,8 @@
       "area": "UX",
       "impact": "HIGH",
       "effort": "L",
-      "status": "TODO",
-      "notes": "Footer 'Snel naar' heeft al aparte links: Portfolio → /ons-werk/, Diensten → /services/. Open: dedicated landingspagina /portfolio-diensten/ (of gekozen slug) met min. 6 projecten (bus, kleding, borden), dark premium, CTA Wizard onderaan. Eventueel extra crosslinks vanaf home — geen kapotte enkele footerlink meer."
+      "status": "DONE",
+      "notes": "Template page-portfolio-diensten.php — 8 project cards, 4 diensten pillars, Wizard CTA. Handoff: docs/handoffs/2026-07-01-fx-portfolio-page.md. WP page + deploy pending Dowódca."
     },
     {
       "id": "FX-ABOUT-ONS-01",
@@ -518,8 +805,12 @@
       "area": "COPY",
       "impact": "MED",
       "effort": "M",
-      "status": "TODO",
-      "notes": "ZZP-ers identificeren zich sterk met hun sector. Toon 5-6 beroepen als pills/icons. Plaatsen tussen hero en pakket-sectie. Verhoogt relevantie-herkenning direct."
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Sectie #voor-wie met 6 sector pills tussen hero en groeipaden."
     },
     {
       "id": "FX-SOCIAL-PROOF-01",
@@ -605,8 +896,11 @@
       "area": "ECO",
       "impact": "MED",
       "effort": "M",
-      "status": "TODO",
-      "notes": "Bezoeker weet niet wat hem te wachten staat na klik. Toon ZZPackage sublogo + screenshot/mockup van Wizard stappen bij de primaire CTA-sectie. Verwachting instellen = meer kliks."
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php"
+      ],
+      "notes": "ZZPackage sublogo + '9 stappen · live' in finale CTA-banner; eco pills sectie dekt wizard-preview verwachting."
     },
     {
       "id": "FX-ECO-TOOLS-01",
@@ -614,8 +908,12 @@
       "area": "ECO",
       "impact": "MED",
       "effort": "S",
-      "status": "TODO",
-      "notes": "Ecosysteem-zichtbaarheid op de portal. Twee pills: [ZZPackage Wizard — configureer je branding] [Branding Game — win kortingscodes]. Met korte toelichting."
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Sectie .fg-home-eco met Wizard + Branding Game pills na Waarom FlexGrafik."
     },
     {
       "id": "FX-A11Y-ALT-01",
@@ -662,8 +960,37 @@
       "area": "UX",
       "impact": "MED",
       "effort": "M",
-      "status": "TODO",
-      "notes": "Was FLEX-FINAL-003. Bridge-pagina tussen portal en game. Uitleg hoe de game werkt + CTA naar app.flexgrafik.nl. Dark gamified look."
+      "status": "DONE",
+      "depends_on": ["FX-HOME-P0-01"],
+      "files": [
+        "flexgrafik-child/page-game-rules.php",
+        "flexgrafik-child/brand-colors.css",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/footer.php",
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/404.php",
+        "scripts/deploy.ps1"
+      ],
+      "notes": "Done 2026-07-01. Bridge /hoe-scoor-jij-je-branding/; portal CTAs → landing; play CTA → app. Handoff: docs/handoffs/2026-07-01-fx-game-landing.md"
+    },
+    {
+      "id": "FX-GAME-LANDING-02",
+      "title": "Game landing SSoT — align with app spelinstructie",
+      "area": "COPY",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "depends_on": ["FX-GAME-LANDING-01"],
+      "files": [
+        "flexgrafik-child/page-game-rules.php",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/brand-colors.css",
+        "docs/copy/game-portal-bridge-nl.md",
+        "scripts/deploy.ps1",
+        "docs/handoffs/2026-07-06-game-landing-ssot-alignment.md"
+      ],
+      "notes": "2026-07-06. Bouw je Imperium hero; reward ladder; maandprijs logo; purge gratis/gegarandeerd GAME10. Upstream: app spelinstructie.html."
     },
     {
       "id": "FX-PRIVACY-OPT-01",
@@ -673,6 +1000,273 @@
       "effort": "M",
       "status": "DONE",
       "notes": "Przegląd i ujednolicenie wizualne/treściowe polityki prywatności pod standard B2B/Dark Premium."
+    },
+    {
+      "id": "FX-PD-01",
+      "stage": "S9",
+      "title": "Portfolio/Diensten hub P0 funnel fixes",
+      "area": "PORTFOLIO",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-portfolio-diensten.php",
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/page-portfolio.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "preset starter-zzp, anchors on /ons-werk/, .fg-button--outline, cross-links hub ↔ diensten ↔ ons-werk, /portfolio/ → hub redirect."
+    },
+    {
+      "id": "FX-PD-02",
+      "stage": "S9",
+      "title": "Diensten NL copy + SEO cleanup",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/functions.php"
+      ],
+      "notes": "Markdown leak, Yoast title Diensten, ons-werk meta i.e. removed, Vloot UI copy, SVG NL."
+    },
+    {
+      "id": "FX-PD-03",
+      "stage": "S9",
+      "title": "Portfolio hub UX polish",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-portfolio-diensten.php",
+        "flexgrafik-child/page-ons-werk.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Hero proof grid, Bouwborden TB-001 image, curated ErKa gallery, section roles clarified."
+    },
+    {
+      "id": "FX-PD-05",
+      "stage": "S9",
+      "title": "Portfolio polish: Vloot copy, grouped hub, Wizard CTAs",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/page-portfolio-diensten.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/footer.php",
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Flota→Vloot UI on home; /portfolio/ init redirect; hub project groups; nav/footer Wizard → /wizard/."
+    },
+    {
+      "id": "FX-PD-06",
+      "stage": "S9",
+      "title": "Portfolio hub showcase: 6 Wizard ontwerpdiensten + real-result galerij + lightbox",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "L",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-portfolio-diensten.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "Blok A (6 SKU 1:1 Wizard Foundation, geen prijzen, CTA→Wizard), Blok B (categoriefilter + lightbox, 19 echte foto's), Blok C (diensten→presets). Prijzen geverifieerd vs product-master-table.json. Commit 9da5279; GHA 28568099312 PASS; smoke 200. Handoff: docs/handoffs/2026-07-02-portfolio-diensten-showcase.md. Gaps: dedicated mockups F-001-SOC/DF-005/006/007; per-SKU deep-link = TO-BE. Actie: LiteSpeed Purge All."
+    },
+    {
+      "id": "FX-PD-07",
+      "stage": "S9",
+      "title": "Portfolio assets: vul lege design/ + realisaties/ mappen (Dowódca)",
+      "area": "CONTENT",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "IN_PROGRESS",
+      "files": [
+        "flexgrafik-child/assets/images/portfolio/design/online-aanwezigheid/",
+        "flexgrafik-child/assets/images/portfolio/design/zichtbaarheid/",
+        "flexgrafik-child/assets/images/portfolio/realisaties/werkkleding/",
+        "flexgrafik-child/assets/images/portfolio/realisaties/stickers-magneten/",
+        "flexgrafik-child/assets/images/portfolio/realisaties/banners-borden/",
+        "flexgrafik-child/assets/images/portfolio/realisaties/kaartjes/"
+      ],
+      "notes": "2026-07-05: werkkleding (5), magneten (4), borden (1) live BLOK B. Cache/filter 50806b5. Home proces timeline af88e7b. Kaartjes + design/online + design/zichtbaarheid nog open. Handoff: docs/handoffs/2026-07-05-home-proces-timeline-header.md."
+    },
+    {
+      "id": "FX-WIZARD-ONLY-01",
+      "stage": "S11",
+      "title": "Wizard-only portal funnel — purge pakketten/groeipaden",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/page-portfolio.php",
+        "flexgrafik-child/page-services.php",
+        "flexgrafik-child/brand-colors.css",
+        "scripts/deploy.ps1",
+        "docs/copy/wizard-only-funnel-nl.md",
+        "brain.md",
+        "todo.json"
+      ],
+      "notes": "2026-07-05. Removed #pakketten, all ?preset= portal links, home-packages assets. SSoT: docs/copy/wizard-only-funnel-nl.md. Handoff: docs/handoffs/2026-07-05-wizard-only-purge.md"
+    },
+    {
+      "id": "FX-HOME-CONV-01",
+      "stage": "S12",
+      "title": "Home conversion polish — single-path hero, trust bar, portfolio labels",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/brand-colors.css",
+        "docs/copy/home-hero-nl.md",
+        "docs/copy/wizard-only-funnel-nl.md",
+        "scripts/deploy.ps1",
+        "brain.md",
+        "todo.json"
+      ],
+      "notes": "2026-07-05. Single-path fold: Minimum €199, proof chips, trust bar, removed fg-da-promo. Diensten/portfolio/FAQ polish. SSoT: docs/copy/home-hero-nl.md. Handoff: docs/handoffs/2026-07-05-home-conversion-polish.md"
+    },
+    {
+      "id": "FX-PORTAL-SALES-AUDIT-01",
+      "stage": "S13-prep",
+      "title": "Portal sales audit — all pages pre-polish",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "docs/audits/2026-07-05-portal-sales-audit.md",
+        "docs/handoffs/2026-07-05-portal-sales-audit.md",
+        "brain.md",
+        "todo.json"
+      ],
+      "notes": "2026-07-05. Static grep + live desktop walkthrough. Verdict: hybrid — home OK fold, diensten/contact fail sales tool test. Avg P0 ~2.8. Backlog S13-S16 mapped."
+    },
+    {
+      "id": "FX-S13-COPY-01",
+      "stage": "S13",
+      "title": "Copy alignment — Minimum €199, purge pakket marketing, Wizard URL",
+      "area": "COPY",
+      "impact": "HIGH",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/page-portfolio.php",
+        "flexgrafik-child/page-contact.php",
+        "flexgrafik-child/page-about.php",
+        "flexgrafik-child/footer.php",
+        "flexgrafik-child/404.php",
+        "flexgrafik-child/page-game-rules.php",
+        "scripts/deploy.ps1",
+        "docs/copy/wizard-only-funnel-nl.md"
+      ],
+      "depends_on": ["FX-PORTAL-SALES-AUDIT-01"],
+      "notes": "2026-07-05. Minimum €199 excl. meta+subpages; pakket purge hero/CTA; fg_wizard_url /wizard/; smoke S13. Handoff: docs/handoffs/2026-07-05-s13-copy-alignment.md"
+    },
+    {
+      "id": "FX-S14-DIENSTEN-01",
+      "stage": "S14",
+      "title": "Diensten slimming — single-path CTA, cut team/proces dup",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": ["FX-S13-COPY-01"],
+      "notes": "2026-07-05. ~630→~170 lines; cut team, 7-step dup, proces accordion; single-path hero. Handoff: docs/handoffs/2026-07-05-s14-diensten-contact-slimming.md"
+    },
+    {
+      "id": "FX-S14-CONTACT-01",
+      "stage": "S14",
+      "title": "Contact slimming — FAQ to master SSoT, Wizard primary hero",
+      "area": "UX",
+      "impact": "HIGH",
+      "effort": "M",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-contact.php",
+        "docs/copy/faq-portal-master-nl.md"
+      ],
+      "depends_on": ["FX-S13-COPY-01"],
+      "notes": "2026-07-05. FAQ 9→5; Wizard primary hero; WhatsApp secondary; AI text link; pakket purge FAQ body."
+    },
+    {
+      "id": "FX-S15-PORTFOLIO-01",
+      "stage": "S15",
+      "title": "Portfolio hero CTA → Wizard; hide kaartjes placeholders",
+      "area": "CRO",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-portfolio.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": ["FX-S13-COPY-01"],
+      "notes": "2026-07-05. Wizard hero primary; 50+ removed; kaartjes hidden; Stel samen copy. Handoff: docs/handoffs/2026-07-05-s15-portfolio-about-slimming.md"
+    },
+    {
+      "id": "FX-S15-ABOUT-01",
+      "stage": "S15",
+      "title": "Over ons slimming — cut timeline fluff, standard CTA button",
+      "area": "UX",
+      "impact": "MED",
+      "effort": "S",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/page-about.php"
+      ],
+      "depends_on": ["FX-S13-COPY-01"],
+      "notes": "2026-07-05. Milpa timeline cut; trust 3-card block; standard CTA; vibe-coder purge."
+    },
+    {
+      "id": "FX-S16-VISUAL-01",
+      "stage": "S16",
+      "title": "Visual dedup — inline CSS to brand-colors, gradient purge",
+      "area": "DEVX",
+      "impact": "LOW",
+      "effort": "M",
+      "status": "TODO",
+      "files": [
+        "flexgrafik-child/page-diensten.php",
+        "flexgrafik-child/page-about.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "depends_on": ["FX-S14-DIENSTEN-01"],
+      "notes": "Post-slimming cleanup. Dead .fg-home-proces__cta CSS."
+    },
+    {
+      "id": "FX-DA-01",
+      "stage": "S10",
+      "title": "Design Agent CTA — homepage + header (cross-domain naar zzpackage)",
+      "area": "CRO",
+      "impact": "HIGH",
+      "effort": "XS",
+      "status": "DONE",
+      "files": [
+        "flexgrafik-child/functions.php",
+        "flexgrafik-child/header.php",
+        "flexgrafik-child/front-page.php",
+        "flexgrafik-child/brand-colors.css"
+      ],
+      "notes": "P2-11 mirror. CTA: Ontwerp je bus — gratis → /voertuigreclame-ontwerp/. Handoff: docs/handoffs/2026-07-04-design-agent-homepage-cta-handoff.md. Deploy GHA 28718583340 PASS; prod verified 2026-07-04."
     }
   ],
   "completed": [
@@ -690,7 +1284,8 @@
     "FLEX-AI-CHATBOT-DEPLOYMENT", "FLEX-PORTFOLIO-ASSETS-FIX", "FLEX-NAV-LINKS-FIX",
     "FLEX-RESCUE-KRZYSZTOFWOZNIAK", "FLEX-DB-MIGRATION-FIX", "FLEX-CHATBOT-NL-FIX",
     "FLEX-AV-UPDATE-17-ARTICLES", "FX-PRIVACY-OPT-01", "FX-PORTFOLIO-UX-01",
-    "FX-ABOUT-ONS-01", "FX-OPT-S3-001", "FX-OPT-S3-002"
+    "FX-ABOUT-ONS-01", "FX-OPT-S3-001", "FX-OPT-S3-002",
+    "FX-PD-01", "FX-PD-02", "FX-PD-03", "FX-PD-04", "FX-PD-05", "FX-PD-06"
   ],
   "blocked_by": null
 }

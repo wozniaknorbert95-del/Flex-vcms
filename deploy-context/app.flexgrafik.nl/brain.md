@@ -1,6 +1,6 @@
 # Brain APP — APP.FLEXGRAFIK.NL
 
-## Źródło prawdy dla modułu Game / PWA | v1.8 | 2026-06-12
+## Źródło prawdy dla modułu Game / PWA | v1.9 | 2026-07-06
 
 ---
 
@@ -134,10 +134,12 @@ Strategische taken en sprint-status staan in **`todo.json`** (`future_sprints`, 
 
 ### Maandprijs (bepaald door Norbert)
 
-- Fysiek product uit productierestanten (elke maand anders)
-- Voorbeeld: magneetbord set, bedrukkte hoodie, stickerpakket
-- Winnaar = hoogste score, tie-break = snelste tijd
-- 10 dagen om prijs op te halen
+- **Hoofdprijs:** bedrijfslogo van de maandwinnaar op een geselecteerd bouwplaats-platform in de game — zichtbaar voor alle spelers de volgende kalendermaand (vervangt demo-slot „Plaats voor jouw logo”).
+- **Voorwaarde:** hoogste score van de kalendermaand onder spelers die minstens één levelbonus hebben geclaimd via ZZPackage-activatie (min. €199 incl. BTW).
+- **Tie-break:** snelste speeltijd (kortste duur van de winnende run).
+- **Fysieke bonus (optioneel):** product uit productierestanten (elke maand anders), bijv. magneetbord set of stickerpakket.
+- **Technisch:** ranglijst-API groepeert scores per ISO-week (`getCurrentSeason`); maandwinnaar wordt handmatig bepaald aan einde kalendermaand.
+- Contact winnaar binnen 10 werkdagen; logo alleen met merkrechtelijke toestemming.
 
 ### Level-beloningen (reward ladder)
 
@@ -149,6 +151,23 @@ Strategische taken en sprint-status staan in **`todo.json`** (`future_sprints`, 
 - Game over fallback = GAME10 (10% korting)
 - Geldig bij activatie ZZPackage, min. besteding €199 incl. BTW
 - **Game→Wizard bridge:** token via `zzpackage` `/game-token`; bonus SKU + GAME10 op **/afrekenen/** (sidebar wizard stap 1 mag leeg). CTA: ranglijst `GameBonusCTA` na game over (niet level-complete overlay L3).
+
+### Reward Display Consistency (2026-07-06)
+
+**Problem:** Game Over overlay używał `getDisplayLevelFromScore(score)` (score-band heuristic), podczas gdy Leaderboard używał `promoWizardLevel(engineLevel, score)` (engine-first). Gracz z score 1800 na Level 3 widział GAME10 na Game Over, ale STICKER1 na Leaderboardzie.
+
+**Rozwiązanie:**
+
+- `GameContainer.tsx` przekazuje `currentLevelId` z engine snapshot do `NewGameOverOverlay` (SSoT)
+- `NewGameOverOverlay.tsx` używa `currentLevelId` zamiast `getDisplayLevelFromScore(score)`
+- `leadRewardTier.ts` używa `getDisplayLevelFromScore` jako fallback (backend = UI)
+- "Troostprijs" renderowany TYLKO gdy `rewardInfo === null` (brak nagrody levelowej)
+- Level 1: etykieta "Jouw bonus" zamiast "Troostprijs" (pozytywny ton)
+- Level Complete: "AANKOOPBONUS ONTGRENDELD — LEVEL X" (jawne powiązanie)
+
+**Files:** `GameContainer.tsx`, `NewGameOverOverlay.tsx`, `NewLevelCompleteOverlay.tsx`, `leadRewardTier.ts`
+
+**Testy:** 225/225 vitest + 8/8 e2e prod-smoke ✅
 
 ---
 
@@ -324,11 +343,11 @@ npm run build
 2. SFTP upload `dist/*` → serwer
 3. Cleanup starych `assets/.htaccess` na serwerze
 
-**Laatste prod-close:** 2026-06-12 — `main` @ **52c1e21** (PR #fix/icon-integrity-audit); deploy GHA [#27399234574](https://github.com/wozniaknorbert95-del/app.flexgrafik.nl/actions/runs/27399234574). 4 anomaly fixes: collisions, orphan asset, dead code, ENEMY distinguisher. Vitest 209/209, tsc clean, build 409 modules, prod-smoke 8/8. **PREV:** 2026-06-09 — 0b876e4 (PR #90 S17-W1).
+**Laatste prod-close:** 2026-07-06 — `main` @ **6632d02** (reward display consistency P0-P4); deploy `scripts/deploy_all.ps1`. Git cleanup: 15 branches usunięte. Vitest 225/225, tsc clean, build 471 modules, prod-smoke 8/8. Reward SSoT: Game Over + Leaderboard + Backend tier spójne. Handoff: `docs/handoffs/2026-07-06-reward-display-consistency.md`. **PREV:** 2026-06-12 — 52c1e21 (icon-integrity-audit).
 
 **Eerdere verify milestone:** 2026-06-01 — `fix/leaderboard-403-compound-bug` @ **e33d8e1**; `scripts/deploy_all.ps1`; vitest 91/91, tsc clean, vite build 384 mod. Health: app 200 OK, sprite 200 OK, `lang=nl` verified, `Cache-Control: public, max-age=31536000` on hashed JS. Chrome DevTools smoke: game loads (Level 1, HUD), alle assets 200 OK (sprites, platforms, icons, audio), API `fg/v1/start-game` 200 OK + `Cache-Control: no-store` + `Access-Control-Allow-Headers: Authorization, Content-Type, Cache-Control`. POST `/leaderboard` verified 200 + `{"id":4,"rank":1}`. DB contains entries. GET `/leaderboard?season=...` returns data in NL. 0 blocking errors. CSP warning (pre-existing, hash mismatch). Handoff: `docs/handoffs/2026-06-01-leaderboard-nonce-cache-buttons.md`.
 
-**Latest deploy:** 2026-06-12 — `main` @ **f8e965d** (P1-1 through P1-6 merged); GHA `production-deploy.yml` run #27404099820; vitest 209/209, tsc clean, vite build 464 mod. Pre-deploy checklist: ✅ all GREEN. Post-deploy smoke: HTTP 200 OK on app.flexgrafik.nl, assets live. Phase 1 (architecture) COMPLETE. Next: P2 (test naming + polish).
+**Latest deploy:** 2026-07-06 — `main` @ **6632d02** (reward display consistency P0-P4); deploy `scripts/deploy_all.ps1`; vitest 225/225, tsc clean, vite build 471 mod. Pre-deploy checklist: ✅ all GREEN. Post-deploy smoke: HTTP 200 OK on app.flexgrafik.nl, assets live, JS hash `CsBjo9Q_` z `Cache-Control: public, max-age=31536000`. E2E prod-smoke 8/8. Reward display: Game Over = Leaderboard = Backend tier (SSoT). Git cleanup: 15 branches usunięte. Next: monitor GA4 24-48h.
 
 **Eerdere verify milestone:** 2026-05-26 — `main` @ **f2b0dd1**; `scripts/deploy_all.ps1`; vitest 91/91, tsc clean, vite build 381 mod. Health: app 200 OK, sprite 200 OK, `lang=nl` verified. Chrome DevTools smoke: game loads, alle assets 200 OK, API `fg/v1/start-game` 200 OK, GA4 events sent. 0 blocking errors. Handoff: `docs/handoffs/2026-05-26-deploy-f2b0dd1.md`.
 
