@@ -3,12 +3,12 @@
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
     "updated": "2026-07-18T15:52:13.166Z",
-    "workstream": "VCMS portfolio polish — video DEFERRED (DoD §D na koniec)",
+    "workstream": "COI-KNOW-02 Knowledge System segregation + cmd KB repair",
     "plan_now": {
-      "primary": "VCMS-VIDEO / polish residual (human); deploy script FIXED (VCMS-DEPLOY-FIX-01 DONE)",
-      "plan_anchor": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PROOF.md",
-      "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca)",
-      "video_gate": "VCMS-VIDEO — po polish; narzędzie dowolne (Loom/OBS/Chrome DevTools)",
+      "primary": "COI-KNOW-02 / VCMS-KB-IA-01 — cmd IA + SoT per repo",
+      "plan_anchor": "docs/handoffs/2026-07-18-coi-know-02-PROOF-P0.md",
+      "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca) — PARK during KNOW-02",
+      "video_gate": "VCMS-VIDEO — po CLOSE KNOW-02",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
     },
     "session_anchor": {
@@ -21,16 +21,16 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "VCMS-VIDEO",
-      "title": "Nagranie demo 75s (Dowódca) — po polish",
-      "before_you_start": "docs/VCMS_DEMO_SCRIPT.md + docs/handoffs/2026-06-16-vcms-video-ready.md. Dowolne narzędzie nagrywania.",
+      "task_id": "VCMS-KB-IA-01",
+      "title": "COI-KNOW-02 — cmd KB discoverability + SoT segregation",
+      "before_you_start": "docs/handoffs/2026-07-18-coi-know-02-PROOF-P0.md",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
       "rank": 2,
-      "task_id": "PH4-017",
-      "title": "PH4-011 follow-up: real device mobile test (Dowódca)",
-      "note": "Wypełnić docs/templates/tmpl-ph4-011-mobile.md → docs/handoffs/2026-05-08-ph4-011-mobile-real.md. Wymóg: 4G/5G (nie Wi-Fi z hosts-file workaround). Nie blokuje PH4-016."
+      "task_id": "VCMS-VIDEO",
+      "title": "Nagranie demo 75s (Dowódca) — po CLOSE KNOW-02",
+      "note": "PARK during COI-KNOW-02. Restore to rank 1 after PROOF-FINAL."
     },
     "ph4_prod_export": "docs/plans/ph4-prod-workstream.json",
     "version": "1.0",
@@ -897,6 +897,21 @@
       ],
       "definition_of_done": "Jedna komenda Deploy-VPS.ps1 z Windows kończy się bez hang; handbook LIVE bez ręcznego tarball workaround.",
       "note": "2026-07-18 DONE. PR#25+#26 tip 65f0e89. GO deploy PASS health+handbook/study-index 200."
+    },
+    {
+      "id": "VCMS-KB-IA-01",
+      "area": "DOCS",
+      "status": "IN_PROGRESS",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "COI-KNOW-02 — naprawa KB cmd + segregacja SoT (program)",
+      "plan": "docs/handoffs/2026-07-18-coi-know-02-PROOF-P0.md",
+      "acceptance": [
+        "Home/nav/sidebar/Quick Access → handbook ≤2 klików",
+        "Zero href /study/* poza /docs/; surfaces-map LIVE",
+        "Deploy GO + PROOF-P1; program CLOSE w PROOF-FINAL"
+      ],
+      "definition_of_done": "Dowódca widzi instrukcję Commandera z cmd i hop do api…/commander/; SoT per repo wg COI-KNOW-02."
     }
   ]
 }

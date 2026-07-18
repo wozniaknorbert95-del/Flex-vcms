@@ -9,27 +9,45 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'COI Commander', link: '/study/coi-commander-ops-handbook' },
+      { text: 'Surfaces', link: '/study/surfaces-map' },
       { text: 'Start (SOP)', link: '/PORADNIK_UZYTKOWNIKA' },
-      { text: 'Manifesto', link: '/core/manifesto' },
       { text: 'Ecosystem', link: '/ecosystem/report' },
       { text: 'KODA Chat', link: '/koda' }
     ],
     sidebar: [
       {
+        text: 'OPS',
+        items: [
+          { text: 'COI Commander — instrukcja', link: '/study/coi-commander-ops-handbook' },
+          { text: 'Mapa powierzchni', link: '/study/surfaces-map' },
+          { text: 'Study index', link: '/study/study-index' },
+          { text: 'Jeśli zgubiony', link: '/if-lost' },
+          { text: 'AI OS Knowledge', link: '/ecosystem/ai-os-knowledge' },
+          { text: 'AI OS Processes', link: '/ecosystem/ai-os-processes' }
+        ]
+      },
+      {
         text: 'START',
         items: [
           { text: 'Poradnik użytkownika', link: '/PORADNIK_UZYTKOWNIKA' },
+          { text: 'Quickstart (Orchestrator)', link: '/core/quickstart' },
+          { text: 'Brain Dowódcy (render)', link: '/brain' },
+          { text: 'KODA — czat', link: '/koda' },
+          { text: 'Ewolucja systemu', link: '/system-evolution' }
+        ]
+      },
+      {
+        text: 'PORTFOLIO',
+        collapsible: true,
+        collapsed: true,
+        items: [
           { text: 'Portfolio Truth', link: '/VCMS_PORTFOLIO_TRUTH' },
           { text: 'Readiness Audit', link: '/VCMS_READINESS_AUDIT' },
           { text: 'DoD Scorecard', link: '/VCMS_DOD_SCORECARD' },
           { text: 'Sales Report', link: '/VCMS_SALES_REPORT' },
           { text: 'Demo Script (75s)', link: '/VCMS_DEMO_SCRIPT' },
-          { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' },
-          { text: 'Jeśli zgubiony', link: '/if-lost' },
-          { text: 'Quickstart (Orchestrator)', link: '/core/quickstart' },
-          { text: 'Brain Dowódcy (render)', link: '/brain' },
-          { text: 'KODA — czat', link: '/koda' },
-          { text: 'Ewolucja systemu', link: '/system-evolution' }
+          { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' }
         ]
       },
       {
@@ -69,7 +87,9 @@ export default defineConfig({
           { text: 'Repo: jadzia-core', link: '/ecosystem/repos/jadzia-core' },
           { text: 'Repo: app.flexgrafik.nl', link: '/ecosystem/repos/app-flexgrafik-nl' },
           { text: 'Repo: flexgrafik-nl', link: '/ecosystem/repos/flexgrafik-nl' },
-          { text: 'Repo: flexgrafik-meta', link: '/ecosystem/repos/flexgrafik-meta' }
+          { text: 'Repo: flexgrafik-meta', link: '/ecosystem/repos/flexgrafik-meta' },
+          { text: 'Repo: agent-os', link: '/ecosystem/repos/agent-os' },
+          { text: 'Repo: agent-os-ui', link: '/ecosystem/repos/agent-os-ui' }
         ]
       },
       {
