@@ -16,7 +16,7 @@ canonical_sot: "jadzia-core/docs/ops/KNOWLEDGE-SYSTEM-INDEX.md"
 |----------|-----------|--------|----------|
 | Knowledge index | `jadzia-core/docs/ops/KNOWLEDGE-SYSTEM-INDEX.md` | [blob](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/KNOWLEDGE-SYSTEM-INDEX.md) | — |
 | Scorecard AI OS | `jadzia-core/docs/ops/SCORECARD-AI-OS-ZALICZENIE.md` | [blob](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/SCORECARD-AI-OS-ZALICZENIE.md) | Commander `/commander/` |
-| Process catalog | `jadzia-core/docs/ops/PROCESS-CATALOG.md` | [blob](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/PROCESS-CATALOG.md) | — |
+| Process catalog | `jadzia-core/docs/ops/PROCESS-CATALOG.md` | [blob](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/PROCESS-CATALOG.md) | [ai-os-processes](./ai-os-processes.md) |
 | Meta konstytucja pointer | `flexgrafik-meta/docs/core/knowledge-system-index.md` | — | — |
 
 ## VCMS surfaces (governance)

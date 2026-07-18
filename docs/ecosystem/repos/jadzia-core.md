@@ -30,6 +30,7 @@ links_recent_handoffs: ["docs/handoffs/2026-06-02-c1-04-api-integration-tests.md
 - **Canonical brain**: `brain.md`
 - **Canonical todo**: `todo.json`
 - **AI OS knowledge (SoT)**: [../ai-os-knowledge.md](../ai-os-knowledge.md) → jadzia `docs/ops/KNOWLEDGE-SYSTEM-INDEX.md` + scorecard (COI-KNOW-01)
+- **AI OS processes (SoT)**: [../ai-os-processes.md](../ai-os-processes.md) → jadzia `docs/ops/PROCESS-CATALOG.md` (COI-PROC-02)
 
 ## Status
 
