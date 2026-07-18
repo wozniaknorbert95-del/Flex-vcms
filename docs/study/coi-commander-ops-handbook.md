@@ -7,6 +7,14 @@ gate: "COI-CMD-OPS-GUIDE-01"
 
 # COI Commander — Instrukcja obsługi
 
+::: tip UI ≠ ta strona
+To jest **instrukcja** w VCMS Knowledge Base (`cmd.flexgrafik.nl/docs/…`).  
+**Interfejs Commandera** jest na: [https://api.zzpackage.flexgrafik.nl/commander/](https://api.zzpackage.flexgrafik.nl/commander/) (`#main` po zalogowaniu).  
+Mapa powierzchni: [surfaces-map](./surfaces-map.md).
+:::
+
+**[→ Otwórz COI Commander](https://api.zzpackage.flexgrafik.nl/commander/)**
+
 Profesjonalny playbook Dowódcy: **cold-open → jedna akcja → hop**.  
 Język UI: **PL**. Treści biznesowe (Marketing body): **NL**.
 
@@ -15,7 +23,7 @@ Język UI: **PL**. Treści biznesowe (Marketing body): **NL**.
 | **Prod URL** | https://api.zzpackage.flexgrafik.nl/commander/ |
 | **Tip evidence (UI polish)** | jadzia `2ddc942` LIVE |
 | **Auth** | Telegram `/commander` → jednorazowy link (15 min) · fallback: token JWT w panelu Sesja |
-| **Dogfood SoT** | `jadzia-core/docs/design/coi-commander/UX-DOGFOOD-PHONE.md` |
+| **Dogfood / ADR SoT** | `jadzia-core/docs/design/coi-commander/` (nie kopiuj ADR do VCMS) |
 
 ## Mapa ekranu (IA)
 

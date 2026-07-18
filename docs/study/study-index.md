@@ -2,6 +2,7 @@
 status: "[ACTIVE]"
 title: "Study Index — Ops System + Vibe Coach"
 updated: "2026-07-18"
+gate: "COI-KNOW-02"
 ---
 
 # Study Index
@@ -12,25 +13,29 @@ Operacyjne instrukcje ekosystemu FlexGrafik — **tu w VCMS**.
 
 | Dokument | Opis |
 |----------|------|
-| [COI Commander — instrukcja obsługi](./coi-commander-ops-handbook.md) | 5 scenariuszy CEO/ops (cold-open, lead, Marketing, Delegat, no-laptop) · gate `COI-CMD-OPS-GUIDE-01` |
+| [Mapa powierzchni](./surfaces-map.md) | Kiedy Commander / cmd / OS / Wizard |
+| [COI Commander — instrukcja obsługi](./coi-commander-ops-handbook.md) | 5 scenariuszy CEO/ops · UI na api…/commander/ |
 
 Powiązane SoT (ecosystem):
 
-- [AI OS Knowledge](/docs/ecosystem/ai-os-knowledge)
-- [AI OS Processes](/docs/ecosystem/ai-os-processes)
+- [AI OS Knowledge](/ecosystem/ai-os-knowledge)
+- [AI OS Processes](/ecosystem/ai-os-processes)
 
 ## Nauka (Vibe Coach)
 
-Skill map, cadence, study queue i checkpointy żyją w **Vibe Coach** (celowo wydzielone).
+Skill map T1–T7, cadence i checkpointy żyją w **vibe-coach** (celowo poza VitePress).
+
+Workspace (relative do sibling repo):
 
 ```text
-C:\Users\FlexGrafik\FlexGrafik\github\vibe-coach\docs\study-index.md
+../../vibe-coach/docs/study-index.md
 ```
 
 | Warstwa | Gdzie |
 |---------|--------|
-| **VCMS** | Operacje + ops handbooks (`docs/study/`, handoffs, journal) |
-| **Vibe Coach** | Nauka: T1–T7, weekly cadence, checkpointy |
+| **VCMS (cmd)** | Ops handbooks, surfaces-map, handoffs |
+| **Vibe Coach** | Nauka T1–T7 |
+| **jadzia MBA** | `jadzia-core/docs/learning/` (osobny track) |
 
 ## Dowody sesji (operacyjne)
 
