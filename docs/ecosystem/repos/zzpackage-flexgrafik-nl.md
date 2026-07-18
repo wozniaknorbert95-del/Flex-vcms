@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: zzpackage.flexgrafik.nl"
-updated: "2026-06-16T19:07:41.283Z"
+updated: "2026-07-18T17:19:59.406Z"
 repo_name: "zzpackage.flexgrafik.nl"
 repo_slug: "zzpackage-flexgrafik-nl"
 repo_type: "wp-shop"
@@ -11,12 +11,12 @@ canonical_brain: "MASTER-BRAIN.md"
 canonical_todo: "docs/audit-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md"
-last_handoff_mtime: "2026-06-15T06:27:33.563Z"
+last_handoff_rel: "docs/handoffs/2026-07-18-wiz-intro-mobile-01-NEXT.md"
+last_handoff_mtime: "2026-07-18T09:41:44.580Z"
 warnings: []
 links_agents: ["AGENTS.md"]
-links_cursor_rules: [".cursor/rules/00-project-index.mdc", ".cursor/rules/playwright-e2e.mdc", ".cursor/rules/senior-workflow.mdc", ".cursor/rules/wizard-ssot.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md (2026-06-15T06:27:33.563Z)", "docs/handoffs/2026-06-12-premium-wraps-v3-handoff.md (2026-06-15T06:27:33.563Z)", "docs/handoffs/2026-06-12-session-handoff.md (2026-06-15T06:27:33.563Z)"]
+links_cursor_rules: [".cursor/rules/00-project-index.mdc", ".cursor/rules/brief-viz.mdc", ".cursor/rules/design-agent-brain.mdc", ".cursor/rules/playwright-e2e.mdc", ".cursor/rules/product-card-copy.mdc", ".cursor/rules/senior-workflow.mdc", ".cursor/rules/wizard-ssot.mdc"]
+links_recent_handoffs: ["docs/handoffs/2026-07-18-wiz-intro-mobile-01-NEXT.md (2026-07-18T09:41:44.580Z)", "docs/handoffs/2026-07-18-wiz-intro-hero-02-FINAL.md (2026-07-18T08:13:08.066Z)", "docs/handoffs/2026-07-18-wiz-intro-hero-02-PLAN.md (2026-07-18T07:54:06.651Z)"]
 ---
 
 ## zzpackage.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md (202
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md` (2026-06-15T06:27:33.563Z)
+- **Last handoff**: `docs/handoffs/2026-07-18-wiz-intro-mobile-01-NEXT.md` (2026-07-18T09:41:44.580Z)
 
 ## Quick links (by file type)
 
@@ -42,13 +42,16 @@ links_recent_handoffs: ["docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md (202
   - `AGENTS.md`
 - **Cursor rules**:
   - `.cursor/rules/00-project-index.mdc`
+  - `.cursor/rules/brief-viz.mdc`
+  - `.cursor/rules/design-agent-brain.mdc`
   - `.cursor/rules/playwright-e2e.mdc`
+  - `.cursor/rules/product-card-copy.mdc`
   - `.cursor/rules/senior-workflow.mdc`
   - `.cursor/rules/wizard-ssot.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-06-12-copy-ui-phase1-handoff.md (2026-06-15T06:27:33.563Z)`
-  - `docs/handoffs/2026-06-12-premium-wraps-v3-handoff.md (2026-06-15T06:27:33.563Z)`
-  - `docs/handoffs/2026-06-12-session-handoff.md (2026-06-15T06:27:33.563Z)`
+  - `docs/handoffs/2026-07-18-wiz-intro-mobile-01-NEXT.md (2026-07-18T09:41:44.580Z)`
+  - `docs/handoffs/2026-07-18-wiz-intro-hero-02-FINAL.md (2026-07-18T08:13:08.066Z)`
+  - `docs/handoffs/2026-07-18-wiz-intro-hero-02-PLAN.md (2026-07-18T07:54:06.651Z)`
 
 ## Back
 

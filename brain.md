@@ -2,7 +2,7 @@
 status: "[STABLE]"
 title: "VCMS Brain — Dowodca SSoT (Operational Contract)"
 owner: "Norbert Wozniak (Dowodca)"
-updated: "2026-06-16"
+updated: "2026-07-18"
 audience:
   - "Dowodca"
   - "OpenCode (Coding Agent)"
@@ -163,24 +163,16 @@ Uczymy sie *na realnym zadaniu*, nie przez kurs.
 - Slowniczek max 5 pojec na sesje.
 - Zawsze pokaz: "co klikam / co wpisuje" (PowerShell, git).
 
-### Skill map (SSoT)
-Kanoniczny rejestr poziomow wiedzy + study queue: `docs/study/study-index.md`.
+### Skill map vs ops study (COI-KNOW-02)
 
-Obszary sledzone (7 technicznych):
-
-| Obszar | ID w study-index |
-|--------|-----------------|
-| Git & Version Control | T1 |
-| Deploy (CF Pages / WP) | T2 |
-| Debug (5-krokowa diagnostyka) | T3 |
-| JavaScript / Node | T4 |
-| WordPress / PHP (snippety) | T5 |
-| CI / Automaty (Jadzia) | T6 |
-| Data / JSON / VCMS tools | T7 |
+| Track | SoT | VCMS |
+|-------|-----|------|
+| Ops handbooks / surfaces | `docs/study/*` (handbook, surfaces-map) | **treść** |
+| Skill map T1–T7 | `vibe-coach/docs/study-index.md` | pointer only (`docs/study/study-index.md`) |
+| AI MBA | `jadzia-core/docs/learning/` | pointer via ai-os-knowledge |
 
 ### Weekly cadence (zasada)
-- Kazda sesja: 1 mikro-lekcja z obszaru powiazanego z aktualnym zadaniem.
-- Co tydzien: `/review-week` + aktualizacja poziomow w `study-index.md`.
+- Kazda sesja: 1 mikro-lekcja z obszaru powiazanego z aktualnym zadaniem (w **vibe-coach**).
 - Nie uczymy sie z wyprzedzeniem -- lekcja dopiero gdy zadanie wywoluje potrzebe.
 
 ---
@@ -191,7 +183,7 @@ Obszary sledzone (7 technicznych):
 Wczytaj:
 - `flex-vcms/brain.md` (ten plik)
 - `flexgrafik-meta/docs/core/workflow-manual.md`
-- `flex-vcms/docs/core/global-rules.md`
+- `flexgrafik-meta/docs/core/global-rules.md` (VCMS `docs/core/global-rules.md` = pointer)
 - `flexgrafik-meta/docs/core/master-plan.md`
 - `flexgrafik-meta/docs/core/agents.md`
 - `flex-vcms/repos.yaml`

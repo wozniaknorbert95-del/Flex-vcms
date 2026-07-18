@@ -22,9 +22,9 @@ Public HTTPS: wszystkie ścieżki **401** Basic Auth (oczekiwane; brama żyje).
 
 ## Root cause (kod)
 
-- [`docs/index.md`](../index.md) raw HTML: `/study/...` i `/docs/ecosystem/...`
-- [`docs/.vitepress/config.mts`](../.vitepress/config.mts): brak grupy OPS / study
-- `ignoreDeadLinks: true`
+- `docs/index.md` raw HTML: `/study/...` i `/docs/ecosystem/...`
+- `docs/.vitepress/config.mts`: brak grupy OPS / study
+- `ignoreDeadLinks: true` (maskowało rotę)
 
 ## R1–R8 inventaryzacja tipów (workspace)
 

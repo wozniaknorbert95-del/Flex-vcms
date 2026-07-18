@@ -100,6 +100,6 @@ node tools/build-demo.js --config docs/demo/demo-config.json
 ## Related
 
 - [demo-config.json](./demo/demo-config.json)
-- [VCMS_SALES_REPORT.md](../VCMS_SALES_REPORT.md) §5
+- [VCMS_SALES_REPORT.md](/VCMS_SALES_REPORT) §5
 - [SCAN-REPORT.md](./demo/SCAN-REPORT.md)
 - [hitl-demo.md](./demo/hitl-demo.md)
