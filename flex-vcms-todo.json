@@ -2,11 +2,11 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-07-18T15:05:57.295Z",
+    "updated": "2026-07-18T15:52:13.166Z",
     "workstream": "VCMS portfolio polish — video DEFERRED (DoD §D na koniec)",
     "plan_now": {
-      "primary": "VCMS-DEPLOY-FIX-01: napraw Deploy-VPS.ps1 (Windows SSH hang + tar transfer)",
-      "plan_anchor": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
+      "primary": "VCMS-VIDEO / polish residual (human); deploy script FIXED (VCMS-DEPLOY-FIX-01 DONE)",
+      "plan_anchor": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PROOF.md",
       "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca)",
       "video_gate": "VCMS-VIDEO — po polish; narzędzie dowolne (Loom/OBS/Chrome DevTools)",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
@@ -21,10 +21,10 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "VCMS-DEPLOY-FIX-01",
-      "title": "Napraw Deploy-VPS.ps1 (SSH hang Windows + tar transfer) → pełny GO deploy",
-      "before_you_start": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
-      "before_merge_registry_changes": "npm run verify:scan tylko jeśli ruszasz repos.yaml / scan."
+      "task_id": "VCMS-VIDEO",
+      "title": "Nagranie demo 75s (Dowódca) — po polish",
+      "before_you_start": "docs/VCMS_DEMO_SCRIPT.md + docs/handoffs/2026-06-16-vcms-video-ready.md. Dowolne narzędzie nagrywania.",
+      "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {
       "rank": 2,
@@ -881,11 +881,13 @@
     {
       "id": "VCMS-DEPLOY-FIX-01",
       "area": "DEVOPS",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "priority": "P0",
       "repo": "flex-vcms",
+      "done_at": "2026-07-18",
       "title": "Napraw Deploy-VPS.ps1: Windows SSH hang + tar transfer dist/context",
       "plan": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
+      "checklist": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PROOF.md",
       "acceptance": [
         "Invoke-Remote: BatchMode + ConnectTimeout; brak zagnieżdżonych cudzysłowów w mkdir",
         "dist + deploy-context przez tar.gz (nie scp -r *)",
@@ -894,7 +896,7 @@
         "PROOF handoff + wpis w vcms-vps-runbook.md"
       ],
       "definition_of_done": "Jedna komenda Deploy-VPS.ps1 z Windows kończy się bez hang; handbook LIVE bez ręcznego tarball workaround.",
-      "note": "2026-07-18: hang po docs:build podczas OPS-GUIDE GO; root cause = PowerShell/OpenSSH quoting."
+      "note": "2026-07-18 DONE. PR#25+#26 tip 65f0e89. GO deploy PASS health+handbook/study-index 200."
     }
   ]
 }
