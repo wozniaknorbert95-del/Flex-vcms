@@ -5,7 +5,8 @@
     "updated": "2026-07-18T15:05:57.295Z",
     "workstream": "VCMS portfolio polish — video DEFERRED (DoD §D na koniec)",
     "plan_now": {
-      "primary": "VCMS-P2-01..04: dashboard conflicts, severity, audit JSONL, docs polish",
+      "primary": "VCMS-DEPLOY-FIX-01: napraw Deploy-VPS.ps1 (Windows SSH hang + tar transfer)",
+      "plan_anchor": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
       "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca)",
       "video_gate": "VCMS-VIDEO — po polish; narzędzie dowolne (Loom/OBS/Chrome DevTools)",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
@@ -20,10 +21,10 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "VCMS-VIDEO",
-      "title": "Nagranie demo 75s (Dowódca) — po polish",
-      "before_you_start": "docs/VCMS_DEMO_SCRIPT.md + docs/handoffs/2026-06-16-vcms-video-ready.md. Dowolne narzędzie nagrywania.",
-      "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
+      "task_id": "VCMS-DEPLOY-FIX-01",
+      "title": "Napraw Deploy-VPS.ps1 (SSH hang Windows + tar transfer) → pełny GO deploy",
+      "before_you_start": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
+      "before_merge_registry_changes": "npm run verify:scan tylko jeśli ruszasz repos.yaml / scan."
     },
     "next_parallel": {
       "rank": 2,
@@ -876,6 +877,24 @@
       "repo": "flex-vcms",
       "title": "SSoT Health Score widget (roadmap 6.3)",
       "audit_source": "docs/VCMS_SALES_REPORT.md §6.3"
+    },
+    {
+      "id": "VCMS-DEPLOY-FIX-01",
+      "area": "DEVOPS",
+      "status": "IN_PROGRESS",
+      "priority": "P0",
+      "repo": "flex-vcms",
+      "title": "Napraw Deploy-VPS.ps1: Windows SSH hang + tar transfer dist/context",
+      "plan": "docs/handoffs/2026-07-18-vcms-deploy-fix-01-PLAN.md",
+      "acceptance": [
+        "Invoke-Remote: BatchMode + ConnectTimeout; brak zagnieżdżonych cudzysłowów w mkdir",
+        "dist + deploy-context przez tar.gz (nie scp -r *)",
+        "WhatIf nadal działa",
+        "Pełny GO: exit 0, /health OK, handbook + study-index 200",
+        "PROOF handoff + wpis w vcms-vps-runbook.md"
+      ],
+      "definition_of_done": "Jedna komenda Deploy-VPS.ps1 z Windows kończy się bez hang; handbook LIVE bez ręcznego tarball workaround.",
+      "note": "2026-07-18: hang po docs:build podczas OPS-GUIDE GO; root cause = PowerShell/OpenSSH quoting."
     }
   ]
 }

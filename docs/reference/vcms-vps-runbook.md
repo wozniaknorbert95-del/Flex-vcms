@@ -1,7 +1,7 @@
 ---
 status: "[STABLE]"
 title: "VCMS VPS Runbook — Command Center (Node + PM2 + Nginx)"
-updated: "2026-06-16"
+updated: "2026-07-18"
 ---
 
 # VCMS VPS Runbook
@@ -73,11 +73,18 @@ Na prawdziwym urządzeniu (iOS/Android): zaloguj się przez przeglądarkę, spra
 
 ## Deploy z Windows
 
-- Skrypt (root repo, nie w `docs/`): `scripts/Deploy-VPS.ps1`.
-- Parametry: **`-SshTarget`** (wymagany, np. `root@cmd.example.com`), **`-RemotePath`** (domyślnie `/var/www/vcms/current`), **`-SkipBuild`** (jeśli `dist` już zbudowany), **`-WhatIf`** — tylko wypisuje plan (bez `npm`, `scp`, `ssh`).
-- Przykład: `.\scripts\Deploy-VPS.ps1 -SshTarget 'root@host' -WhatIf` → potem ten sam bez `-WhatIf`.
-- Uwierzytelnianie SSH: **bez** haseł w repozytorium — `ssh-agent`, klucz lub `~/.ssh/config`.
-- Wymagania lokalne: **OpenSSH** (`scp`, `ssh` w PATH), **Node/npm** do `npm run docs:build`.
+- Skrypt (root repo, nie w `docs/`): `scripts/Deploy-VPS.ps1` (**VCMS-DEPLOY-FIX-01**: `Invoke-Remote` + `Send-TarDir`).
+- Parametry: **`-SshTarget`** (wymagany, np. `root@185.243.54.115`), **`-RemotePath`** (domyślnie `/var/www/vcms/current`), **`-SkipBuild`**, **`-WhatIf`**.
+- **GO (kanoniczne):**
+  ```powershell
+  .\scripts\Deploy-VPS.ps1 -SshTarget 'root@185.243.54.115' -WhatIf
+  .\scripts\Deploy-VPS.ps1 -SshTarget 'root@185.243.54.115'
+  ```
+- Transfer: `dist` + `deploy-context` + `public`/`src`/`tools`/`scripts` przez **tar.gz** (nie `scp -r` całych drzew — unikaj hang Windows OpenSSH).
+- SSH: `BatchMode=yes`, `ConnectTimeout=20`; auth przez `~/.ssh/config` + klucz (bez haseł w repo).
+- Po deploy skrypt sprawdza: `/health` OK + handbook/study-index HTTP 200.
+- Rollback dist: na VPS `docs/.vitepress/dist.bak.<timestamp>` (tworzony przed nadpisaniem).
+- Wymagania lokalne: **OpenSSH** (`scp`, `ssh`, `tar` w PATH), **Node/npm**.
 
 ## Smoke, rollback, incydenty {#smoke-rollback-incydenty}
 
