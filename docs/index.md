@@ -36,6 +36,7 @@ hero:
     <p style="color: #666; font-size: 0.9rem;">Baza wiedzy i rozwoj.</p>
     <ul style="list-style: none; padding: 0;">
       <li><a href="/study/study-index">Dziennik Studiow</a></li>
+      <li><a href="/study/coi-commander-ops-handbook">COI Commander — instrukcja obslugi</a></li>
       <li><a href="/docs/ecosystem/ai-os-knowledge">AI OS Knowledge (SoT)</a></li>
       <li><a href="/docs/ecosystem/ai-os-processes">AI OS Processes (SoT)</a></li>
       <li><a href="/reference/glossary">Slownik Pojec</a></li>
