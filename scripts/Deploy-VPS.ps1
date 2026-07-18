@@ -69,12 +69,14 @@ function Invoke-Remote {
         [Parameter(Mandatory = $true)]
         [string] $RemoteCmd
     )
-    Write-Plan "ssh $SshTarget -- $RemoteCmd"
+    # Pass remote command as ONE string arg. Avoid bare `[` / `]` (PowerShell wildcards)
+    # and nested quote mangling that hung Windows OpenSSH.
+    Write-Plan "ssh $SshTarget :: $RemoteCmd"
     if ($WhatIf) {
         Write-Host "  (skipped ssh - WhatIf)"
         return
     }
-    & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget -- $RemoteCmd
+    & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "$RemoteCmd"
     if ($LASTEXITCODE -ne 0) {
         throw "Remote command failed (exit $LASTEXITCODE): $RemoteCmd"
     }
@@ -193,9 +195,9 @@ $localCtx = Join-Path $RepoRoot "deploy-context"
 $remoteCtxFinal = "$remoteRoot/deploy-context"
 $ts = Get-Date -Format "yyyyMMdd-HHmmss"
 
-# 1. Prep remote dirs + backup dist
+# 1. Prep remote dirs + backup dist (no `[` test — PowerShell expands brackets)
 Invoke-Remote -RemoteCmd "mkdir -p $remoteDist $logDir $remoteRoot/docs/.vitepress $remoteRoot/docs/ecosystem"
-Invoke-Remote -RemoteCmd "if [ -d $remoteDist ] && [ -f $remoteDist/index.html ]; then cp -a $remoteDist ${remoteDist}.bak.$ts; fi"
+Invoke-Remote -RemoteCmd "test -f $remoteDist/index.html && cp -a $remoteDist ${remoteDist}.bak.$ts || true"
 
 # 2. Root files (single-file scp)
 foreach ($f in $requiredRootFiles) {
@@ -240,15 +242,15 @@ if ($WhatIf) {
 else {
     Write-Host "Waiting for service to stabilize..." -ForegroundColor Gray
     Start-Sleep -Seconds 5
-    $health = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget -- "curl -sf http://127.0.0.1:8001/health"
+    $health = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -sf http://127.0.0.1:8001/health"
     if ($LASTEXITCODE -ne 0 -or $health -notmatch '"status":"OK"') {
         Write-Host "Health Check: FAILED! Output: $health" -ForegroundColor Red
         throw "Health check failed after deploy. Check: pm2 logs vcms-core"
     }
     Write-Host "Health Check: PASSED ($health)" -ForegroundColor Green
 
-    $hb = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget -- "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
-    $si = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget -- "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
+    $hb = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
+    $si = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
     Write-Host "Docs smoke: handbook=$hb study-index=$si" -ForegroundColor Gray
     if ($hb -ne "200" -or $si -ne "200") {
         throw "Docs smoke failed (handbook=$hb study-index=$si). Expected 200/200."
