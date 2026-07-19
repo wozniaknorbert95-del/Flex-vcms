@@ -76,7 +76,8 @@ function Invoke-Remote {
         Write-Host "  (skipped ssh - WhatIf)"
         return
     }
-    & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "$RemoteCmd"
+    # -n: do not read stdin (PowerShell pipelines / Tee-Object otherwise hang OpenSSH)
+    & ssh -n -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 $SshTarget "$RemoteCmd"
     if ($LASTEXITCODE -ne 0) {
         throw "Remote command failed (exit $LASTEXITCODE): $RemoteCmd"
     }
@@ -242,18 +243,19 @@ if ($WhatIf) {
 else {
     Write-Host "Waiting for service to stabilize..." -ForegroundColor Gray
     Start-Sleep -Seconds 5
-    $health = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -sf http://127.0.0.1:8001/health"
+    $health = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -sf http://127.0.0.1:8001/health"
     if ($LASTEXITCODE -ne 0 -or $health -notmatch '"status":"OK"') {
         Write-Host "Health Check: FAILED! Output: $health" -ForegroundColor Red
         throw "Health check failed after deploy. Check: pm2 logs vcms-core"
     }
     Write-Host "Health Check: PASSED ($health)" -ForegroundColor Green
 
-    $hb = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
-    $si = & ssh -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
-    Write-Host "Docs smoke: handbook=$hb study-index=$si" -ForegroundColor Gray
+    $hb = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
+    $si = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/surfaces-map"
+    $si2 = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
+    Write-Host "Docs smoke: handbook=$hb surfaces-map=$si study-index=$si2" -ForegroundColor Gray
     if ($hb -ne "200" -or $si -ne "200") {
-        throw "Docs smoke failed (handbook=$hb study-index=$si). Expected 200/200."
+        throw "Docs smoke failed (handbook=$hb surfaces-map=$si). Expected 200/200."
     }
     Write-Host "Docs smoke: PASSED" -ForegroundColor Green
 }
