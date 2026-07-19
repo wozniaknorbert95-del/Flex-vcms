@@ -1,8 +1,8 @@
 ---
 status: "[ACTIVE]"
 title: "COI Commander — Instrukcja obsługi (ops handbook)"
-updated: "2026-07-19"
-gate: "MKT-SHIP-01"
+updated: "2026-07-19 (CMD-MKT-DASH-02)"
+gate: "MKT-BRAIN-PRO Program Close + dash sync"
 ---
 
 # COI Commander — Instrukcja obsługi
@@ -13,17 +13,18 @@ To jest **instrukcja** w VCMS Knowledge Base (`cmd.flexgrafik.nl/docs/…`).
 Mapa powierzchni: [surfaces-map](./surfaces-map.md).
 :::
 
-**[→ Otwórz COI Commander](https://api.zzpackage.flexgrafik.nl/commander/)**
+**[→ Otwórz COI Commander](https://api.zzpackage.flexgrafik.nl/commander/?v=mkt-dash02)**
 
 Profesjonalny playbook Dowódcy: **cold-open → jedna akcja → hop**.  
 Język UI: **PL**. Treści biznesowe (Marketing body): **NL**.
 
 | | |
 |--|--|
-| **Prod URL** | https://api.zzpackage.flexgrafik.nl/commander/ |
-| **Tip evidence (UI polish)** | jadzia ≥ `8d40efc` LIVE (terminal chrome VCMS-style · Marketing OS strip od `c874999`) |
+| **Prod URL** | https://api.zzpackage.flexgrafik.nl/commander/?v=mkt-dash02 |
+| **Tip evidence** | jadzia ≥ **`660c5f8`** LIVE (Program Close ~86% · dash sync · JWT-resilient Marketing) |
 | **Auth** | Telegram `/commander` → jednorazowy link (15 min) · fallback: token JWT w panelu Sesja |
 | **Dogfood / ADR SoT** | `jadzia-core/docs/design/coi-commander/` (nie kopiuj ADR do VCMS) |
+| **Marketing SoT** | `jadzia-core/docs/ops/marketing/OPERATOR-TODAY.md` · board: `MKT-BRAIN-PRO.md` |
 
 ## Mapa ekranu (IA)
 
@@ -89,37 +90,41 @@ Hierarchia CTA (enterprise): Potwierdź = primary · Odłóż = secondary · Zam
 
 ---
 
-## Scenariusz 3 — Start → Marketing (Marketing OS)
+## Scenariusz 3 — Start → Marketing (Marketing OS / Program Close)
 
-**Cel:** Rozróżnić **Organic HITL** (Commander) od **Paid / Instant Form** (Ads Manager) i wykonać jedną akcję organic bez mylenia powierzchni.
+**Cel:** Rozróżnić **Organic HITL** (Commander) od **Paid / Instant Form** (Ads Manager); zobaczyć stan Program Close (~86%) bez mylenia powierzchni.
 
-**North Star:** optymalizujemy pod **CPA_wizard** (koszt → wejście do Wizard), nie pod tanie kliknięcia.
+**North Star:** optymalizujemy pod **CPA_wizard** (koszt → wejście do Wizard), nie pod tanie kliknięcia.  
+**MB_MODE:** `propose` · agent = observe-only · Approve MB = **Telegram**.
 
 | Krok | Działanie | Oczekiwany wynik |
 |------|-----------|------------------|
-| 1 | Nav **Marketing** (desktop lub bottom nav) | View Marketing; Start nieaktywny |
-| 2 | Strip **Organic HITL** + linki START TUTAJ | Widoczny podział: organic = ten ekran; paid = Ads Manager (nie Commander) |
-| 3 | Sprawdź kalendarz / empty / status | Copy PL, nie surowy error |
-| 4 | (Opcja) szkic lub zaplanuj — HITL | Toast sukcesu; undo 60s gdy dotyczy approve |
-| 5 | Paid / Instant Form / Custom Audience | **Poza Commanderem** — Meta Ads Manager (patrz OPERATOR-TODAY #1–4) |
-| 6 | Wróć **Start** | Home ładuje się ponownie; sesja JWT OK |
+| 1 | Hard refresh `?v=mkt-dash02` → nav **Marketing** | View Marketing; Start nieaktywny |
+| 2 | Strip **Marketing OS** | Status `MB propose · ~86% · observe` + parks H-Meta / H-Purchase / H-Insights / H-WA / H-F4x |
+| 3 | FB health strip | Page OK + **amber** gdy brak `read_insights` (nie false green) |
+| 4 | Panel **Weekly scorecard — draft** | Leads/margin z DTL; Spend/CPL = — (Ads Manager); decyzja pusta (HITL) |
+| 5 | (Opcja) szkic lub zaplanuj organic — HITL | Toast sukcesu; undo 60s gdy dotyczy approve |
+| 6 | Nav **Analityka** → Data Health | Drivers · conscious parks (`fb_read_insights`, Purchase, Ads create) · FB organic reason |
+| 7 | Paid / Instant Form | **Poza Commanderem** — Meta Ads Manager |
 
 **SoT Marketing OS (nie pełna kopia w VCMS):**
 
 - `jadzia-core/docs/ops/marketing/OPERATOR-TODAY.md`
 - Blob: [OPERATOR-TODAY.md](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/marketing/OPERATOR-TODAY.md)
-- Kampania paste pack: `docs/ops/marketing/FB-FIRST-CAMPAIGN.md`
+- Board: [MKT-BRAIN-PRO.md](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/marketing/MKT-BRAIN-PRO.md)
 
 **FAIL → co robić**
 
 | Objaw | Akcja |
 |-------|--------|
-| Brak stripu Organic HITL | Hard refresh Commander; tip VPS musi być ≥ `c874999` (`git rev-parse --short HEAD` w `/opt/jadzia`) |
-| FB health bad | Nie forsuj publish; sprawdź token PAGE (osobny playbook) |
-| Held banner | Szanuj hold — nie omijaj HITL |
-| Chcesz odpalic € ads z Commandera | STOP — Ads Manager + OPERATOR-TODAY #4 (Dowódca) |
+| Wieczne „Ładowanie draftu…” | Tip ≥ `660c5f8` + hard refresh `?v=mkt-dash02`; potem nowe `/commander` |
+| Draft/FB „Sesja wygasła…” | TG `/commander` lub świeży JWT w Sesja |
+| Brak stripu parks / weekly panel | Hard refresh; VPS tip ≥ `660c5f8` |
+| FB amber + `insights: brak` | H-Insights: Graph `read_insights` → nowy token (nie fake PASS) |
+| Home ticket „Token Facebook wygasł” mimo FB OK | Stary ticket w kolejce — patrz `fb-health`, nie mylić |
+| Chcesz odpalić € ads z Commandera | STOP — Ads Manager + OPERATOR-TODAY |
 
-**Evidence:** MKT-SHIP-01 + CLOSEOUT-HONESTY-01 · tip ≥ `8d40efc` · strip `mkt-os-strip` / Organic HITL LIVE · terminal shell.
+**Evidence:** CMD-MKT-DASH-01/02 · Program Close · tip ≥ `660c5f8` · cache `mkt-dash02`.
 
 ---
 
