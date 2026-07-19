@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: agent-os-ui"
-updated: "2026-07-19T13:27:47.815Z"
+updated: "2026-07-19T18:10:36.053Z"
 repo_name: "agent-os-ui"
 repo_slug: "agent-os-ui"
 repo_type: "agent-ui"

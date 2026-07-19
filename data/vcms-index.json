@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2026-07-19T13:31:20.929Z",
+    "generated_at": "2026-07-19T18:11:05.649Z",
     "vcms_root": "C:\\Users\\FlexGrafik\\FlexGrafik\\github\\Flex-vcms\\flex-vcms",
     "rules_version": 1,
     "repos_version": "1"
@@ -482,93 +482,23 @@
         {
           "rel": "todo.json",
           "type": "TODO",
-          "bytes": 48533,
-          "mtime": "2026-07-19T13:27:47.815Z",
-          "sha256": "64441efc45d521705871f4c6a8aead5576fd74e61735255374136637901caaf7"
+          "bytes": 53029,
+          "mtime": "2026-07-19T16:43:49.931Z",
+          "sha256": "ddc2495ca55b3bfbd2cb834b67c6fccfe9f267355579d8270dd1ff8732ce65ec"
         },
         {
-          "rel": "docs/handoffs/2026-07-18-coi-ai-os-truth-repair-CLOSE.md",
+          "rel": "docs/handoffs/2026-07-19-CMD-MKT-DASH-01.md",
           "type": "HANDOFF",
-          "bytes": 907,
-          "mtime": "2026-07-18T12:56:37.398Z",
-          "sha256": "7c65ac2bf37044c21fac6a9efc6bc3db237b470d89efc0c972f1462c90457655"
+          "bytes": 792,
+          "mtime": "2026-07-19T18:09:56.490Z",
+          "sha256": "49ce2b0d724144b84baf2a3f850fa2dd03970137fd65a15f89f4ccc31603fa7f"
         },
         {
-          "rel": "docs/handoffs/2026-07-18-coi-cmd-ops-guide-01-CLOSE.md",
+          "rel": "docs/handoffs/2026-07-19-CMD-MKT-DASH-02.md",
           "type": "HANDOFF",
-          "bytes": 2002,
-          "mtime": "2026-07-18T15:24:01.396Z",
-          "sha256": "0a6efd0d0e8cb18d30ce744a991b21d2d124b8526c2b48a8ab3983a3f2d219c1"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-coi-cmd-ux-polish-01-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 1975,
-          "mtime": "2026-07-18T14:59:48.842Z",
-          "sha256": "8c1695e2174906332bbd7353f6540533facf4ef688c0d916ec08854fa5863f56"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-coi-know-01-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 1049,
-          "mtime": "2026-07-18T13:13:47.077Z",
-          "sha256": "506931221dc3c81fa69490e45ddfba4bfb3b338c1e0e440d497f356e8d82ecca"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-coi-ops-ai-01-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 1781,
-          "mtime": "2026-07-18T13:43:18.443Z",
-          "sha256": "eb0e1413aa8585f4e7aede7e9c7ceebb42ce3047e0eef43a1ee62068607d44fb"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-coi-proc-02-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 719,
-          "mtime": "2026-07-18T13:54:38.080Z",
-          "sha256": "b203c1d5d24f8e80217ab6f7050cf4b0c8d2e2ef52aa1816a29e692c3ec2d732"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-seq-deploy-verify-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 1767,
-          "mtime": "2026-07-18T13:30:54.812Z",
-          "sha256": "ea5dc701bb24d57a0ad841aa43536adb5fc29a2c7dededbda24b05fe4e731829"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-18-session-CLOSE-ops-ai-ready.md",
-          "type": "HANDOFF",
-          "bytes": 1846,
-          "mtime": "2026-07-18T13:34:23.945Z",
-          "sha256": "4f86cca67f84df9589702f7520fdc97b06ae4f899160c6e3e77dd96843627109"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-19-AUDIT-ECO-POLISH-01-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 3764,
-          "mtime": "2026-07-19T05:13:04.014Z",
-          "sha256": "f97334aa0e832bc6a30715084be7ce744ebbf9a99e6b00898d3263318b988d88"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-19-CHAT-TRUST-PACK-DEPLOY-CLOSE.md",
-          "type": "HANDOFF",
-          "bytes": 1243,
-          "mtime": "2026-07-19T06:36:04.801Z",
-          "sha256": "1946970c5230390ed981ac361ab0aac740380661d27e078e2e54b54646f3f52a"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-19-CLOSEOUT-HONESTY-01.md",
-          "type": "HANDOFF",
-          "bytes": 2521,
-          "mtime": "2026-07-19T06:17:26.759Z",
-          "sha256": "7e932ed9bfd6eaf27342de19fa82000276548a60f540b1e2aff8d5697bedfb82"
-        },
-        {
-          "rel": "docs/handoffs/2026-07-19-CLOSEOUT-REMOTE-SYNC-01.md",
-          "type": "HANDOFF",
-          "bytes": 1584,
-          "mtime": "2026-07-19T05:19:00.507Z",
-          "sha256": "2366cdf46908c613522c427bc951de97e703f593c67b9c1a64e8e01430008cb7"
+          "bytes": 932,
+          "mtime": "2026-07-19T18:10:36.053Z",
+          "sha256": "30531cd455c4fb7196264d7b1c7e20df6e53f2481e0a6c05bb6a4f68d9580a75"
         },
         {
           "rel": "docs/handoffs/2026-07-19-L0-BROWSER-INITIATECHECKOUT.md",
@@ -583,6 +513,20 @@
           "bytes": 1552,
           "mtime": "2026-07-19T07:32:08.717Z",
           "sha256": "118f1bdcf5803660c1c667fb81e2b02977e53d3fdf416ddad2931d971b9043e5"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-DH-AMBER-CLOSE.md",
+          "type": "HANDOFF",
+          "bytes": 1001,
+          "mtime": "2026-07-19T15:33:27.664Z",
+          "sha256": "115193094852156a3bb1aaba554362b4bf5f555e907fa9150b6cfac3a004cef7"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-EVAL-V2.md",
+          "type": "HANDOFF",
+          "bytes": 642,
+          "mtime": "2026-07-19T14:01:38.421Z",
+          "sha256": "86cddc71ccbac09958def9918e30c9cd08c47710946b9c1be342627de580fe8e"
         },
         {
           "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-F0-CLOSE.md",
@@ -606,11 +550,39 @@
           "sha256": "907359919776db9ae29f593e4a15832bcbe6c32a058aaffaec3ba8ccabc47bdb"
         },
         {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-F2b-CLOSE.md",
+          "type": "HANDOFF",
+          "bytes": 1483,
+          "mtime": "2026-07-19T13:40:36.504Z",
+          "sha256": "2e6accf80d4e5f68cdfa92a42581f793855d604566df545031215d21acf06ce7"
+        },
+        {
           "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-F3-CLOSE.md",
           "type": "HANDOFF",
-          "bytes": 1729,
-          "mtime": "2026-07-19T13:27:33.743Z",
-          "sha256": "38a8df797dc32982581ccb6071146b028356eb1967a24f1439283b28170a3c04"
+          "bytes": 1926,
+          "mtime": "2026-07-19T13:31:36.861Z",
+          "sha256": "1a1d11630aa4ec83f9cdd7301dde0ebb005d6035f9affef0a3acfc0042a1259c"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-F4-PROPOSE-CLOSE.md",
+          "type": "HANDOFF",
+          "bytes": 1005,
+          "mtime": "2026-07-19T15:17:16.415Z",
+          "sha256": "d844615698a22eecb49d8416c6ee8dfaa0719bf9b99f6d342caa23d778e27fe7"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-F4b-CLOSE.md",
+          "type": "HANDOFF",
+          "bytes": 964,
+          "mtime": "2026-07-19T15:25:59.215Z",
+          "sha256": "a4ec4ae3e4970a74c1d2f29ef0829150dffab662ad7fb0f7f2ad25e0bd12dd52"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-ORG-CEO-CLOSE.md",
+          "type": "HANDOFF",
+          "bytes": 1292,
+          "mtime": "2026-07-19T13:50:22.474Z",
+          "sha256": "45bdfd396b37f382fc7dc3daaac6fa5b615f3c60e033c83e11ef4e59f89b4803"
         },
         {
           "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-PLAN-HANDOFF.md",
@@ -620,25 +592,32 @@
           "sha256": "89dc158c8c79ff5619c71492c56c90893bc1c7cf8deebd4b95e82445d1ef74b8"
         },
         {
-          "rel": "docs/handoffs/2026-07-19-MKT-OS-01-CLOSE.md",
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-PREFLIGHT-CLOSE.md",
           "type": "HANDOFF",
-          "bytes": 1426,
-          "mtime": "2026-07-19T05:39:01.672Z",
-          "sha256": "2a77ddaa512c93aaa279381304c6c9b1c1c437340849726ef6104034d28e7ad3"
+          "bytes": 1489,
+          "mtime": "2026-07-19T15:13:13.341Z",
+          "sha256": "886c3cbb526ebaa59f2120c844d756812f6f6077f4e3bfad1af867b836e1adce"
         },
         {
-          "rel": "docs/handoffs/2026-07-19-MKT-SHIP-01-CLOSE.md",
+          "rel": "docs/handoffs/2026-07-19-MKT-BRAIN-PRO-PROGRAM-CLOSE.md",
           "type": "HANDOFF",
-          "bytes": 2872,
-          "mtime": "2026-07-19T06:13:57.878Z",
-          "sha256": "798bc4926da17d4b01a87a28fb836e9e8de04794a981da894b8fb793ef272ca2"
+          "bytes": 2711,
+          "mtime": "2026-07-19T16:43:26.129Z",
+          "sha256": "08a4ccf74ccaa8ea1aafb9a6650f65bb1dd05dcb8b4f395d7a5ca8dd5d6a0148"
+        },
+        {
+          "rel": "docs/handoffs/2026-07-19-PLAN-14D-META-STAFF.md",
+          "type": "HANDOFF",
+          "bytes": 623,
+          "mtime": "2026-07-19T14:31:07.589Z",
+          "sha256": "b6aa9b558c4a62573f967d95906e8ab0aa1ff12650217033b8e6e45537f214e8"
         },
         {
           "rel": "docs/handoffs/README.md",
           "type": "HANDOFF",
-          "bytes": 1447,
-          "mtime": "2026-07-19T12:15:53.769Z",
-          "sha256": "50d957d0ac4f4829b146f3331c7e9add83ff8c2de94013bcb8bf7eb4ed5f4b10"
+          "bytes": 1459,
+          "mtime": "2026-07-19T16:43:51.536Z",
+          "sha256": "74a2da5c38a4163866df527b58b2d6ee79906be3e474a08cfc314a4cf07e12e7"
         },
         {
           "rel": ".cursor/rules/dowodca-no-ask.mdc",
