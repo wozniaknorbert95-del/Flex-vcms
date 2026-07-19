@@ -1,0 +1,35 @@
+name: Docs build + Conflicts scan
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: VitePress build
+        run: npm run docs:build
+
+      - name: Ecosystem scan (Conflicts must be 0)
+        run: |
+          node tools/vcms-scan.js
+          if grep -q 'Conflicts found: \*\*0\*\*' docs/ecosystem/conflicts.md || grep -q 'Conflicts found: **0**' docs/ecosystem/conflicts.md; then
+            echo "Conflicts: 0 OK"
+          else
+            # Also accept scanner stdout pattern
+            node tools/vcms-scan.js | tee /tmp/scan.out
+            grep -q 'Conflicts: 0' /tmp/scan.out
+          fi

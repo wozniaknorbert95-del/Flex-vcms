@@ -28,6 +28,7 @@ export default defineConfig({
         items: [
           { text: 'COI Commander — instrukcja', link: '/study/coi-commander-ops-handbook' },
           { text: 'Mapa powierzchni', link: '/study/surfaces-map' },
+          { text: 'Deploy contract', link: '/study/deploy-contract' },
           { text: 'Study index', link: '/study/study-index' },
           { text: 'Jeśli zgubiony', link: '/if-lost' },
           { text: 'AI OS Knowledge', link: '/ecosystem/ai-os-knowledge' },
