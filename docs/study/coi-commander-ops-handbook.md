@@ -21,7 +21,7 @@ Język UI: **PL**. Treści biznesowe (Marketing body): **NL**.
 | | |
 |--|--|
 | **Prod URL** | https://api.zzpackage.flexgrafik.nl/commander/ |
-| **Tip evidence (UI polish)** | jadzia `3e60437` LIVE (Marketing OS strip od `c874999`) |
+| **Tip evidence (UI polish)** | jadzia ≥ `8d40efc` LIVE (terminal chrome VCMS-style · Marketing OS strip od `c874999`) |
 | **Auth** | Telegram `/commander` → jednorazowy link (15 min) · fallback: token JWT w panelu Sesja |
 | **Dogfood / ADR SoT** | `jadzia-core/docs/design/coi-commander/` (nie kopiuj ADR do VCMS) |
 
@@ -61,7 +61,7 @@ Na dole Startu: **Mapa systemu** (hops do OS / VCMS / Wizard — bez merge kodu)
 | Pusty ekran bez empty state | Hard refresh `?v=` / cache-bust; sprawdź `/health` |
 | Skeleton w nieskończoność | Sieć / API; retry „Spróbuj ponownie” |
 
-**Evidence:** POLISH P1–P4 PASS · tip `3e60437`.
+**Evidence:** POLISH P1–P4 PASS · tip ≥ `8d40efc`.
 
 ---
 
@@ -119,7 +119,7 @@ Hierarchia CTA (enterprise): Potwierdź = primary · Odłóż = secondary · Zam
 | Held banner | Szanuj hold — nie omijaj HITL |
 | Chcesz odpalic € ads z Commandera | STOP — Ads Manager + OPERATOR-TODAY #4 (Dowódca) |
 
-**Evidence:** MKT-SHIP-01 · tip `3e60437` · strip `mkt-os-strip` / Organic HITL LIVE.
+**Evidence:** MKT-SHIP-01 + CLOSEOUT-HONESTY-01 · tip ≥ `8d40efc` · strip `mkt-os-strip` / Organic HITL LIVE · terminal shell.
 
 ---
 
