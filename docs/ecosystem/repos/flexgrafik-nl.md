@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flexgrafik-nl"
-updated: "2026-07-18T17:19:59.406Z"
+updated: "2026-07-19T04:33:43.327Z"
 repo_name: "flexgrafik-nl"
 repo_slug: "flexgrafik-nl"
 repo_type: "portal"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-07-04-design-agent-homepage-cta-handoff.md"
-last_handoff_mtime: "2026-07-18T06:01:14.639Z"
+last_handoff_rel: "docs/handoffs/2026-07-19-polish-nl-01-CLOSE.md"
+last_handoff_mtime: "2026-07-19T04:02:49.997Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/00-project-index.mdc", ".cursor/rules/flexgrafik-portal.mdc", ".cursor/rules/launch-guardrails.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-07-04-design-agent-homepage-cta-handoff.md (2026-07-18T06:01:14.639Z)", "docs/handoffs/2026-07-01-fx-portfolio-page.md (2026-07-18T04:50:03.057Z)", "docs/handoffs/2026-07-01-s8-closure-deprec.md (2026-07-18T04:50:03.057Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-07-19-polish-nl-01-CLOSE.md (2026-07-19T04:02:49.997Z)", "docs/handoffs/README.md (2026-07-19T04:02:49.997Z)", "docs/handoffs/2026-07-06-game-landing-ssot-alignment.md (2026-07-06T20:16:08.451Z)"]
 ---
 
 ## flexgrafik-nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-07-04-design-agent-homepage-cta-hand
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-07-04-design-agent-homepage-cta-handoff.md` (2026-07-18T06:01:14.639Z)
+- **Last handoff**: `docs/handoffs/2026-07-19-polish-nl-01-CLOSE.md` (2026-07-19T04:02:49.997Z)
 
 ## Quick links (by file type)
 
@@ -45,9 +45,9 @@ links_recent_handoffs: ["docs/handoffs/2026-07-04-design-agent-homepage-cta-hand
   - `.cursor/rules/flexgrafik-portal.mdc`
   - `.cursor/rules/launch-guardrails.mdc`
 - **Recent handoffs (up to 3)**:
-  - `docs/handoffs/2026-07-04-design-agent-homepage-cta-handoff.md (2026-07-18T06:01:14.639Z)`
-  - `docs/handoffs/2026-07-01-fx-portfolio-page.md (2026-07-18T04:50:03.057Z)`
-  - `docs/handoffs/2026-07-01-s8-closure-deprec.md (2026-07-18T04:50:03.057Z)`
+  - `docs/handoffs/2026-07-19-polish-nl-01-CLOSE.md (2026-07-19T04:02:49.997Z)`
+  - `docs/handoffs/README.md (2026-07-19T04:02:49.997Z)`
+  - `docs/handoffs/2026-07-06-game-landing-ssot-alignment.md (2026-07-06T20:16:08.451Z)`
 
 ## Back
 

@@ -432,12 +432,20 @@ function detectConflicts(index) {
       });
     }
 
-    if (brains.length > 1) {
+    // ECO-POLISH-01 I-1: zzpackage keeps thin brain.md pointer + MASTER-BRAIN SoT — not a duplicate.
+    const canonicalBrain = String(repo.canonical.brain || "brain.md").replace(/\\/g, "/");
+    const brainsForDup = brains.filter((b) => {
+      const rel = b.rel.replace(/\\/g, "/");
+      if (rel === canonicalBrain) return true;
+      if (canonicalBrain === "MASTER-BRAIN.md" && rel === "brain.md") return false;
+      return true;
+    });
+    if (brainsForDup.length > 1) {
       out.push({
         repo: repo.name,
         code: "DUPLICATE_BRAIN",
-        detail: brains.map((b) => b.rel),
-        recommend: `Keep ONE canonical brain (prefer ${repo.canonical.brain || "brain.md"}) and archive/rename the rest.`,
+        detail: brainsForDup.map((b) => b.rel),
+        recommend: `Keep ONE canonical brain (prefer ${canonicalBrain}) and archive/rename the rest.`,
       });
     }
 
