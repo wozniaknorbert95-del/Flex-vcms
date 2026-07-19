@@ -1,28 +1,21 @@
+﻿---
+status: "[ACTIVE]"
+title: "Handoffs — indeks (rolling)"
+updated: "2026-07-19"
+gate: "ECO-POLISH-01"
 ---
-status: "[STABLE]"
-title: "Handoffs — Indeks"
----
 
-> **Uwaga archiwalna (2026-05-22):** Handoffy sprzed tej daty referencjonuja Antigravity i Gemini CLI jako aktywne narzedzia. Te narzedzia zostaly zastapione przez OpenCode + Cursor Pro (modernizacja zamknieta 2026-05-22 — patrz handoff ponizej). Stare handoffy sa zachowane jako zapis historyczny.
+# Handoffs — rolling index
 
-# Handoffs — Indeks
+Hot folder `docs/handoffs/` ≤15. Starsze → `docs/archive/handoffs/`.
 
-Raporty sesji w `docs/handoffs/` są **append-only**. Najnowszy plik = ostatni stan operacyjny.
+| Date | File | Gate |
+|------|------|------|
+| 2026-07-19 | [INVENTORY](./2026-07-19-eco-polish-01-INVENTORY.md) | ECO-POLISH-01 INV-0 |
+| 2026-07-18 | [KNOW-02 PROOF FINAL](./2026-07-18-coi-know-02-PROOF-FINAL.md) | COI-KNOW-02 |
+| 2026-07-18 | [Deploy-fix PROOF](./2026-07-18-vcms-deploy-fix-01-PROOF.md) | VCMS-DEPLOY-FIX-01 |
+| 2026-06-16 | [Portfolio closure](./2026-06-16-vcms-portfolio-closure.md) | portfolio |
+| 2026-06-16 | [Swiss-watch gate](./2026-06-16-swiss-watch-gate-pass.md) | swiss-watch |
+| 2026-05-22 | [Agent OS closure](./2026-05-22-agent-os-closure.md) | agent-os |
 
-## Jak znaleźć ostatni handoff
-
-1. Sortuj folder po dacie w nazwie pliku (`YYYY-MM-DD-...`).
-2. Albo otwórz [Orchestration report](/ecosystem/report) — pole **Session anchor / latest handoff**.
-
-## Format
-
-Minimalny kontrakt: [Session Anchor + Handoff Spec](/core/session-anchor-and-handoff-spec).
-
-## Ostatnie wpisy (przykładowe linki)
-
-- [2026-06-16 PH4-018 Weekly Audit Verification](./2026-06-16-ph4-018-weekly-audit.md)
-- [2026-06-16 PH4-016 Prod Hardening — CLOSURE](./2026-06-16-ph4-016-closure.md)
-- [2026-05-22 Modernizacja Workflow — Closure (FAZY 0-4 ZAKONCZONE)](./2026-05-22-modernizacja-workflow-closure.md)
-- [2026-05-11 VCMS hardening deploy](./2026-05-11-vcms-hardening-deploy-handoff.md)
-
-Pełna lista: eksploruj katalog `docs/handoffs/` w repozytorium.
+Cold archive: `docs/archive/handoffs/` (off-nav, srcExclude).

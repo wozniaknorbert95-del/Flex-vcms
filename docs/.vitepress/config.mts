@@ -1,14 +1,13 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  // External / generated paths only — archive is srcExcluded (not built).
   ignoreDeadLinks: [
-    /\/archive\//,
-    /ph4-011-antigravity-execution-plan/,
-    /agents\/gemini-cli/,
     /repos\/index/,
     /szlif%20pod%20portfolio/,
     /^\.\/\.$/,
   ],
+  srcExclude: ['**/archive/**'],
   base: '/docs/',
   title: "VCMS",
   description: "Visual Content Management System",
@@ -22,6 +21,7 @@ export default defineConfig({
       { text: 'Ecosystem', link: '/ecosystem/report' },
       { text: 'KODA Chat', link: '/koda' }
     ],
+    // Exactly 6 LIVE top-level groups (ECO-POLISH-01).
     sidebar: [
       {
         text: 'OPS',
@@ -41,45 +41,9 @@ export default defineConfig({
           { text: 'Quickstart (Orchestrator)', link: '/core/quickstart' },
           { text: 'Brain Dowódcy (render)', link: '/brain' },
           { text: 'KODA — czat', link: '/koda' },
-          { text: 'Ewolucja systemu', link: '/system-evolution' }
-        ]
-      },
-      {
-        text: 'PORTFOLIO',
-        collapsible: true,
-        collapsed: true,
-        items: [
-          { text: 'Portfolio Truth', link: '/VCMS_PORTFOLIO_TRUTH' },
-          { text: 'Readiness Audit', link: '/VCMS_READINESS_AUDIT' },
-          { text: 'DoD Scorecard', link: '/VCMS_DOD_SCORECARD' },
-          { text: 'Sales Report', link: '/VCMS_SALES_REPORT' },
-          { text: 'Demo Script (75s)', link: '/VCMS_DEMO_SCRIPT' },
-          { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' }
-        ]
-      },
-      {
-        text: 'DESIGN',
-        collapsible: true,
-        items: [
-          { text: 'UI Tokens (dashboard)', link: '/design/VCMS_UI_TOKENS' }
-        ]
-      },
-      {
-        text: 'CORE',
-        collapsible: true,
-        items: [
-          { text: 'Manifesto', link: '/core/manifesto' },
-          { text: 'Global Rules', link: '/core/global-rules' },
-          { text: 'Workflow Manual', link: '/core/workflow-manual' },
-          { text: 'Assistant Workflow Contract', link: '/core/assistant-workflow-contract' },
-          { text: 'Orchestration Commands', link: '/core/orchestration-commands' },
-          { text: 'Session Anchor + Handoff', link: '/core/session-anchor-and-handoff-spec' },
-          { text: 'Artifacts Standard', link: '/core/artifacts-standard' },
-          { text: 'Security Policy', link: '/core/security-policy' },
-          { text: 'Planner Spec', link: '/core/planner-spec' },
-          { text: 'Phase Waivers', link: '/core/phase-waivers' },
-          { text: 'Ownership & Escalation', link: '/core/ownership-and-escalation' },
-          { text: 'Repo Page Standard', link: '/core/repo-page-standard' }
+          { text: 'Ewolucja systemu', link: '/system-evolution' },
+          { text: 'Global Rules (→ meta)', link: '/core/global-rules' },
+          { text: 'Workflow Manual (→ meta)', link: '/core/workflow-manual' }
         ]
       },
       {
@@ -100,20 +64,6 @@ export default defineConfig({
         ]
       },
       {
-        text: 'PLANS',
-        collapsible: true,
-        items: [
-          { text: '5-Phase Ecosystem Plan', link: '/plans/flex-vcms-ecosystem-5-phase-plan' }
-        ]
-      },
-      {
-        text: 'HANDOFFS',
-        collapsible: true,
-        items: [
-          { text: 'Handoffs — indeks', link: '/handoffs/handoffs-index' }
-        ]
-      },
-      {
         text: 'AGENTS',
         collapsible: true,
         items: [
@@ -123,74 +73,33 @@ export default defineConfig({
         ]
       },
       {
-        text: 'PLAYBOOKS',
+        text: 'OPS-RUN',
         collapsible: true,
         items: [
+          { text: 'Handoffs — indeks', link: '/handoffs/handoffs-index' },
           { text: 'Feature Loop', link: '/playbooks/feature-loop' },
           { text: 'Patch-Only Surgery', link: '/playbooks/patch-only-surgery' },
-          { text: 'Manual Release', link: '/playbooks/manual-release' }
-        ]
-      },
-      {
-        text: 'CHECKLISTS',
-        collapsible: true,
-        items: [
+          { text: 'Manual Release', link: '/playbooks/manual-release' },
           { text: 'Prep Deploy', link: '/checklists/prep-deploy' },
           { text: 'Pre-Commit', link: '/checklists/pre-commit' },
-          { text: 'Verification (legacy)', link: '/checklists/verification' },
-          { text: 'Phase 3 — Verification', link: '/checklists/phase-3-verification' },
-          { text: 'Phase 3 — Test Scenarios', link: '/checklists/phase-3-test-scenarios' },
           { text: 'VCMS prod smoke', link: '/checklists/vcms-prod-smoke' },
-          { text: 'PH4-011 mobile prep', link: '/checklists/ph4-011-mobile-prep' }
-        ]
-      },
-      {
-        text: 'REFERENCE',
-        collapsible: true,
-        items: [
-          { text: 'VPS runbook (Command Center)', link: '/reference/vcms-vps-runbook' },
-          { text: 'PH4-011 operator runbook', link: '/reference/ph4-011-operator-runbook' },
-          { text: 'PH4-011 smoke curl', link: '/reference/ph4-011-smoke-curl' },
-          { text: 'PH4-011 close backlog', link: '/reference/ph4-011-close-backlog' },
+          { text: 'VPS runbook', link: '/reference/vcms-vps-runbook' },
           { text: 'Glossary', link: '/reference/glossary' },
           { text: 'Anti-Patterns', link: '/reference/anti-patterns' },
-          { text: 'Prompt Formulas', link: '/reference/prompt-formulas' },
-          { text: 'Tags and Statuses', link: '/reference/tags-and-statuses' },
-          { text: 'Writing Standard', link: '/reference/writing-standard' }
+          { text: 'Security Policy', link: '/core/security-policy' }
         ]
       },
       {
-        text: 'TEMPLATES',
+        text: 'PORTFOLIO',
         collapsible: true,
+        collapsed: true,
         items: [
-          { text: 'Session Brief + Context Packet', link: '/templates/tmpl-session-brief' },
-          { text: 'Session Log', link: '/templates/tmpl-session-log' },
-          { text: 'Incident', link: '/templates/tmpl-incident' },
-          { text: 'Playbook', link: '/templates/tmpl-playbook' },
-          { text: 'Weekly Review', link: '/templates/tmpl-weekly-review' },
-          { text: 'Change', link: '/templates/tmpl-change' },
-          { text: 'PH4-011 mobile (prod)', link: '/templates/tmpl-ph4-011-mobile' }
-        ]
-      },
-      {
-        text: 'JOURNAL',
-        collapsible: true,
-        items: [
-          { text: 'Logs Index', link: '/journal/logs-index' }
-        ]
-      },
-      {
-        text: 'LAB',
-        collapsible: true,
-        items: [
-          { text: 'Lab Index', link: '/lab/lab-index' }
-        ]
-      },
-      {
-        text: 'ARCHIVE',
-        collapsible: true,
-        items: [
-          { text: 'Archive Index', link: '/archive/archive-index' }
+          { text: 'Portfolio Truth', link: '/VCMS_PORTFOLIO_TRUTH' },
+          { text: 'Readiness Audit', link: '/VCMS_READINESS_AUDIT' },
+          { text: 'DoD Scorecard', link: '/VCMS_DOD_SCORECARD' },
+          { text: 'Sales Report', link: '/VCMS_SALES_REPORT' },
+          { text: 'Demo Script (75s)', link: '/VCMS_DEMO_SCRIPT' },
+          { text: 'Demo: Scan Report', link: '/demo/SCAN-REPORT' }
         ]
       }
     ]
