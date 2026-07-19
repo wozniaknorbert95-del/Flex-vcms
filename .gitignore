@@ -45,3 +45,6 @@ data/vcms.db
 
 # Lokalne raporty agentow (nie SSoT repo)
 raport_ph4_uplift.md
+
+# Local VPS deploy context (synced by Deploy-VPS.ps1; not SoT)
+deploy-context/
