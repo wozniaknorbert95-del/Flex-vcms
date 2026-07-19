@@ -34,6 +34,8 @@ Na serwerze **musisz** mieć strukturę zgodną z `server.js`:
 
 **Build VitePress nie uruchamia się na VPS** — `vitepress` jest `devDependency`; produkcyjnie uruchamiasz `npm run docs:build` **na maszynie developerskiej**, potem synchronizujesz `dist` (skrypt PowerShell w repo: `scripts/Deploy-VPS.ps1`).
 
+**Deploy contract (must):** [deploy-contract](/study/deploy-contract) — `ssh -n`, **zakaz** pipe/`Tee-Object`, weryfikacja `REVISION` + SHA256 dist. Certainty: `.\scripts\Verify-DeployCertainty.ps1 -SshTarget 'root@…'`.
+
 ## Zmienne środowiskowe (nazwy — bez wartości w repo)
 
 | Zmienna | Gdzie | Uwagi |

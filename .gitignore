@@ -48,3 +48,6 @@ raport_ph4_uplift.md
 
 # Local VPS deploy context (synced by Deploy-VPS.ps1; not SoT)
 deploy-context/
+
+# Generated each Deploy-VPS (tip + dist hashes); uploaded to VPS, not SoT in git
+REVISION

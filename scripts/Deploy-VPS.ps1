@@ -10,6 +10,10 @@
   VCMS-DEPLOY-FIX-01: Invoke-Remote (BatchMode + ConnectTimeout) + Send-TarDir
   zamiast scp -r / zagnieżdżonych cudzysłowów PowerShell (Windows hang).
 
+  ECO-POLISH certainty: ssh -n (never read stdin — PowerShell pipelines hang OpenSSH).
+  Writes REVISION + dist SHA256 manifest; verifies remote checksums after upload.
+  CONTRACT: do NOT pipe this script (| Tee-Object / Select-Object -Last). Run directly.
+
 .PARAMETER SshTarget
   Cel SSH, np. root@185.243.54.115
 
@@ -53,7 +57,8 @@ $requiredRootFiles = @(
     "ecosystem.config.js",
     "repos.yaml",
     "flex-vcms-todo.json",
-    "brain.md"
+    "brain.md",
+    "REVISION"
 )
 # Large trees — transferred via tar (not scp -r)
 $tarDirectories = @("public", "src", "tools", "scripts")
@@ -178,6 +183,37 @@ if (-not (Test-Path $distLocal)) {
     throw "Missing dist directory: $distLocal - run 'npm run docs:build' or remove -SkipBuild."
 }
 
+# Tip + dist integrity manifest (SoT tip↔VPS)
+$gitTip = (git -C $RepoRoot rev-parse HEAD).Trim()
+$gitTipShort = (git -C $RepoRoot rev-parse --short HEAD).Trim()
+$probeRel = @(
+    "index.html",
+    "study\coi-commander-ops-handbook.html",
+    "study\surfaces-map.html",
+    "assets\style.9GXyv41r.css"
+)
+# Prefer real hashed CSS if style.* exists
+$css = Get-ChildItem (Join-Path $distLocal "assets") -Filter "style.*.css" -File -ErrorAction SilentlyContinue | Select-Object -First 1
+$hashLines = New-Object System.Collections.Generic.List[string]
+$hashLines.Add("git=$gitTip")
+$hashLines.Add("git_short=$gitTipShort")
+$hashLines.Add("built_at=$(Get-Date -Format 'o')")
+$hashLines.Add("host=$env:COMPUTERNAME")
+$probeFiles = @("index.html", "study/coi-commander-ops-handbook.html", "study/surfaces-map.html")
+if ($css) { $probeFiles += ("assets/" + $css.Name) }
+foreach ($rel in $probeFiles) {
+    $fp = Join-Path $distLocal ($rel -replace "/", [IO.Path]::DirectorySeparatorChar)
+    if (-not (Test-Path -LiteralPath $fp)) {
+        Write-Host "REVISION probe missing (skip): $rel" -ForegroundColor Yellow
+        continue
+    }
+    $sha = (Get-FileHash -LiteralPath $fp -Algorithm SHA256).Hash.ToLowerInvariant()
+    $hashLines.Add("sha256:$rel=$sha")
+}
+$revisionPath = Join-Path $RepoRoot "REVISION"
+($hashLines -join "`n") + "`n" | Set-Content -Encoding ascii -NoNewline -Path $revisionPath
+Write-Plan "Wrote REVISION tip=$gitTipShort probes=$($probeFiles.Count)"
+
 $indexFile = Join-Path $distLocal "index.html"
 if (-not (Test-Path $indexFile)) {
     throw "Build Error: docs/.vitepress/dist/index.html does not exist. Build might have failed."
@@ -258,9 +294,32 @@ else {
         throw "Docs smoke failed (handbook=$hb surfaces-map=$si). Expected 200/200."
     }
     Write-Host "Docs smoke: PASSED" -ForegroundColor Green
+
+    # Tip↔dist integrity vs local REVISION
+    Write-Plan "Verify remote REVISION + dist SHA256"
+    $remoteRev = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "cat $remoteRoot/REVISION"
+    if ($LASTEXITCODE -ne 0 -or -not $remoteRev) {
+        throw "Remote REVISION missing after deploy"
+    }
+    $localRev = Get-Content -Raw -Path $revisionPath
+    if ($remoteRev.Trim() -ne $localRev.Trim()) {
+        throw "REVISION mismatch local vs remote"
+    }
+    foreach ($line in ($localRev -split "`n")) {
+        if ($line -notmatch '^sha256:(.+)=([a-f0-9]{64})$') { continue }
+        $rel = $Matches[1]
+        $want = $Matches[2]
+        $got = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "sha256sum `"$remoteDist/$rel`" | cut -d' ' -f1"
+        $got = ($got | Out-String).Trim().ToLowerInvariant()
+        if ($got -ne $want) {
+            throw "Checksum mismatch $rel want=$want got=$got"
+        }
+        Write-Host "Checksum OK: $rel" -ForegroundColor Green
+    }
+    Write-Host "Integrity: PASSED tip=$gitTipShort" -ForegroundColor Green
 }
 
-Write-Host "Deploy-VPS: complete." -ForegroundColor Green
+Write-Host "Deploy-VPS: complete tip=$gitTipShort" -ForegroundColor Green
 
 if ($WhatIf) {
     Write-Host "Running in -WhatIf mode - no changes made." -ForegroundColor Yellow
