@@ -1,8 +1,8 @@
 ---
 status: "[ACTIVE]"
 title: "COI Commander — Instrukcja obsługi (ops handbook)"
-updated: "2026-07-18"
-gate: "COI-CMD-OPS-GUIDE-01"
+updated: "2026-07-19"
+gate: "MKT-SHIP-01"
 ---
 
 # COI Commander — Instrukcja obsługi
@@ -21,7 +21,7 @@ Język UI: **PL**. Treści biznesowe (Marketing body): **NL**.
 | | |
 |--|--|
 | **Prod URL** | https://api.zzpackage.flexgrafik.nl/commander/ |
-| **Tip evidence (UI polish)** | jadzia `2ddc942` LIVE |
+| **Tip evidence (UI polish)** | jadzia `3e60437` LIVE (Marketing OS strip od `c874999`) |
 | **Auth** | Telegram `/commander` → jednorazowy link (15 min) · fallback: token JWT w panelu Sesja |
 | **Dogfood / ADR SoT** | `jadzia-core/docs/design/coi-commander/` (nie kopiuj ADR do VCMS) |
 
@@ -61,7 +61,7 @@ Na dole Startu: **Mapa systemu** (hops do OS / VCMS / Wizard — bez merge kodu)
 | Pusty ekran bez empty state | Hard refresh `?v=` / cache-bust; sprawdź `/health` |
 | Skeleton w nieskończoność | Sieć / API; retry „Spróbuj ponownie” |
 
-**Evidence:** POLISH P1–P4 PASS · tip `2ddc942`.
+**Evidence:** POLISH P1–P4 PASS · tip `3e60437`.
 
 ---
 
@@ -89,25 +89,37 @@ Hierarchia CTA (enterprise): Potwierdź = primary · Odłóż = secondary · Zam
 
 ---
 
-## Scenariusz 3 — Start → Marketing
+## Scenariusz 3 — Start → Marketing (Marketing OS)
 
-**Cel:** Przejść do publikacji bez zgubienia kontekstu hubu.
+**Cel:** Rozróżnić **Organic HITL** (Commander) od **Paid / Instant Form** (Ads Manager) i wykonać jedną akcję organic bez mylenia powierzchni.
+
+**North Star:** optymalizujemy pod **CPA_wizard** (koszt → wejście do Wizard), nie pod tanie kliknięcia.
 
 | Krok | Działanie | Oczekiwany wynik |
 |------|-----------|------------------|
 | 1 | Nav **Marketing** (desktop lub bottom nav) | View Marketing; Start nieaktywny |
-| 2 | Sprawdź strip statusu / empty | Copy PL, nie surowy error |
-| 3 | (Opcja) szkic lub zaplanuj — HITL | Toast sukcesu; undo 60s gdy dotyczy approve |
-| 4 | Wróć **Start** | Home ładuje się ponownie; sesja JWT OK |
+| 2 | Strip **Organic HITL** + linki START TUTAJ | Widoczny podział: organic = ten ekran; paid = Ads Manager (nie Commander) |
+| 3 | Sprawdź kalendarz / empty / status | Copy PL, nie surowy error |
+| 4 | (Opcja) szkic lub zaplanuj — HITL | Toast sukcesu; undo 60s gdy dotyczy approve |
+| 5 | Paid / Instant Form / Custom Audience | **Poza Commanderem** — Meta Ads Manager (patrz OPERATOR-TODAY #1–4) |
+| 6 | Wróć **Start** | Home ładuje się ponownie; sesja JWT OK |
+
+**SoT Marketing OS (nie pełna kopia w VCMS):**
+
+- `jadzia-core/docs/ops/marketing/OPERATOR-TODAY.md`
+- Blob: [OPERATOR-TODAY.md](https://github.com/wozniaknorbert95-del/jadzia/blob/master/docs/ops/marketing/OPERATOR-TODAY.md)
+- Kampania paste pack: `docs/ops/marketing/FB-FIRST-CAMPAIGN.md`
 
 **FAIL → co robić**
 
 | Objaw | Akcja |
 |-------|--------|
+| Brak stripu Organic HITL | Hard refresh Commander; tip VPS musi być ≥ `c874999` (`git rev-parse --short HEAD` w `/opt/jadzia`) |
 | FB health bad | Nie forsuj publish; sprawdź token PAGE (osobny playbook) |
 | Held banner | Szanuj hold — nie omijaj HITL |
+| Chcesz odpalic € ads z Commandera | STOP — Ads Manager + OPERATOR-TODAY #4 (Dowódca) |
 
-**Evidence:** UX-02 empty Marketing PASS · nav PL ×5.
+**Evidence:** MKT-SHIP-01 · tip `3e60437` · strip `mkt-os-strip` / Organic HITL LIVE.
 
 ---
 

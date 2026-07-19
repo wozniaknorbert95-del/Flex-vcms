@@ -21,6 +21,7 @@ Jedna strona: **gdzie jesteś** i **co otworzyć**.
 - **Commander** = hub operacyjny dnia (UI na `api.zzpackage…`, **nie** na cmd).
 - **cmd** = governance + Knowledge Base (ta dokumentacja).
 - Instrukcja Commandera: [COI Commander — ops handbook](./coi-commander-ops-handbook.md).
+- **Marketing OS SoT** = `jadzia-core/docs/ops/marketing/` (OPERATOR-TODAY + playbooki) — VCMS trzyma tylko pointer / scenariusz 3 handbooka, nie pełną kopię.
 
 ## Archive (nie czytaj default)
 
