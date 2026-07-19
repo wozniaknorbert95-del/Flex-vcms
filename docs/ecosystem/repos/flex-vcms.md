@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: flex-vcms"
-updated: "2026-07-19T04:33:43.327Z"
+updated: "2026-07-19T04:46:27.242Z"
 repo_name: "flex-vcms"
 repo_slug: "flex-vcms"
 repo_type: "vcms-orchestrator"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "flex-vcms-todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md"
-last_handoff_mtime: "2026-07-19T03:59:18.747Z"
+last_handoff_rel: "docs/handoffs/2026-07-19-eco-polish-01-PROOF-FINAL.md"
+last_handoff_mtime: "2026-07-19T04:46:27.242Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/vcms-scan-rules.mdc", ".cursor/rules/vcms-workflow-rules.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md (2026-07-19T03:59:18.747Z)", "docs/handoffs/handoffs-index.md (2026-07-19T03:59:18.747Z)", "docs/handoffs/2026-07-19-eco-polish-01-INVENTORY.md (2026-07-19T03:59:18.746Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-07-19-eco-polish-01-PROOF-FINAL.md (2026-07-19T04:46:27.242Z)", "docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md (2026-07-19T03:59:18.747Z)", "docs/handoffs/handoffs-index.md (2026-07-19T03:59:18.747Z)"]
 ---
 
 ## flex-vcms
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md (2
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md` (2026-07-19T03:59:18.747Z)
+- **Last handoff**: `docs/handoffs/2026-07-19-eco-polish-01-PROOF-FINAL.md` (2026-07-19T04:46:27.242Z)
 
 ## Quick links (by file type)
 
@@ -44,9 +44,9 @@ links_recent_handoffs: ["docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md (2
   - `.cursor/rules/vcms-scan-rules.mdc`
   - `.cursor/rules/vcms-workflow-rules.mdc`
 - **Recent handoffs (up to 3)**:
+  - `docs/handoffs/2026-07-19-eco-polish-01-PROOF-FINAL.md (2026-07-19T04:46:27.242Z)`
   - `docs/handoffs/2026-07-19-eco-polish-01-VCMS-PROOF.md (2026-07-19T03:59:18.747Z)`
   - `docs/handoffs/handoffs-index.md (2026-07-19T03:59:18.747Z)`
-  - `docs/handoffs/2026-07-19-eco-polish-01-INVENTORY.md (2026-07-19T03:59:18.746Z)`
 
 ## Back
 
