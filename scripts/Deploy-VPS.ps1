@@ -57,9 +57,9 @@ $requiredRootFiles = @(
     "ecosystem.config.js",
     "repos.yaml",
     "flex-vcms-todo.json",
-    "brain.md",
-    "REVISION"
+    "brain.md"
 )
+# REVISION is generated after dist exists (tip + hashes), then uploaded with root files.
 # Large trees — transferred via tar (not scp -r)
 $tarDirectories = @("public", "src", "tools", "scripts")
 
@@ -82,9 +82,14 @@ function Invoke-Remote {
         return
     }
     # -n: do not read stdin (PowerShell pipelines / Tee-Object otherwise hang OpenSSH)
+    # Continue: native stderr (npm warn) must not terminate under $ErrorActionPreference Stop
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     & ssh -n -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 $SshTarget "$RemoteCmd"
-    if ($LASTEXITCODE -ne 0) {
-        throw "Remote command failed (exit $LASTEXITCODE): $RemoteCmd"
+    $ec = $LASTEXITCODE
+    $ErrorActionPreference = $prevEap
+    if ($ec -ne 0) {
+        throw "Remote command failed (exit $ec): $RemoteCmd"
     }
 }
 
@@ -103,9 +108,13 @@ function Send-ScpFile {
     if (-not (Test-Path -LiteralPath $LocalPath)) {
         throw "Missing local file: $LocalPath"
     }
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     & scp -o BatchMode=yes -o ConnectTimeout=20 $LocalPath "${SshTarget}:$RemoteDest"
-    if ($LASTEXITCODE -ne 0) {
-        throw "scp failed (exit $LASTEXITCODE): $LocalPath -> $RemoteDest"
+    $ec = $LASTEXITCODE
+    $ErrorActionPreference = $prevEap
+    if ($ec -ne 0) {
+        throw "scp failed (exit $ec): $LocalPath -> $RemoteDest"
     }
 }
 
@@ -211,8 +220,13 @@ foreach ($rel in $probeFiles) {
     $hashLines.Add("sha256:$rel=$sha")
 }
 $revisionPath = Join-Path $RepoRoot "REVISION"
-($hashLines -join "`n") + "`n" | Set-Content -Encoding ascii -NoNewline -Path $revisionPath
+# Pure LF bytes — avoid CRLF mismatch vs Linux cat
+$revBody = (($hashLines -join "`n") + "`n")
+[IO.File]::WriteAllText($revisionPath, $revBody, [Text.UTF8Encoding]::new($false))
 Write-Plan "Wrote REVISION tip=$gitTipShort probes=$($probeFiles.Count)"
+if (-not (Test-Path -LiteralPath $revisionPath)) {
+    throw "Failed to write REVISION"
+}
 
 $indexFile = Join-Path $distLocal "index.html"
 if (-not (Test-Path $indexFile)) {
@@ -236,8 +250,8 @@ $ts = Get-Date -Format "yyyyMMdd-HHmmss"
 Invoke-Remote -RemoteCmd "mkdir -p $remoteDist $logDir $remoteRoot/docs/.vitepress $remoteRoot/docs/ecosystem"
 Invoke-Remote -RemoteCmd "test -f $remoteDist/index.html && cp -a $remoteDist ${remoteDist}.bak.$ts || true"
 
-# 2. Root files (single-file scp)
-foreach ($f in $requiredRootFiles) {
+# 2. Root files (single-file scp) + REVISION tip manifest
+foreach ($f in ($requiredRootFiles + @("REVISION"))) {
     $local = Join-Path $RepoRoot $f
     Send-ScpFile -LocalPath $local -RemoteDest "$remoteRoot/"
 }
@@ -279,16 +293,19 @@ if ($WhatIf) {
 else {
     Write-Host "Waiting for service to stabilize..." -ForegroundColor Gray
     Start-Sleep -Seconds 5
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     $health = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -sf http://127.0.0.1:8001/health"
-    if ($LASTEXITCODE -ne 0 -or $health -notmatch '"status":"OK"') {
+    $healthEc = $LASTEXITCODE
+    $hb = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
+    $si = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/surfaces-map"
+    $si2 = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
+    $ErrorActionPreference = $prevEap
+    if ($healthEc -ne 0 -or $health -notmatch '"status":"OK"') {
         Write-Host "Health Check: FAILED! Output: $health" -ForegroundColor Red
         throw "Health check failed after deploy. Check: pm2 logs vcms-core"
     }
     Write-Host "Health Check: PASSED ($health)" -ForegroundColor Green
-
-    $hb = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
-    $si = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/surfaces-map"
-    $si2 = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/study-index"
     Write-Host "Docs smoke: handbook=$hb surfaces-map=$si study-index=$si2" -ForegroundColor Gray
     if ($hb -ne "200" -or $si -ne "200") {
         throw "Docs smoke failed (handbook=$hb surfaces-map=$si). Expected 200/200."
@@ -297,19 +314,28 @@ else {
 
     # Tip↔dist integrity vs local REVISION
     Write-Plan "Verify remote REVISION + dist SHA256"
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     $remoteRev = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "cat $remoteRoot/REVISION"
-    if ($LASTEXITCODE -ne 0 -or -not $remoteRev) {
+    $revEc = $LASTEXITCODE
+    $ErrorActionPreference = $prevEap
+    if ($revEc -ne 0 -or -not $remoteRev) {
         throw "Remote REVISION missing after deploy"
     }
-    $localRev = Get-Content -Raw -Path $revisionPath
-    if ($remoteRev.Trim() -ne $localRev.Trim()) {
+    $localRev = ([IO.File]::ReadAllText($revisionPath) -replace "`r`n", "`n" -replace "`r", "`n").Trim()
+    $remoteRevText = (($remoteRev | Out-String) -replace "`r`n", "`n" -replace "`r", "`n").Trim()
+    if ($remoteRevText -ne $localRev) {
+        Write-Host "LOCAL REVISION:`n$localRev" -ForegroundColor Yellow
+        Write-Host "REMOTE REVISION:`n$remoteRevText" -ForegroundColor Yellow
         throw "REVISION mismatch local vs remote"
     }
     foreach ($line in ($localRev -split "`n")) {
         if ($line -notmatch '^sha256:(.+)=([a-f0-9]{64})$') { continue }
         $rel = $Matches[1]
         $want = $Matches[2]
+        $ErrorActionPreference = "Continue"
         $got = & ssh -n -o BatchMode=yes -o ConnectTimeout=20 $SshTarget "sha256sum `"$remoteDist/$rel`" | cut -d' ' -f1"
+        $ErrorActionPreference = $prevEap
         $got = ($got | Out-String).Trim().ToLowerInvariant()
         if ($got -ne $want) {
             throw "Checksum mismatch $rel want=$want got=$got"

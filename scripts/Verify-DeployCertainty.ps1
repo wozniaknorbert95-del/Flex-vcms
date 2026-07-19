@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Gate C1 — prove Deploy-VPS is reliable under pipe + no-pipe; tip integrity; external smoke.
+  Gate C1 - prove Deploy-VPS under pipe + no-pipe; tip integrity; smoke.
 
 .EXAMPLE
   .\scripts\Verify-DeployCertainty.ps1 -SshTarget 'root@185.243.54.115'
@@ -21,94 +21,98 @@ Set-Location $RepoRoot
 $logDir = Join-Path $RepoRoot "logs"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
-$results = @()
+$script:results = New-Object System.Collections.Generic.List[object]
 
-function Add-Result([string]$Id, [string]$Status, [string]$Detail) {
-    $script:results += [pscustomobject]@{ id = $Id; status = $Status; detail = $Detail }
-    $color = if ($Status -eq "PASS") { "Green" } elseif ($Status -eq "FAIL") { "Red" } else { "Yellow" }
-    Write-Host "[$Status] $Id — $Detail" -ForegroundColor $color
+function Add-Result {
+    param([string]$Id, [string]$Status, [string]$Detail)
+    $script:results.Add([pscustomobject]@{ id = $Id; status = $Status; detail = $Detail })
+    $color = "Yellow"
+    if ($Status -eq "PASS") { $color = "Green" }
+    if ($Status -eq "FAIL") { $color = "Red" }
+    Write-Host ("[{0}] {1} - {2}" -f $Status, $Id, $Detail) -ForegroundColor $color
 }
 
-# Preflight build
 npm run docs:build
 if ($LASTEXITCODE -ne 0) { throw "docs:build failed" }
-Add-Result "C1.0-build" "PASS" "npm run docs:build exit 0"
+Add-Result -Id "C1.0-build" -Status "PASS" -Detail "npm run docs:build exit 0"
 
-# C1.1 — WITH pipe (historical failure mode)
-$pipeLog = Join-Path $logDir "certainty-pipe-$stamp.log"
+$pipeLog = Join-Path $logDir ("certainty-pipe-{0}.log" -f $stamp)
 $sw = [Diagnostics.Stopwatch]::StartNew()
 try {
+    $prevEap = $ErrorActionPreference
+    $ErrorActionPreference = "Continue"
     & powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\Deploy-VPS.ps1" -SshTarget $SshTarget -SkipBuild *>&1 |
         Tee-Object -FilePath $pipeLog
     $code = $LASTEXITCODE
+    $ErrorActionPreference = $prevEap
     $sw.Stop()
-    if ($code -ne 0) { throw "pipe deploy exit $code" }
-    if ($sw.Elapsed.TotalMinutes -gt 5) { throw "pipe deploy too slow: $($sw.Elapsed)" }
+    if ($code -ne 0) { throw ("pipe deploy exit {0}" -f $code) }
+    if ($sw.Elapsed.TotalMinutes -gt 5) { throw ("pipe deploy too slow: {0}" -f $sw.Elapsed) }
     if (-not (Select-String -Path $pipeLog -Pattern "Integrity: PASSED" -Quiet)) {
         throw "pipe log missing Integrity: PASSED"
     }
-    Add-Result "C1.1-pipe" "PASS" ("exit 0 in {0:n1}s; Tee-Object OK" -f $sw.Elapsed.TotalSeconds)
+    Add-Result -Id "C1.1-pipe" -Status "PASS" -Detail (("exit 0 in {0:n1}s; Tee-Object OK" -f $sw.Elapsed.TotalSeconds))
 }
 catch {
     $sw.Stop()
-    Add-Result "C1.1-pipe" "FAIL" $_.Exception.Message
+    Add-Result -Id "C1.1-pipe" -Status "FAIL" -Detail $_.Exception.Message
     throw
 }
 
-# C1.2 — WITHOUT pipe
 $sw2 = [Diagnostics.Stopwatch]::StartNew()
 & powershell -NoProfile -ExecutionPolicy Bypass -File ".\scripts\Deploy-VPS.ps1" -SshTarget $SshTarget -SkipBuild
 if ($LASTEXITCODE -ne 0) {
-    Add-Result "C1.2-nopipe" "FAIL" "exit $LASTEXITCODE"
+    Add-Result -Id "C1.2-nopipe" -Status "FAIL" -Detail ("exit {0}" -f $LASTEXITCODE)
     throw "nopipe deploy failed"
 }
 $sw2.Stop()
-Add-Result "C1.2-nopipe" "PASS" ("exit 0 in {0:n1}s" -f $sw2.Elapsed.TotalSeconds)
+Add-Result -Id "C1.2-nopipe" -Status "PASS" -Detail (("exit 0 in {0:n1}s" -f $sw2.Elapsed.TotalSeconds))
 
-# C1.3 — remote REVISION present
-$rev = & ssh -n -o BatchMode=yes -o ConnectTimeout=15 $SshTarget "cat $RemotePath/REVISION"
-if ($LASTEXITCODE -ne 0 -or $rev -notmatch 'git_short=') {
-    Add-Result "C1.3-revision" "FAIL" "REVISION missing"
+$rev = & ssh -n -o BatchMode=yes -o ConnectTimeout=15 $SshTarget ("cat {0}/REVISION" -f $RemotePath)
+if ($LASTEXITCODE -ne 0 -or ($rev -join "`n") -notmatch 'git_short=') {
+    Add-Result -Id "C1.3-revision" -Status "FAIL" -Detail "REVISION missing"
     throw "REVISION missing"
 }
-Add-Result "C1.3-revision" "PASS" (($rev -split "`n" | Select-Object -First 2) -join " ")
+$revText = ($rev | Out-String).Trim()
+Add-Result -Id "C1.3-revision" -Status "PASS" -Detail ((($revText -split "`n" | Select-Object -First 2) -join " "))
 
-# C1.4 — localhost smoke (already in Deploy) + public URL if reachable
 $hb = & ssh -n -o BatchMode=yes -o ConnectTimeout=15 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/coi-commander-ops-handbook"
 $sm = & ssh -n -o BatchMode=yes -o ConnectTimeout=15 $SshTarget "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8001/docs/study/surfaces-map"
 if ($hb -ne "200" -or $sm -ne "200") {
-    Add-Result "C1.4-local-smoke" "FAIL" "hb=$hb sm=$sm"
+    Add-Result -Id "C1.4-local-smoke" -Status "FAIL" -Detail ("hb={0} sm={1}" -f $hb, $sm)
     throw "local smoke fail"
 }
-Add-Result "C1.4-local-smoke" "PASS" "hb=$hb sm=$sm"
+Add-Result -Id "C1.4-local-smoke" -Status "PASS" -Detail ("hb={0} sm={1}" -f $hb, $sm)
 
-# Public: may be 401 without auth — treat 200 or 401 as reachable surface
 try {
+    $code = 0
     try {
-        $pub = Invoke-WebRequest -Uri "$PublicBase/docs/study/coi-commander-ops-handbook" -Method Head -TimeoutSec 20 -UseBasicParsing
+        $pub = Invoke-WebRequest -Uri ($PublicBase + "/docs/study/coi-commander-ops-handbook") -Method Head -TimeoutSec 20 -UseBasicParsing
         $code = [int]$pub.StatusCode
     }
     catch {
-        if ($_.Exception.Response -and $_.Exception.Response.StatusCode) {
+        if ($_.Exception.Response) {
             $code = [int]$_.Exception.Response.StatusCode
         }
         else { throw }
     }
-    if ($code -in 200, 401) {
-        Add-Result "C1.4-public" "PASS" "cmd handbook HTTP $code (401=Basic Auth OK)"
+    if (($code -eq 200) -or ($code -eq 401)) {
+        Add-Result -Id "C1.4-public" -Status "PASS" -Detail ("cmd handbook HTTP {0}" -f $code)
     }
     else {
-        Add-Result "C1.4-public" "FAIL" "HTTP $code"
+        Add-Result -Id "C1.4-public" -Status "FAIL" -Detail ("HTTP {0}" -f $code)
     }
 }
 catch {
-    Add-Result "C1.4-public" "~" $_.Exception.Message
+    Add-Result -Id "C1.4-public" -Status "~" -Detail $_.Exception.Message
 }
 
 $out = Join-Path $RepoRoot "docs\handoffs\2026-07-19-deploy-certainty-C1-PROOF.md"
-$fail = @($results | Where-Object { $_.status -eq "FAIL" }).Count
-$status = if ($fail -eq 0) { "PASS" } else { "FAIL" }
-@"
+$fail = @($script:results | Where-Object { $_.status -eq "FAIL" }).Count
+$status = "PASS"
+if ($fail -gt 0) { $status = "FAIL" }
+$rows = ($script:results | ForEach-Object { "| {0} | {1} | {2} |" -f $_.id, $_.status, $_.detail }) -join "`n"
+$body = @"
 ---
 status: "[ACTIVE]"
 title: "Deploy certainty C1 PROOF"
@@ -121,14 +125,15 @@ result: "$status"
 
 | ID | Status | Detail |
 |----|--------|--------|
-$(($results | ForEach-Object { "| $($_.id) | $($_.status) | $($_.detail) |" }) -join "`n")
+$rows
 
 REVISION (remote):
-``````
-$rev
-``````
-"@ | Set-Content -Encoding utf8 $out
 
-Write-Host "C1 overall: $status → $out" -ForegroundColor $(if ($status -eq "PASS") { "Green" } else { "Red" })
+``````
+$revText
+``````
+"@
+Set-Content -Encoding utf8 -Path $out -Value $body
+Write-Host ("C1 overall: {0} -> {1}" -f $status, $out)
 if ($fail -gt 0) { exit 1 }
 exit 0
