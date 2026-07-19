@@ -27,6 +27,77 @@ const OUT_MAP = path.join(VCMS_ROOT, "docs", "ecosystem", "map.md");
 const OUT_REPO_PAGES_DIR = path.join(VCMS_ROOT, "docs", "ecosystem", "repos");
 const { appendScanEvent } = require("./vcms-audit-log");
 
+/**
+ * Optional Brain Bus notify (jadzia MKT-BRAIN-PRO F3).
+ * Env: BRAIN_BUS_URL, BRAIN_BUS_SECRET — or file VCMS_ROOT/.env.brain-bus
+ */
+function loadBrainBusEnv() {
+  const fromProcess = {
+    url: (process.env.BRAIN_BUS_URL || "").trim(),
+    secret: (process.env.BRAIN_BUS_SECRET || "").trim(),
+  };
+  if (fromProcess.url && fromProcess.secret) return fromProcess;
+  const envPath = path.join(VCMS_ROOT, ".env.brain-bus");
+  if (!fs.existsSync(envPath)) return fromProcess;
+  try {
+    const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
+    for (const line of lines) {
+      const t = line.trim();
+      if (!t || t.startsWith("#")) continue;
+      const i = t.indexOf("=");
+      if (i < 1) continue;
+      const k = t.slice(0, i).trim();
+      const v = t.slice(i + 1).trim();
+      if (k === "BRAIN_BUS_URL" && !fromProcess.url) fromProcess.url = v;
+      if (k === "BRAIN_BUS_SECRET" && !fromProcess.secret) fromProcess.secret = v;
+    }
+  } catch (err) {
+    console.error("Brain Bus env load failed:", err.message);
+  }
+  return fromProcess;
+}
+
+async function notifyBrainBus(snapshot) {
+  const { url, secret } = loadBrainBusEnv();
+  if (!url || !secret) {
+    console.log("Brain Bus: skip (set BRAIN_BUS_URL + BRAIN_BUS_SECRET or .env.brain-bus)");
+    return { skipped: true };
+  }
+  const conflicts = Number(snapshot.count || 0);
+  const event_type =
+    conflicts > 0 ? "system.health.degraded" : "system.health.recovered";
+  const body = {
+    event_type,
+    source_brain: "vcms",
+    correlation_id: `vcms-scan-${Date.now()}`,
+    payload: {
+      conflicts,
+      summary:
+        conflicts > 0
+          ? `vcms-scan conflicts=${conflicts}`
+          : "vcms-scan conflicts=0",
+      severity: snapshot.severity || {},
+      source: snapshot.source || "docs/ecosystem/conflicts.md",
+      generated_at: snapshot.generated_at || null,
+    },
+  };
+  const endpoint = url.replace(/\/$/, "");
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Brain-Bus-Secret": secret,
+    },
+    body: JSON.stringify(body),
+  });
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Brain Bus HTTP ${res.status}: ${text.slice(0, 200)}`);
+  }
+  console.log("Brain Bus:", event_type, "HTTP", res.status);
+  return { ok: true, event_type, status: res.status };
+}
+
 function readText(p) {
   return fs.readFileSync(p, "utf8");
 }
@@ -806,7 +877,20 @@ function main() {
   console.log(" -", path.relative(VCMS_ROOT, OUT_MAP));
   console.log(" -", path.relative(VCMS_ROOT, OUT_REPO_PAGES_DIR) + path.sep + "*.md");
   console.log("Conflicts:", conflicts.length);
+
+  return notifyBrainBus(snapshot)
+    .then((r) => {
+      if (r && r.skipped) return;
+      console.log("Brain Bus notify:", JSON.stringify(r));
+    })
+    .catch((err) => {
+      console.error("Brain Bus notify failed:", err.message);
+      // Non-fatal — scan artifacts already written
+    });
 }
 
-main();
+Promise.resolve(main()).catch((err) => {
+  console.error(err);
+  process.exitCode = 1;
+});
 
