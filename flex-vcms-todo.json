@@ -2,11 +2,11 @@
   "meta": {
     "project": "FlexGrafik Ecosystem (Local-First) — Phase 4: Nauka i profil Dowodcy (ADHD-friendly)",
     "owner": "Norbert Wozniak",
-    "updated": "2026-07-18T17:14:02.356Z",
-    "workstream": "COI-KNOW-02 CLOSE — honest DoD; VCMS-VIDEO OBSOLETE as next",
+    "updated": "2026-07-19T04:05:11.844Z",
+    "workstream": "ECO-POLISH-01 CLOSE — IDLE-POST-POLISH; VCMS-VIDEO OBSOLETE",
     "plan_now": {
-      "primary": "Idle after KNOW-02 VERIFY; next feature = Dowódca picks (not VIDEO)",
-      "plan_anchor": "docs/handoffs/2026-07-18-coi-know-02-PROOF-FINAL.md",
+      "primary": "Idle after ECO-POLISH-01; next feature = Dowódca picks (not VIDEO)",
+      "plan_anchor": "docs/handoffs/2026-07-19-eco-polish-01-PROOF-FINAL.md",
       "parallel_optional": "PH4-017 mobile 4G/5G (Dowódca) — optional human",
       "video_gate": "VCMS-VIDEO — OBSOLETE / stale as meta.next (2026-07-18)",
       "agent_boot_doc": "docs/agents/boot-senior-agency.md"
@@ -21,9 +21,9 @@
     },
     "next": {
       "rank": 1,
-      "task_id": "IDLE-POST-KNOW-02",
-      "title": "Po COI-KNOW-02 — wybór Dowódcy (nie VIDEO)",
-      "before_you_start": "PROOF-FINAL + surfaces-map. VCMS-VIDEO = stale/obsolete as default next.",
+      "task_id": "IDLE-POST-POLISH",
+      "title": "Po ECO-POLISH-01 — wybór Dowódcy (nie VIDEO)",
+      "before_you_start": "PROOF-FINAL eco-polish + KNOW IA policy. VCMS-VIDEO = stale/obsolete as default next.",
       "before_merge_registry_changes": "npm run verify:scan (lokalnie lub CI) — patrz workflow-manual, sekcja Rytm orchestratora."
     },
     "next_parallel": {

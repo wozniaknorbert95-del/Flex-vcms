@@ -1,7 +1,7 @@
 ---
 status: "[DRAFT]"
 title: "Repo: app.flexgrafik.nl"
-updated: "2026-07-18T17:19:59.406Z"
+updated: "2026-07-19T04:33:43.327Z"
 repo_name: "app.flexgrafik.nl"
 repo_slug: "app-flexgrafik-nl"
 repo_type: "game"
@@ -11,12 +11,12 @@ canonical_brain: "brain.md"
 canonical_todo: "todo.json"
 guardrails_present: true
 handoffs_ready: true
-last_handoff_rel: "docs/handoffs/2026-06-26-deploy-int-004-leads.md"
-last_handoff_mtime: "2026-07-18T04:50:03.057Z"
+last_handoff_rel: "docs/handoffs/2026-07-19-polish-app-01-CLOSE.md"
+last_handoff_mtime: "2026-07-19T04:03:19.973Z"
 warnings: []
 links_agents: ["AGENTS.md"]
 links_cursor_rules: [".cursor/rules/app-flexgrafik-e2e.mdc", ".cursor/rules/app-flexgrafik-game.mdc", ".cursor/rules/app-flexgrafik-session-end.mdc"]
-links_recent_handoffs: ["docs/handoffs/2026-06-26-deploy-int-004-leads.md (2026-07-18T04:50:03.057Z)", "docs/handoffs/2026-07-06-reward-display-consistency.md (2026-07-06T08:10:48.143Z)", "docs/handoffs/2026-07-04-repo-cleanup-handoff.md (2026-07-06T07:24:07.400Z)"]
+links_recent_handoffs: ["docs/handoffs/2026-07-19-polish-app-01-CLOSE.md (2026-07-19T04:03:19.973Z)", "docs/handoffs/README.md (2026-07-19T04:03:01.119Z)", "docs/handoffs/2026-06-26-deploy-int-004-leads.md (2026-07-18T04:50:03.057Z)"]
 ---
 
 ## app.flexgrafik.nl
@@ -34,7 +34,7 @@ links_recent_handoffs: ["docs/handoffs/2026-06-26-deploy-int-004-leads.md (2026-
 
 - **Guardrails present**: yes
 - **Handoffs ready**: yes
-- **Last handoff**: `docs/handoffs/2026-06-26-deploy-int-004-leads.md` (2026-07-18T04:50:03.057Z)
+- **Last handoff**: `docs/handoffs/2026-07-19-polish-app-01-CLOSE.md` (2026-07-19T04:03:19.973Z)
 
 ## Quick links (by file type)
 
@@ -45,9 +45,9 @@ links_recent_handoffs: ["docs/handoffs/2026-06-26-deploy-int-004-leads.md (2026-
   - `.cursor/rules/app-flexgrafik-game.mdc`
   - `.cursor/rules/app-flexgrafik-session-end.mdc`
 - **Recent handoffs (up to 3)**:
+  - `docs/handoffs/2026-07-19-polish-app-01-CLOSE.md (2026-07-19T04:03:19.973Z)`
+  - `docs/handoffs/README.md (2026-07-19T04:03:01.119Z)`
   - `docs/handoffs/2026-06-26-deploy-int-004-leads.md (2026-07-18T04:50:03.057Z)`
-  - `docs/handoffs/2026-07-06-reward-display-consistency.md (2026-07-06T08:10:48.143Z)`
-  - `docs/handoffs/2026-07-04-repo-cleanup-handoff.md (2026-07-06T07:24:07.400Z)`
 
 ## Back
 
