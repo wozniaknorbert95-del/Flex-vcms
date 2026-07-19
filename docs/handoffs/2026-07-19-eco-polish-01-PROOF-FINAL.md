@@ -21,7 +21,7 @@ updated: "2026-07-19"
 | POLISH-OS-01 | PASS_WITH_NOTES | `41dd1e3` (was 8b32d94+) | **no origin**; handoffs trimmed ≤15 |
 | POLISH-OSUI-01 | PASS_WITH_NOTES | `27bc3aa` | **no origin** |
 | POLISH-VIBE-01 | PASS_WITH_NOTES | `470086e` | **no origin**; local-only |
-| POLISH-CLOSE-01 | PASS | tip below after merge+deploy | scan waiver zzp thin brain; IDLE-POST-POLISH |
+| POLISH-CLOSE-01 | PASS | VCMS `adf6141` · jadzia `363142d` | scan waiver zzp thin brain; IDLE-POST-POLISH; deploy ssh -n |
 
 ## Macierz §15 (CLOSE verify)
 
@@ -44,11 +44,13 @@ updated: "2026-07-19"
 
 | Check | Result |
 |-------|--------|
-| Deploy-VPS `root@185.243.54.115` | _(filled after GO)_ |
-| Health | _(filled after GO)_ |
-| `/docs/study/coi-commander-ops-handbook` | _(HTTP)_ |
-| `/docs/study/surfaces-map` | _(HTTP)_ |
-| VCMS tip LIVE | _(SHA)_ |
+| Deploy-VPS `root@185.243.54.115` | **exit 0** (~49s) `-SkipBuild` after tip `adf6141` |
+| Health | OK `{"status":"OK",...}` :8001 |
+| `/docs/study/coi-commander-ops-handbook` | **200** |
+| `/docs/study/surfaces-map` | **200** |
+| `/docs/study/study-index` | **200** |
+| VCMS tip LIVE | `adf6141` (includes ssh -n hang fix PR#34) |
+| Root cause prior hang | OpenSSH reading stdin from PowerShell pipeline — fixed `ssh -n` |
 
 ## meta.next
 
